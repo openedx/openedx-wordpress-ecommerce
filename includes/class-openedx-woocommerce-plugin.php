@@ -124,6 +124,9 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/model/class-openedx-woocommerce-plugin-enrollment.php';
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/model/class-openedx-woocommerce-plugin-post-type.php';
 	}
 
 	/**
@@ -153,6 +156,8 @@ class Openedx_Woocommerce_Plugin {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Openedx_Woocommerce_Plugin_Admin( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'init', $plugin_admin, 'register_enrollment_custom_post_type' );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

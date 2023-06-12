@@ -73,7 +73,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +96,37 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
-
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
 	}
+
+	/**
+	 * Instantiate a new Enrollment class
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_enrollment_custom_post_type(){
+		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
+	}
+
+	 /**
+     * Wrapper function to register a new post type
+     *
+     * @param  string $post_type   Post type name.
+     * @param  string $plural      Post type item plural name.
+     * @param  string $single      Post type item single name.
+     * @param  string $description Description of post type.
+     * @return object              Post type class object
+     */
+
+    public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
+
+        if ( ! $post_type || ! $plural || ! $single ) {
+            return;
+        }
+
+        $post_type = new Openedx_Woocommerce_Plugin_Post_Type( $post_type, $plural, $single, $description, $options );
+
+        return $post_type;
+    }
 
 }
