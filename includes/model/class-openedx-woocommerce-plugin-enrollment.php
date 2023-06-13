@@ -45,11 +45,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         //$this->register_save_hook();
     }
 
-    function register_save_hook() {
+    public function register_save_hook() {
         add_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
     }
 
-    function unregister_save_hook() {
+    public function unregister_save_hook() {
         remove_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
     }
 
@@ -58,7 +58,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return  void
      */
-    function register_status() {
+    public function register_status() {
         register_post_status(
             'eor-success',
             array(
@@ -105,7 +105,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @param array $post The post info in an array.
      */
-    function wp_update_post( $post ) {
+    public function wp_update_post( $post ) {
         $this->unregister_save_hook();
 
         wp_update_post( $post );
@@ -120,7 +120,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param post $post The post object.
      * @param bool $update Whether this is an existing post being updated or not.
      */
-    function save_action( $post_id, $post, $update ) {
+    public function save_action( $post_id, $post, $update ) {
 
         if ( $this->post_type !== $post->post_type ) {
             return;
@@ -148,7 +148,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return object $post The post object.
      */
-    function insert_new( $oerarr, $oer_action = '' ) {
+    public function insert_new( $oerarr, $oer_action = '' ) {
         $this->unregister_save_hook();
 
         $new_oer = array(
@@ -169,7 +169,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param array  $oerarr An array containing the eor info.
      * @param string $oer_action The API action to perform once the wp process is done.
      */
-    function save_eor( $post, $oerarr, $oer_action ) {
+    public function save_eor( $post, $oerarr, $oer_action ) {
 
         $post_id = $post->ID;
 
@@ -237,7 +237,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param int  $post_id The post ID.
      * @param bool $force Does this order need processing by force?.
      */
-    function process_request( $post_id, $force, $do_pre_enroll = true ) {
+    public function process_request( $post_id, $force, $do_pre_enroll = true ) {
 
         $user_args = $this->prepare_args( $post_id, 'user' );
         $user      = WP_EoxCoreApi()->get_user_info( $user_args );
@@ -280,7 +280,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return array args args ready to be pass
      */
-    function prepare_args( $post_id, $type ) {
+    public function prepare_args( $post_id, $type ) {
 
         $args      = array();
         $user_args = array_filter(
@@ -318,7 +318,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @param int $post_id The post ID.
      */
-    function sync_request( $post_id ) {
+    public function sync_request( $post_id ) {
 
         $args     = $this->prepare_args( $post_id, 'basic enrollment' );
         $response = WP_EoxCoreApi()->get_enrollment( $args );
@@ -358,7 +358,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param int   $post_id The post ID.
      * @param array $args The request parameters to be sent to the api.
      */
-    function create_enrollment( $post_id, $args ) {
+    public function create_enrollment( $post_id, $args ) {
 
         $response = WP_EoxCoreApi()->create_enrollment( $args );
 
@@ -383,7 +383,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param int   $post_id The post ID.
      * @param array $args The request parameters to be sent to the api.
      */
-    function create_pre_enrollment( $post_id, $args ) {
+    public function create_pre_enrollment( $post_id, $args ) {
         $response = WP_EoxCoreApi()->create_pre_enrollment( $args );
 
         if ( is_wp_error( $response ) ) {
@@ -402,7 +402,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param string $status The status of the request.
      * @param int    $post_id The post ID.
      */
-    function update_post_status( $status, $post_id ) {
+    public function update_post_status( $status, $post_id ) {
 
         $oer_course_id = get_post_meta( $post_id, 'course_id', true );
         $oer_username  = get_post_meta( $post_id, 'username', true );
@@ -424,7 +424,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param int   $post_id The post ID.
      * @param array $args The request parameters to be sent to the api.
      */
-    function update_enrollment( $post_id, $args ) {
+    public function update_enrollment( $post_id, $args ) {
         $response = WP_EoxCoreApi()->update_enrollment( $args );
         if ( is_wp_error( $response ) ) {
             update_post_meta( $post_id, 'errors', $response->get_error_message() );
@@ -442,7 +442,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return actions
      */
-    function remove_table_row_actions( $actions ) {
+    public function remove_table_row_actions( $actions ) {
 
         unset( $actions['edit'] );
         unset( $actions['trash'] );
@@ -457,7 +457,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return array $column
      */
-    function add_columns_to_list_view( $column ) {
+    public function add_columns_to_list_view( $column ) {
         $column['oer_status']   = 'Status';
         $column['oer_type']     = 'Type';
         $column['date']         = 'Date created';
@@ -472,7 +472,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return void
      */
-    function fill_custom_columns_in_list_view( $column_name, $post_id ) {
+    public function fill_custom_columns_in_list_view( $column_name, $post_id ) {
         switch ( $column_name ) {
             case 'oer_status':
                 if ( get_post( $post_id )->post_status === 'eor-success' ) {
@@ -516,7 +516,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return void
      */
-    function set_up_admin() {
+    public function set_up_admin() {
 
         // Edit view.
         add_action( 'edit_form_after_title', array( $this, 'render_enrollment_info_form' ) );
@@ -533,7 +533,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      *
      * @return void
      */
-    function replace_admin_meta_boxes() {
+    public function replace_admin_meta_boxes() {
         remove_meta_box( 'submitdiv', $this->post_type, 'side' );
 
         add_meta_box( 'openedx_enrollment_request_actions', sprintf( __( '%s actions', '' ), 'Open edX Enrollment Requests' ), array( $this, 'render_actions_box' ), $this->post_type, 'side', 'high' );
