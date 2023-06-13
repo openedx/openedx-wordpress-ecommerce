@@ -100,7 +100,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	}
 
 	/**
-	 * Create an Enrollment Request post type 
+	 * Register Enrollment Request custom post type 
 	 *
 	 * @since    1.0.0
 	 */
