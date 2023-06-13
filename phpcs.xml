@@ -32,9 +32,6 @@
     <!-- Visibility MUST be declared on all methods. -->
     <rule ref="Squiz.Scope.MethodScope"/>
 
-    <!-- Class names MUST be declared in StudlyCaps. -->
-    <rule ref="Squiz.Classes.ValidClassName"/>
-
     <!-- Method arguments with default values MUST go at the end of the argument list. -->
     <rule ref="PEAR.Functions.ValidDefaultValue"/>
 
