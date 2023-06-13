@@ -106,6 +106,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 */
 	public function register_enrollment_custom_post_type(){
 		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
+		$this->openedx_enrollment->register_status();
 	}
 
 	 /**
