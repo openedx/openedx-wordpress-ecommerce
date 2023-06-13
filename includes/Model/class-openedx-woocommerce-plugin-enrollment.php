@@ -37,12 +37,15 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             'menu_icon'         => 'dashicons-admin-post',
         );
         
+        // Register post-type using wrapper function
         $this->parent->register_post_type( 'openedx_enrollment', 'Open edX Enrollment Requests', 'Open edX Enrollment Request', '', $enrollment_cpt_options );
 
         // Register the CPT actions.
         $this->register_save_hook();
 
-        add_action( 'init', array( $this, 'register_status' ), 10, 3 );
+        // Register the CPT types of status
+        $this->register_status();
+
     }
 
     function register_save_hook() {

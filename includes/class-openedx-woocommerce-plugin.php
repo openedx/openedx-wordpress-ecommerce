@@ -124,8 +124,14 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
 
+		/**
+		 * The class responsible for defining the enrollment object
+		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/model/class-openedx-woocommerce-plugin-enrollment.php';
 
+		/**
+		 * The class responsible for defining the custom-post-type object
+		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/model/class-openedx-woocommerce-plugin-post-type.php';
 	}
 
