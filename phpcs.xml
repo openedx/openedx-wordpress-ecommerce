@@ -16,7 +16,6 @@
     <rule ref="Generic.Files.ByteOrderMark"/>
 
     <rule ref="Generic.PHP.DisallowShortOpenTag"/>
-    <rule ref="Generic.Commenting.Todo"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
 
     <!-- There MUST NOT be more than one statement per line. -->
