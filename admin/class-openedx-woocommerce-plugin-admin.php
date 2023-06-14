@@ -41,6 +41,15 @@ class Openedx_Woocommerce_Plugin_Admin {
 	private $version;
 
 	/**
+	 * The enrollment instance.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      object    $openedx_enrollment    The current instance of enrollment request.
+	 */
+	public $openedx_enrollment;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -107,6 +116,15 @@ class Openedx_Woocommerce_Plugin_Admin {
 	public function register_enrollment_custom_post_type(){
 		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
 		$this->openedx_enrollment->register_status();
+	}
+
+	/**
+	 * Render Enrollment Request info form
+	 *
+	 * @since    1.0.0
+	 */
+	public function render_enrollment_info_form(){
+		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($this->openedx_enrollment);
 	}
 
 	 /**

@@ -20,7 +20,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * Constructor function.
      *
      * @access  public
-     * @since   1.9.0
+     * @since   1.0.0
      * @return  void
      */
     public function __construct( $parent ) {
@@ -60,7 +60,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      */
     public function register_status() {
         register_post_status(
-            'eor-success',
+            'enrollment-success',
             array(
                 'label'                     => __( 'Success', 'wp-edunext-marketing-site' ),
                 'public'                    => false,
@@ -73,7 +73,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             )
         );
         register_post_status(
-            'eor-pending',
+            'enrollment-pending',
             array(
                 'label'                     => __( 'Pending', 'wp-edunext-marketing-site' ),
                 'public'                    => false,
@@ -86,7 +86,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             )
         );
         register_post_status(
-            'eor-error',
+            'enrollment-error',
             array(
                 'label'                     => __( 'Error', 'wp-edunext-marketing-site' ),
                 'public'                    => false,
@@ -126,39 +126,39 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             return;
         }
 
-        $oerarr = array(
-            'oer_course_id'    => sanitize_text_field( $_POST['oer_course_id'] ),
-            'oer_email'        => sanitize_text_field( $_POST['oer_email'] ),
-            'oer_username'     => sanitize_text_field( $_POST['oer_username'] ),
-            'oer_mode'         => sanitize_text_field( $_POST['oer_mode'] ),
-            'oer_request_type' => sanitize_text_field( $_POST['oer_request_type'] ),
-            'oer_order_id'     => sanitize_text_field( $_POST['oer_order_id'] ),
+        $enrollment_arr = array(
+            'enrollment_course_id'    => sanitize_text_field( $_POST['enrollment_course_id'] ),
+            'enrollment_email'        => sanitize_text_field( $_POST['enrollment_email'] ),
+            'enrollment_username'     => sanitize_text_field( $_POST['enrollment_username'] ),
+            'enrollment_mode'         => sanitize_text_field( $_POST['enrollment_mode'] ),
+            'enrollment_request_type' => sanitize_text_field( $_POST['enrollment_request_type'] ),
+            'enrollment_order_id'     => sanitize_text_field( $_POST['enrollment_order_id'] ),
         );
 
-        $oer_action = sanitize_text_field( $_POST['oer_action'] );
+        $enrollment_action = sanitize_text_field( $_POST['enrollment_action'] );
 
-        $this->save_eor( $post, $oerarr, $oer_action );
+        $this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
     }
 
     /**
      * Creates a new post in the database and runs it through the save.
      *
-     * @param array  $oerarr An array containing the eor info.
-     * @param string $oer_action The API action to perform once the wp process is done.
+     * @param array  $enrollment_arr An array containing the enrollment info.
+     * @param string $enrollment_action The API action to perform once the wp process is done.
      *
      * @return object $post The post object.
      */
-    public function insert_new( $oerarr, $oer_action = '' ) {
+    public function insert_new( $enrollment_arr, $enrollment_action = '' ) {
         $this->unregister_save_hook();
 
-        $new_oer = array(
+        $new_enrollment = array(
             'post_content' => 'Created automatically by woocommerce to fullfill an order.',
             'post_type'    => 'openedx_enrollment',
         );
-        $post_id = wp_insert_post( $new_oer );
+        $post_id = wp_insert_post( $new_enrollment );
         $post    = get_post( $post_id );
 
-        $this->save_eor( $post, $oerarr, $oer_action );
+        $this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
         return $post;
     }
 
@@ -166,68 +166,43 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * Save openedx request based on the incomming args.
      *
      * @param post   $post The post object.
-     * @param array  $oerarr An array containing the eor info.
-     * @param string $oer_action The API action to perform once the wp process is done.
+     * @param array  $enrollment_arr An array containing the enrollment info.
+     * @param string $enrollment_action The API action to perform once the wp process is done.
      */
-    public function save_eor( $post, $oerarr, $oer_action ) {
+    public function save_enrollment( $post, $enrollment_arr, $enrollment_action ) {
 
         $post_id = $post->ID;
 
-        $oer_course_id    = $oerarr['oer_course_id'];
-        $oer_email        = $oerarr['oer_email'];
-        $oer_username     = $oerarr['oer_username'];
-        $oer_mode         = $oerarr['oer_mode'];
-        $oer_request_type = $oerarr['oer_request_type'];
-        $oer_order_id     = $oerarr['oer_order_id'];
+        $enrollment_course_id    = $enrollment_arr['enrollment_course_id'];
+        $enrollment_email        = $enrollment_arr['enrollment_email'];
+        $enrollment_username     = $enrollment_arr['enrollment_username'];
+        $enrollment_mode         = $enrollment_arr['enrollment_mode'];
+        $enrollment_request_type = $enrollment_arr['enrollment_request_type'];
+        $enrollment_order_id     = $enrollment_arr['enrollment_order_id'];
 
         // We need to have all 3 required params to continue.
-        $oer_user_reference = $oer_email || $oer_username;
-        if ( ! $oer_course_id || ! $oer_user_reference || ! $oer_mode ) {
+        $enrollment_user_reference = $enrollment_email || $enrollment_username;
+        if ( ! $enrollment_course_id || ! $enrollment_user_reference || ! $enrollment_mode ) {
             return;
         }
 
         // Update the $post metadata.
-        update_post_meta( $post_id, 'course_id', $oer_course_id );
-        update_post_meta( $post_id, 'email', $oer_email );
-        update_post_meta( $post_id, 'username', $oer_username );
-        update_post_meta( $post_id, 'mode', $oer_mode );
-        update_post_meta( $post_id, 'order_id', $oer_order_id );
+        update_post_meta( $post_id, 'course_id', $enrollment_course_id );
+        update_post_meta( $post_id, 'email', $enrollment_email );
+        update_post_meta( $post_id, 'username', $enrollment_username );
+        update_post_meta( $post_id, 'mode', $enrollment_mode );
+        update_post_meta( $post_id, 'order_id', $enrollment_order_id );
 
-        if ( $oer_request_type === 'enroll' ) {
+        if ( $enrollment_request_type === 'enroll' ) {
             update_post_meta( $post_id, 'is_active', true );
         }
-        if ( $oer_request_type === 'unenroll' ) {
+        if ( $enrollment_request_type === 'unenroll' ) {
             update_post_meta( $post_id, 'is_active', false );
         }
 
         // Only update the post status if it has no custom status yet.
-        if ( $post->post_status !== 'eor-success' && $post->post_status !== 'eor-pending' && $post->post_status !== 'eor-error' ) {
-            $this->update_post_status( 'eor-pending', $post_id );
-        }
-
-        // Handle the eox-core API actions.
-        if ( 'save_no_process' === $oer_action ) {
-            update_post_meta( $post_id, 'edited', true );
-        }
-        if ( 'oer_process' === $oer_action ) {
-            $this->process_request( $post_id, false );
-            update_post_meta( $post_id, 'edited', false );
-        }
-        if ( 'oer_force' === $oer_action ) {
-            $this->process_request( $post_id, true );
-            update_post_meta( $post_id, 'edited', false );
-        }
-        if ( 'oer_no_pre' === $oer_action ) {
-            $this->process_request( $post_id, false, false );
-            update_post_meta( $post_id, 'edited', false );
-        }
-        if ( 'oer_no_pre_force' === $oer_action ) {
-            $this->process_request( $post_id, true, false );
-            update_post_meta( $post_id, 'edited', false );
-        }
-        if ( 'oer_sync' === $oer_action ) {
-            $this->sync_request( $post_id );
-            update_post_meta( $post_id, 'edited', false );
+        if ( $post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error' ) {
+            $this->update_post_status( 'enrollment-pending', $post_id );
         }
     }
 
@@ -251,7 +226,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             } else {
                 // TODO Polish error message display.
                 update_post_meta( $post_id, 'errors', 'A valid username or email is needed.' );
-                $this->update_post_status( 'eor-error', $post_id );
+                $this->update_post_status( 'enrollment-error', $post_id );
                 return;
             }
         }
@@ -327,7 +302,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             update_post_meta( $post_id, 'errors', $response->get_error_message() );
 
             // Update Status.
-            $this->update_post_status( 'eor-error', $post_id );
+            $this->update_post_status( 'enrollment-error', $post_id );
 
         } else {
             delete_post_meta( $post_id, 'errors' );
@@ -347,7 +322,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             }
 
             // Update Status.
-            $this->update_post_status( 'eor-success', $post_id );
+            $this->update_post_status( 'enrollment-success', $post_id );
         }
     }
 
@@ -364,14 +339,14 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         if ( is_wp_error( $response ) ) {
             update_post_meta( $post_id, 'errors', $response->get_error_message() );
-            $status = 'eor-error';
+            $status = 'enrollment-error';
         } else {
             delete_post_meta( $post_id, 'errors' );
             // This field should be updated if empty.
             if ( ! get_post_meta( $post_id, 'username', true ) ) {
                 update_post_meta( $post_id, 'username', $response->username );
             }
-            $status = 'eor-success';
+            $status = 'enrollment-success';
         }
 
         $this->update_post_status( $status, $post_id );
@@ -388,10 +363,10 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         if ( is_wp_error( $response ) ) {
             update_post_meta( $post_id, 'errors', $response->get_error_message() );
-            $status = 'eor-error';
+            $status = 'enrollment-error';
         } else {
             update_post_meta( $post_id, 'errors', 'The provided user does not exist. A pre-enrollment for ' . $response->email . ' was created instead. ' );
-            $status = 'eor-success';
+            $status = 'enrollment-success';
         }
         $this->update_post_status( $status, $post_id );
     }
@@ -404,14 +379,14 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      */
     public function update_post_status( $status, $post_id ) {
 
-        $oer_course_id = get_post_meta( $post_id, 'course_id', true );
-        $oer_username  = get_post_meta( $post_id, 'username', true );
-        $oer_mode      = get_post_meta( $post_id, 'mode', true );
+        $enrollment_course_id = get_post_meta( $post_id, 'course_id', true );
+        $enrollment_username  = get_post_meta( $post_id, 'username', true );
+        $enrollment_mode      = get_post_meta( $post_id, 'mode', true );
 
         $post_update = array(
             'ID'          => $post_id,
             'post_status' => $status,
-            'post_title'  => $oer_course_id . ' | ' . $oer_username . ' | Mode: ' . $oer_mode,
+            'post_title'  => $enrollment_course_id . ' | ' . $enrollment_username . ' | Mode: ' . $enrollment_mode,
         );
 
         $this->wp_update_post( $post_update );
@@ -428,12 +403,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $response = WP_EoxCoreApi()->update_enrollment( $args );
         if ( is_wp_error( $response ) ) {
             update_post_meta( $post_id, 'errors', $response->get_error_message() );
-            $this->update_post_status( 'eor-error', $post_id );
+            $this->update_post_status( 'enrollment-error', $post_id );
         } else {
             delete_post_meta( $post_id, 'errors' );
             update_post_meta( $post_id, 'mode', $response->mode );
             update_post_meta( $post_id, 'is_active', $response->is_active );
-            $this->update_post_status( 'eor-success', $post_id );
+            $this->update_post_status( 'enrollment-success', $post_id );
         }
     }
 
@@ -458,12 +433,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @return array $column
      */
     public function add_columns_to_list_view( $column ) {
-        $column['oer_status']   = 'Status';
-        $column['oer_type']     = 'Type';
+        $column['enrollment_status']   = 'Status';
+        $column['enrollment_type']     = 'Type';
         $column['date']         = 'Date created';
-        $column['oer_order_id'] = 'Order';
-        $column['oer_email']    = 'Email';
-        $column['oer_messages'] = 'Last Message';
+        $column['enrollment_order_id'] = 'Order';
+        $column['enrollment_email']    = 'Email';
+        $column['enrollment_messages'] = 'Last Message';
         return $column;
     }
 
@@ -474,37 +449,37 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      */
     public function fill_custom_columns_in_list_view( $column_name, $post_id ) {
         switch ( $column_name ) {
-            case 'oer_status':
-                if ( get_post( $post_id )->post_status === 'eor-success' ) {
+            case 'enrollment_status':
+                if ( get_post( $post_id )->post_status === 'enrollment-success' ) {
                     echo '<b style="color:green;">Success</b>';
                 }
-                if ( get_post( $post_id )->post_status === 'eor-error' ) {
+                if ( get_post( $post_id )->post_status === 'enrollment-error' ) {
                     echo '<b style="color:red;">Error</b>';
                 }
-                if ( get_post( $post_id )->post_status === 'eor-pending' ) {
+                if ( get_post( $post_id )->post_status === 'enrollment-pending' ) {
                     echo '<b style="color:orange;">Pending</b>';
                 }
                 break;
-            case 'oer_type':
+            case 'enrollment_type':
                 if ( get_post_meta( $post_id, 'is_active', true ) ) {
                     echo 'Enroll';
                 } else {
                     echo 'Unenroll';
                 }
                 break;
-            case 'oer_order_id':
+            case 'enrollment_order_id':
                 $order_id = get_post_meta( $post_id, 'order_id', true );
                 if ( $order_id ) {
                     echo edit_post_link( '# ' . $order_id, '<p>', '</p>', $order_id );
                 }
                 break;
-            case 'oer_email':
+            case 'enrollment_email':
                 $email = get_post_meta( $post_id, 'email', true );
                 if ( $email ) {
                     echo $email;
                 }
                 break;
-            case 'oer_messages':
+            case 'enrollment_messages':
                 echo( get_post_meta( $post_id, 'errors', true ) );
                 break;
             default:
@@ -517,235 +492,10 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @return void
      */
     public function set_up_admin() {
-
-        // Edit view.
-        add_action( 'edit_form_after_title', array( $this, 'render_enrollment_info_form' ) );
-        add_action( 'add_meta_boxes', array( $this, 'replace_admin_meta_boxes' ) );
-
         // List view.
         add_filter( 'post_row_actions', array( $this, 'remove_table_row_actions' ) );
         add_filter( 'manage_posts_custom_column', array( $this, 'fill_custom_columns_in_list_view' ), 10, 3 );
         add_filter( 'manage_openedx_enrollment_posts_columns', array( $this, 'add_columns_to_list_view' ) );
-    }
-
-    /**
-     * Replace admin meta boxes
-     *
-     * @return void
-     */
-    public function replace_admin_meta_boxes() {
-        remove_meta_box( 'submitdiv', $this->post_type, 'side' );
-
-        add_meta_box( 'openedx_enrollment_request_actions', sprintf( __( '%s actions', '' ), 'Open edX Enrollment Requests' ), array( $this, 'render_actions_box' ), $this->post_type, 'side', 'high' );
-    }
-
-    /**
-     * Renders the actions box for the edit post box
-     *
-     * @return void
-     */
-    public function render_actions_box() {
-        ?>
-        <ul class="enrollment_actions submitbox">
-
-            <label for="actions-select"><?php esc_html_e( 'Choose an action...', 'wp-edunext-marketing-site' ); ?></label>
-            <li class="wide" id="actions">
-                <select name="oer_action" id="actions-select">
-                    <option value="save_no_process"><?php esc_html_e( 'Save without processing', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="oer_sync"><?php esc_html_e( 'Synchronize (pull information)', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="oer_process" selected><?php esc_html_e( 'Process request', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="oer_no_pre"><?php esc_html_e( 'Process no pre-enrollment', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="oer_force"><?php esc_html_e( 'Process --force', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="oer_no_pre_force"><?php esc_html_e( 'Process no pre-enrollment --force', 'wp-edunext-marketing-site' ); ?></option>
-                </select>
-            </li>
-
-            <li class="wide">
-                <button class="button save_order button-primary"><span><?php esc_html_e( 'Apply action', 'wp-edunext-marketing-site' ); ?></span></button>
-            </li>
-
-        </ul>
-        <?php
-    }
-
-    /**
-     * Print openedx enrollment edit metabox
-     *
-     * @param WP_Post $post Current post object.
-     */
-    public function render_enrollment_info_form( $post ) {
-
-        if ( $this->post_type !== $post->post_type ) {
-            return;
-        }
-        $post_id = $post->ID;
-
-        $course_id = get_post_meta( $post_id, 'course_id', true );
-        $email     = get_post_meta( $post_id, 'email', true );
-        $username  = get_post_meta( $post_id, 'username', true );
-        $mode      = get_post_meta( $post_id, 'mode', true );
-        $is_active = get_post_meta( $post_id, 'is_active', true );
-        $order_id  = get_post_meta( $post_id, 'order_id', true );
-
-        $new_oer = false;
-        if ( ! $course_id && ! $email && ! $username ) {
-            $new_oer = true;
-        }
-        ?>
-        <div id="namediv" class="postbox">
-        <h2 class="">Open edX enrollment request</h2>
-        <fieldset>
-        <input type="hidden" name="new_oer" value="<?php echo( $new_oer ); ?>">
-        <table class="form-table">
-            <tbody>
-                <tr>
-                    <td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
-                    <td>
-                        <input type="text" id="openedx_enrollment_course_id" name="oer_course_id"
-                        <?php
-                        if ( ! $new_oer ) {
-                            echo( ' readonly' );}
-                        ?>
-                        value="<?php echo( $course_id ); ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first"><label>User</label></td>
-                    <td>
-                        <div style="width: 49%; display: inline-table;">
-                            <label for="openedx_enrollment_username">Username:</label>
-                            <input type="text" id="openedx_enrollment_username" name="oer_username"
-                            title="You only need to fill one. Either the email or username"
-                            <?php
-                            if ( ! $new_oer ) {
-                                echo( ' readonly' );}
-                            ?>
-                            value="<?php echo( $username ); ?>">
-                        </div>
-                        <div style="width: 49%; display: inline-table;">
-                            <label for="openedx_enrollment_email">Email:</label>
-                            <input type="email" id="openedx_enrollment_email" name="oer_email"
-                            <?php
-                            if ( ! $new_oer ) {
-                                echo( ' readonly' );}
-                            ?>
-                            title="You only need to fill one. Either the email or username"
-                            value="<?php echo( $email ); ?>">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first"><label for="openedx_enrollment_mode">Course Mode</label></td>
-                    <td>
-                        <select id="openedx_enrollment_mode" name="oer_mode">
-                            <option value="honor" 
-                            <?php
-                            if ( $mode === 'honor' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Honor', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="audit" 
-                            <?php
-                            if ( $mode === 'audit' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Audit', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="verified" 
-                            <?php
-                            if ( $mode === 'verified' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Verified', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="credit" 
-                            <?php
-                            if ( $mode === 'credit' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Credit', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="professional" 
-                            <?php
-                            if ( $mode === 'professional' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Professional', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="no-id-professional" 
-                            <?php
-                            if ( $mode === 'no-id-professional' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'No ID Professional', 'wp-edunext-marketing-site' ); ?></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first"><label for="openedx_enrollment_is_active">Request type</label></td>
-                    <td>
-
-                        <select id="openedx_enrollment_is_active" name="oer_request_type">
-                            <option value="enroll"
-                            <?php
-                            if ( $is_active or $new_oer ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Enroll', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="unenroll"
-                            <?php
-                            if ( ! $is_active and ! $new_oer ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Un-enroll', 'wp-edunext-marketing-site' ); ?></option>
-                        </select>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first"><label for="openedx_enrollment_order_id">WC Order ID</label></td>
-                    <td>
-                        <div style="width: 30%; display: inline-table;">
-                            <input type="text" id="openedx_enrollment_order_id" name="oer_order_id"
-                            value="<?php echo( $order_id ); ?>">
-                        </div>
-                        <div style="width: 30%; display: inline-table;">
-                            <?php edit_post_link( 'view', '<p>', '</p>', $order_id ); ?>
-                        </div>
-                    </td>
-                </tr>
-
-                <?php if ( get_post_meta( $post_id, 'errors', true ) ) : ?>
-                <!-- Temporal display of errors, TODO: move this to a polished div  -->
-                <tr>
-                    <td class="first"><label for="openedx_enrollment_errors">Errors</label></td>
-                    <td>
-                        <p><?php echo( get_post_meta( $post_id, 'errors', true ) ); ?></p>
-                    </td>
-                </tr>
-                <?php else : ?>
-                    <td class="first"><label for="openedx_enrollment_errors">Operation log</label></td>
-                    <td>
-                        <p>No errors ocurred processing this request</p>
-                    </td>
-                <?php endif; ?>
-
-                <tr>
-                    <td class="first"><label>General info</label></td>
-                    <td>
-                        <p>Edited: 
-                        <?php
-                        if ( get_post_meta( $post_id, 'edited', true ) ) {
-                            echo 'yes';
-                        } else {
-                            echo 'no';
-                        }
-                        ?>
-                        </p>
-                        <p>Last edited: <?php echo( get_the_modified_time( '', $post_id ) . ' ' . get_the_modified_date( '', $post_id ) ); ?></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </fieldset>
-        </div>
-        <?php
     }
 
     /**
