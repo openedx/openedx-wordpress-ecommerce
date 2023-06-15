@@ -60,6 +60,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
 
 	}
 
@@ -114,8 +115,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @since    1.0.0
 	 */
 	public function register_enrollment_custom_post_type(){
-		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
-		$this->openedx_enrollment->register_status();
+		$this->openedx_enrollment->register_enrollment_custom_post_type();
 	}
 
 	/**

@@ -26,6 +26,27 @@ class Openedx_Woocommerce_Plugin_Enrollment {
     public function __construct( $parent ) {
         $this->parent = $parent;
 
+        // Register all the model related hooks
+        $this->register_hook_callbacks();
+    }
+
+    protected function register_hook_callbacks() {
+        /**
+         * If you think all model related add_actions & filters should be in
+         * the model class only, then this this the place where you can place
+         * them.
+         *
+         * You can remove this method if you are not going to use it.
+         */
+
+        // Add types of status to the enrollment request custom-post-type
+        add_action( 'init', array( $this, 'register_status' ), 10, 3 );
+
+        // Add the enrollment logic to the save post hook
+        add_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
+    }
+
+    public function register_enrollment_custom_post_type(){
         // Add the custom post type.
         $enrollment_cpt_options = array(
             'public'            => false,
@@ -39,14 +60,6 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         
         // Register post-type using wrapper custom-post-type function
         $this->parent->register_post_type( 'openedx_enrollment', 'Open edX Enrollment Requests', 'Open edX Enrollment Request', '', $enrollment_cpt_options );
-
-        // Register the CPT actions.
-        // Note: I am commenting the following line because the Toptal skeleton encourage to register all hooks from one single file, I need to figure it out 
-        //$this->register_save_hook();
-    }
-
-    public function register_save_hook() {
-        add_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
     }
 
     public function unregister_save_hook() {
