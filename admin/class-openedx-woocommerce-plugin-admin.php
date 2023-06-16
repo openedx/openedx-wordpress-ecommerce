@@ -41,6 +41,15 @@ class Openedx_Woocommerce_Plugin_Admin {
 	private $version;
 
 	/**
+	 * The enrollment instance.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      object    $openedx_enrollment    The current instance of enrollment request.
+	 */
+	public $openedx_enrollment;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -51,6 +60,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
 
 	}
 
@@ -73,7 +83,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +106,46 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
-
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
 	}
+
+	/**
+	 * Register Enrollment Request custom post type 
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_enrollment_custom_post_type(){
+		$this->openedx_enrollment->register_enrollment_custom_post_type();
+	}
+
+	/**
+	 * Render Enrollment Request info form
+	 *
+	 * @since    1.0.0
+	 */
+	public function render_enrollment_info_form(){
+		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($this->openedx_enrollment);
+	}
+
+	 /**
+     * Wrapper function to register a new post type
+     *
+     * @param  string $post_type   Post type name.
+     * @param  string $plural      Post type item plural name.
+     * @param  string $single      Post type item single name.
+     * @param  string $description Description of post type.
+     * @return object              Post type class object
+     */
+
+    public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
+
+        if ( ! $post_type || ! $plural || ! $single ) {
+            return;
+        }
+
+        $post_type = new Openedx_Woocommerce_Plugin_Post_Type( $post_type, $plural, $single, $description, $options );
+
+        return $post_type;
+    }
 
 }
