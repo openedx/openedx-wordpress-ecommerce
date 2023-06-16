@@ -7,20 +7,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Modify php.ini
-        run: |
-        echo "xdebug.mode = coverage" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-
       - uses: actions/checkout@v3
 
       - uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
-        env:
-          TEST_NAME: Scarlett
         with:
           php_extensions: xdebug
           bootstrap: vendor/autoload.php
           configuration: test/phpunit.xml
           args: --coverage-text
+        env:
+          XDEBUG_MODE: coverage
+          TEST_NAME: Scarlett
