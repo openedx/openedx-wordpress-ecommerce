@@ -8,8 +8,6 @@
     <coverage>
 		<include>
 			<directory suffix=".php">./admin</directory>
-            <directory suffix=".php">./includes</directory>
-            <directory suffix=".php">./public</directory>
 		</include>
 	</coverage>
 </phpunit>
