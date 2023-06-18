@@ -6,7 +6,8 @@ class HelloTest extends \PHPUnit\Framework\TestCase {
      * It was implemented just to test the Git Workflow
      * that implements PHPUnit.
 	 */
-	public function hello_test() {
+	/** @test */
+     public function test_hello_test() {
 		$expected = true;
         $actual = true;
 
