@@ -1,16 +1,15 @@
 <?xml version="1.0"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="false" addUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">./admin</directory>
-            <directory suffix=".php">./includes</directory>
-            <directory suffix=".php">./public</directory>
-        </whitelist>
-    </filter>
 	<testsuites>
 		<testsuite name="main">
 			<directory suffix="Test.php">.</directory>
 		</testsuite>
 	</testsuites>
-	<logging/>
+    <coverage>
+		<include>
+			<directory suffix=".php">./admin</directory>
+            <directory suffix=".php">./includes</directory>
+            <directory suffix=".php">./public</directory>
+		</include>
+	</coverage>
 </phpunit>
