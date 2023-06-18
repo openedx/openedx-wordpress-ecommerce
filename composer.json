@@ -16,7 +16,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tests\\": "test/"
+			"App\\Tests\\": "test/"
 		}
 	}
 }
