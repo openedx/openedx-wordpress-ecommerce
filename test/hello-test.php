@@ -1,5 +1,4 @@
 <?php
-namespace App\Test;
 
 class HelloTest extends \PHPUnit\Framework\TestCase {
 	/**
