@@ -7,15 +7,15 @@ class HelloTest extends \PHPUnit\Framework\TestCase {
      * that implements PHPUnit.
 	 */
 	/** @test */
-     public function test_hello_test() {
-		$expected = true;
-        $actual = true;
+    // public function test_hello_test() {
+	// 	$expected = true;
+    //     $actual = true;
 
-        // Assertion
-        if ($actual === $expected) {
-            echo "Test Passed!";
-        } else {
-            echo "Test Failed!";
-        }
-	}
+    //     // Assertion
+    //     if ($actual === $expected) {
+    //         echo "Test Passed!";
+    //     } else {
+    //         echo "Test Failed!";
+    //     }
+	// }
 }
