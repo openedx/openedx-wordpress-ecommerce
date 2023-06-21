@@ -16,7 +16,7 @@
  * Plugin Name:       Open edX WooCommerce Plugin
  * Plugin URI:        https://github.com/eduNEXT/openedx-woocommerce-plugin
  * Description:       Easily connect your WooCommerce store to Open edX.
- * Version:           1.0.0
+ * Version:           __STABLE_TAG__
  * Author:            eduNEXT
  * Author URI:        https://edunext.co/
  * License:           GPL-2.0+
