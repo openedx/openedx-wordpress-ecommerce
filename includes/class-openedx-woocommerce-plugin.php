@@ -138,11 +138,7 @@ class Openedx_Woocommerce_Plugin {
 		 * The class responsible for rendering the enrollment info form
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/views/class-openedx-woocommerce-plugin-enrollment-info-form.php';
-
-		/**
-		 * The class responsible for doing the dummy testing
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'test/hello-test.php';
+		
 	}
 
 	/**
