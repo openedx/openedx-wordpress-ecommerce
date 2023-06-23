@@ -11,8 +11,8 @@ jobs:
 
       - uses: php-actions/composer@v6
 
-      - name: Install Mockery
-        run: composer require --dev mockery/mockery
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
