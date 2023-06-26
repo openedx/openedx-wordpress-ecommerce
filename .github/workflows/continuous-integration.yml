@@ -3,25 +3,37 @@ name: "Continuous Integration"
 on:
     push:
         branches: continuous-integration-workflow
-
+    
 jobs:
-    compute-stable-branches:
-        name: Compute current and next stable release branches
-        runs-on: ubuntu-latest
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Bump version and push tag
+        - uses: actions/checkout@v3
+          id: tag_version
+          uses: mathieudutour/github-tag-action@v6.1
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
 
-        steps:
-            - name: Get current and next stable release branches
-              id: get_branches
-              run: |
-                  curl \
-                    -H "Accept: application/vnd.github.v3+json" \
-                    -o latest.json \
-                    "https://api.github.com/repos/${{ github.repository }}/releases/latest"
-                  LATEST_STABLE_TAG=$(jq --raw-output '.tag_name' latest.json)
-                  IFS='.' read LATEST_STABLE_MAJOR LATEST_STABLE_MINOR LATEST_STABLE_PATCH <<< "${LATEST_STABLE_TAG#v}"
-                  echo "current_stable_branch=release/${LATEST_STABLE_MAJOR}.${LATEST_STABLE_MINOR}" >> $GITHUB_OUTPUT
-                  if [[ ${LATEST_STABLE_MINOR} == "9" ]]; then
-                    echo "next_stable_branch=release/$((LATEST_STABLE_MAJOR + 1)).0" >> $GITHUB_OUTPUT
-                  else
-                    echo "next_stable_branch=release/${LATEST_STABLE_MAJOR}.$((LATEST_STABLE_MINOR + 1))" >> $GITHUB_OUTPUT
-                  fi
+        - name: Create a GitHub release
+          uses: ncipollo/release-action@v1
+          with:
+            tag: ${{ steps.tag_version.outputs.new_tag }}
+            name: Release ${{ steps.tag_version.outputs.new_tag }}
+            body: ${{ steps.tag_version.outputs.changelog }}
+
+        - name: Create Artifact
+          run: |
+              mkdir plugin-build
+              composer archive -vvv --format=zip --file="plugin-build/OpenEDX WooCommerce Plugin"
+
+        -name: Upload Artifact to release  
+          uses: xresloader/upload-to-github-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            file: "*.md;*.zip;random-name-*.txt"
+            delete_file: "random-name-*.txt;random-*.txt"
+            release_id: ${{ steps.create_release.outputs.id }}
+            overwrite: true
+            verbose: true
