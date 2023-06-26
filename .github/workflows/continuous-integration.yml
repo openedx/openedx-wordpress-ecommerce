@@ -1,14 +1,13 @@
-name: "Continuous Integration"
+name: Bump version
 on:
   push:
-    branches: 
+    branches:
       - continuous-integration-workflow
-    
 jobs:
-  bumpversion:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
@@ -20,17 +19,3 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-      - name: Create Artifact
-        run: |
-            mkdir plugin-build
-            composer archive -vvv --format=zip --file="plugin-build/OpenEDX WooCommerce Plugin"
-      -name: Upload Artifact to release  
-        uses: xresloader/upload-to-github-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          file: "*.md;*.zip;random-name-*.txt"
-          delete_file: "random-name-*.txt;random-*.txt"
-          release_id: ${{ steps.create_release.outputs.id }}
-          overwrite: true
-          verbose: true
