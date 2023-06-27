@@ -2,7 +2,7 @@ name: Bump version
 on:
   push:
     branches:
-      - continuous-integration-workflow
+      - continuous-integration-config
 jobs:
   build:
     runs-on: ubuntu-latest
