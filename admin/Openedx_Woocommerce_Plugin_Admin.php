@@ -107,25 +107,25 @@ class Openedx_Woocommerce_Plugin_Admin {
 	}
 
     /**
-    * Register the JavaScript for the admin area.
-    * 
-    * @since    1.0.0
-    */
+     * Register the JavaScript for the admin area.
+     * 
+     * @since    1.0.0
+     */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Openedx_Woocommerce_Plugin_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Openedx_Woocommerce_Plugin_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+        /**
+         * This function is provided for demonstration purposes only.
+         *
+         * An instance of this class should be passed to the run() function
+         * defined in Openedx_Woocommerce_Plugin_Loader as all of the hooks are defined
+         * in that particular class.
+         *
+         * The Openedx_Woocommerce_Plugin_Loader will then create the relationship
+         * between the defined hooks and the functions defined in this
+         * class.
+         */
 
-		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
+         //wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
