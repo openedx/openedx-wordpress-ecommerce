@@ -107,41 +107,41 @@ class Openedx_Woocommerce_Plugin {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/Openedx_Woocommerce_Plugin_Loader.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/Openedx_Woocommerce_Plugin_Loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/Openedx_Woocommerce_Plugin_i18n.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/Openedx_Woocommerce_Plugin_i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/Openedx_Woocommerce_Plugin_Admin.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'admin/Openedx_Woocommerce_Plugin_Admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/Openedx_Woocommerce_Plugin_Public.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'public/Openedx_Woocommerce_Plugin_Public.php';
 
 		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
 
 		/**
 		 * The class responsible for defining the enrollment object
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/model/Openedx_Woocommerce_Plugin_Enrollment.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/model/Openedx_Woocommerce_Plugin_Enrollment.php';
 
 		/**
 		 * The class responsible for defining the custom-post-type object
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
 
 		/**
 		 * The class responsible for rendering the enrollment info form
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
+         include_once plugin_dir_path( dirname( __FILE__ )) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
 		
 	}
 
