@@ -59,8 +59,8 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 * @param      string    $plugin_name   The name of this plugin.
-	 * @param      string    $version    	The version of this plugin.
-	 * @param      string    $test			Flag variable to know if it is a test.
+	 * @param      string    $version       The version of this plugin.
+	 * @param      string    $test          Flag variable to know if it is a test.
 	 */
 	public function __construct( $plugin_name, $version, $test = null) {
 
@@ -77,7 +77,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function createEnrollmentClass(){
+	public function createEnrollmentClass() {
 		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
 	}
 
@@ -153,7 +153,6 @@ class Openedx_Woocommerce_Plugin_Admin {
      * @param  string $description Description of post type.
      * @return object              Post type class object
      */
-
     public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
 
         if ( ! $post_type || ! $plural || ! $single ) {
@@ -175,8 +174,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @param  array  $options     Additional options for the post type.
 	 * @return object              Post type class object.
 	 */
-
-	public function createPostType($post_type = '', $plural = '', $single = '', $description = '', $options = array()){
+	public function createPostType($post_type = '', $plural = '', $single = '', $description = '', $options = array()) {
 		return new Openedx_Woocommerce_Plugin_Post_Type( $post_type, $plural, $single, $description, $options );
 	}
 
