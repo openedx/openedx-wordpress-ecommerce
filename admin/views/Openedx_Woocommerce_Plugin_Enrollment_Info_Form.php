@@ -1,5 +1,7 @@
 <?php
 
+namespace App\admin\views;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
