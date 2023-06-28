@@ -78,7 +78,9 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @since    1.0.0
 	 */
 	public function createEnrollmentClass() {
+
 		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
+
 	}
 
 	/**
@@ -104,11 +106,11 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 	}
 
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
+    /**
+    * Register the JavaScript for the admin area.
+    * 
+    * @since    1.0.0
+    */
 	public function enqueue_scripts() {
 
 		/**
@@ -124,6 +126,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 */
 
 		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-admin.js', array( 'jquery' ), $this->version, false );
+
 	}
 
 	/**
@@ -131,8 +134,10 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function register_enrollment_custom_post_type(){
+	public function register_enrollment_custom_post_type() {
+
 		$this->openedx_enrollment->register_enrollment_custom_post_type();
+
 	}
 
 	/**
@@ -140,8 +145,10 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function render_enrollment_info_form(){
+	public function render_enrollment_info_form() {
+
 		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($this->openedx_enrollment);
+
 	}
 
 	 /**
@@ -162,6 +169,7 @@ class Openedx_Woocommerce_Plugin_Admin {
         $post_type = $this->createPostType( $post_type, $plural, $single, $description, $options );
 		
         return $post_type;
+
     }
 
 	/**
@@ -175,7 +183,9 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @return object              Post type class object.
 	 */
 	public function createPostType($post_type = '', $plural = '', $single = '', $description = '', $options = array()) {
+		
 		return new Openedx_Woocommerce_Plugin_Post_Type( $post_type, $plural, $single, $description, $options );
+
 	}
 
 }
