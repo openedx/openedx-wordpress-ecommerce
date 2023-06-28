@@ -1,5 +1,9 @@
 <?php
 
+use App\Openedx_Woocommerce_Plugin_Activator;
+use App\Openedx_Woocommerce_Plugin_Deactivator;
+use App\Openedx_Woocommerce_Plugin;
+
 /**
  * The plugin bootstrap file
  *
@@ -42,8 +46,8 @@ define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '1.0.0' );
  * This action is documented in includes/class-openedx-woocommerce-plugin-activator.php
  */
 function activate_openedx_woocommerce_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-activator.php';
-	Openedx_Woocommerce_Plugin_Activator::activate();
+    include_once plugin_dir_path( __FILE__ ) . 'includes/Openedx_Woocommerce_Plugin_Activator.php';
+    Openedx_Woocommerce_Plugin_Activator::activate();
 }
 
 /**
@@ -51,8 +55,8 @@ function activate_openedx_woocommerce_plugin() {
  * This action is documented in includes/class-openedx-woocommerce-plugin-deactivator.php
  */
 function deactivate_openedx_woocommerce_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-deactivator.php';
-	Openedx_Woocommerce_Plugin_Deactivator::deactivate();
+    include_once plugin_dir_path( __FILE__) . 'includes/Openedx_Woocommerce_Plugin_Deactivator.php';
+    Openedx_Woocommerce_Plugin_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_openedx_woocommerce_plugin' );
@@ -62,7 +66,7 @@ register_deactivation_hook( __FILE__, 'deactivate_openedx_woocommerce_plugin' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin.php';
+require plugin_dir_path( __FILE__) . 'includes/Openedx_Woocommerce_Plugin.php';
 
 /**
  * Begins execution of the plugin.
