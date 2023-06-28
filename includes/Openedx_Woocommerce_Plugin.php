@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+use App\admin\Openedx_Woocommerce_Plugin_Admin;
+use App\public\Openedx_Woocommerce_Plugin_Public;
+
 /**
  * The file that defines the core plugin class
  *

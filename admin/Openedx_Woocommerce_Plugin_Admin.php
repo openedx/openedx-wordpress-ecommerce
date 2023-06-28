@@ -1,5 +1,10 @@
 <?php
 
+namespace App\admin;
+use App\model\Openedx_Woocommerce_Plugin_Enrollment;
+use App\model\Openedx_Woocommerce_Plugin_Post_Type;
+use App\admin\views\Openedx_Woocommerce_Plugin_Enrollment_Info_Form;
+
 /**
  * The admin-specific functionality of the plugin.
  *

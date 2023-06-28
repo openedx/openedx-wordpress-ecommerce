@@ -1,5 +1,9 @@
 <?php
 
+use App\Openedx_Woocommerce_Plugin_Activator;
+use App\Openedx_Woocommerce_Plugin_Deactivator;
+use App\Openedx_Woocommerce_Plugin;
+
 /**
  * The plugin bootstrap file
  *

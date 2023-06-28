@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Fired during plugin activation
  *
