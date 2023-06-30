@@ -7,15 +7,47 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    
       - uses: actions/checkout@v2
+      
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
+          release_branches: continuous-integration-workflow
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Run find-and-replace to remove refs/heads/
+        uses: mad9000/actions-find-and-replace-string@3
+        id: releasename
+        with:
+          source: ${{ steps.tag_version.outputs.new_tag }}
+          find: '-continuous-integration-workflow.0'
+          replace: ' '
+          
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
+        id: create_release
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.releasename.outputs.value }}
           body: ${{ steps.tag_version.outputs.changelog }}
+          
+      - name: Update version in PHP file
+        run: |
+          VERSION=$(echo "${{ steps.tag_version.outputs.new_tag }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          sed -i "s/Version: *[0-9.]*/Version:           $VERSION/g" openedx-woocommerce-plugin.php
+          
+      - name: Append release info to CHANGELOG.md
+        run: |
+          echo "## Release ${{ steps.releasename.outputs.value }}" >> CHANGELOG.md
+          echo "${{ steps.tag_version.outputs.changelog }}" >> CHANGELOG.md
+            
+      - name: Commit and push changes to CHANGELOG.md
+        run: |
+          git config --local user.email "jramirezg@eafit.edu.com"
+          git config --local user.name "GitHub Actions"
+          git add openedx-woocommerce-plugin.php
+          git add CHANGELOG.md
+          git commit -m "Update CHANGELOG.md with release info"
+          git push
