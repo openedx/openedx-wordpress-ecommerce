@@ -1,6 +1,7 @@
-=== Openedx Woocommerce Plugin ===
+# Openedx Woocommerce Plugin
+
 Contributors: [List of WordPress.org user IDs]
-Donate link: https://edunext.co/
+Donate link: [https://edunext.co/](https://edunext.co/)
 Tags: comments, spam
 Requires at least: 0.0.0
 Tested up to: 6.2.2
