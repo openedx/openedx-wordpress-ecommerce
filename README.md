@@ -1,4 +1,4 @@
-### Openedx Woocommerce Plugin
+# Openedx Woocommerce Plugin
 
 - Contributors: [List of WordPress.org user IDs]
 - Donate link: [https://edunext.co/](https://edunext.co/)
