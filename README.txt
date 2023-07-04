@@ -2,50 +2,64 @@
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://edunext.co/
 Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 0.0.0
+Tested up to: 6.2.2
+Requires PHP: 8.2.7
+Stable tag: 0.0.0
+License: fill
+License URI: fill
 
 Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+The WooCommerce Integration plugin is a robust solution designed to facilitate the integration of the Open edX platform with the WooCommerce e-commerce system. By leveraging the extensive capabilities of WooCommerce, this plugin enables users to easily purchase courses and seamlessly enroll in them through Open edX.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+The plugin addresses the challenges posed by the deprecation of the current e-commerce service used in the Open edX community. It provides an alternative solution by integrating Open edX directly with a third-party commerce platform, reducing the maintenance burden and unlocking opportunities for a wider audience to access e-commerce services.
 
-A few notes about the sections above:
+With the WooCommerce Integration plugin, the process of purchasing a course becomes streamlined. When a course is bought in WooCommerce, the plugin automatically creates an enrollment for that course in the Open edX platform. Conversely, if an order is refunded, the associated enrollment is unenrolled, ensuring synchronization between the two systems.
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+Key features of the plugin include:
 
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
+* WooCommerce Plugin: A WordPress plugin with WooCommerce as a dependency, offering a robust handler for order actions and easy association of WooCommerce products with Open edX courses. It provides a local record in WordPress for order fulfillment status and allows actions like retry or edit.
 
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+* Open edX API: An API endpoint within the Open edX platform that enables the creation of enrollments and synchronization with WooCommerce. The API supports registering enrollments for existing users or creating CourseEnrollmentAllowed objects for new users.
+
+* Extensibility: The plugin is designed to be extensible, allowing WordPress developers to connect custom logic to themes or other plugins through extension points. This flexibility enables power users and developers to handle innovative and complex scenarios related to e-commerce.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+The installation of the plugin is simple and can be done in a few steps:
 
-e.g.
+1. Download the Plugin:
 
-1. Upload `openedx-woocommerce-plugin.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+   * Go to the latest release of the plugin on the project's repository.
+   * Download the .zip file that contains the plugin.
+
+2. Access the WordPress Admin Area
+   * Log in to your WordPress website.
+   * Navigate to the admin area.
+
+3. Navigate to the Plugins Section
+   * In the WordPress admin area, locate the "Plugins" section.
+   * It is usually found in the sidebar menu.
+
+4. Add a New Plugin
+   * Click on "Add New" within the Plugins section.
+
+5. Upload the Plugin
+   * Select the "Upload Plugin" button.
+   * Choose the previously downloaded .zip file of the plugin.
+   * Click on "Install Now" to start the installation process.
+
+6. Activate the Plugin
+   * Once the installation is complete, click on the "Activate" button to activate the plugin.
+
+7. Start Using the Plugin
+   * The plugin is now installed and activated.
+   * You can begin using its features and configure its settings as needed.
+
+Please refer to any accompanying documentation or instructions provided with the plugin for specific configuration steps or additional setup requirements. If you encounter any issues during the installation process, you can consult the plugin's support resources or seek assistance from the WordPress community.
 
 == Frequently Asked Questions ==
 
@@ -70,17 +84,6 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 = 1.0 =
 * A change since the previous version.
 * Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
-
-== Upgrade Notice ==
-
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
 
 == Arbitrary section ==
 
