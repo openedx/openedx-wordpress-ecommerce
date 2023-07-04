@@ -1,14 +1,14 @@
-# Openedx Woocommerce Plugin
+### Openedx Woocommerce Plugin
 
-Contributors: [List of WordPress.org user IDs]
-Donate link: [https://edunext.co/](https://edunext.co/)
-Tags: comments, spam
-Requires at least: 0.0.0
-Tested up to: 6.2.2
-Requires PHP: 8.2.7
-Stable tag: 0.0.0
-License: fill
-License URI: fill
+- Contributors: [List of WordPress.org user IDs]
+- Donate link: [https://edunext.co/](https://edunext.co/)
+- Tags: comments, spam
+- Requires at least: 0.0.0
+- Tested up to: 6.2.2
+- Requires PHP: 8.2.7
+- Stable tag: 0.0.0
+- License: fill
+- License URI: fill
 
 # Openedx Woocommerce Plugin
 
