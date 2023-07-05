@@ -1,0 +1,84 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - main
+jobs:
+  bumpversion:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tag_version.outputs.new_version }}
+      previous_tag: ${{ steps.tag_version.outputs.previous_tag }}
+      bump_commit_sha: ${{ steps.bumpversion.outputs.commit_hash }}
+    steps:
+    
+      - uses: actions/checkout@v2
+      
+      - name: Get next version
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
+          default_prerelease_bump: false
+          dry_run: true
+          
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "Version: *[0-9.]*"
+          replace: "Version:           ${{ steps.tag_version.outputs.new_version }}"
+          include: "openedx-woocommerce-plugin.php"
+          
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "Stable tag: *[0-9.]*"
+          replace: "Stable tag: ${{ steps.tag_version.outputs.new_version }}"
+          include: "README.txt"
+             
+      - name: Update Changelog
+        if: steps.tag_version.outputs.new_version
+        uses: stefanzweifel/changelog-updater-action@v1
+        with:
+          latest-version: ${{ steps.tag_version.outputs.new_tag }}
+          release-notes: ${{ steps.tag_version.outputs.changelog }}
+          
+      - name: Commit bumpversion
+        id: bumpversion
+        if: steps.tag_version.outputs.new_version
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ github.ref }}
+          commit_message: "docs(bumpversion): ${{ steps.tag_version.outputs.previous_tag }} → ${{ steps.tag_version.outputs.new_tag }}"
+          file_pattern: README.txt CHANGELOG.md openedx-woocommerce-plugin.php
+          
+  release:
+    needs: bumpversion
+    if: needs.bumpversion.outputs.version
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag_version.outputs.new_tag }}
+      changelog: ${{ steps.tag_version.outputs.changelog }}
+      
+    steps:
+    
+      - uses: actions/checkout@v2
+          
+      - name: Create tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: ${{ needs.bumpversion.outputs.bump_commit_sha }}
+          default_bump: false
+          default_prerelease_bump: false
+          
+      - name: Create a GitHub release
+        if: steps.tag_version.outputs.new_tag
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+      
