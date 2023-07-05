@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Define the internationalization functionality
  *

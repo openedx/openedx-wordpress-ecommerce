@@ -1,5 +1,7 @@
 <?php
 
+namespace App\model;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
