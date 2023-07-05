@@ -1,21 +1,58 @@
-name: Bump version
+name: Continuous Integration
 on:
   push:
     branches:
-      - continuous-integration-workflow
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    
       - uses: actions/checkout@v2
+      
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
+          release_branches: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Modify tag_version text
+        id: modify_variable
+        run: |
+          variable="${{ steps.tag_version.outputs.new_tag }}"
+          modified_variable=$(echo "$variable" | sed -E 's/(v[0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          echo "::set-output name=modified_variable::$modified_variable"
+          
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
+        id: create_release
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.modify_variable.outputs.modified_variable }}
           body: ${{ steps.tag_version.outputs.changelog }}
+          
+      - name: Update version in PHP file
+        run: |
+          VERSION=$(echo "${{ steps.tag_version.outputs.new_tag }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          sed -i "s/Version: *[0-9.]*/Version:           $VERSION/g" openedx-woocommerce-plugin.php
+          
+      - name: Update version in README
+        run: |
+          VERSION=$(echo "${{ steps.tag_version.outputs.new_tag }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          sed -i "s/Stable tag: *[0-9.]*/Stable tag: $VERSION/g" README.txt
+          
+      - name: Append release info to CHANGELOG.md
+        run: |
+          echo "## Release ${{ steps.modify_variable.outputs.modified_variable }}" >> CHANGELOG.md
+          echo "${{ steps.tag_version.outputs.changelog }}" >> CHANGELOG.md
+            
+      - name: Commit and push changes to CHANGELOG.md
+        run: |
+          git config --local user.email "jramirezg@eafit.edu.com"
+          git config --local user.name "GitHub Actions"
+          git add openedx-woocommerce-plugin.php
+          git add CHANGELOG.md
+          git add README.txt
+          git commit -m "Update release info"
+          git push
