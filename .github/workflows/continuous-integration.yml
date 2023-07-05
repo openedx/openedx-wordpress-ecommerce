@@ -4,55 +4,81 @@ on:
     branches:
       - main
 jobs:
-  build:
+  bumpversion:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tag_version.outputs.new_version }}
+      previous_tag: ${{ steps.tag_version.outputs.previous_tag }}
+      bump_commit_sha: ${{ steps.bumpversion.outputs.commit_hash }}
     steps:
     
       - uses: actions/checkout@v2
       
-      - name: Bump version and push tag
+      - name: Get next version
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
-          release_branches: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
+          default_prerelease_bump: false
+          dry_run: true
           
-      - name: Modify tag_version text
-        id: modify_variable
-        run: |
-          variable="${{ steps.tag_version.outputs.new_tag }}"
-          modified_variable=$(echo "$variable" | sed -E 's/(v[0-9]+\.[0-9]+\.[0-9]+).*/\1/')
-          echo "::set-output name=modified_variable::$modified_variable"
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "Version: *[0-9.]*"
+          replace: "Version:           ${{ steps.tag_version.outputs.new_version }}"
+          include: "openedx-woocommerce-plugin.php"
+          
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "Stable tag: *[0-9.]*"
+          replace: "Stable tag: ${{ steps.tag_version.outputs.new_version }}"
+          include: "README.txt"
+             
+      - name: Update Changelog
+        if: steps.tag_version.outputs.new_version
+        uses: stefanzweifel/changelog-updater-action@v1
+        with:
+          latest-version: ${{ steps.tag_version.outputs.new_tag }}
+          release-notes: ${{ steps.tag_version.outputs.changelog }}
+          
+      - name: Commit bumpversion
+        id: bumpversion
+        if: steps.tag_version.outputs.new_version
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ github.ref }}
+          commit_message: "docs(bumpversion): ${{ steps.tag_version.outputs.previous_tag }} → ${{ steps.tag_version.outputs.new_tag }}"
+          file_pattern: README.txt CHANGELOG.md openedx-woocommerce-plugin.php
+          
+  release:
+    needs: bumpversion
+    if: needs.bumpversion.outputs.version
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag_version.outputs.new_tag }}
+      changelog: ${{ steps.tag_version.outputs.changelog }}
+      
+    steps:
+    
+      - uses: actions/checkout@v2
+          
+      - name: Create tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: ${{ needs.bumpversion.outputs.bump_commit_sha }}
+          default_bump: false
+          default_prerelease_bump: false
           
       - name: Create a GitHub release
+        if: steps.tag_version.outputs.new_tag
         uses: ncipollo/release-action@v1
-        id: create_release
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.modify_variable.outputs.modified_variable }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-          
-      - name: Update version in PHP file
-        run: |
-          VERSION=$(echo "${{ steps.tag_version.outputs.new_tag }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-          sed -i "s/Version: *[0-9.]*/Version:           $VERSION/g" openedx-woocommerce-plugin.php
-          
-      - name: Update version in README
-        run: |
-          VERSION=$(echo "${{ steps.tag_version.outputs.new_tag }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-          sed -i "s/Stable tag: *[0-9.]*/Stable tag: $VERSION/g" README.txt
-          
-      - name: Append release info to CHANGELOG.md
-        run: |
-          echo "## Release ${{ steps.modify_variable.outputs.modified_variable }}" >> CHANGELOG.md
-          echo "${{ steps.tag_version.outputs.changelog }}" >> CHANGELOG.md
-            
-      - name: Commit and push changes to CHANGELOG.md
-        run: |
-          git config --local user.email "jramirezg@eafit.edu.com"
-          git config --local user.name "GitHub Actions"
-          git add openedx-woocommerce-plugin.php
-          git add CHANGELOG.md
-          git add README.txt
-          git commit -m "Update release info"
-          git push
+      
