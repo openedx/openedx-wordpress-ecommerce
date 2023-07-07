@@ -13,7 +13,9 @@ jobs:
     steps:
     
       - uses: actions/checkout@v2
-      
+        with:
+            token: ${{ secrets.WC_PAT }}
+
       - name: Get next version
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
@@ -23,14 +25,21 @@ jobs:
           default_prerelease_bump: false
           dry_run: true
           
-      - name: Find and Replace
+      - name: Update php file version - comment
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "Version: *[0-9.]*"
           replace: "Version:           ${{ steps.tag_version.outputs.new_version }}"
           include: "openedx-woocommerce-plugin.php"
           
-      - name: Find and Replace
+      - name: Update php file version - define statement
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "(define\\( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', ')([^']*)(.*);"
+          replace: "define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '${{ steps.tag_version.outputs.new_version }}' );"
+          include: "openedx-woocommerce-plugin.php"
+          
+      - name: Update README version
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "Stable tag: *[0-9.]*"
@@ -64,7 +73,9 @@ jobs:
     steps:
     
       - uses: actions/checkout@v2
-          
+        with:
+            token: ${{ secrets.WC_PAT }}
+            
       - name: Create tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
