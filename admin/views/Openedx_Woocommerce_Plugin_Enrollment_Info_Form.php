@@ -63,10 +63,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     <td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
                     <td>
                         <input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id"
-                        <?php
-                        if ( ! $new_enrollment ) {
-                            echo( ' readonly' );}
-                        ?>
                         value="<?php echo( $course_id ); ?>">
                     </td>
                 </tr>
@@ -77,19 +73,11 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                             <label for="openedx_enrollment_username">Username:</label>
                             <input type="text" id="openedx_enrollment_username" name="enrollment_username"
                             title="You only need to fill one. Either the email or username"
-                            <?php
-                            if ( ! $new_enrollment ) {
-                                echo( ' readonly' );}
-                            ?>
                             value="<?php echo( $username ); ?>">
                         </div>
                         <div style="width: 49%; display: inline-table;">
                             <label for="openedx_enrollment_email">Email:</label>
                             <input type="email" id="openedx_enrollment_email" name="enrollment_email"
-                            <?php
-                            if ( ! $new_enrollment ) {
-                                echo( ' readonly' );}
-                            ?>
                             title="You only need to fill one. Either the email or username"
                             value="<?php echo( $email ); ?>">
                         </div>
