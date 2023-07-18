@@ -146,15 +146,15 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         }
 
         $enrollment_arr = array(
-            'enrollment_course_id'    => sanitize_text_field( $_POST['enrollment_course_id'] ),
-            'enrollment_email'        => sanitize_text_field( $_POST['enrollment_email'] ),
-            'enrollment_username'     => sanitize_text_field( $_POST['enrollment_username'] ),
-            'enrollment_mode'         => sanitize_text_field( $_POST['enrollment_mode'] ),
-            'enrollment_request_type' => sanitize_text_field( $_POST['enrollment_request_type'] ),
-            'enrollment_order_id'     => sanitize_text_field( $_POST['enrollment_order_id'] ),
+            'enrollment_course_id'    => sanitize_text_field($_POST['enrollment_course_id'] ?? ''),
+            'enrollment_email'        => sanitize_text_field($_POST['enrollment_email'] ?? ''),
+            'enrollment_username'     => sanitize_text_field($_POST['enrollment_username'] ?? ''),
+            'enrollment_mode'         => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
+            'enrollment_request_type' => sanitize_text_field($_POST['enrollment_request_type'] ?? ''),
+            'enrollment_order_id'     => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
         );
-
-        $enrollment_action = sanitize_text_field( $_POST['enrollment_action'] );
+    
+        $enrollment_action = sanitize_text_field( $_POST['enrollment_action'] ?? '' );
 
         $this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
     }
