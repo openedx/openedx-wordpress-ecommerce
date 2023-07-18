@@ -145,9 +145,9 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function render_enrollment_info_form() {
+	public function render_enrollment_info_form($post) {
 
-		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($this->openedx_enrollment);
+		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($post);
 
 	}
 

@@ -67,6 +67,10 @@ class Openedx_Woocommerce_Plugin_Enrollment {
     public function unregister_save_hook() {
         remove_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
     }
+    
+    public function register_save_hook() {
+        add_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
+    }
 
     /**
      * Creates specific status for the post type
