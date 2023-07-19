@@ -224,12 +224,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         // Check if old post_meta tags are different from the new ones.
 
         if ($old_course_id !== $enrollment_course_id || $old_username !== $enrollment_username || $old_mode !== $enrollment_mode) {
-            $this->update_post_status($post_id);
+            $this->update_post($post_id);
         }
 
         // Only update the post status if it has no custom status yet.
         if ( $post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error' ) {
-            $this->update_post_status( $post_id, 'enrollment-pending' );
+            $this->update_post( $post_id, 'enrollment-pending' );
         }
     }
 
@@ -239,7 +239,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param string $status The status of the request.
      * @param int    $post_id The post ID.
      */
-    public function update_post_status( $post_id, $status = null ) {
+    public function update_post( $post_id, $status = null ) {
 
         $enrollment_course_id = get_post_meta( $post_id, 'course_id', true );
         $enrollment_username  = get_post_meta( $post_id, 'username', true );
