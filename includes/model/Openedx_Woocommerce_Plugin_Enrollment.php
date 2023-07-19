@@ -197,6 +197,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $enrollment_request_type = $enrollment_arr['enrollment_request_type'];
         $enrollment_order_id     = $enrollment_arr['enrollment_order_id'];
 
+        // Get the old post metadata.
+        $old_course_id           = get_post_meta($post_id, 'course_id', true);
+        $old_username            = get_post_meta($post_id, 'username', true);
+        $old_mode                = get_post_meta($post_id, 'mode', true);
+
         // We need to have all 3 required params to continue.
         $enrollment_user_reference = $enrollment_username;
         if ( ! $enrollment_course_id || ! $enrollment_user_reference || ! $enrollment_mode ) {
@@ -216,9 +221,15 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             update_post_meta( $post_id, 'is_active', false );
         }
 
+        // Check if old post_meta tags are different from the new ones.
+
+        if ($old_course_id !== $enrollment_course_id || $old_username !== $enrollment_username || $old_mode !== $enrollment_mode) {
+            $this->update_post_status($post_id);
+        }
+
         // Only update the post status if it has no custom status yet.
         if ( $post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error' ) {
-            $this->update_post_status( 'enrollment-pending', $post_id );
+            $this->update_post_status( $post_id, 'enrollment-pending' );
         }
     }
 
@@ -228,7 +239,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param string $status The status of the request.
      * @param int    $post_id The post ID.
      */
-    public function update_post_status( $status, $post_id ) {
+    public function update_post_status( $post_id, $status = null ) {
 
         $enrollment_course_id = get_post_meta( $post_id, 'course_id', true );
         $enrollment_username  = get_post_meta( $post_id, 'username', true );
@@ -236,9 +247,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         $post_update = array(
             'ID'          => $post_id,
-            'post_status' => $status,
             'post_title'  => $enrollment_course_id . ' | ' . $enrollment_username . ' | Mode: ' . $enrollment_mode,
         );
+        
+        if ($status) {
+            $post_update['post_status'] = $status;
+        }
 
         $this->wp_update_post( $post_update );
     }
