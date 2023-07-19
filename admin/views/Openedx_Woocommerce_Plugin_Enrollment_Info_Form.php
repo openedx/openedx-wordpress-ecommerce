@@ -43,13 +43,12 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
         $course_id = get_post_meta( $post_id, 'course_id', true );
         $email     = get_post_meta( $post_id, 'email', true );
-        $username  = get_post_meta( $post_id, 'username', true );
         $mode      = get_post_meta( $post_id, 'mode', true );
         $is_active = get_post_meta( $post_id, 'is_active', true );
         $order_id  = get_post_meta( $post_id, 'order_id', true );
 
         $new_enrollment = false;
-        if ( ! $course_id && ! $email && ! $username ) {
+        if ( ! $course_id && ! $email ) {
             $new_enrollment = true;
         }
         ?>
@@ -69,11 +68,11 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 <tr>
                     <td class="first"><label>User</label></td>
                     <td>
-                        <div style="width: 49%; display: inline-table;">
-                            <label for="openedx_enrollment_username">Username:</label>
-                            <input type="text" id="openedx_enrollment_username" name="enrollment_username"
-                            title="You only need to fill one. Either the email or username"
-                            value="<?php echo( $username ); ?>">
+                        <div style="width: 49%; display: inline-table;">	
+                            <label for="openedx_enrollment_email">Email:</label>	
+                            <input type="email" id="openedx_enrollment_email" name="enrollment_email"	
+                            title="You only need to fill one. Either the email or username"	
+                            value="<?php echo( $email ); ?>">	
                         </div>
                     </td>
                 </tr>
