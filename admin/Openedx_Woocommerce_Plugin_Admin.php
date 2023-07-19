@@ -69,9 +69,9 @@ class Openedx_Woocommerce_Plugin_Admin {
         if( !$test ) {
            $this->createEnrollmentClass();
         }
-	}
+    }
     
-	/**
+    /**
      * Create an instance of the Openedx_Woocommerce_Plugin_Enrollment class.
      *
      * @since    1.0.0
@@ -108,7 +108,7 @@ class Openedx_Woocommerce_Plugin_Admin {
     /**
      * Register the JavaScript for the admin area.
      * 
-     * @since    1.0.0
+     * @since 1.0.0
      */
 	public function enqueue_scripts() {
 
@@ -128,12 +128,12 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 	}
 
-	/**
-	 * Register Enrollment Request custom post type 
-	 *
-	 * @since    1.0.0
-	 */
-	public function register_enrollment_custom_post_type() {
+     /**
+     * Register Enrollment Request custom post type 
+     *
+     * @since    1.0.0
+     */
+    public function register_enrollment_custom_post_type() {
 
 		$this->openedx_enrollment->register_enrollment_custom_post_type();
 
@@ -165,8 +165,8 @@ class Openedx_Woocommerce_Plugin_Admin {
             return;
         }
 
-        $post_type = $this->createPostType( $post_type, $plural, $single, $description, $options );
-		
+        $post_type = $this->createPostType($post_type, $plural, $single, $description, $options);
+
         return $post_type;
 
     }
@@ -181,9 +181,9 @@ class Openedx_Woocommerce_Plugin_Admin {
      * @param  array  $options     Additional options for the post type.
      * @return object              Post type class object.
      */
-	public function createPostType($post_type = '', $plural = '', $single = '', $description = '', $options = array()) {
-		
-		return new Openedx_Woocommerce_Plugin_Post_Type( $post_type, $plural, $single, $description, $options );
+     public function createPostType($post_type = '', $plural = '', $single = '', $description = '', $options = array()) {
 
-	}
+        return new Openedx_Woocommerce_Plugin_Post_Type($post_type, $plural, $single, $description, $options);
+
+    }
 }
