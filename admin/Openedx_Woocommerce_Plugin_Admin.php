@@ -109,6 +109,8 @@ class Openedx_Woocommerce_Plugin_Admin {
      * Register the JavaScript for the admin area.
      * 
      * @since 1.0.0
+	 * 
+	 * @return void
      */
 	public function enqueue_scripts() {
 
