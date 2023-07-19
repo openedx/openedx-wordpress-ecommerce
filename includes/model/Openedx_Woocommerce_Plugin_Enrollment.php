@@ -147,7 +147,6 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         $enrollment_arr = array(
             'enrollment_course_id'    => sanitize_text_field($_POST['enrollment_course_id'] ?? ''),
-            'enrollment_email'        => sanitize_text_field($_POST['enrollment_email'] ?? ''),
             'enrollment_username'     => sanitize_text_field($_POST['enrollment_username'] ?? ''),
             'enrollment_mode'         => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
             'enrollment_request_type' => sanitize_text_field($_POST['enrollment_request_type'] ?? ''),
@@ -193,21 +192,19 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $post_id = $post->ID;
 
         $enrollment_course_id    = $enrollment_arr['enrollment_course_id'];
-        $enrollment_email        = $enrollment_arr['enrollment_email'];
         $enrollment_username     = $enrollment_arr['enrollment_username'];
         $enrollment_mode         = $enrollment_arr['enrollment_mode'];
         $enrollment_request_type = $enrollment_arr['enrollment_request_type'];
         $enrollment_order_id     = $enrollment_arr['enrollment_order_id'];
 
         // We need to have all 3 required params to continue.
-        $enrollment_user_reference = $enrollment_email || $enrollment_username;
+        $enrollment_user_reference = $enrollment_username;
         if ( ! $enrollment_course_id || ! $enrollment_user_reference || ! $enrollment_mode ) {
             return;
         }
 
         // Update the $post metadata.
         update_post_meta( $post_id, 'course_id', $enrollment_course_id );
-        update_post_meta( $post_id, 'email', $enrollment_email );
         update_post_meta( $post_id, 'username', $enrollment_username );
         update_post_meta( $post_id, 'mode', $enrollment_mode );
         update_post_meta( $post_id, 'order_id', $enrollment_order_id );
