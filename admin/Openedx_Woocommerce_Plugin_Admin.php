@@ -57,11 +57,11 @@ class Openedx_Woocommerce_Plugin_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name   The name of this plugin.
-	 * @param      string    $version       The version of this plugin.
-	 * @param      string    $test          Flag variable to know if it is a test.
-	 */
+     * @since      1.0.0
+     * @param      string    $plugin_name   The name of this plugin. 
+     * @param      string    $version       The version of this plugin.
+     * @param      string    $test          Flag variable to know if it is a test.
+     */
 	public function __construct( $plugin_name, $version, $test = null) {
 
 		$this->plugin_name = $plugin_name;
