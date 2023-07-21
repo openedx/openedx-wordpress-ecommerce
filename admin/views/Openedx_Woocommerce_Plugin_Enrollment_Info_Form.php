@@ -48,7 +48,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $order_id  = get_post_meta( $post_id, 'order_id', true );
 
         $new_enrollment = false;
-        if ( ! $course_id && ! $email ) {
+        if (! $course_id && ! $email) {
             $new_enrollment = true;
         }
         ?>
