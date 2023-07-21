@@ -210,9 +210,9 @@ class Openedx_Woocommerce_Plugin {
      * @return string $translated_text post updated message
      */
 	function openedx_plugin_custom_post_message( $translated_text, $text, $domain ) {
-		// Reemplazar el mensaje solo si el dominio es el que utiliza WordPress para los mensajes de "Post"
+
 		if ( $domain === 'default' && $text === 'Post updated.' ) {
-			$translated_text = 'Enrollment action executed'; // Reemplaza con el mensaje deseado
+			$translated_text = 'Enrollment action executed';
 		}
 		return $translated_text;
 	}
