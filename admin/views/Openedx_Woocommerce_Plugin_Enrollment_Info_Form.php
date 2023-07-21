@@ -153,21 +153,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     </td>
                 </tr>
 
-                <?php if ( get_post_meta( $post_id, 'errors', true ) ) : ?>
-                <!-- Temporal display of errors, TODO: move this to a polished div  -->
-                <tr>
-                    <td class="first"><label for="openedx_enrollment_errors">Errors</label></td>
-                    <td>
-                        <p><?php echo( get_post_meta( $post_id, 'errors', true ) ); ?></p>
-                    </td>
-                </tr>
-                <?php else : ?>
-                    <td class="first"><label for="openedx_enrollment_errors">Operation log</label></td>
-                    <td>
-                        <p>No errors ocurred processing this request</p>
-                    </td>
-                <?php endif; ?>
-
                 <tr>
                     <td class="first"><label>General info</label></td>
                     <td>
@@ -220,6 +205,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $logs = "Log 1\n";
         $logs .= "Log 2\n";
         $logs .= "Log 3\n";
+        $logs .= "No errors ocurred\n";
         return $logs;
     }
 
