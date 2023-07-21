@@ -218,7 +218,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $logs = "Log 1\n";
         $logs .= "Log 2\n";
         $logs .= "Log 3\n";
-        // Puedes agregar más logs o obtenerlos de donde sea necesario
         return $logs;
     }
 
