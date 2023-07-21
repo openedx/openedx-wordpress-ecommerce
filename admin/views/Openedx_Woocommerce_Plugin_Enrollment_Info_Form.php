@@ -213,6 +213,8 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
     /**
      * Temporary function to get test logs for the logs box
+     * 
+     * @return string Test logs
      */
     public function get_logs() {
         $logs = "Log 1\n";
