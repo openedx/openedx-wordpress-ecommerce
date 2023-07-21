@@ -211,7 +211,9 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         <?php
     }
 
-
+    /**
+     * Temporary function to get test logs for the logs box
+     */
     public function get_logs() {
         $logs = "Log 1\n";
         $logs .= "Log 2\n";
@@ -222,11 +224,11 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
 
      /**
-     * Renders the actions box for the edit post box
+     * Renders the logs box for the edit post box
      *
      * @return void
      */
-    public function render_actions_box() {
+    public function render_logs_box() {
         $logs = $this->get_logs();
         ?>
         <div class="logs_box">
@@ -244,7 +246,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     public function replace_admin_meta_boxes() {
         remove_meta_box( 'submitdiv', $this->post_type, 'side' );
 
-        add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_actions_box' ), $this->post_type, 'side', 'high' );
+        add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_logs_box' ), $this->post_type, 'side', 'high' );
     }
     
 }
