@@ -181,6 +181,7 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
 
 	}
 
@@ -198,6 +199,22 @@ class Openedx_Woocommerce_Plugin {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+	}
+
+     /**
+     * Modify the message displayed when a custom-post-type is updated
+     * 
+     * @param string $translated_text translation text
+     * @param string $text text to be translated
+     * @param string $domain text domain
+     * @return string $translated_text post updated message
+     */
+	function openedx_plugin_custom_post_message( $translated_text, $text, $domain ) {
+		// Reemplazar el mensaje solo si el dominio es el que utiliza WordPress para los mensajes de "Post"
+		if ( $domain === 'default' && $text === 'Post updated.' ) {
+			$translated_text = 'Enrollment action executed'; // Reemplaza con el mensaje deseado
+		}
+		return $translated_text;
 	}
 
 	/**
