@@ -1,3 +1,11 @@
+## v1.1.1 - 2023-07-21
+
+### [1.1.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.1.0...v1.1.1) (2023-07-21)
+
+### Bug Fixes
+
+- enrollment crud operations working correctly ([#15](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/15)) ([ab972ec](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/ab972ecbbe51d1a17e557eb0805bbd9b7f0f2db2))
+
 ## v1.1.0 - 2023-07-07
 
 ### [1.1.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.0.0...v1.1.0) (2023-07-07)
