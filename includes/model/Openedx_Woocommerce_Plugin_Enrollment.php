@@ -76,7 +76,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * 
      * @return void 
      */
-    public function unregister_save_hook() {
+    public function unregisterSaveHook() {
         remove_action( 'save_post', array($this, 'save_action'), 10, 3 );
     }
 
@@ -85,7 +85,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * 
      * @return void
      */
-    public function register_save_hook() {
+    public function registerSaveHook() {
         add_action( 'save_post', array($this, 'save_action'), 10, 3 );
     }
 
@@ -170,7 +170,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             'enrollment_order_id'     => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
         );
     
-        $enrollment_action = sanitize_text_field( $_POST['enrollment_action'] ?? '' );
+        $enrollment_action = sanitize_text_field($_POST['enrollment_action'] ?? '');
 
         $this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
     }
@@ -245,8 +245,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         }
 
         // Only update the post status if it has no custom status yet.
-        if ( $post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error' ) {
-            $this->update_post( $post_id, 'enrollment-pending' );
+        if ($post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error') {
+            $this->update_post($post_id, 'enrollment-pending');
         }
     }
 
@@ -256,7 +256,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param string $status The status of the request.
      * @param int    $post_id The post ID.
      */
-    public function update_post( $post_id, $status = null ) {
+    public function updatePost( $post_id, $status = null ) {
 
         $enrollment_course_id = get_post_meta( $post_id, 'course_id', true );
         $enrollment_email  = get_post_meta( $post_id, 'email', true );
