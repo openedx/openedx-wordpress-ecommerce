@@ -71,12 +71,22 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $this->parent->register_post_type( 'openedx_enrollment', ' ', ' ', '', $enrollment_cpt_options );
     }
 
+    /**
+     * Unregister the save hook to prevent an infinite cycle of hook recursion
+     * 
+     * @return void 
+     */
     public function unregister_save_hook() {
-        remove_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
+        remove_action( 'save_post', array($this, 'save_action'), 10, 3 );
     }
-    
+
+    /**
+     * Register the save hook to prevent an infinite cycle of hook recursion
+     * 
+     * @return void
+     */
     public function register_save_hook() {
-        add_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
+        add_action( 'save_post', array($this, 'save_action'), 10, 3 );
     }
 
     /**
