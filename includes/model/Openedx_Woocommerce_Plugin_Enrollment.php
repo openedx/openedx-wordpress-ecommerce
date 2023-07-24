@@ -58,10 +58,17 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             'show_in_nav_menus' => true,
             'supports'          => array( '' ),
             'menu_icon'         => 'dashicons-admin-post',
+            'labels'            => array(
+                'name'          => 'Open edX Enrollment Requests',
+                'singular_name' => 'Open edX Enrollment Request',
+                'menu_name'     => 'Open edX Sync',
+                'all_items' => 'Enrollments Manager',
+                'add_new_item' => 'Add New Enrollment Request',
+            ),
         );
         
         // Register post-type using wrapper custom-post-type function
-        $this->parent->register_post_type( 'openedx_enrollment', 'Open edX Enrollment Requests', 'Open edX Enrollment Request', '', $enrollment_cpt_options );
+        $this->parent->register_post_type( 'openedx_enrollment', ' ', ' ', '', $enrollment_cpt_options );
     }
 
     public function unregister_save_hook() {
