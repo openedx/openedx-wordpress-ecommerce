@@ -66,10 +66,9 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     </td>
                 </tr>
                 <tr>
-                    <td class="first"><label>User</label></td>
+                    <td class="first"><label>User Email</label></td>
                     <td>
                          <div style="width: 49%; display: inline-table;">	
-                             <label for="openedx_enrollment_email">Email:</label>	
                              <input type="email"
                               id="openedx_enrollment_email" 
                               name="enrollment_email"	
@@ -122,7 +121,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     </td>
                 </tr>
                 <tr>
-                    <td class="first"><label for="openedx_enrollment_is_active">Request type</label></td>
+                    <td class="first"><label for="openedx_enrollment_is_active">Request Type</label></td>
                     <td>
 
                         <select id="openedx_enrollment_is_active" name="enrollment_request_type">
@@ -156,7 +155,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 </tr>
 
                 <tr>
-                    <td class="first"><label>General info</label></td>
+                    <td class="first"><label>General Info</label></td>
                     <td>
                         <p>Edited: 
                         <?php
@@ -172,7 +171,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 </tr>
 
                 <tr>
-                    <td class="first"><label>Choose an action</label></td>
+                    <td class="first"><label>Choose an Action</label></td>
                     <td>
                         <select name="enrollment_action" id="actions-select">
                             <option value="save_no_process"><?php esc_html_e( 'Save without processing', 'wp-edunext-marketing-site' ); ?></option>
@@ -221,7 +220,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $logs = $this->get_logs();
         ?>
         <div class="logs_box">
-            <h2><?php esc_html_e( 'Operation Logs', 'wp-edunext-marketing-site' ); ?></h2>
             <pre><?php echo esc_html( $logs ); ?></pre>
         </div>
         <?php
