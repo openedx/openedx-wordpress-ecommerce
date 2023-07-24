@@ -166,7 +166,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             'enrollment_course_id' => sanitize_text_field( $_POST['enrollment_course_id'] ?? '' ),
             'enrollment_email' => sanitize_text_field($_POST['enrollment_email'] ?? ''),
             'enrollment_mode' => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
-            'enrollment_request_type' => sanitize_text_field($_POST['enrollment_request_type'] ?? ''),
+            'enrollment_request_type' => sanitize_text_field(
+                $_POST['enrollment_request_type'] ?? ''
+            ),
             'enrollment_order_id' => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
         );
     
