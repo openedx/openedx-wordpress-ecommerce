@@ -163,11 +163,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         }
 
         $enrollment_arr = array(
-            'enrollment_course_id'    => sanitize_text_field($_POST['enrollment_course_id'] ?? ''),
-            'enrollment_email'        => sanitize_text_field($_POST['enrollment_email'] ?? ''),
-            'enrollment_mode'         => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
+            'enrollment_course_id' => sanitize_text_field( $_POST['enrollment_course_id'] ?? '' ),
+            'enrollment_email' => sanitize_text_field($_POST['enrollment_email'] ?? ''),
+            'enrollment_mode' => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
             'enrollment_request_type' => sanitize_text_field($_POST['enrollment_request_type'] ?? ''),
-            'enrollment_order_id'     => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
+            'enrollment_order_id' => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
         );
     
         $enrollment_action = sanitize_text_field($_POST['enrollment_action'] ?? '');
@@ -258,9 +258,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      */
     public function updatePost( $post_id, $status = null ) {
 
-        $enrollment_course_id = get_post_meta( $post_id, 'course_id', true );
-        $enrollment_email  = get_post_meta( $post_id, 'email', true );
-        $enrollment_mode      = get_post_meta( $post_id, 'mode', true );
+        $enrollment_course_id = get_post_meta($post_id, 'course_id', true);
+        $enrollment_email  = get_post_meta($post_id, 'email', true);
+        $enrollment_mode      = get_post_meta($post_id, 'mode', true);
 
         $post_update = array(
             'ID'          => $post_id,
@@ -271,6 +271,6 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             $post_update['post_status'] = $status;
         }
 
-        $this->wp_update_post( $post_update );
+        $this->wp_update_post($post_update);
     }
 }
