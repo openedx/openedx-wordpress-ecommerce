@@ -64,6 +64,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
                 'menu_name'     => 'Open edX Sync',
                 'all_items' => 'Enrollments Manager',
                 'add_new_item' => 'Add New Enrollment Request',
+                'edit_item' => 'Edit Enrollment Request',
             ),
         );
         
