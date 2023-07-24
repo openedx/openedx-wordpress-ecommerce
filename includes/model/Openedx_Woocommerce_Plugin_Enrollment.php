@@ -267,8 +267,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $enrollment_mode      = get_post_meta($post_id, 'mode', true);
 
         $post_update = array(
-            'ID'          => $post_id,
-            'post_title'  => $enrollment_course_id . ' | ' . $enrollment_email . ' | Mode: ' . $enrollment_mode,
+            'ID'         => $post_id,
+            'post_title' 
+                => $enrollment_course_id .' | '. $enrollment_email .' | Mode: '.$enrollment_mode,
         );
         
         if ($status) {
