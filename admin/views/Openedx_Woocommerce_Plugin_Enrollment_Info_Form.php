@@ -48,7 +48,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $order_id  = get_post_meta( $post_id, 'order_id', true );
 
         $new_enrollment = false;
-        if ( ! $course_id && ! $email ) {
+        if (! $course_id && ! $email) {
             $new_enrollment = true;
         }
         ?>
@@ -66,14 +66,15 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     </td>
                 </tr>
                 <tr>
-                    <td class="first"><label>User</label></td>
+                    <td class="first"><label>User Email</label></td>
                     <td>
-                        <div style="width: 49%; display: inline-table;">	
-                            <label for="openedx_enrollment_email">Email:</label>	
-                            <input type="email" id="openedx_enrollment_email" name="enrollment_email"	
-                            title="You only need to fill one. Either the email or username"	
-                            value="<?php echo( $email ); ?>">	
-                        </div>
+                         <div style="width: 49%; display: inline-table;">	
+                             <input type="email"
+                              id="openedx_enrollment_email" 
+                              name="enrollment_email"	
+                              title="You only need to fill one. Either the email or username"	
+                              value="<?php echo( $email ); ?>">	
+                         </div>
                     </td>
                 </tr>
                 <tr>
@@ -120,7 +121,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     </td>
                 </tr>
                 <tr>
-                    <td class="first"><label for="openedx_enrollment_is_active">Request type</label></td>
+                    <td class="first"><label for="openedx_enrollment_is_active">Request Type</label></td>
                     <td>
 
                         <select id="openedx_enrollment_is_active" name="enrollment_request_type">
@@ -153,23 +154,8 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     </td>
                 </tr>
 
-                <?php if ( get_post_meta( $post_id, 'errors', true ) ) : ?>
-                <!-- Temporal display of errors, TODO: move this to a polished div  -->
                 <tr>
-                    <td class="first"><label for="openedx_enrollment_errors">Errors</label></td>
-                    <td>
-                        <p><?php echo( get_post_meta( $post_id, 'errors', true ) ); ?></p>
-                    </td>
-                </tr>
-                <?php else : ?>
-                    <td class="first"><label for="openedx_enrollment_errors">Operation log</label></td>
-                    <td>
-                        <p>No errors ocurred processing this request</p>
-                    </td>
-                <?php endif; ?>
-
-                <tr>
-                    <td class="first"><label>General info</label></td>
+                    <td class="first"><label>General Info</label></td>
                     <td>
                         <p>Edited: 
                         <?php
@@ -183,6 +169,27 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                         <p>Last edited: <?php echo( get_the_modified_time( '', $post_id ) . ' ' . get_the_modified_date( '', $post_id ) ); ?></p>
                     </td>
                 </tr>
+
+                <tr>
+                    <td class="first"><label>Choose an Action</label></td>
+                    <td>
+                        <select name="enrollment_action" id="actions-select">
+                            <option value="save_no_process"><?php esc_html_e( 'Save without processing', 'wp-edunext-marketing-site' ); ?></option>
+                            <option value="enrollment_sync"><?php esc_html_e( 'Synchronize (pull information)', 'wp-edunext-marketing-site' ); ?></option>
+                            <option value="enrollment_process" selected><?php esc_html_e( 'Process request', 'wp-edunext-marketing-site' ); ?></option>
+                            <option value="enrollment_no_pre"><?php esc_html_e( 'Process no pre-enrollment', 'wp-edunext-marketing-site' ); ?></option>
+                            <option value="enrollment_force"><?php esc_html_e( 'Process --force', 'wp-edunext-marketing-site' ); ?></option>
+                            <option value="enrollment_no_pre_force"><?php esc_html_e( 'Process no pre-enrollment --force', 'wp-edunext-marketing-site' ); ?></option>
+                        </select>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td class="first"><label>Create/Update Enrollment</label></td>
+                    <td>
+                        <button class="button save_order button-primary"><span><?php esc_html_e( 'Apply action', 'wp-edunext-marketing-site' ); ?></span></button>
+                    </td>
+                </tr>
             </tbody>
         </table>
         </fieldset>
@@ -190,32 +197,31 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         <?php
     }
 
+    /**
+     * Temporary function to get test logs for the logs box
+     * 
+     * @return string Test logs
+     */
+    public function get_logs() {
+        $logs = "Log 1\n";
+        $logs .= "Log 2\n";
+        $logs .= "Log 3\n";
+        $logs .= "No errors ocurred\n";
+        return $logs;
+    }
+
+
      /**
-     * Renders the actions box for the edit post box
+     * Renders the logs box for the edit post box
      *
      * @return void
      */
-    public function render_actions_box() {
+    public function render_logs_box() {
+        $logs = $this->get_logs();
         ?>
-        <ul class="enrollment_actions submitbox">
-
-            <label for="actions-select"><?php esc_html_e( 'Choose an action...', 'wp-edunext-marketing-site' ); ?></label>
-            <li class="wide" id="actions">
-                <select name="enrollment_action" id="actions-select">
-                    <option value="save_no_process"><?php esc_html_e( 'Save without processing', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="enrollment_sync"><?php esc_html_e( 'Synchronize (pull information)', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="enrollment_process" selected><?php esc_html_e( 'Process request', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="enrollment_no_pre"><?php esc_html_e( 'Process no pre-enrollment', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="enrollment_force"><?php esc_html_e( 'Process --force', 'wp-edunext-marketing-site' ); ?></option>
-                    <option value="enrollment_no_pre_force"><?php esc_html_e( 'Process no pre-enrollment --force', 'wp-edunext-marketing-site' ); ?></option>
-                </select>
-            </li>
-
-            <li class="wide">
-                <button class="button save_order button-primary"><span><?php esc_html_e( 'Apply action', 'wp-edunext-marketing-site' ); ?></span></button>
-            </li>
-
-        </ul>
+        <div class="logs_box">
+            <pre><?php echo esc_html( $logs ); ?></pre>
+        </div>
         <?php
     }
 
@@ -227,7 +233,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     public function replace_admin_meta_boxes() {
         remove_meta_box( 'submitdiv', $this->post_type, 'side' );
 
-        add_meta_box( 'openedx_enrollment_request_actions', sprintf( __( '%s actions', '' ), 'Open edX Enrollment Requests' ), array( $this, 'render_actions_box' ), $this->post_type, 'side', 'high' );
+        add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_logs_box' ), $this->post_type, 'side', 'high' );
     }
     
 }

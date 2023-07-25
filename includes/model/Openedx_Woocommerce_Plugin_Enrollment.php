@@ -58,18 +58,36 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             'show_in_nav_menus' => true,
             'supports'          => array( '' ),
             'menu_icon'         => 'dashicons-admin-post',
+            'labels'            => array(
+                'name'          => 'Open edX Enrollment Requests',
+                'singular_name' => 'Open edX Enrollment Request',
+                'menu_name'     => 'Open edX Sync',
+                'all_items' => 'Enrollments Manager',
+                'add_new_item' => 'Add New Enrollment Request',
+                'edit_item' => 'Edit Enrollment Request',
+            ),
         );
         
         // Register post-type using wrapper custom-post-type function
-        $this->parent->register_post_type( 'openedx_enrollment', 'Open edX Enrollment Requests', 'Open edX Enrollment Request', '', $enrollment_cpt_options );
+        $this->parent->register_post_type( 'openedx_enrollment', ' ', ' ', '', $enrollment_cpt_options );
     }
 
-    public function unregister_save_hook() {
-        remove_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
+    /**
+     * Unregister the save hook to prevent an infinite cycle of hook recursion
+     * 
+     * @return void 
+     */
+    public function unregisterSaveHook() {
+        remove_action( 'save_post', array($this, 'save_action'), 10, 3 );
     }
-    
-    public function register_save_hook() {
-        add_action( 'save_post', array( $this, 'save_action' ), 10, 3 );
+
+    /**
+     * Register the save hook to prevent an infinite cycle of hook recursion
+     * 
+     * @return void
+     */
+    public function registerSaveHook() {
+        add_action( 'save_post', array($this, 'save_action'), 10, 3 );
     }
 
     /**
@@ -146,14 +164,16 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         }
 
         $enrollment_arr = array(
-            'enrollment_course_id'    => sanitize_text_field($_POST['enrollment_course_id'] ?? ''),
-            'enrollment_email'        => sanitize_text_field($_POST['enrollment_email'] ?? ''),
-            'enrollment_mode'         => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
-            'enrollment_request_type' => sanitize_text_field($_POST['enrollment_request_type'] ?? ''),
-            'enrollment_order_id'     => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
+            'enrollment_course_id' => sanitize_text_field( $_POST['enrollment_course_id'] ?? '' ),
+            'enrollment_email' => sanitize_text_field($_POST['enrollment_email'] ?? ''),
+            'enrollment_mode' => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
+            'enrollment_request_type' => sanitize_text_field(
+                $_POST['enrollment_request_type'] ?? ''
+            ),
+            'enrollment_order_id' => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
         );
     
-        $enrollment_action = sanitize_text_field( $_POST['enrollment_action'] ?? '' );
+        $enrollment_action = sanitize_text_field($_POST['enrollment_action'] ?? '');
 
         $this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
     }
@@ -223,13 +243,15 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         // Check if old post_meta tags are different from the new ones.
 
-        if ($old_course_id !== $enrollment_course_id || $old_email !== $enrollment_email || $old_mode !== $enrollment_mode) {
+        if ($old_course_id !== $enrollment_course_id || 
+            $old_email !== $enrollment_email         || 
+            $old_mode !== $enrollment_mode) {
             $this->update_post($post_id);
         }
 
         // Only update the post status if it has no custom status yet.
-        if ( $post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error' ) {
-            $this->update_post( $post_id, 'enrollment-pending' );
+        if ($post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error') {
+            $this->update_post($post_id, 'enrollment-pending');
         }
     }
 
@@ -239,21 +261,22 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param string $status The status of the request.
      * @param int    $post_id The post ID.
      */
-    public function update_post( $post_id, $status = null ) {
+    public function updatePost( $post_id, $status = null ) {
 
-        $enrollment_course_id = get_post_meta( $post_id, 'course_id', true );
-        $enrollment_email  = get_post_meta( $post_id, 'email', true );
-        $enrollment_mode      = get_post_meta( $post_id, 'mode', true );
+        $enrollment_course_id = get_post_meta($post_id, 'course_id', true);
+        $enrollment_email  = get_post_meta($post_id, 'email', true);
+        $enrollment_mode      = get_post_meta($post_id, 'mode', true);
 
         $post_update = array(
-            'ID'          => $post_id,
-            'post_title'  => $enrollment_course_id . ' | ' . $enrollment_email . ' | Mode: ' . $enrollment_mode,
+            'ID'         => $post_id,
+            'post_title' 
+                => $enrollment_course_id .' | '. $enrollment_email .' | Mode: '.$enrollment_mode,
         );
         
         if ($status) {
             $post_update['post_status'] = $status;
         }
 
-        $this->wp_update_post( $post_update );
+        $this->wp_update_post($post_update);
     }
 }

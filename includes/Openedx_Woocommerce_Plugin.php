@@ -107,41 +107,41 @@ class Openedx_Woocommerce_Plugin {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/Openedx_Woocommerce_Plugin_Loader.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/Openedx_Woocommerce_Plugin_Loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/Openedx_Woocommerce_Plugin_i18n.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/Openedx_Woocommerce_Plugin_i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'admin/Openedx_Woocommerce_Plugin_Admin.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'admin/Openedx_Woocommerce_Plugin_Admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'public/Openedx_Woocommerce_Plugin_Public.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'public/Openedx_Woocommerce_Plugin_Public.php';
 
 		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
 
 		/**
 		 * The class responsible for defining the enrollment object
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/model/Openedx_Woocommerce_Plugin_Enrollment.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Enrollment.php';
 
 		/**
 		 * The class responsible for defining the custom-post-type object
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
 
 		/**
 		 * The class responsible for rendering the enrollment info form
 		 */
-         include_once plugin_dir_path( dirname( __FILE__ )) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
+         include_once plugin_dir_path( dirname(__FILE__)) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
          
 	}
 
@@ -181,6 +181,7 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
 
 	}
 
@@ -198,6 +199,22 @@ class Openedx_Woocommerce_Plugin {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+	}
+
+     /**
+     * Modify the message displayed when a custom-post-type is updated
+     * 
+     * @param string $translated_text translation text
+     * @param string $text text to be translated
+     * @param string $domain text domain
+     * @return string $translated_text post updated message
+     */
+	function openedx_plugin_custom_post_message( $translated_text, $text, $domain ) {
+
+		if ( $domain === 'default' && $text === 'Post updated.' ) {
+			$translated_text = 'Enrollment action executed';
+		}
+		return $translated_text;
 	}
 
 	/**
