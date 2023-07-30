@@ -294,7 +294,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
     
         // Cambiar el valor de "action_name" para un nuevo post o cuando se envía a la papelera
         if (empty($old_data_array['enrollment_course_id'])) {
-            $enrollment_action = 'Object created';
+            $enrollment_action = 'Object Created';
         } 
     
         // Cambiar el valor de "object_before" si está vacío
