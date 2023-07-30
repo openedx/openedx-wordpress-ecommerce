@@ -1,6 +1,7 @@
 <?php
 
 namespace App\model;
+use App\model\Openedx_Woocommerce_Plugin_Log;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -143,11 +144,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * @param array $post The post info in an array.
      */
     public function wp_update_post( $post ) {
-        $this->unregister_save_hook();
+        $this->unregisterSaveHook();
 
         wp_update_post( $post );
 
-        $this->register_save_hook();
+        $this->registerSaveHook();
     }
 
     /**
@@ -210,6 +211,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
     public function save_enrollment( $post, $enrollment_arr, $enrollment_action ) {
 
         $post_id = $post->ID;
+        $old_post = $post;
 
         $enrollment_course_id    = $enrollment_arr['enrollment_course_id'];
         $enrollment_email        = $enrollment_arr['enrollment_email'];
@@ -219,8 +221,19 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         // Get the old post metadata.
         $old_course_id           = get_post_meta($post_id, 'course_id', true);
-        $old_email            = get_post_meta($post_id, 'email', true);
+        $old_email               = get_post_meta($post_id, 'email', true);
         $old_mode                = get_post_meta($post_id, 'mode', true);
+        $old_request_type        = get_post_meta($post_id, 'is_active', true);
+        $old_order_id            = get_post_meta($post_id, 'order_id', true);
+
+        // Array of old data
+        $old_data_array = array(
+            'enrollment_course_id' => $old_course_id,
+            'enrollment_email' => $old_email,
+            'enrollment_mode' => $old_mode,
+            'enrollment_request_type' => $old_request_type,
+            'enrollment_order_id' => $old_order_id
+        );
 
         // We need to have all 3 required params to continue.
         $enrollment_user_reference = $enrollment_email;
@@ -241,17 +254,56 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             update_post_meta( $post_id, 'is_active', false );
         }
 
-        // Check if old post_meta tags are different from the new ones.
+        // Check if old post_meta tags are different from the new ones to change post name.
 
         if ($old_course_id !== $enrollment_course_id || 
             $old_email !== $enrollment_email         || 
             $old_mode !== $enrollment_mode) {
-            $this->update_post($post_id);
+            $this->updatePost($post_id);
         }
 
         // Only update the post status if it has no custom status yet.
         if ($post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error') {
-            $this->update_post($post_id, 'enrollment-pending');
+            $this->updatePost($post_id, 'enrollment-pending');
+        }
+
+
+        $this->createChangeLog($post_id, $old_data_array, $enrollment_arr, $enrollment_action);
+    }
+
+
+    /**
+     * Creates a new log entry in the database.
+     * 
+     * @param int $post_id The post ID.
+     * @param array $old_data_array The old data array.
+     * @param array $enrollment_arr The new data array.
+     * @param string $enrollment_action The API action to perform.
+     * 
+     * @return void
+     */
+    public function createChangeLog($post_id, $old_data_array, $enrollment_arr, $enrollment_action) {
+        global $wpdb;
+        $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
+        $new_post = get_post($post_id);
+    
+        $fecha_registro = current_time('mysql', true);
+        $usuario_id = get_current_user_id(); 
+        $usuario_nombre = get_user_by('id', $usuario_id)->user_login; 
+        
+        $log_data = array(
+            'post_id' => $post_id,
+            'fecha_registro' => $fecha_registro,
+            'user' => $usuario_nombre,
+            'action_name' => $enrollment_action,
+            'object_before' => json_encode($old_data_array),
+            'object_after' => json_encode($enrollment_arr)
+        );
+    
+        $wpdb->insert($tabla_logs, $log_data);
+    
+        if ($wpdb->last_error) {
+            error_log('there was an error generating a register: ' . $wpdb->last_error);
         }
     }
 

@@ -51,6 +51,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         if (! $course_id && ! $email) {
             $new_enrollment = true;
         }
+
         ?>
         <div id="namediv" class="postbox">
         <h2 class="">Open edX enrollment request</h2>
@@ -197,30 +198,71 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         <?php
     }
 
+
     /**
-     * Temporary function to get test logs for the logs box
+     * Get logs from database.
      * 
-     * @return string Test logs
+     * @param int $post_id
+     * @return string $formatted_logs Logs formatted as HTML
      */
-    public function get_logs() {
-        $logs = "Log 1\n";
-        $logs .= "Log 2\n";
-        $logs .= "Log 3\n";
-        $logs .= "No errors ocurred\n";
-        return $logs;
+    public function get_logs($post_id) {
+        global $wpdb;
+        $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
+    
+        $logs = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY fecha_registro ASC",
+                $post_id
+            ),
+            ARRAY_A
+        );
+    
+        $formatted_logs = '';
+        foreach ($logs as $log) {
+            $formatted_logs .= "<div class='log_entry'>";
+            $formatted_logs .= "<strong>Timestamp:</strong> " . date('d-m-Y H:i:s', strtotime($log['fecha_registro'])) . "<br>";
+            $formatted_logs .= "<strong>User:</strong> " . $log['user'] . "<br>";
+            $formatted_logs .= "<strong>Action:</strong> " . $log['action_name'] . "<br>";
+            $formatted_logs .= "<strong>Object Before:</strong> " . $log['object_before'] . "<br>";
+            $formatted_logs .= "<strong>Object After:</strong> " . $log['object_after'] . "<br>";
+            $formatted_logs .= "</div>";
+        }
+    
+        return $formatted_logs;
     }
+    
 
-
-     /**
-     * Renders the logs box for the edit post box
+    /**
+     * Render logs box
      *
-     * @return void
+     * @param WP_Post $post Current post object.
      */
-    public function render_logs_box() {
-        $logs = $this->get_logs();
+    public function render_logs_box($post) {
+        $post_id = $post->ID;
+        $logs = $this->get_logs($post_id);
         ?>
+        <style>
+            .logs_box {
+                max-width: 100%;
+                max-height: 470px;
+                border: 1px solid #ccc;
+                padding: 10px;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                overflow: auto;
+            }
+            .log_entry {
+                background-color: #f2f2f2; /* Color de fondo gris claro */
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            .logs_box strong {
+                font-weight: bold;
+            }
+        </style>
         <div class="logs_box">
-            <pre><?php echo esc_html( $logs ); ?></pre>
+            <?php echo $logs; ?>
         </div>
         <?php
     }

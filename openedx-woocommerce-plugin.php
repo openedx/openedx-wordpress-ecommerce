@@ -59,7 +59,36 @@ function deactivate_openedx_woocommerce_plugin() {
     Openedx_Woocommerce_Plugin_Deactivator::deactivate();
 }
 
+/**
+ * Create the table for the logs on plugin activation
+ */
+function create_enrollment_logs_table() {
+    global $wpdb;
+    $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
+
+    if ($wpdb->get_var("SHOW TABLES LIKE '$tabla_logs'") != $tabla_logs) {
+        $charset_collate = $wpdb->get_charset_collate();
+
+        // Definición de la estructura de la tabla
+        $sql = "CREATE TABLE $tabla_logs (
+            id INT NOT NULL AUTO_INCREMENT,
+            post_id INT NOT NULL,
+            fecha_registro DATETIME NOT NULL,
+            user VARCHAR(255) NOT NULL,
+            action_name VARCHAR(255) NOT NULL,
+            object_before LONGTEXT NOT NULL,
+            object_after LONGTEXT NOT NULL,
+            PRIMARY KEY (id)
+        ) $charset_collate;";
+
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+        dbDelta( $sql );
+    }
+}
+
 register_activation_hook( __FILE__, 'activate_openedx_woocommerce_plugin' );
+register_activation_hook( __FILE__, 'create_enrollment_logs_table' );
 register_deactivation_hook( __FILE__, 'deactivate_openedx_woocommerce_plugin' );
 
 /**
