@@ -282,7 +282,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * 
      * @return void
      */
-    public function createChangeLog($post_id, $old_data_array, $enrollment_arr, $enrollment_action) {
+    public function createChangeLog( $post_id, $old_data_array, $enrollment_arr, $enrollment_action ) {
+
         global $wpdb;
         $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
         $new_post = get_post($post_id);
@@ -290,7 +291,17 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $fecha_registro = current_time('mysql', true);
         $usuario_id = get_current_user_id(); 
         $usuario_nombre = get_user_by('id', $usuario_id)->user_login; 
-        
+    
+        // Cambiar el valor de "action_name" para un nuevo post o cuando se envía a la papelera
+        if (empty($old_data_array['enrollment_course_id'])) {
+            $enrollment_action = 'Object created';
+        } 
+    
+        // Cambiar el valor de "object_before" si está vacío
+        if (empty($old_data_array['enrollment_course_id'])) {
+            $old_data_array = '--';
+        }
+    
         $log_data = array(
             'post_id' => $post_id,
             'fecha_registro' => $fecha_registro,
@@ -303,7 +314,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $wpdb->insert($tabla_logs, $log_data);
     
         if ($wpdb->last_error) {
-            error_log('there was an error generating a register: ' . $wpdb->last_error);
+            error_log('There was an error generating a register: ' . $wpdb->last_error);
         }
     }
 
