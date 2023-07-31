@@ -53,7 +53,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         }
 
         ?>
-        <div id="namediv" class="postbox">
+        <div id="namediv" class="postbox" style="padding: 50px 20px 50px 20px;">
         <h2 class="">Open edX enrollment request</h2>
         <fieldset>
         <input type="hidden" name="new_enrollment" value="<?php echo( $new_enrollment ); ?>">
@@ -159,22 +159,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 </tr>
 
                 <tr>
-                    <td class="first"><label>General Info</label></td>
-                    <td>
-                        <p>Edited: 
-                        <?php
-                        if ( get_post_meta( $post_id, 'edited', true ) ) {
-                            echo 'yes';
-                        } else {
-                            echo 'no';
-                        }
-                        ?>
-                        </p>
-                        <p>Last edited: <?php echo( get_the_modified_time( '', $post_id ) . ' ' . get_the_modified_date( '', $post_id ) ); ?></p>
-                    </td>
-                </tr>
-
-                <tr>
                     <td class="first"><label>Choose an Action</label></td>
                     <td>
                         <select name="enrollment_action" id="actions-select">
@@ -259,7 +243,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         <style>
             .logs_box {
                 max-width: 100%;
-                max-height: 470px;
+                max-height: 466px;
                 border: 1px solid #ccc;
                 padding: 10px;
                 white-space: pre-wrap;
