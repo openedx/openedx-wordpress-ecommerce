@@ -162,13 +162,16 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     <td class="first"><label>Choose an Action</label></td>
                     <td>
                         <select name="enrollment_action" id="actions-select">
+                            <option style="opacity: 50%;"value="default" disabled selected hidden>
+                                Select an option
+                            </option>
                             <option value="save_no_process">
                                 <?php esc_html_e('Save without processing', 'wp-edunext-marketing-site'); ?>
                             </option>
                             <option value="enrollment_sync">
                                 <?php esc_html_e('Synchronize (pull information)', 'wp-edunext-marketing-site'); ?>
                             </option>
-                            <option value="enrollment_process" selected>
+                            <option value="enrollment_process">
                                 <?php esc_html_e('Process request', 'wp-edunext-marketing-site'); ?>
                             </option>
                             <option value="enrollment_no_pre">
@@ -243,7 +246,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         <style>
             .logs_box {
                 max-width: 100%;
-                max-height: 466px;
+                max-height: 477px;
                 border: 1px solid #ccc;
                 padding: 10px;
                 white-space: pre-wrap;
