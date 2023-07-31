@@ -305,6 +305,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         if (empty($old_data_array['enrollment_course_id'])) {
             $old_data_array = '--';
         }
+
+        if($old_data_array['enrollment_request_type']){
+            $old_data_array['enrollment_request_type'] = "enroll";
+        }else{
+            $old_data_array['enrollment_request_type'] = "unenroll";
+        }
     
         $log_data = array(
             'post_id' => $post_id,
