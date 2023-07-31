@@ -295,9 +295,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
         $new_post = get_post($post_id);
     
-        $fecha_registro = current_time('mysql', true);
-        $usuario_id = get_current_user_id(); 
-        $usuario_nombre = get_user_by('id', $usuario_id)->user_login; 
+        $date = current_time('mysql', true);
+        $user_id = get_current_user_id(); 
+        $username = get_user_by('id', $user_id)->user_login; 
     
         // Cambiar el valor de "action_name" para un nuevo post o cuando se envía a la papelera
         if (empty($old_data_array['enrollment_course_id'])) {
@@ -317,8 +317,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
     
         $log_data = array(
             'post_id' => $post_id,
-            'fecha_registro' => $fecha_registro,
-            'user' => $usuario_nombre,
+            'date' => $date,
+            'user' => $username,
             'action_name' => $enrollment_action,
             'object_before' => json_encode($old_data_array),
             'object_after' => json_encode($enrollment_arr)
