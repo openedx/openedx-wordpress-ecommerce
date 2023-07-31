@@ -203,7 +203,7 @@ class Openedx_Woocommerce_Plugin_Admin
 
 		echo '<div class="options_group">';
 
-		echo '<p class="form-field">' . __('Only use these fields if the product is a course.', 'woocommerce') . '</p>';
+		echo '<p class="form-field">' . __('Only use these fields if the product is an Open edX course.', 'woocommerce') . '</p>';
 
 		woocommerce_wp_text_input(array(
 			'id'          => '_course_id',
