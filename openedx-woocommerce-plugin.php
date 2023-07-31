@@ -95,7 +95,7 @@ register_deactivation_hook( __FILE__, 'deactivate_openedx_woocommerce_plugin' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__) . 'includes/Openedx_Woocommerce_Plugin.php';
+require plugin_dir_path(__FILE__) . 'includes/Openedx_Woocommerce_Plugin.php';
 
 /**
  * Begins execution of the plugin.
