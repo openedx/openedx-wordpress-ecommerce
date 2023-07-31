@@ -211,7 +211,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     
         $logs = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY fecha_registro ASC",
+                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY fecha_registro DESC",
                 $post_id
             ),
             ARRAY_A
