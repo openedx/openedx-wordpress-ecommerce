@@ -182,7 +182,8 @@ class Openedx_Woocommerce_Plugin {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
-
+		$this->loader->add_action('woocommerce_product_options_general_product_data', $plugin_admin, 'add_custom_product_fields');
+		$this->loader->add_action('woocommerce_process_product_meta', $plugin_admin, 'save_custom_product_fields');
 	}
 
 	/**

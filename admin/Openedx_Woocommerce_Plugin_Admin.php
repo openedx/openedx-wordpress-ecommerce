@@ -186,4 +186,55 @@ class Openedx_Woocommerce_Plugin_Admin {
         return new Openedx_Woocommerce_Plugin_Post_Type($post_type, $plural, $single, $description, $options);
 
     }
+
+	/**
+	 * Register course ID and mode fields for product
+	 *
+	 * @since    1.1.1
+	 */
+	function add_custom_product_fields() {
+		global $post;
+
+		echo '<div class="options_group">';
+
+		echo '<p class="form-field">' . __('Only use these fields if the product is a course.', 'woocommerce') . '</p>';
+
+		woocommerce_wp_text_input(array(
+			'id'          => '_course_id',
+			'label'       => __('Course ID', 'woocommerce'),
+			'placeholder' => '',
+			'desc_tip'    => 'true',
+			'description' => __('Enter the course ID for the product.', 'woocommerce')
+		));
+
+		woocommerce_wp_select(array(
+			'id'          => '_mode',
+			'label'       => __('Mode', 'woocommerce'),
+			'desc_tip'    => 'true',
+			'description' => __('Select the mode for the product.', 'woocommerce'),
+			'options'     => array(
+				'Honor'             => __('Honor', 'woocommerce'),
+				'Audit'             => __('Audit', 'woocommerce'),
+				'Verified'          => __('Verified', 'woocommerce'),
+				'Credit'            => __('Credit', 'woocommerce'),
+				'Professional'      => __('Professional', 'woocommerce'),
+				'No ID Professional' => __('No ID Professional', 'woocommerce'),
+			)
+		));
+
+		echo '</div>';
+	}
+
+	/**
+	 * Save course ID and mode fields for product
+	 *
+	 * @since    1.1.1
+	 */
+	function save_custom_product_fields($post_id) {
+		$course_id = isset($_POST['_course_id']) ? sanitize_text_field($_POST['_course_id']) : '';
+		$mode = isset($_POST['_mode']) ? sanitize_text_field($_POST['_mode']) : '';
+
+		update_post_meta($post_id, '_course_id', $course_id);
+		update_post_meta($post_id, '_mode', $mode);
+	}
 }
