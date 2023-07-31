@@ -55,28 +55,30 @@ class Openedx_Woocommerce_Plugin_Admin {
 	public $openedx_enrollment;
 
 	/**
-	 * Initialize the class and set its properties.
-	 *
-     * @since      1.0.0
-     * @param      string    $plugin_name   The name of this plugin. 
-     * @param      string    $version       The version of this plugin.
-     * @param      string    $test          Flag variable to know if it is a test.
+     * Initialize the class and set its properties.
+     *
+     * @since 1.0.0
+     * @param string $plugin_name The name of this plugin.
+     * @param string $version The version of this plugin.
+     * @param string $test Flag variable to know if it is a test.
      */
     public function __construct( $plugin_name, $version, $test = null) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-        if( !$test ) {
-           $this->createEnrollmentClass();
+        if (!$test) {
+            $this->createEnrollmentClass();
         }
     }
     
     /**
      * Create an instance of the Openedx_Woocommerce_Plugin_Enrollment class.
      *
-     * @since    1.0.0
+     * @since 1.0.0
+	 * @return void
      */
-    public function createEnrollmentClass() {
+    public function createEnrollmentClass() 
+	{
         
 		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
 
@@ -109,8 +111,8 @@ class Openedx_Woocommerce_Plugin_Admin {
      * Register the JavaScript for the admin area.
      * 
      * @since 1.0.0
-	 * 
-	 * @return void
+     * 
+     * @return void
      */
 	public function enqueue_scripts() {
 
