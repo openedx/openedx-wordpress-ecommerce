@@ -258,9 +258,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
         // Check if old post_meta tags are different from the new ones to change post name.
 
-        if ($old_course_id !== $enrollment_course_id || 
-            $old_email !== $enrollment_email         || 
-            $old_mode !== $enrollment_mode) {
+        if ($old_course_id !== $enrollment_course_id 
+            || $old_email !== $enrollment_email         
+            || $old_mode !== $enrollment_mode) {
             $this->updatePost($post_id);
         }
 

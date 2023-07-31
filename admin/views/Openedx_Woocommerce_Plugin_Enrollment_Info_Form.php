@@ -70,12 +70,12 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     <td class="first"><label>User Email</label></td>
                     <td>
                             <div style="width: 49%; display: inline-table;">	
-                             <input type="email"
-                              id="openedx_enrollment_email"  
-                              name="enrollment_email"	
-                              title="You only need to fill one. 
-                              Either the email or username"	
-                              value="<?php echo( $email ); ?>">	
+                            <input type="email"
+                            id="openedx_enrollment_email"  
+                            name="enrollment_email"	
+                            title="You only need to fill one. 
+                            Either the email or username"	
+                            value="<?php echo( $email ); ?>">	
                          </div>
                     </td>
                 </tr>
