@@ -69,8 +69,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
             ),
         );
         
-        // Register post-type using wrapper custom-post-type function
-        $this->parent->register_post_type( 'openedx_enrollment', ' ', ' ', '', $enrollment_cpt_options );
+         // Register post-type using wrapper custom-post-type function
+        $this->parent->register_post_type('openedx_enrollment', ' ', ' ', '', $enrollment_cpt_options);
     }
 
     /**
@@ -78,8 +78,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * 
      * @return void 
      */
-    public function unregisterSaveHook() {
-        remove_action( 'save_post', array($this, 'save_action'), 10, 3 );
+    public function unregisterSaveHook()
+    {
+        remove_action('save_post', array($this, 'save_action'), 10, 3);
     }
 
     /**
@@ -87,8 +88,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
      * 
      * @return void
      */
-    public function registerSaveHook() {
-        add_action( 'save_post', array($this, 'save_action'), 10, 3 );
+    public function registerSaveHook()
+    {
+        add_action('save_post', array($this, 'save_action'), 10, 3);
     }
 
     /**

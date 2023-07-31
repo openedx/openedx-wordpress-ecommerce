@@ -46,7 +46,7 @@ define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '1.1.1' );
  * This action is documented in includes/class-openedx-woocommerce-plugin-activator.php
  */
 function activate_openedx_woocommerce_plugin() {
-    include_once plugin_dir_path( __FILE__ ) . 'includes/Openedx_Woocommerce_Plugin_Activator.php';
+    include_once plugin_dir_path(__FILE__) . 'includes/Openedx_Woocommerce_Plugin_Activator.php';
     Openedx_Woocommerce_Plugin_Activator::activate();
 }
 
@@ -55,7 +55,7 @@ function activate_openedx_woocommerce_plugin() {
  * This action is documented in includes/class-openedx-woocommerce-plugin-deactivator.php
  */
 function deactivate_openedx_woocommerce_plugin() {
-    include_once plugin_dir_path( __FILE__) . 'includes/Openedx_Woocommerce_Plugin_Deactivator.php';
+    include_once plugin_dir_path(__FILE__) . 'includes/Openedx_Woocommerce_Plugin_Deactivator.php';
     Openedx_Woocommerce_Plugin_Deactivator::deactivate();
 }
 
