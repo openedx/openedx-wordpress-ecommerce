@@ -167,13 +167,13 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         }
 
         $enrollment_arr = array(
-            'enrollment_course_id' => sanitize_text_field($_POST['enrollment_course_id'] ?? ''),
-            'enrollment_email' => sanitize_text_field($_POST['enrollment_email'] ?? ''),
-            'enrollment_mode' => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
-            'enrollment_request_type' => sanitize_text_field(
-                $_POST['enrollment_request_type'] ?? ''
-            ),
-            'enrollment_order_id' => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
+        'enrollment_course_id' => sanitize_text_field($_POST['enrollment_course_id'] ?? ''),
+        'enrollment_email' => sanitize_text_field($_POST['enrollment_email'] ?? ''),
+        'enrollment_mode' => sanitize_text_field($_POST['enrollment_mode'] ?? ''),
+        'enrollment_request_type' => sanitize_text_field(
+            $_POST['enrollment_request_type'] ?? ''
+        ),
+        'enrollment_order_id' => sanitize_text_field($_POST['enrollment_order_id'] ?? ''),
         );
     
         $enrollment_action = sanitize_text_field($_POST['enrollment_action'] ?? '');
@@ -265,7 +265,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         }
 
         // Only update the post status if it has no custom status yet.
-        if ($post->post_status !== 'enrollment-success' && $post->post_status !== 'enrollment-pending' && $post->post_status !== 'enrollment-error') {
+        if ($post->post_status !== 'enrollment-success' 
+            && $post->post_status !== 'enrollment-pending' 
+            && $post->post_status !== 'enrollment-error') {
             $this->updatePost($post_id, 'enrollment-pending');
         }
 
