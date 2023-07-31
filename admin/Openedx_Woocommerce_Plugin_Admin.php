@@ -61,7 +61,7 @@ class Openedx_Woocommerce_Plugin_Admin {
      * @param string $plugin_name The name of this plugin.
      * @param string $version The version of this plugin.
      * @param string $test Flag variable to know if it is a test.
-     */
+	 */		
     public function __construct( $plugin_name, $version, $test = null) {
 
 		$this->plugin_name = $plugin_name;
@@ -121,20 +121,20 @@ class Openedx_Woocommerce_Plugin_Admin {
          *
          * An instance of this class should be passed to the run() function
          * defined in Openedx_Woocommerce_Plugin_Loader as 
-		 * all of the hooks are defined in that particular class.
+         * all of the hooks are defined in that particular class.
          *
          * The Openedx_Woocommerce_Plugin_Loader will then create the relationship
          * between the defined hooks and the functions defined in this
          * class.
          */
-		
+
 	}
 
      /**
-     * Register Enrollment Request custom post type 
-     *
-     * @since    1.0.0
-     */
+      * Register Enrollment Request custom post type 
+      *
+      * @since    1.0.0
+      */
     public function register_enrollment_custom_post_type() {
 
 		$this->openedx_enrollment->register_enrollment_custom_post_type();
@@ -146,9 +146,9 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function render_enrollment_info_form($post) {
+    public function render_enrollment_info_form($post) {
 
-		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($post);
+         $this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form($post);
 
 	}
 
@@ -174,15 +174,15 @@ class Openedx_Woocommerce_Plugin_Admin {
     }
 
      /**
-     * Create a new instance of the Openedx_Woocommerce_Plugin_Post_Type class and register a new post type.
-     *
-     * @param  string $post_type   Post type name.
-     * @param  string $plural      Post type item plural name.
-     * @param  string $single      Post type item single name.
-     * @param  string $description Description of the post type.
-     * @param  array  $options     Additional options for the post type.
-     * @return object              Post type class object.
-     */
+      * Create a new instance of the Openedx_Woocommerce_Plugin_Post_Type class and register a new post type.
+      *
+      * @param  string $post_type   Post type name.
+      * @param  string $plural      Post type item plural name.
+      * @param  string $single      Post type item single name.
+      * @param  string $description Description of the post type.
+      * @param  array  $options     Additional options for the post type.
+      * @return object              Post type class object.
+    */
      public function createPostType($post_type = '', $plural = '', $single = '', $description = '', $options = array()) {
 
         return new Openedx_Woocommerce_Plugin_Post_Type($post_type, $plural, $single, $description, $options);
