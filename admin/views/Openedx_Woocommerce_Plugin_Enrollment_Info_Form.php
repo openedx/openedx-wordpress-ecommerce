@@ -252,7 +252,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 overflow: auto;
             }
             .log_entry {
-                background-color: #f2f2f2; /* Color de fondo gris claro */
+                background-color: #f2f2f2;
                 border: 1px solid #ccc;
                 padding: 10px;
                 margin-bottom: 10px;
