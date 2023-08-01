@@ -293,11 +293,11 @@ class Openedx_Woocommerce_Plugin_Enrollment
     {
 
         // Sanitize enrollment arr
-        $enrollment_course_id    = sanitize_text_field($enrollment_arr['enrollment_course_id']);
-        $enrollment_email        = sanitize_text_field($enrollment_arr['enrollment_email']);
-        $enrollment_mode         = sanitize_text_field($enrollment_arr['enrollment_mode']);
-        $enrollment_request_type = sanitize_text_field($enrollment_arr['enrollment_request_type']);
-        $enrollment_order_id     = sanitize_text_field($enrollment_arr['enrollment_order_id']);
+        sanitize_text_field($enrollment_arr['enrollment_course_id']);
+        sanitize_text_field($enrollment_arr['enrollment_email']);
+        sanitize_text_field($enrollment_arr['enrollment_mode']);
+        sanitize_text_field($enrollment_arr['enrollment_request_type']);
+        sanitize_text_field($enrollment_arr['enrollment_order_id']);
 
         // Array of old post metadata
         $old_data_array = array(
