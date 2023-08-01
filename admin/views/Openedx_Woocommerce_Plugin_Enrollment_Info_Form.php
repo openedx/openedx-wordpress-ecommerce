@@ -1,6 +1,7 @@
 <?php
 
 namespace App\admin\views;
+use App\model\Openedx_Woocommerce_Plugin_Log;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -18,6 +19,15 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     public $post_type = 'openedx_enrollment';
 
     /**
+     * The log manager.
+     *
+     * @var     Openedx_Woocommerce_Plugin_Log
+     * @access  private
+     * @since   1.1.1
+     */
+    private $log_manager;
+
+    /**
      * Constructor function.
      *
      * @access  public
@@ -27,6 +37,16 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     public function __construct( $enrollment_request ) {
         $this->render_enrollment_info_form($enrollment_request);
         $this->replace_admin_meta_boxes();
+        $this->register_log_manager();
+    }
+
+    /**
+     * Register log manager
+     *
+     * @return void
+     */
+    public function register_log_manager() {
+        $this->log_manager = new Openedx_Woocommerce_Plugin_Log();
     }
 
     /**
@@ -197,39 +217,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         </div>
         <?php
     }
-
-
-    /**
-     * Get logs from database.
-     * 
-     * @param int $post_id
-     * @return string $formatted_logs Logs formatted as HTML
-     */
-    public function get_logs($post_id) {
-        global $wpdb;
-        $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
-    
-        $logs = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY mod_date DESC",
-                $post_id
-            ),
-            ARRAY_A
-        );
-    
-        $formatted_logs = '';
-        foreach ($logs as $log) {
-            $formatted_logs .= "<div class='log_entry'>";
-            $formatted_logs .= "<strong>Timestamp:</strong> " . date('d-m-Y H:i:s', strtotime($log['mod_date'])) . "<br>";
-            $formatted_logs .= "<strong>User:</strong> " . $log['user'] . "<br>";
-            $formatted_logs .= "<strong>Action:</strong> " . $log['action_name'] . "<br>";
-            $formatted_logs .= "<strong>Object Before:</strong> " . $log['object_before'] . "<br>";
-            $formatted_logs .= "<strong>Object After:</strong> " . $log['object_after'] . "<br>";
-            $formatted_logs .= "</div>";
-        }
-    
-        return $formatted_logs;
-    }
     
 
     /**
@@ -239,7 +226,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
      */
     public function render_logs_box($post) {
         $post_id = $post->ID;
-        $logs = $this->get_logs($post_id);
+        $logs = $this->log_manager->getLogs($post_id);
         ?>
         
         <style>

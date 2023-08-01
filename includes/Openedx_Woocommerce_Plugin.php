@@ -138,6 +138,8 @@ class Openedx_Woocommerce_Plugin {
 		 */
          include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
 
+		 include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Logs.php';
+
 		/**
 		 * The class responsible for rendering the enrollment info form
 		 */
