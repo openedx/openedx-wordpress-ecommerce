@@ -31,7 +31,7 @@ class Openedx_Woocommerce_Plugin_Log {
 
         try {
             global $wpdb;
-            $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
+            $logs_table = $wpdb->prefix . 'enrollment_logs_req_table';
             $new_post = get_post($post_id);
         
             $date = current_time('mysql', true);
@@ -55,7 +55,7 @@ class Openedx_Woocommerce_Plugin_Log {
                 'object_after' => json_encode($enrollment_arr)
             );
         
-            $wpdb->insert($tabla_logs, $log_data);
+            $wpdb->insert($logs_table, $log_data);
         } catch (Exception $e) {
             error_log('An error occurred creating change log: ' . $e->getMessage());
         }
