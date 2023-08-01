@@ -211,7 +211,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     
         $logs = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY mod_date ASC",
+                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY mod_date DESC",
                 $post_id
             ),
             ARRAY_A
@@ -241,6 +241,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $post_id = $post->ID;
         $logs = $this->get_logs($post_id);
         ?>
+        
         <style>
             .logs_box {
                 max-width: 100%;
@@ -250,6 +251,8 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 white-space: pre-wrap;
                 word-wrap: break-word;
                 overflow: auto;
+                display: flex;
+                flex-direction: column-reverse;
             }
             .log_entry {
                 background-color: #f2f2f2;
@@ -264,17 +267,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         <div class="logs_box">
             <?php echo $logs; ?>
         </div>
-        <script>
 
-            function scrollToBottom() {
-                var logsBox = document.getElementsByClassName("logs_box")[0];
-                logsBox.scrollTop = logsBox.scrollHeight;
-            }
-
-            window.addEventListener("load", function() {
-                scrollToBottom();
-            });
-        </script>
         <?php
     }
 
