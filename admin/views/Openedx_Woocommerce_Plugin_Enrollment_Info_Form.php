@@ -160,7 +160,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                     <td class="first"><label>Choose an Action</label></td>
                     <td>
                         <select name="enrollment_action" id="actions-select">
-                            <option style="opacity: 50%;"value="default" disabled selected hidden>
+                            <option value="default" disabled selected hidden>
                                 Select an option
                             </option>
                             <option value="save_no_process">
@@ -211,7 +211,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
     
         $logs = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY fecha_registro ASC",
+                "SELECT * FROM $tabla_logs WHERE post_id = %d ORDER BY mod_date ASC",
                 $post_id
             ),
             ARRAY_A
@@ -220,7 +220,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $formatted_logs = '';
         foreach ($logs as $log) {
             $formatted_logs .= "<div class='log_entry'>";
-            $formatted_logs .= "<strong>Timestamp:</strong> " . date('d-m-Y H:i:s', strtotime($log['fecha_registro'])) . "<br>";
+            $formatted_logs .= "<strong>Timestamp:</strong> " . date('d-m-Y H:i:s', strtotime($log['mod_date'])) . "<br>";
             $formatted_logs .= "<strong>User:</strong> " . $log['user'] . "<br>";
             $formatted_logs .= "<strong>Action:</strong> " . $log['action_name'] . "<br>";
             $formatted_logs .= "<strong>Object Before:</strong> " . $log['object_before'] . "<br>";

@@ -69,11 +69,10 @@ function create_enrollment_logs_table() {
     if ($wpdb->get_var("SHOW TABLES LIKE '$tabla_logs'") != $tabla_logs) {
         $charset_collate = $wpdb->get_charset_collate();
 
-        // Definición de la estructura de la tabla
         $sql = "CREATE TABLE $tabla_logs (
             id INT NOT NULL AUTO_INCREMENT,
             post_id INT NOT NULL,
-            fecha_registro DATETIME NOT NULL,
+            mod_date DATETIME NOT NULL,
             user VARCHAR(255) NOT NULL,
             action_name VARCHAR(255) NOT NULL,
             object_before LONGTEXT NOT NULL,

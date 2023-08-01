@@ -225,7 +225,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $old_course_id           = get_post_meta($post_id, 'course_id', true);
         $old_email               = get_post_meta($post_id, 'email', true);
         $old_mode                = get_post_meta($post_id, 'mode', true);
-        $old_request_type        = get_post_meta($post_id, 'is_active', true);
+        $old_request_type        = get_post_meta($post_id, 'enrollment_request_type', true);
         $old_order_id            = get_post_meta($post_id, 'order_id', true);
 
         // Array of old data
@@ -248,6 +248,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         update_post_meta( $post_id, 'email', $enrollment_email );
         update_post_meta( $post_id, 'mode', $enrollment_mode );
         update_post_meta( $post_id, 'order_id', $enrollment_order_id );
+        update_post_meta( $post_id, 'enrollment_request_type', $enrollment_request_type );
 
         if ( $enrollment_request_type === 'enroll' ) {
             update_post_meta( $post_id, 'is_active', true );
@@ -299,25 +300,17 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $user_id = get_current_user_id(); 
         $username = get_user_by('id', $user_id)->user_login; 
     
-        // Cambiar el valor de "action_name" para un nuevo post o cuando se envía a la papelera
         if (empty($old_data_array['enrollment_course_id'])) {
             $enrollment_action = 'Object Created';
         } 
     
-        // Cambiar el valor de "object_before" si está vacío
         if (empty($old_data_array['enrollment_course_id'])) {
             $old_data_array = '--';
-        }
-
-        if($old_data_array['enrollment_request_type']){
-            $old_data_array['enrollment_request_type'] = "enroll";
-        }else{
-            $old_data_array['enrollment_request_type'] = "unenroll";
         }
     
         $log_data = array(
             'post_id' => $post_id,
-            'date' => $date,
+            'mod_date' => $date,
             'user' => $username,
             'action_name' => $enrollment_action,
             'object_before' => json_encode($old_data_array),
