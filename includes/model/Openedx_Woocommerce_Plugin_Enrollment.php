@@ -235,11 +235,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
         $post_id = $post->ID;
         $old_post = $post;
 
-        $enrollment_course_id    = $enrollment_arr['enrollment_course_id'];
-        $enrollment_email        = $enrollment_arr['enrollment_email'];
-        $enrollment_mode         = $enrollment_arr['enrollment_mode'];
-        $enrollment_request_type = $enrollment_arr['enrollment_request_type'];
-        $enrollment_order_id     = $enrollment_arr['enrollment_order_id'];
+        $enrollment_course_id    = sanitize_text_field($enrollment_arr['enrollment_course_id']);
+        $enrollment_email        = sanitize_text_field($enrollment_arr['enrollment_email']);
+        $enrollment_mode         = sanitize_text_field($enrollment_arr['enrollment_mode']);
+        $enrollment_request_type = sanitize_text_field($enrollment_arr['enrollment_request_type']);
+        $enrollment_order_id     = sanitize_text_field($enrollment_arr['enrollment_order_id']);
 
         // Get the old post metadata.
         $old_course_id           = get_post_meta($post_id, 'course_id', true);
