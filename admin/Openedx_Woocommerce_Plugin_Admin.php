@@ -217,7 +217,7 @@ class Openedx_Woocommerce_Plugin_Admin
 			'id'          => '_mode',
 			'label'       => __('Open edX Course Mode', 'woocommerce'),
 			'desc_tip'    => 'true',
-			'description' => __('Select the mode for the product.', 'woocommerce'),
+			'description' => __('Select the mode for your course. Make sure to set a mode that your course has.', 'woocommerce'),
 			'options'     => array(
 				'Honor'             => __('Honor', 'woocommerce'),
 				'Audit'             => __('Audit', 'woocommerce'),
