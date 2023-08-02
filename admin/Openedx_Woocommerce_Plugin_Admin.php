@@ -207,7 +207,7 @@ class Openedx_Woocommerce_Plugin_Admin
 
 		woocommerce_wp_text_input(array(
 			'id'          => '_course_id',
-			'label'       => __('Course ID', 'woocommerce'),
+			'label'       => __('Open edX Course ID', 'woocommerce'),
 			'placeholder' => '',
 			'desc_tip'    => 'true',
 			'description' => __('Enter the course ID for the product.', 'woocommerce')
