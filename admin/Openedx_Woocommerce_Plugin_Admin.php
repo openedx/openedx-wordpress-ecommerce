@@ -206,19 +206,22 @@ class Openedx_Woocommerce_Plugin_Admin
 		echo '<p class="form-field">' . __('Only use these fields if the product is an Open edX course.', 'woocommerce') . '</p>';
 
 		woocommerce_wp_text_input(array(
-			'id'          => '_course_id',
-			'label'       => __('Open edX Course ID', 'woocommerce'),
-			'placeholder' => '',
-			'desc_tip'    => 'true',
-			'description' => __('Enter the course ID for the product.', 'woocommerce')
+             'id'          => '_course_id',
+             'label'       => __('Open edX Course ID', 'woocommerce'),
+             'placeholder' => '',
+             'desc_tip'    => 'true',
+             'description' => __('Enter the course ID for the product.', 'woocommerce')
 		));
 
 		woocommerce_wp_select(array(
-			'id'          => '_mode',
-			'label'       => __('Open edX Course Mode', 'woocommerce'),
-			'desc_tip'    => 'true',
-			'description' => __('Select the mode for your course. Make sure to set a mode that your course has.', 'woocommerce'),
-			'options'     => array(
+			 'id'          => '_mode',
+			 'label'       => __('Open edX Course Mode', 'woocommerce'),
+			 'desc_tip'    => 'true',
+			 'description' => __('Select the mode for your course. 
+                              Make sure to set a mode that your course has.',
+                              'woocommerce'),
+
+			 'options'     => array(
 				'Honor'             => __('Honor', 'woocommerce'),
 				'Audit'             => __('Audit', 'woocommerce'),
 				'Verified'          => __('Verified', 'woocommerce'),
