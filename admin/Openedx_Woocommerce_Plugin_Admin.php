@@ -211,7 +211,9 @@ class Openedx_Woocommerce_Plugin_Admin
              'label'       => __('Open edX Course ID', 'woocommerce'),
              'placeholder' => '',
              'desc_tip'    => 'true',
-             'description' => __('Enter the course ID for the product.', 'woocommerce')
+             'description' => __('Ex: course-v1:edX+DemoX+Demo_Course.
+			                  <br><br> You can find the Open edX Course ID in the URL of your course in your LMS.',
+							  'woocommerce')
 		));
 
 		woocommerce_wp_select(array(
