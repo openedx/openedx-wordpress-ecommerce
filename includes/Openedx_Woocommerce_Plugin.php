@@ -145,6 +145,11 @@ class Openedx_Woocommerce_Plugin
 		 * The class responsible for rendering the enrollment info form
 		 */
 		include_once plugin_dir_path(dirname(__FILE__)) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
+
+		/**
+		 * The file that contains variables and functions used repeatedly in the plugin.
+		 */
+		include_once plugin_dir_path(dirname(__FILE__)) . 'utils/Openedx_Utils.php';
 	}
 
 	/**

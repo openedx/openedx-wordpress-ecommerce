@@ -5,6 +5,7 @@ namespace App\admin;
 use App\model\Openedx_Woocommerce_Plugin_Enrollment;
 use App\model\Openedx_Woocommerce_Plugin_Post_Type;
 use App\admin\views\Openedx_Woocommerce_Plugin_Enrollment_Info_Form;
+use App\utils;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -220,15 +221,7 @@ class Openedx_Woocommerce_Plugin_Admin
 			 'description' => __('Select the mode for your course. 
                               Make sure to set a mode that your course has.',
                               'woocommerce'),
-
-			 'options'     => array(
-				'Honor'             => __('Honor', 'woocommerce'),
-				'Audit'             => __('Audit', 'woocommerce'),
-				'Verified'          => __('Verified', 'woocommerce'),
-				'Credit'            => __('Credit', 'woocommerce'),
-				'Professional'      => __('Professional', 'woocommerce'),
-				'No ID Professional' => __('No ID Professional', 'woocommerce'),
-			)
+			 'options'     => utils\get_enrollment_options(),
 		));
 
 		echo '</div>';
