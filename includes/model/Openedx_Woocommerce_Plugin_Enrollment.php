@@ -283,6 +283,12 @@ class Openedx_Woocommerce_Plugin_Enrollment
         $this->log_manager->createChangeLog($post_id, $old_data, $enrollment_data, $enrollment_action);
     }
 
+
+    /**
+     * Check if important enrollment data is empty to stop operation
+     *
+     * @param array  $enrollment_data An array containing the enrollment info.
+     */
     public function is_enrollment_data_empty($enrollment_data){
         if (
             !$enrollment_data['enrollment_course_id']
@@ -293,6 +299,12 @@ class Openedx_Woocommerce_Plugin_Enrollment
         }
     }
 
+    /**
+     * Prepare the array of information to use in the Enrollment process.
+     *
+     * @param string $post_id The Enrollment Request ID.
+     * @param array  $enrollment_arr An array containing the enrollment info.
+     */
     public function prepare_enrollment_data($post_id, $enrollment_arr)
     {
 
@@ -319,6 +331,11 @@ class Openedx_Woocommerce_Plugin_Enrollment
         );
     }
 
+    /**
+     * Update the Enrollment Request metadata with the current information.
+     * @param string $post_id The Enrollment Request ID.
+     * @param array  $enrollment_arr An array containing the enrollment info.
+     */
     public function update_enrollment_meta_data($post_id, $enrollment_data)
     {
         // Update the $post metadata.
