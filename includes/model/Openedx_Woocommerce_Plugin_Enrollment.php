@@ -277,12 +277,10 @@ class Openedx_Woocommerce_Plugin_Enrollment
             $this->updatePost($post_id);
         }
 
+        $nonValidStatuses = array('enrollment-success','enrollment-pending','enrollment-error');
+
         // Only update the post status if it has no custom status yet.
-        if (
-            $post->post_status !== 'enrollment-success'
-            && $post->post_status !== 'enrollment-pending'
-            && $post->post_status !== 'enrollment-error'
-        ) {
+        if (!in_array($post->post_status, $nonValidStatuses, true)) {
             $this->updatePost($post_id, 'enrollment-pending');
         }
 
