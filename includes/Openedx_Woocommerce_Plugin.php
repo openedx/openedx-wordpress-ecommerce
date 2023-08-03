@@ -184,6 +184,7 @@ class Openedx_Woocommerce_Plugin {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
+		$this->loader->wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
 
 	}
 

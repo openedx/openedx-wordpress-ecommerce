@@ -73,7 +73,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         }
 
         ?>
-        <div id="namediv" class="postbox" style="padding: 50px 20px 50px 20px;">
+        <div id="namediv" class="postbox">
         <h2 class="">Open edX enrollment request</h2>
         <fieldset>
         <input type="hidden" name="new_enrollment" value="<?php echo( $new_enrollment ); ?>">
@@ -230,26 +230,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         ?>
         
         <style>
-            .logs_box {
-                max-width: 100%;
-                max-height: 477px;
-                border: 1px solid #ccc;
-                padding: 10px;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                overflow: auto;
-                display: flex;
-                flex-direction: column-reverse;
-            }
-            .log_entry {
-                background-color: #f2f2f2;
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin-bottom: 10px;
-            }
-            .logs_box strong {
-                font-weight: bold;
-            }
+            
         </style>
         <div class="logs_box">
             <?php echo $logs; ?>

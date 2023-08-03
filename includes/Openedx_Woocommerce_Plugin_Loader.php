@@ -43,6 +43,8 @@ class Openedx_Woocommerce_Plugin_Loader {
 	 */
 	protected $filters;
 
+	protected $styles;
+
 	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *
@@ -52,6 +54,7 @@ class Openedx_Woocommerce_Plugin_Loader {
 
 		$this->actions = array();
 		$this->filters = array();
+		$this->styles = array();
 
 	}
 
@@ -84,6 +87,21 @@ class Openedx_Woocommerce_Plugin_Loader {
 	}
 
 	/**
+	 * Add a new style to the collection to be registered with WordPress.
+	 * 
+	 * @since    1.1.1
+	 * @param    string               $handle             Name of the stylesheet. Should be unique.
+	 * @param    string               $src        Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
+	 * @param    array                $deps        An array of registered stylesheet handles this stylesheet depends on.
+	 * @param    string               $ver        String specifying the stylesheet version number, if it has one. This parameter is used to ensure that the correct version is sent to the client regardless of caching, and so should be included if a version number is available and makes sense for the stylesheet.
+	 * @param    string               $media        The media for which this stylesheet has been defined.
+	 * @return   array                                  The collection of actions and filters registered with WordPress.
+	 */
+	public function wp_enqueue_style( $handle, $src, $deps, $ver, $media ) {
+		$this->styles = $this->add_style($handle, $src, $deps, $ver, $media);
+	}
+
+	/**
 	 * A utility function that is used to register the actions and hooks into a single
 	 * collection.
 	 *
@@ -111,6 +129,20 @@ class Openedx_Woocommerce_Plugin_Loader {
 
 	}
 
+	private function add_style( $handle, $src, $deps, $ver, $media ) {
+
+		$hooks[] = array(
+			'handle'          => $handle,
+			'src'     => $src,
+			'deps'      => $deps,
+			'ver'      => $ver,
+			'media' => $media
+		);
+
+		return $hooks;
+
+	}
+
 	/**
 	 * Register the filters and actions with WordPress.
 	 *
@@ -124,6 +156,10 @@ class Openedx_Woocommerce_Plugin_Loader {
 
 		foreach ( $this->actions as $hook ) {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+		}
+
+		foreach ( $this->styles as $hook ) {
+			wp_enqueue_style( $hook['handle'], $hook['src'], $hook['deps'], $hook['ver'], $hook['media'] );
 		}
 
 	}
