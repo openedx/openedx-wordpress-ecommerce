@@ -253,11 +253,7 @@ class Openedx_Woocommerce_Plugin_Enrollment
         $enrollment_data = $data['enrollment_arr'];
 
         // Check if the enrollment main data is empty.
-        if (
-            !$enrollment_data['enrollment_course_id']
-            || !$enrollment_data['enrollment_email']
-            || !$enrollment_data['enrollment_mode']
-        ) {
+        if (is_enrollment_data_empty($enrollment_data)) {
             return;
         }
 
@@ -285,6 +281,16 @@ class Openedx_Woocommerce_Plugin_Enrollment
         }
 
         $this->log_manager->createChangeLog($post_id, $old_data, $enrollment_data, $enrollment_action);
+    }
+
+    public function is_enrollment_data_empty($enrollment_data){
+        if (
+            !$enrollment_data['enrollment_course_id']
+            || !$enrollment_data['enrollment_email']
+            || !$enrollment_data['enrollment_mode']
+        ){
+            return true;
+        }
     }
 
     public function prepare_enrollment_data($post_id, $enrollment_arr)
