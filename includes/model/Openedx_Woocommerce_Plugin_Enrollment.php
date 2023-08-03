@@ -253,7 +253,7 @@ class Openedx_Woocommerce_Plugin_Enrollment
         $enrollment_data = $data['enrollment_arr'];
 
         // Check if the enrollment main data is empty.
-        if (is_enrollment_data_empty($enrollment_data)) {
+        if ($this->is_enrollment_data_empty($enrollment_data)) {
             return;
         }
 
