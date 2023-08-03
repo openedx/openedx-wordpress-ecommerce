@@ -1,3 +1,19 @@
+## v1.2.0 - 2023-08-03
+
+### [1.2.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.1.1...v1.2.0) (2023-08-03)
+
+#### Features
+
+- implement logging system for Enrollment Requests ([#17](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/17)) ([9d05522](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/9d055228330920e84fef577c6aa7a5275e76ae75))
+
+#### Documentation
+
+- add READMEs ([#19](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/19)) ([93d1429](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/93d1429209a5dbcfc2a674d4cdfee8f7d302c27d))
+
+#### Styles
+
+- ergonomic design form ([#16](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/16)) ([e5215ab](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/e5215abef6d43e75a3750ffdfd9f23458204dfff))
+
 ## v1.1.1 - 2023-07-21
 
 ### [1.1.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.1.0...v1.1.1) (2023-07-21)

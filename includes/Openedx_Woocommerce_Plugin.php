@@ -141,6 +141,8 @@ class Openedx_Woocommerce_Plugin
 		 */
 		include_once plugin_dir_path(dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
 
+		 include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Logs.php';
+
 		/**
 		 * The class responsible for rendering the enrollment info form
 		 */
@@ -185,11 +187,12 @@ class Openedx_Woocommerce_Plugin
 		$this->loader->add_action('init', $plugin_admin, 'register_enrollment_custom_post_type');
 
 		// Render enrollment request info form
-		$this->loader->add_action('edit_form_after_title', $plugin_admin, 'render_enrollment_info_form');
+		$this->loader->add_action( 'edit_form_after_title', $plugin_admin, 'render_enrollment_info_form' );
 
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-		$this->loader->add_filter('gettext', $this, 'openedx_plugin_custom_post_message', 10, 3);
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
+		$this->loader->wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
 		$this->loader->add_action('woocommerce_product_options_general_product_data', $plugin_admin, 'add_custom_product_fields');
 		$this->loader->add_action('woocommerce_process_product_meta', $plugin_admin, 'save_custom_product_fields');
 	}
