@@ -64,12 +64,12 @@ function deactivate_openedx_woocommerce_plugin() {
  */
 function create_enrollment_logs_table() {
     global $wpdb;
-    $tabla_logs = $wpdb->prefix . 'enrollment_logs_req_table';
+    $logs_table = $wpdb->prefix . 'enrollment_logs_req_table';
 
-    if ($wpdb->get_var("SHOW TABLES LIKE '$tabla_logs'") != $tabla_logs) {
+    if ($wpdb->get_var("SHOW TABLES LIKE '$logs_table'") != $logs_table) {
         $charset_collate = $wpdb->get_charset_collate();
 
-        $sql = "CREATE TABLE $tabla_logs (
+        $sql = "CREATE TABLE $logs_table (
             id INT NOT NULL AUTO_INCREMENT,
             post_id INT NOT NULL,
             mod_date DATETIME NOT NULL,
