@@ -1,1 +1,44 @@
-# openedx-woocommerce-plugin
+# ⭐ Open edX WooCommerce Plugin
+
+It is a free, open-source WordPress plugin that aims to integrate third-party e-commerce, WooCommerce, with your Open edX platform.
+
+# Installation
+
+## Requirements
+- [WooCommerce plugin.](https://wordpress.org/plugins/woocommerce)
+
+Log in to your WordPress dashboard, navigate to the Plugins menu, click "Add New," and upload the ZIP version of this repository.
+
+<!---
+In the search field, type "Open edX WooCommerce Plugin," then click "Search Plugins." Once you've found us, you can view its details and install it by clicking "Install Now," WordPress will take it from there.
+-->
+
+<!---
+# Getting Started
+
+Connect your WordPress site with your Open edX platform by following these steps:
+- Install the Open edX WooCommerce Plugin.
+- Configure the plugin.
+- Create a product with the course info.
+- You can start selling Open edX courses with WooCommerce!
+-->
+
+# Getting Help
+
+To report a bug or request a feature, visit [issues](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues).
+
+<!---
+## Documentation
+
+See [documentation on Read the Docs](https://github.com/eduNEXT/openedx-woocommerce-plugin/).
+-->
+
+# How to Contribute
+
+Contributions are very welcome. Please read [How To Contribute](https://openedx.atlassian.net/wiki/spaces/COMM/pages/941457737/How+to+Start+Contributing+Code) for details.
+
+This project accepts all contributions, bug fixes, security fixes, maintenance work, or new features. However, please discuss your new feature idea with the maintainers before beginning development to maximize the chances of accepting your change. You can start a conversation by creating a new issue on this repo summarizing your idea.
+
+# License
+
+The code in this repository is licensed under version 2 of the GNU General Public License. Please see the [LICENSE](LICENSE.txt) file for details.
