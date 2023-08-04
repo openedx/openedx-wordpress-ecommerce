@@ -1,3 +1,11 @@
+## v1.3.0 - 2023-08-04
+
+### [1.3.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.2.0...v1.3.0) (2023-08-04)
+
+#### Features
+
+- user friendly way to add atributes to a product ([#18](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/18)) ([7103742](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/7103742e953575ea58e9127ef65c6c9521afecfd))
+
 ## v1.2.0 - 2023-08-03
 
 ### [1.2.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.1.1...v1.2.0) (2023-08-03)
