@@ -210,7 +210,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * 
 	 * @return void
 	 */
-	function my_woocommerce_admin_order_item_values($_product, $item, $item_id = null) {
+	function add_admin_order_item_values($_product, $item, $item_id = null) {
 
 		$order_id = method_exists($item, 'get_order_id') ? $item->get_order_id() : $item['order_id'];
 		$input_value = get_post_meta($order_id, 'enrollment_id' . $item_id, true);
