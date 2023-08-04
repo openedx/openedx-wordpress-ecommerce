@@ -284,7 +284,8 @@ class Openedx_Woocommerce_Plugin_Admin
 				update_post_meta($order_id, 'enrollment_id' . $item_id, $input_value);
 			}
 		}
-    
+	}
+
 	/**
 	 * Save course ID and mode fields for product
 	 *
@@ -300,3 +301,4 @@ class Openedx_Woocommerce_Plugin_Admin
 
 	}
 }
+
