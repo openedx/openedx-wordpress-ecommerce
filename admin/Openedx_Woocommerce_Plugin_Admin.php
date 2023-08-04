@@ -254,17 +254,21 @@ class Openedx_Woocommerce_Plugin_Admin
 	 * @return void
 	 */
 	function add_admin_order_item_values($_product, $item, $item_id = null) {
-
-		$order_id = method_exists($item, 'get_order_id') ? $item->get_order_id() : $item['order_id'];
-		$input_value = get_post_meta($order_id, 'enrollment_id' . $item_id, true);
-		$order_url = admin_url('post.php?post=' . intval($input_value) . '&action=edit');
+		// Check if the product has a non-empty "_course_id" metadata
+		$_course_id = get_post_meta($_product->get_id(), '_course_id', true);
 	
-		$html_output = '<td>';
-		$html_output .= '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" pattern="\d*" />';
-		$html_output .= '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px; ' . ($input_value ? '' : 'pointer-events: none; opacity: 0.6;') . '">Ir a la orden</a>';
-		$html_output .= '</td>';
-
-		echo $html_output;
+		if (!empty($_course_id)) {
+			$order_id = method_exists($item, 'get_order_id') ? $item->get_order_id() : $item['order_id'];
+			$input_value = get_post_meta($order_id, 'enrollment_id' . $item_id, true);
+			$order_url = admin_url('post.php?post=' . intval($input_value) . '&action=edit');
+	
+			$html_output = '<td>';
+			$html_output .= '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" pattern="\d*" />';
+			$html_output .= '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px; ' . ($input_value ? '' : 'pointer-events: none; opacity: 0.6;') . '">Ir a la orden</a>';
+			$html_output .= '</td>';
+	
+			echo $html_output;
+		}
 	}
 
 	/**
