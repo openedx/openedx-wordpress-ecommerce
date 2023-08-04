@@ -180,11 +180,15 @@ class Openedx_Woocommerce_Plugin {
 
 		// Render enrollment request info form
 		$this->loader->add_action( 'edit_form_after_title', $plugin_admin, 'render_enrollment_info_form' );
-
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
 		$this->loader->wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/openedx-woocommerce-plugin-admin.css', array(), $this->version, 'all' );
+
+		// Redirection from enrollment to order and enrollment to order
+		$this->loader->add_filter('woocommerce_admin_order_item_headers', $plugin_admin, 'add_custom_column_order_items');
+		$this->loader->add_action('woocommerce_admin_order_item_values', $plugin_admin, 'my_woocommerce_admin_order_item_values', 10, 3);
+		$this->loader->add_action('save_post_shop_order', $plugin_admin, 'save_order_meta_data');
 
 	}
 

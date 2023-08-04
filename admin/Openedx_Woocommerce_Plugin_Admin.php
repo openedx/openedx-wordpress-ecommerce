@@ -186,4 +186,58 @@ class Openedx_Woocommerce_Plugin_Admin {
         return new Openedx_Woocommerce_Plugin_Post_Type($post_type, $plural, $single, $description, $options);
 
     }
+
+	/**
+	 * Create a custom column in order items table inside an order
+	 * 
+	 * @param array $columns Array of order items table columns
+	 * 
+	 * @return void
+	 */
+	function add_custom_column_order_items($columns)
+	{
+		$column_name = 'Test Column';
+		echo '<th>' . $column_name . '</th>';
+	}
+
+	/**
+	 * Create a custom input in the new column in order items table
+	 * to store the enrollment id and a link to the enrollment request
+	 * 
+	 * @param array $_product Product object
+	 * @param array $item Order item
+	 * @param int $item_id Order item id
+	 * 
+	 * @return void
+	 */
+	function my_woocommerce_admin_order_item_values($_product, $item, $item_id = null) {
+
+		$order_id = method_exists($item, 'get_order_id') ? $item->get_order_id() : $item['order_id'];
+		$input_value = get_post_meta($order_id, 'enrollment_id' . $item_id, true);
+		$order_url = admin_url('post.php?post=' . intval($input_value) . '&action=edit');
+	
+		echo '<td>';
+		echo '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" />';
+		echo '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px;">Ir a la orden</a>';
+		echo '</td>';
+	}
+
+	/**
+	 * Save the enrollment id in the order meta data
+	 * 
+	 * @param int $order_id Order id
+	 * 
+	 * @return void
+	 */
+	function save_order_meta_data($order_id)
+	{
+		$items = wc_get_order($order_id)->get_items();
+
+		foreach ($items as $item_id => $item) {
+			if (isset($_POST['order_id_input' . $item_id])) {
+				$input_value = sanitize_text_field($_POST['order_id_input' . $item_id]);
+				update_post_meta($order_id, 'enrollment_id' . $item_id, $input_value);
+			}
+		}
+	}
 }

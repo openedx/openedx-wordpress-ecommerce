@@ -66,6 +66,9 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         $mode      = get_post_meta( $post_id, 'mode', true );
         $is_active = get_post_meta( $post_id, 'is_active', true );
         $order_id  = get_post_meta( $post_id, 'order_id', true );
+        if($order_id){
+            $order_url = admin_url( 'post.php?post=' . intval($order_id) ) . '&action=edit';
+        }
 
         $new_enrollment = false;
         if (! $course_id && ! $email) {
@@ -171,7 +174,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                             value="<?php echo( $order_id ); ?>">
                         </div>
                         <div style="width: 30%; display: inline-table;">
-                            <?php edit_post_link( 'view', '<p>', '</p>', $order_id ); ?>
+                            <a href="<?php if(isset($order_url)) echo $order_url ?>" class="button view_order_button">View Order</a>
                         </div>
                     </td>
                 </tr>

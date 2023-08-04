@@ -29,3 +29,7 @@
 .logs_box strong {
     font-weight: bold;
 }
+
+.wp-core-ui .button, .wp-core-ui .button-secondary{
+    vertical-align: unset;
+}
