@@ -2,6 +2,7 @@
 
 namespace App\admin\views;
 use App\model\Openedx_Woocommerce_Plugin_Log;
+use App\utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -69,6 +70,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
         if($order_id){
             $order_url = admin_url( 'post.php?post=' . intval($order_id) ) . '&action=edit';
         }
+        $mode_options = utils\get_enrollment_options();
 
         $new_enrollment = false;
         if (! $course_id && ! $email) {
@@ -103,44 +105,13 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 <tr>
                     <td class="first"><label for="openedx_enrollment_mode">Course Mode</label></td>
                     <td>
-                        <select id="openedx_enrollment_mode" name="enrollment_mode">
-                            <option value="honor" 
-                            <?php
-                            if ( $mode === 'honor' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Honor', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="audit" 
-                            <?php
-                            if ( $mode === 'audit' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Audit', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="verified" 
-                            <?php
-                            if ( $mode === 'verified' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Verified', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="credit" 
-                            <?php
-                            if ( $mode === 'credit' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Credit', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="professional" 
-                            <?php
-                            if ( $mode === 'professional' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'Professional', 'wp-edunext-marketing-site' ); ?></option>
-                            <option value="no-id-professional" 
-                            <?php
-                            if ( $mode === 'no-id-professional' ) {
-                                echo( 'selected="selected"' );}
-                            ?>
-                            ><?php esc_html_e( 'No ID Professional', 'wp-edunext-marketing-site' ); ?></option>
-                        </select>
+                    <select id="openedx_enrollment_mode" name="enrollment_mode">
+                        <?php foreach ($mode_options as $value => $label) : ?>
+                            <option value="<?php echo esc_attr($value); ?>" <?php selected($mode, $value); ?>>
+                                <?php echo esc_html($label); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                     </td>
                 </tr>
                 <tr>

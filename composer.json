@@ -15,7 +15,8 @@
 			"App\\model\\": "includes/model/",
 			"App\\admin\\": "admin/",
 			"App\\admin\\views\\": "admin/views/",
-			"App\\public\\": "public/"
+			"App\\public\\": "public/",
+			"App\\utils\\": "utils/"
 		}
 	},
 	"autoload-dev": {

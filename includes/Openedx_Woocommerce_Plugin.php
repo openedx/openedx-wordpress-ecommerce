@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use App\admin\Openedx_Woocommerce_Plugin_Admin;
 use App\public\Openedx_Woocommerce_Plugin_Public;
 
@@ -31,7 +32,8 @@ use App\public\Openedx_Woocommerce_Plugin_Public;
  * @subpackage Openedx_Woocommerce_Plugin/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Woocommerce_Plugin {
+class Openedx_Woocommerce_Plugin
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -70,8 +72,9 @@ class Openedx_Woocommerce_Plugin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
-		if ( defined( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION' ) ) {
+	public function __construct()
+	{
+		if (defined('OPENEDX_WOOCOMMERCE_PLUGIN_VERSION')) {
 			$this->version = OPENEDX_WOOCOMMERCE_PLUGIN_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -82,7 +85,6 @@ class Openedx_Woocommerce_Plugin {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -101,50 +103,55 @@ class Openedx_Woocommerce_Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/Openedx_Woocommerce_Plugin_Loader.php';
+		include_once plugin_dir_path(dirname(__FILE__)) . 'includes/Openedx_Woocommerce_Plugin_Loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/Openedx_Woocommerce_Plugin_i18n.php';
+		include_once plugin_dir_path(dirname(__FILE__)) . 'includes/Openedx_Woocommerce_Plugin_i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'admin/Openedx_Woocommerce_Plugin_Admin.php';
+		include_once plugin_dir_path(dirname(__FILE__)) . 'admin/Openedx_Woocommerce_Plugin_Admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'public/Openedx_Woocommerce_Plugin_Public.php';
+		include_once plugin_dir_path(dirname(__FILE__)) . 'public/Openedx_Woocommerce_Plugin_Public.php';
 
 		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
 
 		/**
 		 * The class responsible for defining the enrollment object
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Enrollment.php';
+		include_once plugin_dir_path(dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Enrollment.php';
 
 		/**
 		 * The class responsible for defining the custom-post-type object
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
+		include_once plugin_dir_path(dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Post_Type.php';
 
 		 include_once plugin_dir_path( dirname(__FILE__)) . 'includes/model/Openedx_Woocommerce_Plugin_Logs.php';
 
 		/**
 		 * The class responsible for rendering the enrollment info form
 		 */
-         include_once plugin_dir_path( dirname(__FILE__)) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
-         
+		include_once plugin_dir_path(dirname(__FILE__)) . 'admin/views/Openedx_Woocommerce_Plugin_Enrollment_Info_Form.php';
+
+		/**
+		 * The file that contains variables and functions used repeatedly in the plugin.
+		 */
+		include_once plugin_dir_path(dirname(__FILE__)) . 'utils/Openedx_Utils.php';
 	}
 
 	/**
@@ -156,12 +163,12 @@ class Openedx_Woocommerce_Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new Openedx_Woocommerce_Plugin_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -171,12 +178,13 @@ class Openedx_Woocommerce_Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$plugin_admin = new Openedx_Woocommerce_Plugin_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Openedx_Woocommerce_Plugin_Admin($this->get_plugin_name(), $this->get_version());
 
 		// Register enrollment request custom-post-type
-		$this->loader->add_action( 'init', $plugin_admin, 'register_enrollment_custom_post_type' );
+		$this->loader->add_action('init', $plugin_admin, 'register_enrollment_custom_post_type');
 
 		// Render enrollment request info form
 		$this->loader->add_action( 'edit_form_after_title', $plugin_admin, 'render_enrollment_info_form' );
@@ -189,7 +197,8 @@ class Openedx_Woocommerce_Plugin {
 		$this->loader->add_filter('woocommerce_admin_order_item_headers', $plugin_admin, 'add_custom_column_order_items');
 		$this->loader->add_action('woocommerce_admin_order_item_values', $plugin_admin, 'add_admin_order_item_values', 10, 3);
 		$this->loader->add_action('save_post_shop_order', $plugin_admin, 'save_order_meta_data');
-
+		$this->loader->add_action('woocommerce_product_options_general_product_data', $plugin_admin, 'add_custom_product_fields');
+		$this->loader->add_action('woocommerce_process_product_meta', $plugin_admin, 'save_custom_product_fields');
 	}
 
 	/**
@@ -199,37 +208,39 @@ class Openedx_Woocommerce_Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new Openedx_Woocommerce_Plugin_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Openedx_Woocommerce_Plugin_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 	}
 
-     /**
-     * Modify the message displayed when a custom-post-type is updated
-     * 
-     * @param string $translated_text translation text
-     * @param string $text text to be translated
-     * @param string $domain text domain
-     * @return string $translated_text post updated message
-     */
-	function openedx_plugin_custom_post_message( $translated_text, $text, $domain ) {
+	/**
+	 * Modify the message displayed when a custom-post-type is updated
+	 * 
+	 * @param string $translated_text translation text
+	 * @param string $text text to be translated
+	 * @param string $domain text domain
+	 * @return string $translated_text post updated message
+	 */
+	function openedx_plugin_custom_post_message($translated_text, $text, $domain)
+	 {
 
-		if ( $domain === 'default' && $text === 'Post updated.' ) {
-			$translated_text = 'Enrollment action executed';
-		}
-		return $translated_text;
-	}
+		if ($domain === 'default' && $text === 'Post updated.') {
+			 $translated_text = 'Enrollment action executed';
+         }
+		 return $translated_text;
+	 }
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -240,7 +251,8 @@ class Openedx_Woocommerce_Plugin {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -250,7 +262,8 @@ class Openedx_Woocommerce_Plugin {
 	 * @since     1.0.0
 	 * @return    Openedx_Woocommerce_Plugin_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -260,8 +273,8 @@ class Openedx_Woocommerce_Plugin {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
-
 }
