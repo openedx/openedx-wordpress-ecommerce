@@ -196,7 +196,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 */
 	function add_custom_column_order_items($columns)
 	{
-		$column_name = 'Test Column';
+		$column_name = 'Related Enrollment Request';
 		echo '<th>' . $column_name . '</th>';
 	}
 
@@ -216,10 +216,12 @@ class Openedx_Woocommerce_Plugin_Admin {
 		$input_value = get_post_meta($order_id, 'enrollment_id' . $item_id, true);
 		$order_url = admin_url('post.php?post=' . intval($input_value) . '&action=edit');
 	
-		echo '<td>';
-		echo '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" pattern="\d*" />';
-		echo '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px;" ' . ($input_value ? '' : 'disabled') . '>Ir a la orden</a>';
-		echo '</td>';
+		$html_output = '<td>';
+		$html_output .= '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" pattern="\d*" />';
+		$html_output .= '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px;" ' . ($input_value ? '' : 'disabled') . '>Ir a la orden</a>';
+		$html_output .= '</td>';
+
+		echo $html_output;
 	}
 
 	/**
