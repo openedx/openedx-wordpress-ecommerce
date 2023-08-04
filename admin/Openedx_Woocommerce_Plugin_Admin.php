@@ -218,7 +218,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	
 		$html_output = '<td>';
 		$html_output .= '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" pattern="\d*" />';
-		$html_output .= '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px;" ' . ($input_value ? '' : 'disabled') . '>Ir a la orden</a>';
+		$html_output .= '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px; ' . ($input_value ? '' : 'pointer-events: none; opacity: 0.6;') . '">Ir a la orden</a>';
 		$html_output .= '</td>';
 
 		echo $html_output;
