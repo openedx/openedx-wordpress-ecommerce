@@ -5,12 +5,12 @@ namespace App\utils;
 // Enrollment Request mode options
 function get_enrollment_options() {
     return array(
-        'Honor'             => __('Honor', 'woocommerce'),
-        'Audit'             => __('Audit', 'woocommerce'),
-        'Verified'          => __('Verified', 'woocommerce'),
-        'Credit'            => __('Credit', 'woocommerce'),
-        'Professional'      => __('Professional', 'woocommerce'),
-        'No ID Professional' => __('No ID Professional', 'woocommerce'),
+        'Honor'             => __('Honor', 'wp-edunext-marketing-site'),
+        'Audit'             => __('Audit', 'wp-edunext-marketing-site'),
+        'Verified'          => __('Verified', 'wp-edunext-marketing-site'),
+        'Credit'            => __('Credit', 'wp-edunext-marketing-site'),
+        'Professional'      => __('Professional', 'wp-edunext-marketing-site'),
+        'No ID Professional' => __('No ID Professional', 'wp-edunext-marketing-site'),
     );
 }
 
