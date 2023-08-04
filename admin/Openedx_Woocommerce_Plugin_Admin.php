@@ -217,8 +217,8 @@ class Openedx_Woocommerce_Plugin_Admin {
 		$order_url = admin_url('post.php?post=' . intval($input_value) . '&action=edit');
 	
 		echo '<td>';
-		echo '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" />';
-		echo '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px;">Ir a la orden</a>';
+		echo '<input type="text" name="order_id_input' . $item_id . '" value="' . esc_attr($input_value) . '" pattern="\d*" />';
+		echo '<a href="' . esc_url($order_url) . '" class="button" style="margin-left: 5px;" ' . ($input_value ? '' : 'disabled') . '>Ir a la orden</a>';
 		echo '</td>';
 	}
 
