@@ -169,13 +169,12 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                 <tr>
                     <td class="first"><label for="openedx_enrollment_order_id">WC Order ID</label></td>
                     <td>
-                        <div style="width: 30%; display: inline-table;">
-                            <input type="text" id="openedx_enrollment_order_id" name="enrollment_order_id"
-                            value="<?php echo( $order_id ); ?>">
-                        </div>
-                        <div style="width: 30%; display: inline-table;">
-                            <a href="<?php if(isset($order_url)) echo $order_url ?>" class="button view_order_button">View Order</a>
-                        </div>
+                    <div style="width: 30%; display: inline-table;">
+                        <input type="text" id="openedx_enrollment_order_id" name="enrollment_order_id" value="<?php echo esc_attr( $order_id ); ?>" pattern="\d*" title="Please enter a numeric value" />
+                    </div>
+                    <div style="width: 30%; display: inline-table;">
+                        <a href="<?php if ( isset( $order_url ) ) echo esc_url( $order_url ); ?>" class="button view_order_button" <?php echo empty( $order_id ) ? 'disabled' : ''; ?>>View Order</a>
+                    </div>
                     </td>
                 </tr>
 
