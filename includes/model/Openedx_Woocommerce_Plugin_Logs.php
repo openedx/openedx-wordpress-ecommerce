@@ -49,7 +49,7 @@ class Openedx_Woocommerce_Plugin_Log {
 
             if (empty($old_data_array['enrollment_course_id'])) {
                 $log_data['object_status'] = 'Object Created';
-                $old_data_array = '--';
+                $log_data['object_before'] = "--";
             }else{
                 $log_data['object_status'] = 'Object Modified';
             } 
