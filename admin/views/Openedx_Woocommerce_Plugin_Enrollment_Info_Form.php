@@ -173,12 +173,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
                                 <?php esc_html_e('Process no pre-enrollment --force', 'wp-edunext-marketing-site'); ?>
                             </option>
                         </select>
-                    </td>
-                </tr>
-                    
-                <tr>
-                    <td class="first"><label>Create/Update Enrollment</label></td>
-                    <td>
                         <button class="button save_order button-primary"><span><?php esc_html_e('Apply action', 'wp-edunext-marketing-site'); ?></span></button>
                     </td>
                 </tr>
