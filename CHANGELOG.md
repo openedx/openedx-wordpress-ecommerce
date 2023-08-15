@@ -1,3 +1,11 @@
+## v1.4.0 - 2023-08-15
+
+### [1.4.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.3.0...v1.4.0) (2023-08-15)
+
+#### Features
+
+- enable redirection button to order or enrollment request ([#20](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/20)) ([fc3fa59](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/fc3fa59ebf1eb93e122b042e7359a8b778f126d9))
+
 ## v1.3.0 - 2023-08-04
 
 ### [1.3.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.2.0...v1.3.0) (2023-08-04)
