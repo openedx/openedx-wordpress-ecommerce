@@ -198,16 +198,13 @@ class Openedx_Woocommerce_Plugin_Settings
         <div class="openedx-jwt-token-wrapper">
 
             <input class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
-                value="<?php echo esc_attr($masked_value); ?>" />
+                value="<?php echo esc_attr($masked_value); ?>" disabled/>
 
             <button class="button" type="button" id="generate-jwt-token">Generate JWT Token</button>
 
         </div>
 
-        <p class="description">
-        Leave blank if you're going to generate the token, otherwise enter the JWT 
-        token and save.
-        </p>
+        <p class="description"> Select the Generate Token button to obtain a JWT Token. </p>
 
     <?php
     }
