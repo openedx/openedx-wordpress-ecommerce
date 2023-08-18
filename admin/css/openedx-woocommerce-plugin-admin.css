@@ -33,3 +33,16 @@
 .wp-core-ui .button, .wp-core-ui .button-secondary{
     vertical-align: unset;
 }
+
+.openedx-jwt-token-input {
+    flex: 1;
+}
+
+#generate-jwt-token {
+    margin-left: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 30%; /* Ajusta la altura según tus preferencias */
+}
