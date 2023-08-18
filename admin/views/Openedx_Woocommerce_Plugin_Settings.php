@@ -54,7 +54,7 @@ class Openedx_Woocommerce_Plugin_Settings
      *
      * @return void
      */
-    function openedx_settings_init() 
+    public function openedx_settings_init() 
     {
         add_settings_section(
             'openedx-settings-section',
@@ -219,7 +219,7 @@ class Openedx_Woocommerce_Plugin_Settings
      * 
      * @return void
      */
-    function openedx_settings_section_callback()
+    public function openedx_settings_section_callback()
     {
         printf( 'Configuring the necessary parameters here to establish
         the connection between this plugin and your Open edX platform.');
@@ -233,7 +233,7 @@ class Openedx_Woocommerce_Plugin_Settings
      * @param string $input The input string to sanitize.
      * @return string The sanitized input string containing only alphanumeric characters.
      */
-    function custom_sanitize_alphanumeric($input) 
+    public function custom_sanitize_alphanumeric($input) 
     {
         return preg_replace('/[^a-zA-Z0-9]/', '', sanitize_text_field($input));
     }
