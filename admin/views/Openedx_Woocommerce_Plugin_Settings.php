@@ -98,7 +98,7 @@ class Openedx_Woocommerce_Plugin_Settings
         register_setting(
             'openedx-settings-group',
             'openedx-domain',
-            array($this, 'custom_sanitize_alphanumeric')
+            array($this, 'custom_sanitize_url')
         );
     
         register_setting(
@@ -192,7 +192,7 @@ class Openedx_Woocommerce_Plugin_Settings
     public function openedx_jwt_token_callback()
     {
 
-        $value = get_option('openedx-jwt-token');
+        $value = "12121adsad112ad";
         $masked_value = str_repeat('*', strlen($value) - 4) . substr($value, -4); ?>
 
         <div class="openedx-jwt-token-wrapper">
@@ -233,6 +233,25 @@ class Openedx_Woocommerce_Plugin_Settings
     public function custom_sanitize_alphanumeric($input) 
     {
         return preg_replace('/[^a-zA-Z0-9]/', '', sanitize_text_field($input));
+    }
+
+    public function custom_sanitize_url($input) 
+    {
+        $url = esc_url_raw($input);
+
+        if (empty($url)) {
+            return '';
+        }
+
+        $parsed_url = wp_parse_url($url);
+        
+        if (isset($parsed_url['scheme']) 
+        && ($parsed_url['scheme'] === 'http' 
+        || $parsed_url['scheme'] === 'https')) {
+            return $url;
+        }
+
+        return '';
     }
     
 }
