@@ -235,6 +235,15 @@ class Openedx_Woocommerce_Plugin_Settings
         return preg_replace('/[^a-zA-Z0-9]/', '', sanitize_text_field($input));
     }
 
+    /**
+     * Sanitize and validate the Open edX instance URL input.
+     *
+     * This sanitizes the input URL, checks if it is a valid http/https URL, 
+     * and returns the sanitized URL string on success or an empty string on failure.
+     *
+     * @param string $input The URL input to sanitize.
+     * @return string The sanitized URL string on success, empty string on failure.
+     */
     public function custom_sanitize_url($input) 
     {
         $url = esc_url_raw($input);
