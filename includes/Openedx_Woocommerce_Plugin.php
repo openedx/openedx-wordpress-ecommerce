@@ -254,14 +254,14 @@ class Openedx_Woocommerce_Plugin
      * @param string $domain text domain
      * @return string $translated_text post updated message
      */
-     function openedx_plugin_custom_post_message($translated_text, $text, $domain)
-	{
+	 public function openedx_plugin_custom_post_message($translated_text, $text, $domain)
+	 {
 
          if ($domain === 'default' && $text === 'Post updated.') {
 			$translated_text = 'Enrollment action executed';
 		}
 		return $translated_text;
-	}
+	 }
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

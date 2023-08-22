@@ -201,7 +201,7 @@ class Openedx_Woocommerce_Plugin_Admin
      *
      * @since    1.1.1
      */
-	 function add_custom_product_fields()
+	 public function add_custom_product_fields()
      {
         global $post;
 
@@ -245,11 +245,11 @@ class Openedx_Woocommerce_Plugin_Admin
 	 * 
 	 * @return void
 	 */
-	function add_custom_column_order_items($columns)
-	{
+	 public function add_custom_column_order_items($columns)
+	 {
 		$column_name = 'Related Enrollment Request';
 		echo '<th>' . $column_name . '</th>';
-	}
+	 }
 
 	/**
 	 * Create a custom input in the new column in order items table
@@ -261,8 +261,8 @@ class Openedx_Woocommerce_Plugin_Admin
 	 * 
 	 * @return void
 	 */
-	function add_admin_order_item_values($_product, $item, $item_id = null)
-	{
+	 public function add_admin_order_item_values($_product, $item, $item_id = null)
+	 {
 		// Check if the product has a non-empty "_course_id" metadata
 		$_course_id = get_post_meta($_product->get_id(), '_course_id', true);
 
@@ -278,7 +278,7 @@ class Openedx_Woocommerce_Plugin_Admin
 
 			echo $html_output;
 		}
-	}
+	 }
 
 	/**
 	 * Save the enrollment id in the order meta data
@@ -287,8 +287,8 @@ class Openedx_Woocommerce_Plugin_Admin
 	 * 
 	 * @return void
 	 */
-	function save_order_meta_data($order_id)
-	{
+	 public function save_order_meta_data($order_id)
+	 {
 		$items = wc_get_order($order_id)->get_items();
 
 		foreach ($items as $item_id => $item) {
@@ -297,19 +297,19 @@ class Openedx_Woocommerce_Plugin_Admin
 				update_post_meta($order_id, 'enrollment_id' . $item_id, $input_value);
 			}
 		}
-	}
+	 }
 
     /**
      * Save course ID and mode fields for product
      *
      * @since    1.1.1
      */
-     function save_custom_product_fields($post_id)
+     public function save_custom_product_fields($post_id)
      {
         $course_id = isset($_POST['_course_id']) ? sanitize_text_field($_POST['_course_id']) : '';
         $mode = isset($_POST['_mode']) ? sanitize_text_field($_POST['_mode']) : '';
 
         update_post_meta($post_id, '_course_id', $course_id);
         update_post_meta($post_id, '_mode', $mode);
-    }
+     }
 }
