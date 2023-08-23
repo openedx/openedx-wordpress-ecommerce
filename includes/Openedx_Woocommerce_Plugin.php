@@ -4,6 +4,8 @@ namespace App;
 
 use App\admin\Openedx_Woocommerce_Plugin_Admin;
 use App\public\Openedx_Woocommerce_Plugin_Public;
+use App\admin\views\Openedx_Woocommerce_Plugin_Settings;
+
 
 /**
  * The file that defines the core plugin class
@@ -85,6 +87,7 @@ class Openedx_Woocommerce_Plugin
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->define_plugin_settings_hooks();
 	 }
 
 	/**
@@ -161,6 +164,12 @@ class Openedx_Woocommerce_Plugin
          */
 		include_once plugin_dir_path(dirname(__FILE__))
 			. 'utils/Openedx_Utils.php';
+
+		/**
+		 * 
+		 */
+		include_once plugin_dir_path(dirname(__FILE__))
+			. 'admin/views/Openedx_Woocommerce_Plugin_Settings.php';
 	}
 
 	/**
@@ -209,20 +218,23 @@ class Openedx_Woocommerce_Plugin
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 		$this->loader->add_filter('gettext', $this, 'openedx_plugin_custom_post_message', 10, 3);
-		$this->loader->wp_enqueue_style($this->plugin_name, 
-										plugin_dir_url(__FILE__) 
-										. '../admin/css/openedx-woocommerce-plugin-admin.css', 
-										array(), 
-										$this->version, 
-										'all');
+		$this->loader->wp_enqueue_style(
+			$this->plugin_name, 
+			plugin_dir_url(__FILE__) . '../admin/css/openedx-woocommerce-plugin-admin.css', 
+			array(), 
+			$this->version, 
+			'all'
+		);
 
 		// Redirection from enrollment to order and enrollment to order
 		$this->loader->add_filter('woocommerce_admin_order_item_headers', $plugin_admin, 'add_custom_column_order_items');
 		$this->loader->add_action('woocommerce_admin_order_item_values', $plugin_admin, 'add_admin_order_item_values', 10, 3);
 		$this->loader->add_action('save_post_shop_order', $plugin_admin, 'save_order_meta_data');
-		$this->loader->add_action('woocommerce_product_options_general_product_data', 
-								  $plugin_admin, 
-								  'add_custom_product_fields');
+		$this->loader->add_action(
+			'woocommerce_product_options_general_product_data', 
+			$plugin_admin, 
+			'add_custom_product_fields'
+		);
 		$this->loader->add_action('woocommerce_process_product_meta', 
 								  $plugin_admin, 
 								  'save_custom_product_fields');
@@ -244,6 +256,23 @@ class Openedx_Woocommerce_Plugin
 
          $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
          $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+	}
+
+	/**
+	 * Define the plugin settings hooks.
+	 *
+	 * Initializes the Openedx_Woocommerce_Plugin_Settings class 
+	 * and registers its admin menu and settings hooks using the loader.
+	 * 
+	 * @return void
+	 */  
+	private function define_plugin_settings_hooks()
+	{
+
+		$plugin_settings = new Openedx_Woocommerce_Plugin_Settings();
+
+		$this->loader->add_action('admin_menu', $plugin_settings, 'openedx_settings_submenu');
+		$this->loader->add_action('admin_init', $plugin_settings, 'openedx_settings_init');
 	}
 
     /**
