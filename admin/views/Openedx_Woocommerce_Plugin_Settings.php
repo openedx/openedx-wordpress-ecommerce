@@ -98,25 +98,25 @@ class Openedx_Woocommerce_Plugin_Settings
         register_setting(
             'openedx-settings-group',
             'openedx-domain',
-            array($this, 'sanitize_url_in')
+            'sanitize_url'
         );
     
         register_setting(
             'openedx-settings-group',
             'openedx-client-id',
-            array($this, 'sanitize_text_in')
+            'sanitize_text_field'
         );
     
         register_setting(
             'openedx-settings-group',
             'openedx-client-secret',
-            array($this, 'sanitize_text_in')
+            'sanitize_text_field'
         );
     
         register_setting(
             'openedx-settings-group',
             'openedx-jwt-token',
-            array($this, 'sanitize_text_in')
+            'sanitize_text_field'
         );
     }
 
@@ -218,33 +218,6 @@ class Openedx_Woocommerce_Plugin_Settings
     {
         printf( 'Configuring the necessary parameters here to establish
         the connection between this plugin and your Open edX platform.');
-    }
-
-    /**
-     * Sanitize input string to only contain alphanumeric characters.
-     *
-     * This removes any non-alphanumeric characters from the given input string.
-     *
-     * @param string $input The input string to sanitize.
-     * @return string The sanitized input string containing only alphanumeric characters.
-     */
-    public function sanitize_text_in($input) 
-    {
-        return sanitize_text_field($input);
-    }
-
-    /**
-     * Sanitize and validate the Open edX instance URL input.
-     *
-     * This sanitizes the input URL, checks if it is a valid http/https URL, 
-     * and returns the sanitized URL string on success or an empty string on failure.
-     *
-     * @param string $input The URL input to sanitize.
-     * @return string The sanitized URL string on success, empty string on failure.
-     */
-    public function sanitize_url_in($input) 
-    {
-        return sanitize_url($input);
     }
     
 }
