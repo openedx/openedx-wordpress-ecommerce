@@ -1,3 +1,11 @@
+## v1.5.0 - 2023-08-23
+
+### [1.5.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.4.0...v1.5.0) (2023-08-23)
+
+#### Features
+
+- settings section for openedx plugin configuration ([#23](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/23)) ([10a31c3](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/10a31c332caa03c564c03c41e3dc25de14de2a4c))
+
 ## v1.4.0 - 2023-08-15
 
 ### [1.4.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.3.0...v1.4.0) (2023-08-15)
