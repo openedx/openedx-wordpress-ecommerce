@@ -191,14 +191,12 @@ class Openedx_Woocommerce_Plugin_Settings
      */
     public function openedx_jwt_token_callback()
     {
-
-        $value = "12121adsad112ad";
-        $masked_value = str_repeat('*', strlen($value) - 4) . substr($value, -4); ?>
+        ?>
 
         <div class="openedx-jwt-token-wrapper">
 
             <input class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
-                value="<?php echo esc_attr($masked_value); ?>" disabled/>
+                value="" disabled/>
 
             <button class="button" type="button" id="generate-jwt-token">Generate JWT Token</button>
 
