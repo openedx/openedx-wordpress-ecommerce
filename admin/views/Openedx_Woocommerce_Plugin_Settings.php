@@ -98,25 +98,25 @@ class Openedx_Woocommerce_Plugin_Settings
         register_setting(
             'openedx-settings-group',
             'openedx-domain',
-            array($this, 'custom_sanitize_url')
+            array($this, 'sanitize_url_in')
         );
     
         register_setting(
             'openedx-settings-group',
             'openedx-client-id',
-            array($this, 'custom_sanitize_alphanumeric')
+            array($this, 'sanitize_text_in')
         );
     
         register_setting(
             'openedx-settings-group',
             'openedx-client-secret',
-            array($this, 'custom_sanitize_alphanumeric')
+            array($this, 'sanitize_text_in')
         );
     
         register_setting(
             'openedx-settings-group',
             'openedx-jwt-token',
-            array($this, 'custom_sanitize_alphanumeric')
+            array($this, 'sanitize_text_in')
         );
     }
 
@@ -228,9 +228,9 @@ class Openedx_Woocommerce_Plugin_Settings
      * @param string $input The input string to sanitize.
      * @return string The sanitized input string containing only alphanumeric characters.
      */
-    public function custom_sanitize_alphanumeric($input) 
+    public function sanitize_text_in($input) 
     {
-        return preg_replace('/[^a-zA-Z0-9]/', '', sanitize_text_field($input));
+        return sanitize_text_field($input);
     }
 
     /**
@@ -242,23 +242,9 @@ class Openedx_Woocommerce_Plugin_Settings
      * @param string $input The URL input to sanitize.
      * @return string The sanitized URL string on success, empty string on failure.
      */
-    public function custom_sanitize_url($input) 
+    public function sanitize_url_in($input) 
     {
-        $url = esc_url_raw($input);
-
-        if (empty($url)) {
-            return '';
-        }
-
-        $parsed_url = wp_parse_url($url);
-        
-        if (isset($parsed_url['scheme']) 
-        && ($parsed_url['scheme'] === 'http' 
-        || $parsed_url['scheme'] === 'https')) {
-            return $url;
-        }
-
-        return '';
+        return sanitize_url($input);
     }
     
 }
