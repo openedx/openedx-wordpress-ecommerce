@@ -168,7 +168,7 @@ class Openedx_Woocommerce_Plugin_Settings
 
         if($response_message == "success"){
 
-            $exp_date = new DateTime(); // Fecha y hora actual + 1 hora
+            $exp_date = new DateTime();
             $exp_date->add(new DateInterval("PT3600S"));
             update_option('openedx-token-expiration', $exp_date);
 
