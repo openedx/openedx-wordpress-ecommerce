@@ -156,30 +156,33 @@ class Openedx_Woocommerce_Plugin_Settings
      */
     public function api_requests()
     {
-        $token = $this->api_call->generate_token(get_option("openedx-client-id"), 
-            get_option("openedx-client-secret"), get_option("openedx-domain"));
+        $response = $this->api_call->generate_token(
+            get_option("openedx-client-id"), 
+            get_option("openedx-client-secret"), 
+            get_option("openedx-domain")
+        );
+        $response_message = $response[0];
 
-        if(!is_string($token)){
+        if($response_message == "success"){
 
-            settings_errors('openedx-settings', 'true');
-            if (is_array($token)) {
-                add_settings_error('token_error', 'token_error', 
-                    "Error: ".$token[0]." - ".json_decode($token[1], true)["error"]);
-            } else {
-                add_settings_error('token_error', 'token_error', 
-                    "Error: ".$token->getMessage());
-            }
-
-        }else{
-            $success_message = "Token generated";
+            $response_data = $response[1];
             $nonce = wp_create_nonce('token_generated_nonce');
-            update_option('openedx-jwt-token', $token);
+            update_option('openedx-jwt-token', $response_data["access_token"]);
 
-            set_transient('openedx_success_message', $success_message, 10);
+            set_transient('openedx_success_message', "Token generated", 10);
             wp_redirect(admin_url('options-general.php?page=openedx-settings'));
             exit();
-        }
+        }else{
 
+            settings_errors('openedx-settings', 'true');
+            if($response_message == "error_has_response"){
+                add_settings_error('token_error', 'token_error', 
+                    "Error: ".$response[1]." - ".json_decode($response[2], true)["error"]);
+            }else{
+                add_settings_error('token_error', 'token_error', 
+                    "Error: ".$response[1]->getMessage());
+            }
+        }
     }
 
     /**

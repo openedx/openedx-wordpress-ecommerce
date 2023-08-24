@@ -54,23 +54,20 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
                 ]
             ]);
         
-            $statusCode = $response->getStatusCode();
-            $responseData = json_decode($response->getBody(), true);
-        
-            if (isset($responseData['access_token'])) {
-                $accessToken = $responseData['access_token'];
-                return $accessToken;
-            }    
+            $status_code = $response->getStatusCode();
+            $response_data = json_decode($response->getBody(), true);
+            return array("success", $response_data);
+            
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                $statusCode = $e->getResponse()->getStatusCode();
-                $errorData = $e->getResponse()->getBody()->getContents();
-                return array($statusCode, $errorData);
+                $status_code = $e->getResponse()->getStatusCode();
+                $error_data = $e->getResponse()->getBody()->getContents();
+                return array("error_has_response", $status_code, $error_data);
             } else {
-                return $e;
+                return array("error_no_response", $e);
             }
         } catch (GuzzleException $e) {
-            return $e;
+            return array("error_no_response", $e);
         }
     }
 
