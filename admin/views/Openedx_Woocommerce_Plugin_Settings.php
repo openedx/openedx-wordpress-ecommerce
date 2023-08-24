@@ -164,7 +164,7 @@ class Openedx_Woocommerce_Plugin_Settings
             settings_errors('openedx-settings', 'true');
             if (is_array($token)) {
                 add_settings_error('token_error', 'token_error', 
-                    "Error: ".$token[0]." - ".$token[1]);
+                    "Error: ".$token[0]." - ".json_decode($token[1], true)["error"]);
             } else {
                 add_settings_error('token_error', 'token_error', 
                     "Error: ".$token->getMessage());
@@ -257,7 +257,7 @@ class Openedx_Woocommerce_Plugin_Settings
         if (!empty($value)) {
             $first_part = substr($value, 0, 4);
             $last_part = substr($value, -4);
-            $hidden_part = str_repeat('*', 4);
+            $hidden_part = str_repeat('*', 8);
             $masked_value = $first_part . $hidden_part . $last_part;
         }else{
             $masked_value = "";
