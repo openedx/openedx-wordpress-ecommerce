@@ -3,6 +3,8 @@
 namespace App\admin\views;
 
 use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
+use \DateTime;
+use \DateInterval;
 
 class Openedx_Woocommerce_Plugin_Settings
 {
@@ -156,6 +158,7 @@ class Openedx_Woocommerce_Plugin_Settings
      */
     public function api_requests()
     {
+    
         $response = $this->api_call->generate_token(
             get_option("openedx-client-id"), 
             get_option("openedx-client-secret"), 
@@ -164,6 +167,10 @@ class Openedx_Woocommerce_Plugin_Settings
         $response_message = $response[0];
 
         if($response_message == "success"){
+
+            $exp_date = new DateTime(); // Fecha y hora actual + 1 hora
+            $exp_date->add(new DateInterval("PT3600S"));
+            update_option('openedx-token-expiration', $exp_date);
 
             $response_data = $response[1];
             $nonce = wp_create_nonce('token_generated_nonce');
