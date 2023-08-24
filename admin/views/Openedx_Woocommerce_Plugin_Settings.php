@@ -168,11 +168,13 @@ class Openedx_Woocommerce_Plugin_Settings
 
         if($response_message == "success"){
 
+            $response_data = $response[1];
+
+            $exp_time = $response_data["expires_in"];
             $exp_date = new DateTime();
-            $exp_date->add(new DateInterval("PT3600S"));
+            $exp_date->add(new DateInterval("PT".$exp_time."S"));
             update_option('openedx-token-expiration', $exp_date);
 
-            $response_data = $response[1];
             $nonce = wp_create_nonce('token_generated_nonce');
             update_option('openedx-jwt-token', $response_data["access_token"]);
 
