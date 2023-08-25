@@ -1,3 +1,11 @@
+## v1.6.1 - 2023-08-25
+
+### [1.6.1](https://github.com/julianramirez2/openedx-woocommerce-plugin/compare/v1.6.0...v1.6.1) (2023-08-25)
+
+### Bug Fixes
+
+- composer modified ([8e3c451](https://github.com/julianramirez2/openedx-woocommerce-plugin/commit/8e3c451604ec42272a059daf4e18b3b4e920facd))
+
 ## v1.6.0 - 2023-08-25
 
 ### [1.6.0](https://github.com/julianramirez2/openedx-woocommerce-plugin/compare/v1.5.0...v1.6.0) (2023-08-25)
