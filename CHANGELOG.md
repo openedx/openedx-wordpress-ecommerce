@@ -1,3 +1,15 @@
+## v1.6.0 - 2023-08-25
+
+### [1.6.0](https://github.com/julianramirez2/openedx-woocommerce-plugin/compare/v1.5.0...v1.6.0) (2023-08-25)
+
+#### Features
+
+- composer install ([c881706](https://github.com/julianramirez2/openedx-woocommerce-plugin/commit/c8817066fb57a591b2775cfdf18bb1d2ce0e2baf))
+
+#### Bug Fixes
+
+- workflow ([150edfa](https://github.com/julianramirez2/openedx-woocommerce-plugin/commit/150edfa3a8b85d4da649cad46680d41146dc7467))
+
 ## v1.5.0 - 2023-08-23
 
 ### [1.5.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.4.0...v1.5.0) (2023-08-23)
