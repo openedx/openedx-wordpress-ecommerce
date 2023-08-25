@@ -23,5 +23,8 @@
 		"psr-4": {
 			"App\\Tests\\": "test/"
 		}
+	},
+	"require":{
+		"guzzlehttp/guzzle": "^7.7"
 	}
 }
