@@ -1,3 +1,16 @@
+## v1.6.0 - 2023-08-28
+
+### [1.6.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.5.0...v1.6.0) (2023-08-28)
+
+#### Features
+
+- manual token generation ([#25](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/25)) ([66b2ea9](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/66b2ea9b126e746fec0f09cae7b3f6526623e574))
+
+#### Documentation
+
+- add readthedocs file ([#30](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/30)) ([373e545](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/373e545c3fa151981e503b897f5c61de360fb198))
+- add the base for the documentation ([#24](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/24)) ([c762cb0](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/c762cb024005cc96cde9786e65dfe52f977381f9))
+
 ## v1.5.0 - 2023-08-23
 
 ### [1.5.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.4.0...v1.5.0) (2023-08-23)
