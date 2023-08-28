@@ -170,6 +170,17 @@ class Openedx_Woocommerce_Plugin
 		 */
 		include_once plugin_dir_path(dirname(__FILE__))
 			. 'admin/views/Openedx_Woocommerce_Plugin_Settings.php';
+
+        /**
+         * Includes the Openedx_Woocommerce_Plugin_Api_Calls model class file.
+         * 
+         * This includes the file defining the Openedx_Woocommerce_Plugin_Api_Calls class
+         * which handles making API requests to the Open edX platform.
+         * 
+         * The path is relative to the main plugin file directory.
+         */
+		include_once plugin_dir_path(dirname(__FILE__))
+			. 'includes/model/Openedx_Woocommerce_Plugin_Api_Calls.php';
 	}
 
 	/**

@@ -2,8 +2,24 @@
 
 namespace App\admin\views;
 
+use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
+use \DateTime;
+use \DateInterval;
+
 class Openedx_Woocommerce_Plugin_Settings
 {
+
+    private $api_call;
+    /**
+     * Class constructor. 
+     * 
+     * Initializes the API Call class.
+     *
+     * @return void
+     */ 
+    public function __construct() {
+        $this->api_call = new Openedx_Woocommerce_Plugin_Api_Calls();
+    }
 
     /**
      * Add the plugin settings submenu page.
@@ -118,6 +134,64 @@ class Openedx_Woocommerce_Plugin_Settings
             'openedx-jwt-token',
             'sanitize_text_field'
         );
+
+        if(isset($_POST['generate_new_token'])){
+            $this->set_new_token();
+        }
+
+        if (get_transient('openedx_success_message')) {
+            add_settings_error('success_message', 'success_message', "New token generated", 'updated');
+            delete_transient('openedx_success_message');
+        }
+    }
+
+    /**
+     * Make API call to generate new JWT token.
+     * 
+     * Calls the Openedx_Woocommerce_Plugin_Api_Calls class to generate 
+     * a new JWT token using the Open edX API credentials saved in options.
+     * 
+     * Handles errors from the API request and redirects back to the settings
+     * page with success or error messages.
+     *
+     * @return void
+     */
+    public function set_new_token()
+    {
+    
+        $response = $this->api_call->generate_token(
+            get_option("openedx-client-id"), 
+            get_option("openedx-client-secret"), 
+            get_option("openedx-domain")
+        );
+        $response_message = $response[0];
+
+        if($response_message == "success"){
+
+            $response_data = $response[1];
+
+            $exp_time = $response_data["expires_in"];
+            $exp_date = new DateTime();
+            $exp_date->add(new DateInterval("PT".$exp_time."S"));
+            update_option('openedx-token-expiration', $exp_date);
+
+            $nonce = wp_create_nonce('token_generated_nonce');
+            update_option('openedx-jwt-token', $response_data["access_token"]);
+
+            set_transient('openedx_success_message', "Token generated", 10);
+            wp_redirect(admin_url('options-general.php?page=openedx-settings'));
+            exit();
+        }else{
+
+            settings_errors('openedx-settings', 'true');
+            if($response_message == "error_has_response"){
+                add_settings_error('token_error', 'token_error', 
+                    "Error: ".$response[1]." - ".json_decode($response[2], true)["error"]);
+            }else{
+                add_settings_error('token_error', 'token_error', 
+                    "Error: ".$response[1]->getMessage());
+            }
+        }
     }
 
     /**
@@ -191,14 +265,28 @@ class Openedx_Woocommerce_Plugin_Settings
      */
     public function openedx_jwt_token_callback()
     {
+        $value = get_option( 'openedx-jwt-token' );
+        if (!empty($value)) {
+            $first_part = substr($value, 0, 4);
+            $last_part = substr($value, -4);
+            $hidden_part = str_repeat('*', 8);
+            $masked_value = $first_part . $hidden_part . $last_part;
+        }else{
+            $masked_value = "";
+        }
+
         ?>
 
         <div class="openedx-jwt-token-wrapper">
 
             <input class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
-                value="" disabled/>
+                value="<?php echo esc_attr( $value ); ?>" hidden/>
+            <input class="openedx-jwt-token-input" type="text" value="<?php echo esc_attr( $masked_value ); ?>" readonly/>
 
-            <button class="button" type="button" id="generate-jwt-token">Generate JWT Token</button>
+            <form method="post">
+                <button class="button" type="submit" name="generate_new_token" id="generate-jwt-token">Generate JWT Token</button>
+            </form>
+            
 
         </div>
 
