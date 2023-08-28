@@ -136,7 +136,7 @@ class Openedx_Woocommerce_Plugin_Settings
         );
 
         if(isset($_POST['generate_new_token'])){
-            $this->api_requests();
+            $this->set_new_token();
         }
 
         if (get_transient('openedx_success_message')) {
@@ -156,7 +156,7 @@ class Openedx_Woocommerce_Plugin_Settings
      *
      * @return void
      */
-    public function api_requests()
+    public function set_new_token()
     {
     
         $response = $this->api_call->generate_token(
