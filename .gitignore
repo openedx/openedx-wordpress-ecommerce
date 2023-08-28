@@ -1,2 +1,8 @@
 ### Composer ###
 composer.phar
+/vendor/
+
+### Sphinx ###
+build
+.DS_Store
+source/.DS_Store
