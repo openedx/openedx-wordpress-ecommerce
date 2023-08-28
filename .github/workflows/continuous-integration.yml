@@ -12,7 +12,7 @@ jobs:
       bump_commit_sha: ${{ steps.bumpversion.outputs.commit_hash }}
     steps:
     
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
             token: ${{ secrets.WC_PAT }}
 
@@ -72,7 +72,7 @@ jobs:
       
     steps:
     
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
             token: ${{ secrets.WC_PAT }}
             
@@ -84,7 +84,17 @@ jobs:
           commit_sha: ${{ needs.bumpversion.outputs.bump_commit_sha }}
           default_bump: false
           default_prerelease_bump: false
-          
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Generate plugin zip file
+        uses: thedoctor0/zip-release@0.7.1
+        with:
+          type: 'zip'
+          filename: 'openedx-woocommerce-plugin.zip'
+          exclusions: '*.git*'
+
       - name: Create a GitHub release
         if: steps.tag_version.outputs.new_tag
         uses: ncipollo/release-action@v1
@@ -92,4 +102,5 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
+          artifacts: "openedx-woocommerce-plugin.zip"
       
