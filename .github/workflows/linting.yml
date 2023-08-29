@@ -1,29 +1,33 @@
-name: "Linting"
-
+name: WPCS check
 on:
-  pull_request:
-    paths:
-      - "**.php"
-      - "phpcs.xml"
-      - ".github/workflows/phpcs.yml"
+  pull_request
 
 jobs:
   phpcs:
+    name: PHPCS check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # important!
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # we may use whatever way to install phpcs, just specify the path on the next step
-      # however, curl seems to be the fastest
-      - name: Install PHP_CodeSniffer
-        run: |
-          curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-          php phpcs.phar --version
-
-      - uses: tinovyatkin/action-php-codesniffer@v1
+      - name: Setup PHP
+        uses: "shivammathur/setup-php@v2"
         with:
-          files: "**.php" # you may customize glob as needed
-          phpcs_path: php phpcs.phar
-          standard: phpcs.xml
+          php-version: 'latest'
+          ini-values: memory_limit=1G'
+          coverage: none
+          tools: cs2pr
+
+      - name: Install Composer dependencies
+        uses: "ramsey/composer-install@v2"
+        with:
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: Run PHPCS checks
+        id: phpcs
+        run: vendor/bin/phpcs --report-full --report-checkstyle=./phpcs-report.xml --standard=phpcs.xml
+
+      - name: Show PHPCS results in PR
+        if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+        run: cs2pr ./phpcs-report.xml
