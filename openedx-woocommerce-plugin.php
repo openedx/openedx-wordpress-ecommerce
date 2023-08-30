@@ -1,9 +1,4 @@
 <?php
-
-use App\Openedx_Woocommerce_Plugin_Activator;
-use App\Openedx_Woocommerce_Plugin_Deactivator;
-use App\Openedx_Woocommerce_Plugin;
-
 /**
  * The plugin bootstrap file
  *
@@ -29,6 +24,10 @@ use App\Openedx_Woocommerce_Plugin;
  * Domain Path:       /languages
  */
 
+use App\Openedx_Woocommerce_Plugin_Activator;
+use App\Openedx_Woocommerce_Plugin_Deactivator;
+use App\Openedx_Woocommerce_Plugin;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -46,8 +45,8 @@ define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '1.7.0' );
  * This action is documented in includes/class-openedx-woocommerce-plugin-activator.php
  */
 function activate_openedx_woocommerce_plugin() {
-    include_once plugin_dir_path(__FILE__) . 'includes/Openedx_Woocommerce_Plugin_Activator.php';
-    Openedx_Woocommerce_Plugin_Activator::activate();
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-activator.php';
+	Openedx_Woocommerce_Plugin_Activator::activate();
 }
 
 /**
@@ -55,36 +54,39 @@ function activate_openedx_woocommerce_plugin() {
  * This action is documented in includes/class-openedx-woocommerce-plugin-deactivator.php
  */
 function deactivate_openedx_woocommerce_plugin() {
-    include_once plugin_dir_path(__FILE__) . 'includes/Openedx_Woocommerce_Plugin_Deactivator.php';
-    Openedx_Woocommerce_Plugin_Deactivator::deactivate();
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-deactivator.php';
+	Openedx_Woocommerce_Plugin_Deactivator::deactivate();
 }
 
 /**
  * Create the table for the logs on plugin activation
  */
 function create_enrollment_logs_table() {
-    global $wpdb;
-    $logs_table = $wpdb->prefix . 'enrollment_logs_req_table';
+	global $wpdb;
+	$logs_table = wp_cache_get( 'enrollment_logs_req_table', 'db' );
 
-    if ($wpdb->get_var("SHOW TABLES LIKE '$logs_table'") != $logs_table) {
-        $charset_collate = $wpdb->get_charset_collate();
+	if ( ! $logs_table ) {
+		if ( $wpdb->get_var( 'SHOW TABLES LIKE enrollment_logs_req_table' ) !== $logs_table ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+			$charset_collate = $wpdb->get_charset_collate();
 
-        $sql = "CREATE TABLE $logs_table (
-            id INT NOT NULL AUTO_INCREMENT,
-            post_id INT NOT NULL,
-            mod_date DATETIME NOT NULL,
-            user VARCHAR(255) NOT NULL,
-            action_name VARCHAR(255) NOT NULL,
-            object_before LONGTEXT NOT NULL,
-            object_after LONGTEXT NOT NULL,
-            object_status VARCHAR(255) NOT NULL,
-            PRIMARY KEY (id)
-        ) $charset_collate;";
+			$sql = "CREATE TABLE $logs_table (
+				id INT NOT NULL AUTO_INCREMENT,
+				post_id INT NOT NULL,
+				mod_date DATETIME NOT NULL,
+				user VARCHAR(255) NOT NULL,
+				action_name VARCHAR(255) NOT NULL,
+				object_before LONGTEXT NOT NULL,
+				object_after LONGTEXT NOT NULL,
+				object_status VARCHAR(255) NOT NULL,
+				PRIMARY KEY (id)
+			) $charset_collate;";
 
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-        dbDelta( $sql );
-    }
+			dbDelta( $sql );
+		}
+		wp_cache_set( 'enrollment_logs_req_table', $logs_table, 'db', 3600 );
+	}
 }
 
 register_activation_hook( __FILE__, 'activate_openedx_woocommerce_plugin' );
@@ -95,7 +97,7 @@ register_deactivation_hook( __FILE__, 'deactivate_openedx_woocommerce_plugin' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/Openedx_Woocommerce_Plugin.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin.php';
 
 /**
  * Begins execution of the plugin.
@@ -110,6 +112,5 @@ function run_openedx_woocommerce_plugin() {
 
 	$plugin = new Openedx_Woocommerce_Plugin();
 	$plugin->run();
-
 }
 run_openedx_woocommerce_plugin();
