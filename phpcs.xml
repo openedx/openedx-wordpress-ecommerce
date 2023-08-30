@@ -27,6 +27,5 @@
     <rule ref="Generic.Arrays.DisallowLongArraySyntax">
         <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found"/>
         <exclude name="WordPress.Security.NonceVerification.Missing"/>
-        <exclude name="WordPress.WP.I18n.NonSingularStringLiteralContext"/>
     </rule>
 </ruleset>

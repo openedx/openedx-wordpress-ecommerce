@@ -101,7 +101,7 @@ class Openedx_Woocommerce_Plugin_Post_Type {
 			'name'               => $this->plural,
 			'singular_name'      => $this->single,
 			'name_admin_bar'     => $this->single,
-			'add_new'            => _x( 'Add New', $this->post_type, 'wp-edunext-marketing-site' ),
+			'add_new'            => _x( 'Add New', $this->post_type, 'wp-edunext-marketing-site' ), // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralContext
 			// translators: %s: Name of the post type in singular.
 			'add_new_item'       => sprintf( __( 'Add New %s', 'wp-edunext-marketing-site' ), $this->single ),
 			// translators: %s: Name of the post type in singular.

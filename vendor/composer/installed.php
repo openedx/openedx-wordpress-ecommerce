@@ -3,7 +3,7 @@
         'name' => 'php-actions/example-phpunit',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '79b0ac60b5821ef61cb765bbbd0de8f2d76a5167',
+        'reference' => '16a8857f8bd1d52868494434ea2fa532e574e0fe',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -94,7 +94,7 @@
         'php-actions/example-phpunit' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '79b0ac60b5821ef61cb765bbbd0de8f2d76a5167',
+            'reference' => '16a8857f8bd1d52868494434ea2fa532e574e0fe',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
