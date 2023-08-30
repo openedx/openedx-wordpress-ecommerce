@@ -23,6 +23,7 @@ jobs:
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
+          composer-options: "--no-dev"
 
       - name: Run PHPCS checks
         id: phpcs
