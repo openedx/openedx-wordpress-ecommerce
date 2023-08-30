@@ -1,3 +1,11 @@
+## v1.7.0 - 2023-08-30
+
+### [1.7.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.6.0...v1.7.0) (2023-08-30)
+
+#### Features
+
+- release generates zip with dependencies ([#32](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/32)) ([76e228d](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/76e228d24392994184d521472d05f96c5d75e5f0))
+
 ## v1.6.0 - 2023-08-28
 
 ### [1.6.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.5.0...v1.6.0) (2023-08-28)
