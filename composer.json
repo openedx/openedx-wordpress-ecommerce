@@ -39,6 +39,7 @@
 		}
 	},
 	"require": {
+		"phpunit/phpunit": "9.*",
 		"guzzlehttp/guzzle": "^7.7"
 	}
 }
