@@ -32,7 +32,7 @@ requirements:
 	pip-sync requirements/docs.txt
 
 serve_docs: ## serve the built docs locally to preview the site in the browser
-	sphinx-autobuild docs $(BUILDDIR)/html
+	sphinx-autobuild docs/source $(BUILDDIR)/html
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
