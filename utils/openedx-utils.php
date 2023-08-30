@@ -1,4 +1,10 @@
 <?php
+/**
+ * Open edX WooCommerce Plugin utils.
+ *
+ * @package openedx-woocommerce-plugin
+ * @since 1.6.0
+ */
 
 namespace App\utils;
 

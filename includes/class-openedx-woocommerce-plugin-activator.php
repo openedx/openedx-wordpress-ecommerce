@@ -1,7 +1,4 @@
 <?php
-
-namespace App;
-
 /**
  * Fired during plugin activation
  *
@@ -11,6 +8,8 @@ namespace App;
  * @package    Openedx_Woocommerce_Plugin
  * @subpackage Openedx_Woocommerce_Plugin/includes
  */
+
+namespace App;
 
 /**
  * Fired during plugin activation.

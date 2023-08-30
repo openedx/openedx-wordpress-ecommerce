@@ -168,6 +168,9 @@ class Openedx_Woocommerce_Plugin {
 		 */
 		include_once plugin_dir_path( __DIR__ )
 			. 'includes/model/class-openedx-woocommerce-plugin-api-calls.php';
+
+		include_once plugin_dir_path( __DIR__ )
+			. 'test/class-enrollment-test.php';
 	}
 
 	/**
@@ -284,7 +287,7 @@ class Openedx_Woocommerce_Plugin {
 	 */
 	public function openedx_plugin_custom_post_message( $translated_text, $text, $domain ) {
 
-		if ( $domain === 'default' && $text === 'Post updated.' ) {
+		if ( 'default' === $domain && 'Post updated.' === $text ) {
 			$translated_text = 'Enrollment action executed';
 		}
 		return $translated_text;

@@ -282,7 +282,23 @@ class Openedx_Woocommerce_Plugin_Admin {
 			$html_output .= '<a href="' . $order_url . '" class="button" style="margin-left: 5px; ' . ( $input_value ? '' : 'pointer-events: none; opacity: 0.6;' ) . '">View Request</a>';
 			$html_output .= '</td>';
 
-			echo $html_output;
+			echo wp_kses(
+				$html_output,
+				array(
+					'a'     => array(
+						'href'  => array(),
+						'class' => array(),
+						'style' => array(),
+					),
+					'input' => array(
+						'type'    => array(),
+						'name'    => array(),
+						'value'   => array(),
+						'pattern' => array(),
+					),
+					'td'    => array(),
+				)
+			);
 		}
 	}
 
@@ -299,7 +315,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		foreach ( $items as $item_id => $item ) {
 			if ( isset( $_POST[ 'order_id_input' . $item_id ] ) ) {
-				$input_value = sanitize_text_field( $_POST[ 'order_id_input' . $item_id ] );
+				$input_value = sanitize_text_field( wp_unslash( $_POST[ 'order_id_input' . $item_id ] ) );
 				update_post_meta( $order_id, 'enrollment_id' . $item_id, $input_value );
 			}
 		}
@@ -313,8 +329,8 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @since    1.1.1
 	 */
 	public function save_custom_product_fields( $post_id ) {
-		$course_id = isset( $_POST['_course_id'] ) ? sanitize_text_field( $_POST['_course_id'] ) : '';
-		$mode      = isset( $_POST['_mode'] ) ? sanitize_text_field( $_POST['_mode'] ) : '';
+		$course_id = isset( $_POST['_course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['_course_id'] ) ) : '';
+		$mode      = isset( $_POST['_mode'] ) ? sanitize_text_field( wp_unslash( $_POST['_mode'] ) ) : '';
 
 		update_post_meta( $post_id, '_course_id', $course_id );
 		update_post_meta( $post_id, '_mode', $mode );

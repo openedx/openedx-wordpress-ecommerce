@@ -1,7 +1,4 @@
 <?php
-
-namespace App;
-
 /**
  * Define the internationalization functionality
  *
@@ -14,6 +11,8 @@ namespace App;
  * @package    Openedx_Woocommerce_Plugin
  * @subpackage Openedx_Woocommerce_Plugin/includes
  */
+
+namespace App;
 
 /**
  * Define the internationalization functionality.

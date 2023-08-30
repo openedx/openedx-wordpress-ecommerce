@@ -36,11 +36,11 @@ class ComposerStaticInit666e86423890806e022d274bef413c27
         'A' => 
         array (
             'App\\utils\\' => 10,
+            'App\\tests\\' => 10,
             'App\\public\\' => 11,
             'App\\model\\' => 10,
             'App\\admin\\views\\' => 16,
             'App\\admin\\' => 10,
-            'App\\Tests\\' => 10,
             'App\\' => 4,
         ),
     );
@@ -48,8 +48,8 @@ class ComposerStaticInit666e86423890806e022d274bef413c27
     public static $prefixDirsPsr4 = array (
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -87,6 +87,10 @@ class ComposerStaticInit666e86423890806e022d274bef413c27
         array (
             0 => __DIR__ . '/../..' . '/utils',
         ),
+        'App\\tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/test',
+        ),
         'App\\public\\' => 
         array (
             0 => __DIR__ . '/../..' . '/public',
@@ -103,10 +107,6 @@ class ComposerStaticInit666e86423890806e022d274bef413c27
         array (
             0 => __DIR__ . '/../..' . '/admin',
         ),
-        'App\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/test',
-        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',
@@ -114,6 +114,15 @@ class ComposerStaticInit666e86423890806e022d274bef413c27
     );
 
     public static $classMap = array (
+        'App\\admin\\Openedx_Woocommerce_Plugin_Admin' => __DIR__ . '/../..' . '/admin/class-openedx-woocommerce-plugin-admin.php',
+        'App\\admin\\views\\Openedx_Woocommerce_Plugin_Enrollment_Info_Form' => __DIR__ . '/../..' . '/admin/views/class-openedx-woocommerce-plugin-enrollment-info-form.php',
+        'App\\admin\\views\\Openedx_Woocommerce_Plugin_Settings' => __DIR__ . '/../..' . '/admin/views/class-openedx-woocommerce-plugin-settings.php',
+        'App\\model\\Openedx_Woocommerce_Plugin_Api_Calls' => __DIR__ . '/../..' . '/includes/model/class-openedx-woocommerce-plugin-api-calls.php',
+        'App\\model\\Openedx_Woocommerce_Plugin_Enrollment' => __DIR__ . '/../..' . '/includes/model/class-openedx-woocommerce-plugin-enrollment.php',
+        'App\\model\\Openedx_Woocommerce_Plugin_Log' => __DIR__ . '/../..' . '/includes/model/class-openedx-woocommerce-plugin-log.php',
+        'App\\model\\Openedx_Woocommerce_Plugin_Post_Type' => __DIR__ . '/../..' . '/includes/model/class-openedx-woocommerce-plugin-post-type.php',
+        'App\\public\\Openedx_Woocommerce_Plugin_Public' => __DIR__ . '/../..' . '/public/class-openedx-woocommerce-plugin-public.php',
+        'App\\tests\\Enrollment_Test' => __DIR__ . '/../..' . '/test/class-enrollment-test.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'PHPCSUtils\\AbstractSniffs\\AbstractArrayDeclarationSniff' => __DIR__ . '/..' . '/phpcsstandards/phpcsutils/PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php',
         'PHPCSUtils\\BackCompat\\BCFile' => __DIR__ . '/..' . '/phpcsstandards/phpcsutils/PHPCSUtils/BackCompat/BCFile.php',

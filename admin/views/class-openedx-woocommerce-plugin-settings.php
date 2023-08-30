@@ -11,8 +11,8 @@
 namespace App\admin\views;
 
 use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
-use \DateTime;
-use \DateInterval;
+use DateTime;
+use DateInterval;
 
 /**
  * This class allows the user to configure the plugin settings
@@ -178,7 +178,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		);
 		$response_message = $response[0];
 
-		if ( $response_message === 'success' ) {
+		if ( 'success' === $response_message ) {
 
 			$response_data = $response[1];
 
@@ -196,7 +196,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		} else {
 
 			settings_errors( 'openedx-settings', 'true' );
-			if ( $response_message === 'error_has_response' ) {
+			if ( 'error_has_response' === $response_message ) {
 				add_settings_error(
 					'token_error',
 					'token_error',

@@ -6,6 +6,15 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\admin\\Openedx_Woocommerce_Plugin_Admin' => $baseDir . '/admin/class-openedx-woocommerce-plugin-admin.php',
+    'App\\admin\\views\\Openedx_Woocommerce_Plugin_Enrollment_Info_Form' => $baseDir . '/admin/views/class-openedx-woocommerce-plugin-enrollment-info-form.php',
+    'App\\admin\\views\\Openedx_Woocommerce_Plugin_Settings' => $baseDir . '/admin/views/class-openedx-woocommerce-plugin-settings.php',
+    'App\\model\\Openedx_Woocommerce_Plugin_Api_Calls' => $baseDir . '/includes/model/class-openedx-woocommerce-plugin-api-calls.php',
+    'App\\model\\Openedx_Woocommerce_Plugin_Enrollment' => $baseDir . '/includes/model/class-openedx-woocommerce-plugin-enrollment.php',
+    'App\\model\\Openedx_Woocommerce_Plugin_Log' => $baseDir . '/includes/model/class-openedx-woocommerce-plugin-log.php',
+    'App\\model\\Openedx_Woocommerce_Plugin_Post_Type' => $baseDir . '/includes/model/class-openedx-woocommerce-plugin-post-type.php',
+    'App\\public\\Openedx_Woocommerce_Plugin_Public' => $baseDir . '/public/class-openedx-woocommerce-plugin-public.php',
+    'App\\tests\\Enrollment_Test' => $baseDir . '/test/class-enrollment-test.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'PHPCSUtils\\AbstractSniffs\\AbstractArrayDeclarationSniff' => $vendorDir . '/phpcsstandards/phpcsutils/PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php',
     'PHPCSUtils\\BackCompat\\BCFile' => $vendorDir . '/phpcsstandards/phpcsutils/PHPCSUtils/BackCompat/BCFile.php',

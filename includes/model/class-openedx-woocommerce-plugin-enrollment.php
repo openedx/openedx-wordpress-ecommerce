@@ -211,15 +211,43 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			return;
 		}
 
-		$enrollment_arr = array(
-			'enrollment_course_id'    => sanitize_text_field( $_POST['enrollment_course_id'] ?? '' ),
-			'enrollment_email'        => sanitize_text_field( $_POST['enrollment_email'] ?? '' ),
-			'enrollment_mode'         => sanitize_text_field( $_POST['enrollment_mode'] ?? '' ),
-			'enrollment_request_type' => sanitize_text_field( $_POST['enrollment_request_type'] ?? '' ),
-			'enrollment_order_id'     => sanitize_text_field( $_POST['enrollment_order_id'] ?? '' ),
-		);
+		$enrollment_arr = array();
 
-		$enrollment_action = sanitize_text_field( $_POST['enrollment_action'] ?? '' );
+		if ( isset( $_POST['enrollment_course_id'] ) ) {
+			$enrollment_arr['enrollment_course_id'] = sanitize_text_field( wp_unslash( $_POST['enrollment_course_id'] ) );
+		} else {
+			$enrollment_arr['enrollment_course_id'] = sanitize_text_field( wp_unslash( '' ) );
+		}
+
+		if ( isset( $_POST['enrollment_email'] ) ) {
+			$enrollment_arr['enrollment_email'] = sanitize_text_field( wp_unslash( $_POST['enrollment_email'] ) );
+		} else {
+			$enrollment_arr['enrollment_email'] = sanitize_text_field( wp_unslash( '' ) );
+		}
+
+		if ( isset( $_POST['enrollment_mode'] ) ) {
+			$enrollment_arr['enrollment_mode'] = sanitize_text_field( wp_unslash( $_POST['enrollment_mode'] ) );
+		} else {
+			$enrollment_arr['enrollment_mode'] = sanitize_text_field( wp_unslash( '' ) );
+		}
+
+		if ( isset( $_POST['enrollment_request_type'] ) ) {
+			$enrollment_arr['enrollment_request_type'] = sanitize_text_field( wp_unslash( $_POST['enrollment_request_type'] ) );
+		} else {
+			$enrollment_arr['enrollment_request_type'] = sanitize_text_field( wp_unslash( '' ) );
+		}
+
+		if ( isset( $_POST['enrollment_order_id'] ) ) {
+			$enrollment_arr['enrollment_order_id'] = sanitize_text_field( wp_unslash( $_POST['enrollment_order_id'] ) );
+		} else {
+			$enrollment_arr['enrollment_order_id'] = sanitize_text_field( wp_unslash( '' ) );
+		}
+
+		if ( isset( $_POST['enrollment_action'] ) ) {
+			$enrollment_action = sanitize_text_field( wp_unslash( $_POST['enrollment_action'] ) );
+		} else {
+			$enrollment_action = sanitize_text_field( wp_unslash( '' ) );
+		}
 
 		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
 	}
@@ -356,10 +384,10 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		update_post_meta( $post_id, 'order_id', $enrollment_data['enrollment_order_id'] );
 		update_post_meta( $post_id, 'enrollment_request_type', $enrollment_data['enrollment_request_type'] );
 
-		if ( $enrollment_data['enrollment_request_type'] === 'enroll' ) {
+		if ( 'enroll' === $enrollment_data['enrollment_request_type'] ) {
 			update_post_meta( $post_id, 'is_active', true );
 		}
-		if ( $enrollment_data['enrollment_request_type'] === 'unenroll' ) {
+		if ( 'unenroll' === $enrollment_data['enrollment_request_type'] ) {
 			update_post_meta( $post_id, 'is_active', false );
 		}
 	}

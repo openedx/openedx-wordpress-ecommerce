@@ -6,7 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src', $vendorDir . '/psr/http-factory/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
@@ -16,10 +16,10 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => array($vendorDir . '/dealerdirect/phpcodesniffer-composer-installer/src'),
     'App\\utils\\' => array($baseDir . '/utils'),
+    'App\\tests\\' => array($baseDir . '/test'),
     'App\\public\\' => array($baseDir . '/public'),
     'App\\model\\' => array($baseDir . '/includes/model'),
     'App\\admin\\views\\' => array($baseDir . '/admin/views'),
     'App\\admin\\' => array($baseDir . '/admin'),
-    'App\\Tests\\' => array($baseDir . '/test'),
     'App\\' => array($baseDir . '/includes'),
 );

@@ -4,6 +4,10 @@
 
     <file>.</file>
     <exclude-pattern>./vendor/*</exclude-pattern>
+    <exclude-pattern>./includes/index.php</exclude-pattern>
+    <exclude-pattern>./admin/index.php</exclude-pattern>
+    <exclude-pattern>./public/index.php</exclude-pattern>
+    <exclude-pattern>index.php</exclude-pattern>
 
     <arg value="sp"/>
     <arg name="basepath" value="./"/>
@@ -14,17 +18,15 @@
     <rule ref="WordPress">
     </rule>
 
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\r\n"/>
+        </properties>
+    </rule>
+
     <rule ref="Generic.Arrays.DisallowLongArraySyntax">
-        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
-        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-        <exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
-        <exclude name="Squiz.Commenting.FileComment.Missing"/>
         <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found"/>
         <exclude name="WordPress.Security.NonceVerification.Missing"/>
-        <exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
-        <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
-        <exclude name="Universal.UseStatements.NoLeadingBackslash.LeadingBackslashFound"/>
-        <exclude name="WordPress.DB.DirectDatabaseQuery.DirectQuery"/>
         <exclude name="WordPress.WP.I18n.NonSingularStringLiteralContext"/>
     </rule>
 </ruleset>

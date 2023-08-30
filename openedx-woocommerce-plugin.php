@@ -66,7 +66,7 @@ function create_enrollment_logs_table() {
 	$logs_table = wp_cache_get( 'enrollment_logs_req_table', 'db' );
 
 	if ( ! $logs_table ) {
-		if ( $wpdb->get_var( 'SHOW TABLES LIKE enrollment_logs_req_table' ) !== $logs_table ) {
+		if ( $wpdb->get_var( 'SHOW TABLES LIKE enrollment_logs_req_table' ) !== $logs_table ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 			$charset_collate = $wpdb->get_charset_collate();
 
 			$sql = "CREATE TABLE $logs_table (

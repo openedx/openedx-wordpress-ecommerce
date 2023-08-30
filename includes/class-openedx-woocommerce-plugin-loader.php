@@ -1,7 +1,4 @@
 <?php
-
-namespace App;
-
 /**
  * Register all actions and filters for the plugin
  *
@@ -11,6 +8,8 @@ namespace App;
  * @package    Openedx_Woocommerce_Plugin
  * @subpackage Openedx_Woocommerce_Plugin/includes
  */
+
+namespace App;
 
 /**
  * Register all actions and filters for the plugin.

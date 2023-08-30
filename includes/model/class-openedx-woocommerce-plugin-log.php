@@ -57,7 +57,7 @@ class Openedx_Woocommerce_Plugin_Log {
 				$log_data['object_status'] = 'Object Modified';
 			}
 
-			$wpdb->insert( $logs_table, $log_data );
+			$wpdb->insert( $logs_table, $log_data ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 
 		} catch ( Exception $e ) {
 			return array( 'error', 'An error occurred creating change log: ' . $e->getMessage() );
@@ -79,8 +79,8 @@ class Openedx_Woocommerce_Plugin_Log {
 			$cache_key = 'logs_for_post_' . $post_id;
 			$logs      = wp_cache_get( $cache_key );
 
-			if ( $logs === false ) {
-				$logs = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM wp_enrollment_logs_req_table WHERE post_id = %d ORDER BY mod_date DESC', $post_id ), ARRAY_A );
+			if ( false === $logs ) {
+				$logs = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM wp_enrollment_logs_req_table WHERE post_id = %d ORDER BY mod_date DESC', $post_id ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 				wp_cache_set( $cache_key, $logs, 60 * 60 );
 			}
 

@@ -20,18 +20,22 @@
 		}
 	},
 	"autoload": {
+		"classmap": [
+			"includes/model/",
+			"admin/",
+			"admin/views/",
+			"public/",
+			"utils/",
+			"test/"
+		],
 		"psr-4": {
 			"App\\": "includes/",
 			"App\\model\\": "includes/model/",
 			"App\\admin\\": "admin/",
 			"App\\admin\\views\\": "admin/views/",
 			"App\\public\\": "public/",
-			"App\\utils\\": "utils/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"App\\Tests\\": "test/"
+			"App\\utils\\": "utils/",
+			"App\\tests\\": "test/"
 		}
 	},
 	"require": {

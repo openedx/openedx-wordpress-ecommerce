@@ -96,20 +96,20 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 		<div id="namediv" class="postbox">
 			<h2 class="">Open edX enrollment request</h2>
 			<fieldset>
-				<input type="hidden" name="new_enrollment" value="<?php echo ( $new_enrollment ); ?>">
+				<input type="hidden" name="new_enrollment" value="<?php echo wp_kses( $new_enrollment, array( 'true', 'false' ) ); ?>">
 				<table class="form-table">
 					<tbody>
 						<tr>
 							<td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
 							<td>
-								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo ( $course_id ); ?>">
+								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>">
 							</td>
 						</tr>
 						<tr>
 							<td class="first"><label>User Email</label></td>
 							<td>
 								<div style="width: 49%; display: inline-table;">
-									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo ( $email ); ?>">
+									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>">
 								</div>
 							</td>
 						</tr>
@@ -231,7 +231,18 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
 		</style>
 		<div class="logs_box">
-			<?php echo $logs; ?>
+			<?php
+			echo wp_kses(
+				$logs,
+				array(
+					'div'    => array(
+						'class' => array(),
+					),
+					'strong' => array(),
+					'br'     => array(),
+				)
+			);
+			?>
 		</div>
 
 		<?php
