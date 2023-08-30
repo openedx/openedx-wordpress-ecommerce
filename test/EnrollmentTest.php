@@ -14,17 +14,17 @@ class EnrollmentTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function test_register_enrollment_custom_post_type() {
 
-		$admin = $this->getMockBuilder( 'App\admin\Openedx_Woocommerce_Plugin_Admin' )
+		$admin = $this->getMockBuilder( 'App\admin\class-openedx-woocommerce-plugin-admin.php' )
 						->setConstructorArgs( array( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) )
 						->onlyMethods( array( 'create_enrollment_class' ) )
 						->getMock();
 
-		$admin = $this->getMockBuilder( 'App\admin\Openedx_Woocommerce_Plugin_Admin' )
+		$admin = $this->getMockBuilder( 'App\admin\class-openedx-woocommerce-plugin-admin.php' )
 						->setConstructorArgs( array( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) )
 						->onlyMethods( array( 'create_post_type' ) )
 						->getMock();
 
-		$admin = $this->getMockBuilder( 'App\admin\Openedx_Woocommerce_Plugin_Admin' )
+		$admin = $this->getMockBuilder( 'App\admin\class-openedx-woocommerce-plugin-admin.php' )
 						->setConstructorArgs( array( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) )
 						->onlyMethods( array( 'register_post_type' ) )
 						->getMock();
