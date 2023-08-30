@@ -1,7 +1,4 @@
 <?php
-
-namespace App\public;
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -11,6 +8,8 @@ namespace App\public;
  * @package    Openedx_Woocommerce_Plugin
  * @subpackage Openedx_Woocommerce_Plugin/public
  */
+
+namespace App\public;
 
 /**
  * The public-facing functionality of the plugin.
@@ -46,14 +45,13 @@ class Openedx_Woocommerce_Plugin_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param string $plugin_name       The name of the plugin.
+	 * @param string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
+		$this->version     = $version;
 	}
 
 	/**
@@ -76,7 +74,6 @@ class Openedx_Woocommerce_Plugin_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/openedx-woocommerce-plugin-public.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -99,7 +96,5 @@ class Openedx_Woocommerce_Plugin_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/openedx-woocommerce-plugin-public.js', array( 'jquery' ), $this->version, false );
-
 	}
-
 }
