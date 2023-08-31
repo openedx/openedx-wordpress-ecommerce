@@ -218,6 +218,8 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 					'course_id' => $course_id,
 				),
 			);
+
+			return $this->enrollment_request_api_call( $method, $body, $access_token );
 		}
 	}
 
