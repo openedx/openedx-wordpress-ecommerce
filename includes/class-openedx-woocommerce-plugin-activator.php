@@ -1,9 +1,6 @@
 <?php
-
-namespace App;
-
 /**
- * Fired during plugin deactivation
+ * Fired during plugin activation
  *
  * @link       https://edunext.co/
  * @since      1.0.0
@@ -12,17 +9,19 @@ namespace App;
  * @subpackage Openedx_Woocommerce_Plugin/includes
  */
 
+namespace App;
+
 /**
- * Fired during plugin deactivation.
+ * Fired during plugin activation.
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
  * @package    Openedx_Woocommerce_Plugin
  * @subpackage Openedx_Woocommerce_Plugin/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Woocommerce_Plugin_Deactivator {
+class Openedx_Woocommerce_Plugin_Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -31,8 +30,6 @@ class Openedx_Woocommerce_Plugin_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
-
+	public static function activate() {
 	}
-
 }

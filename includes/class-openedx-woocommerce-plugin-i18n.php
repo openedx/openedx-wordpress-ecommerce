@@ -1,7 +1,4 @@
 <?php
-
-namespace App;
-
 /**
  * Define the internationalization functionality
  *
@@ -15,6 +12,8 @@ namespace App;
  * @subpackage Openedx_Woocommerce_Plugin/includes
  */
 
+namespace App;
+
 /**
  * Define the internationalization functionality.
  *
@@ -26,7 +25,7 @@ namespace App;
  * @subpackage Openedx_Woocommerce_Plugin/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Woocommerce_Plugin_i18n {
+class Openedx_Woocommerce_Plugin_I18n {
 
 
 	/**
@@ -41,9 +40,5 @@ class Openedx_Woocommerce_Plugin_i18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }
