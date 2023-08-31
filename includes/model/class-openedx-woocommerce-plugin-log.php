@@ -114,8 +114,8 @@ class Openedx_Woocommerce_Plugin_Log {
 					$formatted_logs .= "<div class='log_entry_api_error'>";
 				}
 
-				$formatted_logs .= "<strong>API:</strong> " .$log['api_response'] . "<br>";
-				$formatted_logs .= "</div>";
+				$formatted_logs .= '<strong>API:</strong> ' . $log['api_response'] . '<br>';
+				$formatted_logs .= '</div>';
 				$formatted_logs .= "<div class='log_entry'>";
 				$formatted_logs .= '<strong>Timestamp:</strong> ' . gmdate( 'd-m-Y H:i:s', strtotime( $log['mod_date'] ) ) . '<br>';
 				$formatted_logs .= '<strong>User:</strong> ' . $log['user'] . '<br>';

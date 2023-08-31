@@ -12,8 +12,8 @@
 namespace App\model;
 
 require_once plugin_dir_path( dirname( __DIR__ ) ) . 'vendor/autoload.php';
-use \DateTime;
-use \DateInterval;
+use DateTime;
+use DateInterval;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\GuzzleException;
