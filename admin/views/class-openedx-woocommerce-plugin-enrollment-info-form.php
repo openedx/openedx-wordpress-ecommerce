@@ -94,8 +94,9 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
 		?>
 		<div id="namediv" class="postbox">
-			<h2 class="">Open edX enrollment request</h2>
+			
 			<fieldset>
+				<h2 class="">Open edX enrollment request</h2>
 				<input type="hidden" name="new_enrollment" value="<?php echo wp_kses( $new_enrollment, array( 'true', 'false' ) ); ?>">
 				<table class="form-table">
 					<tbody>
@@ -111,9 +112,10 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 								<div style="width: 49%; display: inline-table;">
 									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>">
 								</div>
+								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 						</tr>
-						<tr>
+						<tr class="gray_zone first_zone">
 							<td class="first"><label for="openedx_enrollment_mode">Course Mode</label></td>
 							<td>
 								<select id="openedx_enrollment_mode" name="enrollment_mode">
@@ -125,7 +127,8 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 								</select>
 							</td>
 						</tr>
-						<tr>
+
+						<tr class="gray_zone">
 							<td class="first">
 								<label for="openedx_enrollment_is_active">Request Type</label>
 							</td>
@@ -158,7 +161,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
 							</td>
 						</tr>
-						<tr>
+						<tr class="gray_zone">
 							<td class="first"><label for="openedx_enrollment_order_id">WC Order ID</label></td>
 							<td>
 								<div style="width: 30%; display: inline-table;">
@@ -174,39 +177,23 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 							</td>
 						</tr>
 
-						<tr>
-							<td class="first"><label>Choose an Action</label></td>
+						<tr class="gray_zone">
+							<td class="checkbox-td">		
+								<input class="action-checkbox" type="checkbox" id="force" name="enrollment_force" value="opcion1">
+								<label for="force"><?php esc_html_e( 'Use force', 'wp-edunext-marketing-site' ); ?></label>
+							</td>
 							<td>
-								<select name="enrollment_action" id="actions-select">
-									<option value="default" disabled selected hidden>
-										Select an option
-									</option>
-									<option value="save_no_process">
-										<?php esc_html_e( 'Save without processing', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_sync">
-										<?php esc_html_e( 'Synchronize (pull information)', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_process">
-										<?php esc_html_e( 'Process request', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_no_pre">
-										<?php esc_html_e( 'Process no pre-enrollment', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_force">
-										<?php esc_html_e( 'Process --force', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_no_pre_force">
-										<?php esc_html_e( 'Process no pre-enrollment --force', 'wp-edunext-marketing-site' ); ?>
-									</option>
-								</select>
+								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_no_pre" value="opcion1">
+								<label for="no_pre"><?php esc_html_e( "Create pre-enrollment if user doesn't exist", 'wp-edunext-marketing-site' ); ?></label>
 							</td>
 						</tr>
 
-						<tr>
-							<td class="first"><label>Create/Update Enrollment</label></td>
+						<tr class="gray_zone">
+							<td class="first">
+								<button name="enrollment_process" class="button save_order button-primary"><span><?php esc_html_e( 'Save and update OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
+							</td>
 							<td>
-								<button class="button save_order button-primary"><span><?php esc_html_e( 'Apply action', 'wp-edunext-marketing-site' ); ?></span></button>
+								<button name="save_no_process" class="button save_order button-secondary"><span><?php esc_html_e( 'Save in WordPress', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 						</tr>
 					</tbody>
