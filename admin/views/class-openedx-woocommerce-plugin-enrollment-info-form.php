@@ -103,7 +103,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 						<tr>
 							<td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
 							<td>
-								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>">
+								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>" oninput="updateCourseId(this)" onfocus="saveOriginalValue(this)" onblur="restoreOriginalValue(this)">
 								<span class="tooltip-icon">?</span>
 								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
@@ -209,6 +209,30 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 				</table>
 			</fieldset>
 		</div>
+
+		<script>
+			var originalValue = "";
+
+			function saveOriginalValue(input) {
+				originalValue = input.value;
+			}
+
+			function restoreOriginalValue(input) {
+				if (input.value !== originalValue && !input.value.startsWith("course-v1:")) {
+					input.value = originalValue;
+				}
+			}
+
+			function updateCourseId(input) {
+				var prefix = "course-v1:";
+				var currentValue = input.value;
+
+				if (currentValue !== "" && !currentValue.startsWith(prefix)) {
+					input.value = prefix;
+				}
+			}
+		</script>
+
 		<?php
 	}
 
