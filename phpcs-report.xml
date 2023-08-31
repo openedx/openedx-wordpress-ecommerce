@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="3.7.2">
+<file name="includes\model\class-openedx-woocommerce-plugin-api-calls.php">
+ <error line="15" column="5" severity="error" message="An import use statement should never start with a leading backslash" source="Universal.UseStatements.NoLeadingBackslash.LeadingBackslashFound"/>
+ <error line="16" column="5" severity="error" message="An import use statement should never start with a leading backslash" source="Universal.UseStatements.NoLeadingBackslash.LeadingBackslashFound"/>
+ <error line="243" column="34" severity="error" message="Short array syntax is not allowed" source="Universal.Arrays.DisallowShortArraySyntax.Found"/>
+</file>
+<file name="includes\model\class-openedx-woocommerce-plugin-log.php">
+ <error line="117" column="36" severity="error" message="String &quot;&lt;strong&gt;API:&lt;/strong&gt; &quot; does not require double quotes; use single quotes instead" source="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+ <error line="117" column="61" severity="error" message="Concat operator must be surrounded by a single space" source="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
+ <error line="117" column="85" severity="error" message="String &quot;&lt;br&gt;&quot; does not require double quotes; use single quotes instead" source="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+ <error line="118" column="36" severity="error" message="String &quot;&lt;/div&gt;&quot; does not require double quotes; use single quotes instead" source="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+</file>
 </checkstyle>
 

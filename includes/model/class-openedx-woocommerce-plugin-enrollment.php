@@ -13,6 +13,7 @@
 namespace App\model;
 
 use App\model\Openedx_Woocommerce_Plugin_Log;
+use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -320,7 +321,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$this->update_post( $post_id, 'enrollment-pending' );
 		}
 
-		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action );
+		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
+		$enrollment_api_response = $api->enrollment_send_request( $enrollment_data, $enrollment_action );
+		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
 	}
 
 

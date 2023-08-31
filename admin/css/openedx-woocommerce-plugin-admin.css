@@ -26,6 +26,20 @@
     margin-bottom: 10px;
 }
 
+.log_entry_api {
+    background-color: #f2f2f2;
+    border: 1px solid #51ff00;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.log_entry_api_error {
+    background-color: #f2f2f2;
+    border: 1px solid #ff0000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 .logs_box strong {
     font-weight: bold;
 }
