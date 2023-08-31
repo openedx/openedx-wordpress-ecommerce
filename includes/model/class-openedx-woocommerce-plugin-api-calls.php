@@ -142,10 +142,17 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			if ( 'enrollment_process' === $enrollment_action ) {
 				$method = 'POST';
 				$body   = array(
-					'user'           => $user[1],
-					'mode'           => strtolower( $course_mode ),
-					'course_details' => array(
+					'user'                  => $user[1],
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
 						'course_id' => $course_id,
+					),
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
 					),
 				);
 
@@ -157,12 +164,19 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
 				$body   = array(
-					'user'             => $user[1],
-					'mode'             => strtolower( $course_mode ),
-					'course_details'   => array(
+					'user'                  => $user[1],
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
 						'course_id' => $course_id,
 					),
-					'force_enrollment' => true,
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+					'force_enrollment'      => true,
 				);
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
@@ -176,12 +190,19 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			if ( 'enrollment_process' === $enrollment_action ) {
 				$method = 'POST';
 				$body   = array(
-					'user'           => $user[1],
-					'mode'           => strtolower( $course_mode ),
-					'course_details' => array(
+					'user'                  => $user[1],
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
 						'course_id' => $course_id,
 					),
-					'is_active'      => false,
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+					'is_active'             => false,
 				);
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
@@ -192,13 +213,20 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
 				$body   = array(
-					'user'             => $user[1],
-					'mode'             => strtolower( $course_mode ),
-					'course_details'   => array(
+					'user'                  => $user[1],
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
 						'course_id' => $course_id,
 					),
-					'force_enrollment' => true,
-					'is_active'        => false,
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+					'force_enrollment'      => true,
+					'is_active'             => false,
 				);
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
