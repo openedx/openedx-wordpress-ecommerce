@@ -30,14 +30,14 @@ jobs:
         with:
           find: "Version: *[0-9.]*"
           replace: "Version:           ${{ steps.tag_version.outputs.new_version }}"
-          include: "class-openedx-woocommerce-plugin.php"
+          include: "openedx-woocommerce-plugin.php"
           
       - name: Update php file version - define statement
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "(define\\( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', ')([^']*)(.*);"
           replace: "define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '${{ steps.tag_version.outputs.new_version }}' );"
-          include: "class-openedx-woocommerce-plugin.php"
+          include: "openedx-woocommerce-plugin.php"
           
       - name: Update README version
         uses: jacobtomlinson/gha-find-replace@v3
@@ -60,7 +60,7 @@ jobs:
         with:
           branch: ${{ github.ref }}
           commit_message: "docs(bumpversion): ${{ steps.tag_version.outputs.previous_tag }} → ${{ steps.tag_version.outputs.new_tag }}"
-          file_pattern: README.txt CHANGELOG.md class-openedx-woocommerce-plugin.php
+          file_pattern: README.txt CHANGELOG.md openedx-woocommerce-plugin.php
           
   release:
     needs: bumpversion
@@ -87,6 +87,8 @@ jobs:
 
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
+        with:
+          composer-options: "--no-dev"
 
       - name: Archive Release
         uses: thedoctor0/zip-release@0.7.1
