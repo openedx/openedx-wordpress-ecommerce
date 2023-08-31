@@ -251,7 +251,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 	 */
 	public function replace_admin_meta_boxes() {
 		remove_meta_box( 'submitdiv', $this->post_type, 'side' );
-
-		add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_logs_box' ), $this->post_type, 'side', 'high' );
+		add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_logs_box' ), $this->post_type, 'normal', 'high' );
 	}
 }
