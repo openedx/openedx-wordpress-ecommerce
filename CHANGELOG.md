@@ -1,3 +1,15 @@
+## v1.8.0 - 2023-08-31
+
+### [1.8.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.7.0...v1.8.0) (2023-08-31)
+
+#### Features
+
+- wpcs workflow and code quality improved ([#31](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/31)) ([50f9cb1](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/50f9cb14b6d64d048ec31a63e264ec8a58712e19))
+
+#### Bug Fixes
+
+- ci and wpcs workflow fixes ([#34](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/34)) ([847d180](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/847d180d647fb2c977dd07c85494c520f6aa3a25))
+
 ## v1.7.0 - 2023-08-30
 
 ### [1.7.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.6.0...v1.7.0) (2023-08-30)
