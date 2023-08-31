@@ -249,6 +249,11 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			return $this->enrollment_request_api_call( $method, $body, $access_token );
 		}
+
+		if ( 'save_no_process' === $enrollment_action ) {
+
+			return array( 'not_api', 'This action does not require an API call.' );
+		}
 	}
 
 	/**

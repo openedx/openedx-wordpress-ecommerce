@@ -80,6 +80,8 @@ class Openedx_Woocommerce_Plugin_Log {
 			return $response[1];
 		} elseif ( 'success' === $response[0] ) {
 			return wp_json_encode( json_decode( $response[1], true ) );
+		} elseif ( 'not_api' === $response[0] ) {
+			return 'Enrollment saved locally, action does not require an API call';
 		} else {
 			return 'API did not provide a response';
 		}
