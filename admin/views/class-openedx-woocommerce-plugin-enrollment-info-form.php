@@ -104,14 +104,18 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 							<td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
 							<td>
 								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>">
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 						<tr>
 							<td class="first"><label>User Email</label></td>
 							<td>
-								<div style="width: 49%; display: inline-table;">
-									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>">
+								<div style="width: 20%; display: inline-table;">
+									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>"> 
 								</div>
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-edunext-marketing-site' ); ?></span>
 								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 						</tr>
@@ -125,6 +129,8 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 										</option>
 									<?php endforeach; ?>
 								</select>
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 
@@ -158,22 +164,25 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 									?>
 									</option>
 								</select>
-
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 						<tr class="gray_zone">
 							<td class="first"><label for="openedx_enrollment_order_id">WC Order ID</label></td>
 							<td>
-								<div style="width: 30%; display: inline-table;">
+								<div style="width: 27%; display: inline-table;">
 									<input type="text" id="openedx_enrollment_order_id" name="enrollment_order_id" value="<?php echo esc_attr( $order_id ); ?>" pattern="\d*" />
 								</div>
-								<div style="width: 30%; display: inline-table;">
+								<div style="width: 8%; display: inline-table;">
 									<?php
 									if ( isset( $order_url ) ) {
 										echo '<a href="' . esc_url( $order_url ) . '" class="button view_order_button" style="' . ( empty( $order_id ) ? 'pointer-events: none; opacity: 0.6;' : '' ) . '">View Order</a>';
 									}
 									?>
 								</div>
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 
