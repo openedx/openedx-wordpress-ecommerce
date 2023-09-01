@@ -27,10 +27,11 @@ class Openedx_Woocommerce_Plugin_Log {
 	 * @param array  $old_data_array The old data array.
 	 * @param array  $enrollment_arr The new data array.
 	 * @param string $enrollment_action The API action to perform.
+	 * @param array  $api_response The API response.
 	 *
 	 * @return array $log_data The log data.
 	 */
-	public function create_change_log( $post_id, $old_data_array, $enrollment_arr, $enrollment_action ) {
+	public function create_change_log( $post_id, $old_data_array, $enrollment_arr, $enrollment_action, $api_response ) {
 
 		try {
 			global $wpdb;
@@ -40,6 +41,7 @@ class Openedx_Woocommerce_Plugin_Log {
 			$date     = current_time( 'mysql', true );
 			$user_id  = get_current_user_id();
 			$username = get_user_by( 'id', $user_id )->user_login;
+			$response = $this->check_api_response( $api_response );
 
 			$log_data = array(
 				'post_id'       => $post_id,
@@ -48,6 +50,7 @@ class Openedx_Woocommerce_Plugin_Log {
 				'action_name'   => $enrollment_action,
 				'object_before' => wp_json_encode( $old_data_array ),
 				'object_after'  => wp_json_encode( $enrollment_arr ),
+				'api_response'  => $response,
 			);
 
 			if ( empty( $old_data_array['enrollment_course_id'] ) ) {
@@ -61,6 +64,31 @@ class Openedx_Woocommerce_Plugin_Log {
 
 		} catch ( Exception $e ) {
 			return array( 'error', 'An error occurred creating change log: ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Check the API response from the Open edX API.
+	 *
+	 * @param array $response The API response.
+	 *
+	 * @return string $response The API response.
+	 */
+	public function check_api_response( $response ) {
+
+		switch ( $response[0] ) {
+
+			case 'error':
+				return $response[1];
+
+			case 'success':
+				return wp_json_encode( json_decode( $response[1], true ) );
+
+			case 'not_api':
+				return 'Enrollment saved locally, action does not require an API call';
+
+			default:
+				return 'API did not provide a response';
 		}
 	}
 
@@ -86,6 +114,15 @@ class Openedx_Woocommerce_Plugin_Log {
 
 			$formatted_logs = '';
 			foreach ( $logs as $log ) {
+
+				if ( null !== json_decode( $log['api_response'], true ) ) {
+					$formatted_logs .= "<div class='log_entry_api'>";
+				} else {
+					$formatted_logs .= "<div class='log_entry_api_error'>";
+				}
+
+				$formatted_logs .= '<strong>API:</strong> ' . $log['api_response'] . '<br>';
+				$formatted_logs .= '</div>';
 				$formatted_logs .= "<div class='log_entry'>";
 				$formatted_logs .= '<strong>Timestamp:</strong> ' . gmdate( 'd-m-Y H:i:s', strtotime( $log['mod_date'] ) ) . '<br>';
 				$formatted_logs .= '<strong>User:</strong> ' . $log['user'] . '<br>';
