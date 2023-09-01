@@ -78,6 +78,7 @@ function create_enrollment_logs_table() {
 				object_before LONGTEXT NOT NULL,
 				object_after LONGTEXT NOT NULL,
 				object_status VARCHAR(255) NOT NULL,
+				api_response MEDIUMTEXT NOT NULL,
 				PRIMARY KEY (id)
 			) $charset_collate;";
 
