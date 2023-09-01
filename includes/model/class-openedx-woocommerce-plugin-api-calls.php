@@ -107,7 +107,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			} elseif ( isset( json_decode( $error_data, true )['message'] ) ) {
 				return array( 'error', 'Error: ' . $status_code . ' - ' . json_decode( $error_data, true )['message'] );
 			} else {
-				return array( 'error', 'Error: ' . $status_code . ' - Please review the enrollment form information.' );
+				return array( 'error', 'Please review the enrollment form information.' );
 			}
 		}
 	}
