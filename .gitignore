@@ -1,6 +1,7 @@
 ### Composer ###
 composer.phar
 /vendor/
+phpcs-report.xml
 
 ### Sphinx ###
 build
