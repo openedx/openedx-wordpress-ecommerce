@@ -246,12 +246,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
 		if ( isset( $_POST['enrollment_process'] ) ) {
 
-			if ( isset( $_POST['enrollment_force'] ) && isset( $_POST['enrollment_no_pre'] ) ) {
-				$enrollment_action = 'enrollment_no_pre_force';
+			if ( isset( $_POST['enrollment_force'] ) && isset( $_POST['enrollment_allowed'] ) ) {
+				$enrollment_action = 'enrollment_allowed_force';
 			} elseif ( isset( $_POST['enrollment_force'] ) ) {
 				$enrollment_action = 'enrollment_force';
-			} elseif ( isset( $_POST['enrollment_no_pre'] ) ) {
-				$enrollment_action = 'enrollment_no_pre';
+			} elseif ( isset( $_POST['enrollment_allowed'] ) ) {
+				$enrollment_action = 'enrollment_allowed';
 			} else {
 				$enrollment_action = 'enrollment_process';
 			}

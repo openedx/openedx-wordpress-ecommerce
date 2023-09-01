@@ -113,3 +113,7 @@
 .tooltip-icon:hover + .tooltip-text {
     display: unset;
 }
+
+.setting_input {
+    width: 400px;
+}

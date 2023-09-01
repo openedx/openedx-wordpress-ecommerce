@@ -192,8 +192,8 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 								<label for="force"><?php esc_html_e( 'Use force', 'wp-edunext-marketing-site' ); ?></label>
 							</td>
 							<td>
-								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_no_pre" value="opcion1">
-								<label for="no_pre"><?php esc_html_e( "Create pre-enrollment if the user doesn't exist", 'wp-edunext-marketing-site' ); ?></label>
+								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_allowed" value="opcion1">
+								<label for="no_pre"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'wp-edunext-marketing-site' ); ?></label>
 							</td>
 						</tr>
 
