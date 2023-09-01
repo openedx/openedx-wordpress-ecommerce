@@ -31,6 +31,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 	const API_ACCESS_TOKEN = '/oauth2/access_token';
 	const API_ENROLLMENT   = '/api/enrollment/v1/enrollment';
+	const API_SYNC_ENROLLMENT   = '/api/enrollment/v1/enrollments';
 	const API_GET_USER     = '/api/user/v1/accounts';
 
 	/**
@@ -241,13 +242,11 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			$method = 'GET';
 			$body   = array(
-				'user'           => $user[1],
-				'course_details' => array(
-					'course_id' => $course_id,
-				),
+				'username'  => $user[1],
+				'course_id' => str_replace( '+', '%2B', $course_id ),
 			);
 
-			return $this->enrollment_request_api_call( $method, $body, $access_token );
+			return $this->enrollment_sync_request( $method, $body, $access_token );
 		}
 
 		if ( 'save_no_process' === $enrollment_action ) {
@@ -280,6 +279,35 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 						'Content-Type'  => 'application/json',
 					),
 					'json'    => $body,
+				),
+			);
+
+			$status_code   = $response->getStatusCode();
+			$response_data = $response->getBody();
+			return array( 'success', $response_data );
+		} catch ( RequestException $e ) {
+			return $this->handle_request_error( $e );
+		} catch ( GuzzleException $e ) {
+			return array( 'error', $e->getMessage() );
+		}
+	}
+
+	public function enrollment_sync_request( $method, $body, $access_token ) {
+
+		$domain = get_option( 'openedx-domain' );
+		$url = $domain . self::API_SYNC_ENROLLMENT . '?username=' . $body['username'] . '&course_id=' . $body['course_id'];
+		error_log( $url );
+
+		try {
+
+			$response = $this->client->request(
+				$method,
+				$url,
+				array(
+					'headers' => array(
+						'Authorization' => 'JWT ' . $access_token,
+						'Content-Type'  => 'application/json',
+					),
 				),
 			);
 
