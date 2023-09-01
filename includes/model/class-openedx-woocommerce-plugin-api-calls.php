@@ -304,8 +304,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	public function enrollment_sync_request( $method, $body, $access_token ) {
 
 		$domain = get_option( 'openedx-domain' );
-		$url = $domain . self::API_SYNC_ENROLLMENT . '?username=' . $body['username'] . '&course_id=' . $body['course_id'];
-		error_log( $url );
+		$url    = $domain . self::API_SYNC_ENROLLMENT . '?username=' . $body['username'] . '&course_id=' . $body['course_id'];
 
 		try {
 

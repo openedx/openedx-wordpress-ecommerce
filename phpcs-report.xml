@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="3.7.2">
+<file name="admin\class-openedx-woocommerce-plugin-admin.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="admin\partials\openedx-woocommerce-plugin-admin-display.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="admin\views\class-openedx-woocommerce-plugin-enrollment-info-form.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="admin\views\class-openedx-woocommerce-plugin-settings.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\class-openedx-woocommerce-plugin-activator.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\class-openedx-woocommerce-plugin-deactivator.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\class-openedx-woocommerce-plugin-i18n.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\class-openedx-woocommerce-plugin-loader.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\class-openedx-woocommerce-plugin.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\model\class-openedx-woocommerce-plugin-api-calls.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\model\class-openedx-woocommerce-plugin-enrollment.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\model\class-openedx-woocommerce-plugin-log.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="includes\model\class-openedx-woocommerce-plugin-post-type.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="openedx-woocommerce-plugin.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="public\class-openedx-woocommerce-plugin-public.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="public\partials\openedx-woocommerce-plugin-public-display.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="test\class-enrollment-test.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="uninstall.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+<file name="utils\openedx-utils.php">
+ <error line="1" column="1" severity="error" message="End of line character is invalid; expected &quot;\n&quot; but found &quot;\r\n&quot;" source="Generic.Files.LineEndings.InvalidEOLChar"/>
+</file>
+</checkstyle>
+

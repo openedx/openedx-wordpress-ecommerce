@@ -76,14 +76,19 @@ class Openedx_Woocommerce_Plugin_Log {
 	 */
 	public function check_api_response( $response ) {
 
-		if ( 'error' === $response[0] ) {
-			return $response[1];
-		} elseif ( 'success' === $response[0] ) {
-			return wp_json_encode( json_decode( $response[1], true ) );
-		} elseif ( 'not_api' === $response[0] ) {
-			return 'Enrollment saved locally, action does not require an API call';
-		} else {
-			return 'API did not provide a response';
+		switch ( $response[0] ) {
+
+			case 'error':
+				return $response[1];
+
+			case 'success':
+				return wp_json_encode( json_decode( $response[1], true ) );
+
+			case 'not_api':
+				return 'Enrollment saved locally, action does not require an API call';
+
+			default:
+				return 'API did not provide a response';
 		}
 	}
 
