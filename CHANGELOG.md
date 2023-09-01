@@ -1,3 +1,15 @@
+## v1.9.0 - 2023-09-01
+
+### [1.9.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.8.0...v1.9.0) (2023-09-01)
+
+#### Features
+
+- enrollment with api requests ([#35](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/35)) ([e6ad1cd](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/e6ad1cdc03b41dcfe0e551baeba0f508579501f5))
+
+#### Documentation
+
+- fix warnings in the docs compilation ([#33](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/33)) ([22daabd](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/22daabd0269bc956f8713a6954f1f2c734176459))
+
 ## v1.8.0 - 2023-08-31
 
 ### [1.8.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.7.0...v1.8.0) (2023-08-31)
