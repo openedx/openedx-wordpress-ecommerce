@@ -121,6 +121,11 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 */
 	public function enrollment_send_request( $enrollment_data, $enrollment_action ) {
 
+		if ( 'save_no_process' === $enrollment_action ) {
+
+			return array( 'not_api', 'This action does not require an API call.' );
+		}
+
 		$access_token = $this->check_access_token();
 		$user         = $this->get_user( $enrollment_data['enrollment_email'], $access_token );
 
@@ -247,11 +252,6 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			);
 
 			return $this->enrollment_sync_request( $method, $body, $access_token );
-		}
-
-		if ( 'save_no_process' === $enrollment_action ) {
-
-			return array( 'not_api', 'This action does not require an API call.' );
 		}
 	}
 
