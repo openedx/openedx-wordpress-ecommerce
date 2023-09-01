@@ -94,26 +94,32 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
 		?>
 		<div id="namediv" class="postbox">
-			<h2 class="">Open edX enrollment request</h2>
+			
 			<fieldset>
+				<h2 class="">Open edX enrollment request</h2>
 				<input type="hidden" name="new_enrollment" value="<?php echo wp_kses( $new_enrollment, array( 'true', 'false' ) ); ?>">
 				<table class="form-table">
 					<tbody>
 						<tr>
 							<td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
 							<td>
-								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>">
+								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>" oninput="updateCourseId(this)" onfocus="saveOriginalValue(this)" onblur="restoreOriginalValue(this)">
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'The id of the course to be used for the enroll, e.g. course-v1:edX+DemoX+Demo_Course.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 						<tr>
 							<td class="first"><label>User Email</label></td>
 							<td>
-								<div style="width: 49%; display: inline-table;">
-									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>">
+								<div style="width: 20%; display: inline-table;">
+									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>"> 
 								</div>
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'The email of the user to be used for the enroll.', 'wp-edunext-marketing-site' ); ?></span>
+								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 						</tr>
-						<tr>
+						<tr class="gray_zone first_zone">
 							<td class="first"><label for="openedx_enrollment_mode">Course Mode</label></td>
 							<td>
 								<select id="openedx_enrollment_mode" name="enrollment_mode">
@@ -123,9 +129,12 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 										</option>
 									<?php endforeach; ?>
 								</select>
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'The mode of your enrollment request. Make sure to set a mode that your course has.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
-						<tr>
+
+						<tr class="gray_zone">
 							<td class="first">
 								<label for="openedx_enrollment_is_active">Request Type</label>
 							</td>
@@ -155,64 +164,75 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 									?>
 									</option>
 								</select>
-
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'The type of your request. If you select Enroll, you will create an enrollment, and if you select Un-enroll, you will set a soft unenrollment (enrollment with status inactive).', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
-						<tr>
+						<tr class="gray_zone">
 							<td class="first"><label for="openedx_enrollment_order_id">WC Order ID</label></td>
 							<td>
-								<div style="width: 30%; display: inline-table;">
+								<div style="width: 27%; display: inline-table;">
 									<input type="text" id="openedx_enrollment_order_id" name="enrollment_order_id" value="<?php echo esc_attr( $order_id ); ?>" pattern="\d*" />
 								</div>
-								<div style="width: 30%; display: inline-table;">
+								<div style="width: 8%; display: inline-table;">
 									<?php
 									if ( isset( $order_url ) ) {
 										echo '<a href="' . esc_url( $order_url ) . '" class="button view_order_button" style="' . ( empty( $order_id ) ? 'pointer-events: none; opacity: 0.6;' : '' ) . '">View Order</a>';
 									}
 									?>
 								</div>
+								<span class="tooltip-icon">?</span>
+								<span class="tooltip-text"><?php esc_html_e( 'The id of the order associated with this request.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 
-						<tr>
-							<td class="first"><label>Choose an Action</label></td>
+						<tr class="gray_zone">
+							<td class="checkbox-td">		
+								<input class="action-checkbox" type="checkbox" id="force" name="enrollment_force" value="opcion1">
+								<label for="force"><?php esc_html_e( 'Use force', 'wp-edunext-marketing-site' ); ?></label>
+							</td>
 							<td>
-								<select name="enrollment_action" id="actions-select">
-									<option value="default" disabled selected hidden>
-										Select an option
-									</option>
-									<option value="save_no_process">
-										<?php esc_html_e( 'Save without processing', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_sync">
-										<?php esc_html_e( 'Synchronize (pull information)', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_process">
-										<?php esc_html_e( 'Process request', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_no_pre">
-										<?php esc_html_e( 'Process no pre-enrollment', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_force">
-										<?php esc_html_e( 'Process --force', 'wp-edunext-marketing-site' ); ?>
-									</option>
-									<option value="enrollment_no_pre_force">
-										<?php esc_html_e( 'Process no pre-enrollment --force', 'wp-edunext-marketing-site' ); ?>
-									</option>
-								</select>
+								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_allowed" value="opcion1">
+								<label for="no_pre"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'wp-edunext-marketing-site' ); ?></label>
 							</td>
 						</tr>
 
-						<tr>
-							<td class="first"><label>Create/Update Enrollment</label></td>
+						<tr class="gray_zone">
+							<td class="first">
+								<button name="enrollment_process" class="button save_order button-primary"><span><?php esc_html_e( 'Save and update OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
+							</td>
 							<td>
-								<button class="button save_order button-primary"><span><?php esc_html_e( 'Apply action', 'wp-edunext-marketing-site' ); ?></span></button>
+								<button name="save_no_process" class="button save_order button-secondary"><span><?php esc_html_e( 'Save in WordPress', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</fieldset>
 		</div>
+
+		<script>
+			var originalValue = "";
+
+			function saveOriginalValue(input) {
+				originalValue = input.value;
+			}
+
+			function restoreOriginalValue(input) {
+				if (input.value !== originalValue && !input.value.startsWith("course-v1:")) {
+					input.value = originalValue;
+				}
+			}
+
+			function updateCourseId(input) {
+				var prefix = "course-v1:";
+				var currentValue = input.value;
+
+				if (currentValue !== "" && !currentValue.startsWith(prefix)) {
+					input.value = prefix;
+				}
+			}
+		</script>
+
 		<?php
 	}
 
@@ -255,7 +275,6 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 	 */
 	public function replace_admin_meta_boxes() {
 		remove_meta_box( 'submitdiv', $this->post_type, 'side' );
-
-		add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_logs_box' ), $this->post_type, 'side', 'high' );
+		add_meta_box( 'openedx_enrollment_request_actions', 'Enrollment Operation Logs', array( $this, 'render_logs_box' ), $this->post_type, 'normal', 'high' );
 	}
 }

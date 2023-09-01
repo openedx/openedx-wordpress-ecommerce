@@ -164,7 +164,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
-			} elseif ( 'enrollment_no_pre' === $enrollment_action ) {
+			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 				// This space is for the no pre-enrollment call.
 				return array( 'error', 'This feature is not implemented yet.' );
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
@@ -187,7 +187,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
-			} elseif ( 'enrollment_no_pre_force' === $enrollment_action ) {
+			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 				// This space is for the no pre-enrollment call.
 				return array( 'error', 'This feature is not implemented yet.' );
 			}
@@ -213,7 +213,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
-			} elseif ( 'enrollment_no_pre' === $enrollment_action ) {
+			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 				// This space is for the no pre-enrollment call.
 				return array( 'error', 'This feature is not implemented yet.' );
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
@@ -237,7 +237,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
-			} elseif ( 'enrollment_no_pre_force' === $enrollment_action ) {
+			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 				// This space is for the no pre-enrollment call.
 				return array( 'error', 'This feature is not implemented yet.' );
 			}

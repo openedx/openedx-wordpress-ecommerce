@@ -223,7 +223,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		$value = get_option( 'openedx-domain' );
 		?>
 
-		<input type="text" name="openedx-domain" id="openedx-domain" 
+		<input class="setting_input" type="text" name="openedx-domain" id="openedx-domain" 
 			value="<?php echo esc_attr( $value ); ?>" required />
 
 		<p class='description'>Your Open edX platform's web address.</p>
@@ -242,7 +242,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		$value = get_option( 'openedx-client-id' );
 		?>
 
-		<input type="text" name="openedx-client-id" id="openedx-client-id" 
+		<input class="setting_input" type="text" name="openedx-client-id" id="openedx-client-id" 
 			value="<?php echo esc_attr( $value ); ?>" required />
 
 		<p class="description">Identifier for OAuth application in your Open edX 
@@ -263,7 +263,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		$value = get_option( 'openedx-client-secret' );
 		?>
 
-		<input type="text" name="openedx-client-secret" id="openedx-client-secret" 
+		<input class="setting_input" type="text" name="openedx-client-secret" id="openedx-client-secret" 
 			value="<?php echo esc_attr( $value ); ?>" required />
 
 		<p class="description">
@@ -296,9 +296,9 @@ class Openedx_Woocommerce_Plugin_Settings {
 
 		<div class="openedx-jwt-token-wrapper">
 
-			<input class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
+			<input class="setting_input" class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
 				value="<?php echo esc_attr( $value ); ?>" hidden/>
-			<input class="openedx-jwt-token-input" type="text" value="<?php echo esc_attr( $masked_value ); ?>" readonly/>
+			<input class="setting_input" class="openedx-jwt-token-input" type="text" value="<?php echo esc_attr( $masked_value ); ?>" readonly/>
 
 			<form method="post">
 				<button class="button" type="submit" name="generate_new_token" id="generate-jwt-token">Generate JWT Token</button>

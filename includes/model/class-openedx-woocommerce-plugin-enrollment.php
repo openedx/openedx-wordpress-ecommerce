@@ -244,10 +244,25 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$enrollment_arr['enrollment_order_id'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
-		if ( isset( $_POST['enrollment_action'] ) ) {
-			$enrollment_action = sanitize_text_field( wp_unslash( $_POST['enrollment_action'] ) );
-		} else {
-			$enrollment_action = sanitize_text_field( wp_unslash( '' ) );
+		if ( isset( $_POST['enrollment_process'] ) ) {
+
+			if ( isset( $_POST['enrollment_force'] ) && isset( $_POST['enrollment_allowed'] ) ) {
+				$enrollment_action = 'enrollment_allowed_force';
+			} elseif ( isset( $_POST['enrollment_force'] ) ) {
+				$enrollment_action = 'enrollment_force';
+			} elseif ( isset( $_POST['enrollment_allowed'] ) ) {
+				$enrollment_action = 'enrollment_allowed';
+			} else {
+				$enrollment_action = 'enrollment_process';
+			}
+		}
+
+		if ( isset( $_POST['save_no_process'] ) ) {
+			$enrollment_action = 'save_no_process';
+		}
+
+		if ( isset( $_POST['enrollment_sync'] ) ) {
+			$enrollment_action = 'enrollment_sync';
 		}
 
 		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action );

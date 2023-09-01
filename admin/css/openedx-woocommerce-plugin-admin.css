@@ -3,10 +3,6 @@
  * included in this file.
  */
 
- #namediv{
-    padding: 50px 20px 50px 20px;
- }
-
  .logs_box {
     max-width: 100%;
     max-height: 477px;
@@ -56,7 +52,68 @@
     margin-left: 10px;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 30%;
+#namediv input[type="text"],
+#namediv input[type="password"],
+#namediv input[type="email"] {
+    width: 300px;
+}
+
+#namediv select {
+    width: 300px;
+}
+
+#namediv input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.gray_zone {
+    background: #f8f8f8;
+}
+
+.form-table td {
+    padding: 20px 20px 20px 20px;
+}
+
+.first{
+    width: 10%;
+}
+
+.first_zone{
+    border-top: 1px solid rgb(197, 197, 197);   
+}
+
+.sync_button{
+    float: right;
+}
+
+.tooltip-icon {
+    font-size: 10px;
+    color: white;
+    position: relative;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: #a5a5a5;
+    border-radius: 50%;
+    padding: 1px 6px 1px 6px;
+}
+
+.tooltip-text {
+    display: none;
+    font-size: 10px;
+    padding: 2px 8px 3px 8px;
+    background-color: #a5a5a5;
+    color: white;
+    font-size: bold;
+    border-radius: 5px;
+}
+
+.tooltip-icon:hover + .tooltip-text {
+    display: unset;
+}
+
+.setting_input {
+    width: 400px;
 }

@@ -278,8 +278,8 @@ class Openedx_Woocommerce_Plugin_Admin {
 			$order_url   = esc_url( admin_url( 'post.php?post=' . intval( $input_value ) . '&action=edit' ) );
 
 			$html_output  = '<td>';
-			$html_output .= '<input type="text" name="order_id_input' . esc_attr( $item_id ) . '" value="' . esc_attr( $input_value ) . '" pattern="\d*" />';
-			$html_output .= '<a href="' . $order_url . '" class="button" style="margin-left: 5px; ' . ( $input_value ? '' : 'pointer-events: none; opacity: 0.6;' ) . '">View Request</a>';
+			$html_output .= '<input style="height:30px;" type="text" name="order_id_input' . esc_attr( $item_id ) . '" value="' . esc_attr( $input_value ) . '" pattern="\d*" />';
+			$html_output .= '<a href="' . $order_url . '" class="button" style="margin-left: 5px; vertical-align: bottom;' . ( $input_value ? '' : 'pointer-events: none; opacity: 0.6;' ) . '">View Request</a>';
 			$html_output .= '</td>';
 
 			echo wp_kses(
@@ -295,6 +295,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 						'name'    => array(),
 						'value'   => array(),
 						'pattern' => array(),
+						'style'   => array(),
 					),
 					'td'    => array(),
 				)
