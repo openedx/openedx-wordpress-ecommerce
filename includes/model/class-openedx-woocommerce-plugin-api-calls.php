@@ -29,10 +29,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Openedx_Woocommerce_Plugin_Api_Calls {
 
 
-	const API_ACCESS_TOKEN = '/oauth2/access_token';
-	const API_ENROLLMENT   = '/api/enrollment/v1/enrollment';
-	const API_SYNC_ENROLLMENT   = '/api/enrollment/v1/enrollments';
-	const API_GET_USER     = '/api/user/v1/accounts';
+	const API_ACCESS_TOKEN    = '/oauth2/access_token';
+	const API_ENROLLMENT      = '/api/enrollment/v1/enrollment';
+	const API_SYNC_ENROLLMENT = '/api/enrollment/v1/enrollments';
+	const API_GET_USER        = '/api/user/v1/accounts';
 
 	/**
 	 * The Guzzle HTTP client object.
@@ -292,6 +292,15 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 		}
 	}
 
+	/**
+	 * API call for synchronization requests.
+	 *
+	 * @param string $method The HTTP method to use.
+	 * @param array  $body The request body.
+	 * @param string $access_token The access token.
+	 *
+	 * @return array The response array.
+	 */
 	public function enrollment_sync_request( $method, $body, $access_token ) {
 
 		$domain = get_option( 'openedx-domain' );
