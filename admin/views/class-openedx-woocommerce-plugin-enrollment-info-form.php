@@ -178,7 +178,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 									<?php
 									if ( isset( $order_url ) ) {
 										echo '<a href="' . esc_url( $order_url ) . '" class="button view_order_button" style="' . ( empty( $order_id ) ? 'pointer-events: none; opacity: 0.6;' : '' ) . '">View Order</a>';
-									}else{
+									} else {
 										echo '<a href="" class="button view_order_button" style="pointer-events: none; opacity: 0.6;">View Order</a>';
 									}
 									?>
