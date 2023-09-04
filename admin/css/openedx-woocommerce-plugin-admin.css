@@ -88,7 +88,7 @@
 }
 
 .tooltip-icon {
-    font-size: 10px;
+    font-size: 13px;
     color: white;
     position: relative;
     top: 50%;
@@ -97,12 +97,12 @@
     cursor: pointer;
     background-color: #a5a5a5;
     border-radius: 50%;
-    padding: 1px 6px 1px 6px;
+    padding: 1px 6.5px 1px 6.5px;
 }
 
 .tooltip-text {
     display: none;
-    font-size: 10px;
+    font-size: 13px;
     padding: 2px 8px 3px 8px;
     background-color: #a5a5a5;
     color: white;

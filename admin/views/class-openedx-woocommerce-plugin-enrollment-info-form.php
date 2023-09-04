@@ -165,7 +165,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 									</option>
 								</select>
 								<span class="tooltip-icon">?</span>
-								<span class="tooltip-text"><?php esc_html_e( 'The type of your request. If you select Enroll, you will create an enrollment, and if you select Un-enroll, you will set a soft unenrollment (enrollment with status inactive).', 'wp-edunext-marketing-site' ); ?></span>
+								<span class="tooltip-text"><?php esc_html_e( 'The type of your request. If you select Enroll, you will create an enrollment, and if you select Un-enroll, you will set a soft unenrollment.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
 						</tr>
 						<tr class="gray_zone">
