@@ -117,3 +117,7 @@
 .setting_input {
     width: 400px;
 }
+
+#namediv #openedx_enrollment_order_id {
+    width: 200px;
+}
