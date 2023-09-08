@@ -103,7 +103,15 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 						<tr>
 							<td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
 							<td>
-								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>" oninput="updateCourseId(this)" onfocus="saveOriginalValue(this)" onblur="restoreOriginalValue(this)">
+								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>" oninput="updateCourseId(this)" onfocus="saveOriginalValue(this)" onblur="restoreOriginalValue(this)"
+								<?php
+								if ( '' !== $course_id ) {
+									?>
+									readonly
+									<?php
+								}
+								?>
+								>
 								<span class="tooltip-icon">?</span>
 								<span class="tooltip-text"><?php esc_html_e( 'The id of the course to be used for the enroll, e.g. course-v1:edX+DemoX+Demo_Course.', 'wp-edunext-marketing-site' ); ?></span>
 							</td>
