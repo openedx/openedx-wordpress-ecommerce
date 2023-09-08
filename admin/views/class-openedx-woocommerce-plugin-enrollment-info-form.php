@@ -199,7 +199,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 						<tr class="gray_zone">
 							<td class="checkbox-td">		
 								<input class="action-checkbox" type="checkbox" id="force" name="enrollment_force" value="opcion1">
-								<label for="force"><?php esc_html_e( 'Use force', 'wp-edunext-marketing-site' ); ?></label>
+								<label for="force"><?php esc_html_e( 'Use the "force" flag', 'wp-edunext-marketing-site' ); ?></label>
 							</td>
 							<td>
 								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_allowed" value="opcion1">
