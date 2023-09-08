@@ -48,8 +48,8 @@ class Openedx_Woocommerce_Plugin_Settings {
 	public function openedx_settings_submenu() {
 		add_submenu_page(
 			'options-general.php',
-			'Open edX Settings',
-			'Open edX Sync',
+			'Open edX Sync Plugin Settings',
+			'Open edX Sync Plugin',
 			'manage_options',
 			'openedx-settings',
 			array( $this, 'openedx_settings_page' )
@@ -66,7 +66,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 	public function openedx_settings_page() {
 		?>
 		<div class="wrap">
-			<h2>Open edX Settings</h2>
+			<h2>Open edX Sync Plugin Settings</h2>
 			<form method="post" action="options.php">
 				<?php settings_fields( 'openedx-settings-group' ); ?>
 				<?php do_settings_sections( 'openedx-settings' ); ?>

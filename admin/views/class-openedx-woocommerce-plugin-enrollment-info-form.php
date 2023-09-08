@@ -124,7 +124,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 								</div>
 								<span class="tooltip-icon">?</span>
 								<span class="tooltip-text"><?php esc_html_e( 'The email of the user to be used for the enroll.', 'wp-edunext-marketing-site' ); ?></span>
-								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
+								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from Open edX', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 						</tr>
 						<tr class="gray_zone first_zone">
@@ -209,7 +209,7 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 
 						<tr class="gray_zone">
 							<td class="first">
-								<button name="enrollment_process" class="button save_order button-primary"><span><?php esc_html_e( 'Save and update OpenedX', 'wp-edunext-marketing-site' ); ?></span></button>
+								<button name="enrollment_process" class="button save_order button-primary"><span><?php esc_html_e( 'Save and update Open edX', 'wp-edunext-marketing-site' ); ?></span></button>
 							</td>
 							<td>
 								<button name="save_no_process" class="button save_order button-secondary"><span><?php esc_html_e( 'Save in WordPress', 'wp-edunext-marketing-site' ); ?></span></button>
