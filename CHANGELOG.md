@@ -1,3 +1,15 @@
+## v1.9.1 - 2023-09-08
+
+### [1.9.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.9.0...v1.9.1) (2023-09-08)
+
+### Bug Fixes
+
+- course_id read-only, naming improvements and css styles ([#37](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/37)) ([db1a2b1](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/db1a2b12ca8ac70aefd32d3941d11411a96ad085))
+
+### Code Refactoring
+
+- enrollment request form changes ([#36](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/36)) ([66e2643](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/66e264307f9686e3e36da4956f2df8d0901467d7))
+
 ## v1.9.0 - 2023-09-01
 
 ### [1.9.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.8.0...v1.9.0) (2023-09-01)
