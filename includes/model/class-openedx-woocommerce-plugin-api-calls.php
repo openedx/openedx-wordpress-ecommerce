@@ -336,7 +336,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 */
 	public function check_access_token() {
 
-		$current_token_exp = get_option( 'openedx-token-expiration' );
+		$current_token_exp = get_option( 'openedx-token-overlap' );
 		$current_token_exp = $current_token_exp->sub( new DateInterval( 'PT300S' ) );
 		$current_date      = new DateTime();
 
@@ -373,7 +373,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 		$exp_time     = $response_data['expires_in'];
 		$new_exp_date = $current_date->add( new DateInterval( 'PT' . $exp_time . 'S' ) );
-		update_option( 'openedx-token-expiration', $new_exp_date );
+		update_option( 'openedx-token-overlap', $new_exp_date );
 
 		return array( 'success', $response_data['access_token'] );
 	}
