@@ -185,7 +185,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 			$exp_time = $response_data['expires_in'];
 			$exp_date = new DateTime();
 			$exp_date->add( new DateInterval( 'PT' . $exp_time . 'S' ) );
-			update_option( 'openedx-token-overlap', $exp_date );
+			update_option( 'openedx-token-expiration-overlap', $exp_date );
 
 			$nonce = wp_create_nonce( 'token_generated_nonce' );
 			update_option( 'openedx-jwt-token', $response_data['access_token'] );
