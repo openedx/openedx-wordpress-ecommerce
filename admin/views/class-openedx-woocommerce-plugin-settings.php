@@ -48,8 +48,8 @@ class Openedx_Woocommerce_Plugin_Settings {
 	public function openedx_settings_submenu() {
 		add_submenu_page(
 			'options-general.php',
-			'Open edX Settings',
-			'Open edX Sync',
+			'Open edX Sync Plugin Settings',
+			'Open edX Sync Plugin',
 			'manage_options',
 			'openedx-settings',
 			array( $this, 'openedx_settings_page' )
@@ -66,7 +66,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 	public function openedx_settings_page() {
 		?>
 		<div class="wrap">
-			<h2>Open edX Settings</h2>
+			<h2>Open edX Sync Plugin Settings</h2>
 			<form method="post" action="options.php">
 				<?php settings_fields( 'openedx-settings-group' ); ?>
 				<?php do_settings_sections( 'openedx-settings' ); ?>
@@ -185,7 +185,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 			$exp_time = $response_data['expires_in'];
 			$exp_date = new DateTime();
 			$exp_date->add( new DateInterval( 'PT' . $exp_time . 'S' ) );
-			update_option( 'openedx-token-expiration', $exp_date );
+			update_option( 'openedx-token-expiration-overlap', $exp_date );
 
 			$nonce = wp_create_nonce( 'token_generated_nonce' );
 			update_option( 'openedx-jwt-token', $response_data['access_token'] );

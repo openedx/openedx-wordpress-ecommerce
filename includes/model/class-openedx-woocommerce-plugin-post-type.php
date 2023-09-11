@@ -101,23 +101,23 @@ class Openedx_Woocommerce_Plugin_Post_Type {
 			'name'               => $this->plural,
 			'singular_name'      => $this->single,
 			'name_admin_bar'     => $this->single,
-			'add_new'            => _x( 'Add New', $this->post_type, 'wp-edunext-marketing-site' ), // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralContext
+			'add_new'            => _x( 'Add New', $this->post_type, 'wp-openedx-woocommerce-plugin' ), // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralContext
 			// translators: %s: Name of the post type in singular.
-			'add_new_item'       => sprintf( __( 'Add New %s', 'wp-edunext-marketing-site' ), $this->single ),
+			'add_new_item'       => sprintf( __( 'Add New %s', 'wp-openedx-woocommerce-plugin' ), $this->single ),
 			// translators: %s: Name of the post type in singular.
-			'edit_item'          => sprintf( __( 'Edit %s', 'wp-edunext-marketing-site' ), $this->single ),
+			'edit_item'          => sprintf( __( 'Edit %s', 'wp-openedx-woocommerce-plugin' ), $this->single ),
 			// translators: %s: Name of the post type in singular.
-			'new_item'           => sprintf( __( 'New %s', 'wp-edunext-marketing-site' ), $this->single ),
+			'new_item'           => sprintf( __( 'New %s', 'wp-openedx-woocommerce-plugin' ), $this->single ),
 			// translators: %s: Name of the post type in plural.
-			'all_items'          => sprintf( __( 'All %s', 'wp-edunext-marketing-site' ), $this->plural ),
+			'all_items'          => sprintf( __( 'All %s', 'wp-openedx-woocommerce-plugin' ), $this->plural ),
 			// translators: %s: Name of the post type in singular.
-			'view_item'          => sprintf( __( 'View %s', 'wp-edunext-marketing-site' ), $this->single ),
+			'view_item'          => sprintf( __( 'View %s', 'wp-openedx-woocommerce-plugin' ), $this->single ),
 			// translators: %s: Name of the post type in plural.
-			'search_items'       => sprintf( __( 'Search %s', 'wp-edunext-marketing-site' ), $this->plural ),
+			'search_items'       => sprintf( __( 'Search %s', 'wp-openedx-woocommerce-plugin' ), $this->plural ),
 			// translators: %s: Name of the post type in plural.
-			'not_found'          => sprintf( __( 'No %s Found', 'wp-edunext-marketing-site' ), $this->plural ),
+			'not_found'          => sprintf( __( 'No %s Found', 'wp-openedx-woocommerce-plugin' ), $this->plural ),
 			// translators: %s: Name of the post type in plural.
-			'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'wp-edunext-marketing-site' ), $this->plural ),
+			'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'wp-openedx-woocommerce-plugin' ), $this->plural ),
 			// translators: %s: Name of the post type in singular.
 			'parent_item_colon'  => sprintf( __( 'Parent %s' ), $this->single ),
 			'menu_name'          => $this->plural,

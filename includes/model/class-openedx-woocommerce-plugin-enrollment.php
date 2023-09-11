@@ -146,7 +146,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		register_post_status(
 			'enrollment-success',
 			array(
-				'label'                     => __( 'Success', 'wp-edunext-marketing-site' ),
+				'label'                     => __( 'Success', 'wp-openedx-woocommerce-plugin' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -154,13 +154,13 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'wp-edunext-marketing-site' ),
+				'label_count'               => _n_noop( 'Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
 			)
 		);
 		register_post_status(
 			'enrollment-pending',
 			array(
-				'label'                     => __( 'Pending', 'wp-edunext-marketing-site' ),
+				'label'                     => __( 'Pending', 'wp-openedx-woocommerce-plugin' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -168,13 +168,13 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'wp-edunext-marketing-site' ),
+				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
 			)
 		);
 		register_post_status(
 			'enrollment-error',
 			array(
-				'label'                     => __( 'Error', 'wp-edunext-marketing-site' ),
+				'label'                     => __( 'Error', 'wp-openedx-woocommerce-plugin' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -182,7 +182,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'wp-edunext-marketing-site' ),
+				'label_count'               => _n_noop( 'Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
 			)
 		);
 	}
