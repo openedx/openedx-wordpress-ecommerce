@@ -195,22 +195,14 @@ class Openedx_Woocommerce_Plugin_Settings {
 			exit();
 		} else {
 
-			settings_errors( 'openedx-settings', 'true' );
-			if ( 'error_has_response' === $response_message ) {
-				add_settings_error(
-					'token_error',
-					'token_error',
-					'Error: ' . $response[1] . ' - ' . json_decode( $response[2], true )['error']
-				);
-			} else {
-				add_settings_error(
-					'token_error',
-					'token_error',
-					'Error: ' . $response[1]->getMessage()
-				);
-			}
+			add_settings_error(
+				'token_error',
+				'token_error',
+				'Error: ' . $response[1],
+			);
 		}
 	}
+
 
 	/**
 	 * Output the domain settings field.
