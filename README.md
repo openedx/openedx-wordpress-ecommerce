@@ -5,15 +5,24 @@ It is a free, open-source WordPress plugin that aims to integrate third-party e-
 # Installation
 
 ## Requirements
+
+- PHP 8.0 or greater is recommended
+- Wordpress 6.3.1
 - [WooCommerce plugin.](https://wordpress.org/plugins/woocommerce)
 
-Log in to your WordPress dashboard, navigate to the Plugins menu, click "Add New," and upload the ZIP version of this repository.
+## Manual installation
+
+- Download the ZIP version in our [GitHub repository](https://github.com/eduNEXT/openedx-woocommerce-plugin/releases).
+
+<img src="https://i.ibb.co/YTSLYf4/zip-from-release.png" alt="Download ZIP from release">
+
+- Log in to your WordPress dashboard, navigate to the Plugins menu, click "Add New," and upload the ZIP version of this project.
 
 <!---
 In the search field, type "Open edX WooCommerce Plugin," then click "Search Plugins." Once you've found us, you can view its details and install it by clicking "Install Now," WordPress will take it from there.
 -->
 
-<!---
+
 # Getting Started
 
 Connect your WordPress site with your Open edX platform by following these steps:
@@ -21,17 +30,24 @@ Connect your WordPress site with your Open edX platform by following these steps
 - Configure the plugin.
 - Create a product with the course info.
 - You can start selling Open edX courses with WooCommerce!
--->
+
+
+# Open edX Compatibility
+
+- Palm or latest
+- Tested from Olive
+
+**NOTE:** Enrollment of users who are not platform users is only supported for versions after Palm.
 
 # Getting Help
 
 To report a bug or request a feature, visit [issues](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues).
 
-<!---
+
 ## Documentation
 
-See [documentation on Read the Docs](https://github.com/eduNEXT/openedx-woocommerce-plugin/).
--->
+See [documentation on Read the Docs](https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/index.html).
+
 
 # How to Contribute
 
