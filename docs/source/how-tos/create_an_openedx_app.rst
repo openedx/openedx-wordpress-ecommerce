@@ -23,3 +23,8 @@ You will learn how to create an Open edX Application for filling out the form in
 #. Test the credentials by clicking "Save Changes" and "Generate JWT Token." 
 
 .. note:: If you don't have credentials to enter the Django Admin, you need to contact an operator of your Open edX instance to provide you the client id and client secret of an Application with Client Credentials as Authorization grant type and staff user.
+
+Next Steps
+-----------
+
+- :doc:`Create enrollment requests manually </how-tos/create_enrollment_requests_manually>`.
