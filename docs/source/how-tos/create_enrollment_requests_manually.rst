@@ -23,7 +23,7 @@ Steps
     .. image:: /_images/how-tos/create_enroll_request/new_enroll_request.png
         :alt: New Enrollment Request
 
-* Use a valid course_id that will be used in the request. e.g. course-v1:edX+DemoX+Demo_Course.
+* Use a valid course ID that will be used in the request. e.g. course-v1:edX+DemoX+Demo_Course.
 
 * Enter the email of the user who will be used in the request.
 
