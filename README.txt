@@ -3,7 +3,7 @@ Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://edunext.co/
 Tags: openedx, courses
 Tested up to: 6.2
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

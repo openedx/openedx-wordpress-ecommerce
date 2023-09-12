@@ -1,3 +1,11 @@
+## v1.9.2 - 2023-09-12
+
+### [1.9.2](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.9.1...v1.9.2) (2023-09-12)
+
+### Bug Fixes
+
+- handler of fatal error in settings page corrected ([#38](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/38)) ([c979f0b](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/c979f0bbc7d62a84dcb10c1a974f38323e16cf53))
+
 ## v1.9.1 - 2023-09-08
 
 ### [1.9.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.9.0...v1.9.1) (2023-09-08)
