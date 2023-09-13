@@ -29,7 +29,7 @@ Steps
 
 * Select a Course Mode that the course has.
 
-* Select the type of request you want to execute. If you select Enroll, you will create an enrollment, and if you select Un-enroll, you will set a soft unenrollment (enrollment with status inactive).
+* Select the type of request you want to execute. If you select **Enroll**, you will create an enrollment, and if you select **Un-enroll**, you will set a soft unenrollment (enrollment with status inactive).
 
 * If this request has an Order associated, you can fill in the "WC Order ID" field.
 
