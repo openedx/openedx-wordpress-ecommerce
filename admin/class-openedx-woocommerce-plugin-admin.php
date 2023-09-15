@@ -336,4 +336,46 @@ class Openedx_Woocommerce_Plugin_Admin {
 		update_post_meta( $post_id, '_course_id', $course_id );
 		update_post_meta( $post_id, '_mode', $mode );
 	}
+
+	public function process_order_data( $order_id, $new_status ) {
+
+		$order         = wc_get_order( $order_id );
+		$status        = $order->get_status();
+		$enrollment_id = '';
+		$courses       = [];
+
+		if ( $status === 'processing' ) {
+
+			$billing_email = $order->get_billing_email();
+			$items         = $order->get_items();
+
+			foreach ( $items as $item_id => $item ) {
+				$product_id = $item->get_product_id();
+				$course_id  = get_post_meta( $product_id, '_course_id', true );
+
+				if ( $course_id !== '' ) { 
+					$courses[] = array( $item, $item_id );
+				}
+			}
+
+			foreach ( $courses as $item_id => $item ) {
+				
+				$course_id = get_post_meta( $item[0]->get_product_id() , '_course_id', true );
+				$course_mode = get_post_meta( $item[0]->get_product_id(), '_mode', true );
+				$request_type = 'enroll';
+				$action = "enrollment_process";
+				
+				$enrollment_arr = array(
+					'enrollment_course_id' => $course_id,
+					'enrollment_email' => $billing_email,
+					'enrollment_mode' => $course_mode,
+					'enrollment_request_type' => $request_type,
+					'enrollment_order_id' => $order_id
+				);
+
+				$enrollment_id = $this->openedx_enrollment->insert_new( $enrollment_arr, $action );
+				update_post_meta( $order_id, 'enrollment_id' . $item[1], $enrollment_id->ID );
+			}
+		}
+	}
 }
