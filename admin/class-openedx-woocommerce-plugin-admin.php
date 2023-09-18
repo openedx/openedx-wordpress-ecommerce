@@ -392,7 +392,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 			$enrollment_id = $this->openedx_enrollment->insert_new( $enrollment_arr, $action, $order_id );
 			update_post_meta( $order_id, 'enrollment_id' . $item[1], $enrollment_id->ID );
-			wc_create_order_note( $order_id, 'Enrollment Request ID: ' . $enrollment_id->ID . " created. Click <a href='" . admin_url( 'post.php?post=' . intval( $enrollment_id->ID ) . '&action=edit' ) . "'>here</a> to see the Enrollment Request." );
+			wc_create_order_note( $order_id, 'Enrollment Request ID: ' . $enrollment_id->ID . " Click <a href='" . admin_url( 'post.php?post=' . intval( $enrollment_id->ID ) . '&action=edit' ) . "'>here</a> for details." );
 		}
 	}
 
