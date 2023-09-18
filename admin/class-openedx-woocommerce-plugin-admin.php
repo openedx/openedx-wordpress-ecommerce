@@ -337,15 +337,22 @@ class Openedx_Woocommerce_Plugin_Admin {
 		update_post_meta( $post_id, '_mode', $mode );
 	}
 
-	public function process_order_data( $order_id, $new_status ) {
+	/**
+	 * This function is called when an order payment is completed.
+	 *
+	 * @param int $order_id Order id.
+	 *
+	 * @return void
+	 */
+	public function process_order_data( $order_id ) {
 
 		$order         = wc_get_order( $order_id );
 		$billing_email = $order->get_billing_email();
 		$status        = $order->get_status();
 		$enrollment_id = '';
-		$courses       = [];
+		$courses       = array();
 
-		if ( $status === 'processing' ) {
+		if ( 'processing' === $status ) {
 
 			$courses = $this->select_course_items( $order, $billing_email );
 
@@ -356,16 +363,23 @@ class Openedx_Woocommerce_Plugin_Admin {
 		}
 	}
 
-	public function select_course_items( $order, $billing_email ) {
+	/**
+	 * Select the items that are courses in the order.
+	 *
+	 * @param object $order Order object.
+	 *
+	 * @return array $courses Array of courses.
+	 */
+	public function select_course_items( $order ) {
 
-		$items         = $order->get_items();
-		$courses       = [];
+		$items   = $order->get_items();
+		$courses = array();
 
 		foreach ( $items as $item_id => $item ) {
 			$product_id = $item->get_product_id();
 			$course_id  = get_post_meta( $product_id, '_course_id', true );
 
-			if ( $course_id !== '' ) { 
+			if ( '' !== $course_id ) {
 				$courses[] = array( $item, $item_id );
 			}
 		}
@@ -373,21 +387,30 @@ class Openedx_Woocommerce_Plugin_Admin {
 		return $courses;
 	}
 
+	/**
+	 * This function processes the enrollment request for each course in the order.
+	 *
+	 * @param array  $courses Array of courses.
+	 * @param int    $order_id Order id.
+	 * @param string $billing_email Billing email.
+	 *
+	 * @return void
+	 */
 	public function items_enrollment_request( $courses, $order_id, $billing_email ) {
 
 		foreach ( $courses as $item_id => $item ) {
-				
-			$course_id = get_post_meta( $item[0]->get_product_id() , '_course_id', true );
-			$course_mode = get_post_meta( $item[0]->get_product_id(), '_mode', true );
+
+			$course_id    = get_post_meta( $item[0]->get_product_id(), '_course_id', true );
+			$course_mode  = get_post_meta( $item[0]->get_product_id(), '_mode', true );
 			$request_type = 'enroll';
-			$action = "enrollment_process";
-			
+			$action       = 'enrollment_process';
+
 			$enrollment_arr = array(
-				'enrollment_course_id' => $course_id,
-				'enrollment_email' => $billing_email,
-				'enrollment_mode' => $course_mode,
+				'enrollment_course_id'    => $course_id,
+				'enrollment_email'        => $billing_email,
+				'enrollment_mode'         => $course_mode,
 				'enrollment_request_type' => $request_type,
-				'enrollment_order_id' => $order_id
+				'enrollment_order_id'     => $order_id,
 			);
 
 			$enrollment_id = $this->openedx_enrollment->insert_new( $enrollment_arr, $action, $order_id );
@@ -396,11 +419,26 @@ class Openedx_Woocommerce_Plugin_Admin {
 		}
 	}
 
+	/**
+	 * Shows the API logs in the order notes.
+	 *
+	 * @param int   $order_id Order id.
+	 * @param array $enrollment_api_response The API response.
+	 *
+	 * @return void
+	 */
 	public function show_enrollment_logs( $order_id, $enrollment_api_response ) {
 		$response = $this->check_api_response( $enrollment_api_response );
 		wc_create_order_note( $order_id, $response );
 	}
 
+	/**
+	 * Check the API response from the Open edX API to show a simple message about the response.
+	 *
+	 * @param array $response The API response.
+	 *
+	 * @return string $response The API response.
+	 */
 	public function check_api_response( $response ) {
 
 		switch ( $response[0] ) {

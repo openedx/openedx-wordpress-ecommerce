@@ -275,6 +275,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 *
 	 * @param array  $enrollment_arr An array containing the enrollment info.
 	 * @param string $enrollment_action The API action to perform once the wp process is done.
+	 * @param int    $order_id The order ID in case the enrollment is created from an order.
 	 *
 	 * @return object $post The post object.
 	 */
@@ -298,6 +299,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 * @param post   $post The post object.
 	 * @param array  $enrollment_arr An array containing the enrollment info.
 	 * @param string $enrollment_action The API action to perform once the wp process is done.
+	 * @param int    $order_id The order ID in case the enrollment is created from an order.
 	 */
 	public function save_enrollment( $post, $enrollment_arr, $enrollment_action, $order_id = null ) {
 
@@ -344,7 +346,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
 		if ( null !== $order_id ) {
 			$plugin_class = new Openedx_Woocommerce_Plugin();
-			$admin_class = new Openedx_Woocommerce_Plugin_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
+			$admin_class  = new Openedx_Woocommerce_Plugin_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
 			$admin_class->show_enrollment_logs( $order_id, $enrollment_api_response );
 		}
 	}
