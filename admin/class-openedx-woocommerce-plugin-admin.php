@@ -438,6 +438,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 	/**
 	 * Check the API response from the Open edX API to show a simple message about the response.
+	 * The message will be displayed in order notes.
 	 *
 	 * @param array $response The API response.
 	 *
