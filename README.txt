@@ -5,7 +5,7 @@ Tags: openedx, woocommerce, integration, open source, courses
 Requires at least: 6.3.1
 Tested up to: 6.3.1
 Requires PHP: 8.0.29
-Stable tag: 1.9.2
+Stable tag: 1.10.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

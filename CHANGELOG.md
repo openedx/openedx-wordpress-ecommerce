@@ -1,3 +1,15 @@
+## v1.10.0 - 2023-09-25
+
+### [1.10.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.9.2...v1.10.0) (2023-09-25)
+
+#### Features
+
+- enrollment creation when an order is processed ([#40](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/40)) ([729ae47](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/729ae477c83ddd22f0dfa125d18819bd7004ce66))
+
+#### Documentation
+
+- add how-tos and the base of the quickstart ([#39](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/39)) ([871b871](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/871b87195a6686fe5792b3acbb8b0c1752b40d68))
+
 ## v1.9.2 - 2023-09-12
 
 ### [1.9.2](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.9.1...v1.9.2) (2023-09-12)
