@@ -19,6 +19,7 @@ namespace App;
 use App\admin\Openedx_Woocommerce_Plugin_Admin;
 use App\public\Openedx_Woocommerce_Plugin_Public;
 use App\admin\views\Openedx_Woocommerce_Plugin_Settings;
+use App\model\Openedx_Woocommerce_Plugin_Enrollment;
 
 /**
  * This class contains the function to register a new custom post type.
@@ -241,6 +242,8 @@ class Openedx_Woocommerce_Plugin {
 			$plugin_admin,
 			'save_custom_product_fields'
 		);
+
+		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'process_order_data', 10, 2 );
 	}
 
 	/**

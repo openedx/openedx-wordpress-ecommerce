@@ -13,6 +13,8 @@
 namespace App\model;
 
 use App\model\Openedx_Woocommerce_Plugin_Log;
+use App\Openedx_Woocommerce_Plugin;
+use App\admin\Openedx_Woocommerce_Plugin_Admin;
 use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -273,10 +275,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 *
 	 * @param array  $enrollment_arr An array containing the enrollment info.
 	 * @param string $enrollment_action The API action to perform once the wp process is done.
+	 * @param int    $order_id The order ID in case the enrollment is created from an order.
 	 *
 	 * @return object $post The post object.
 	 */
-	public function insert_new( $enrollment_arr, $enrollment_action = '' ) {
+	public function insert_new( $enrollment_arr, $enrollment_action = '', $order_id = null ) {
 		$this->unregister_save_hook();
 
 		$new_enrollment = array(
@@ -286,7 +289,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		$post_id        = wp_insert_post( $new_enrollment );
 		$post           = get_post( $post_id );
 
-		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
+		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action, $order_id );
 		return $post;
 	}
 
@@ -296,8 +299,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 * @param post   $post The post object.
 	 * @param array  $enrollment_arr An array containing the enrollment info.
 	 * @param string $enrollment_action The API action to perform once the wp process is done.
+	 * @param int    $order_id The order ID in case the enrollment is created from an order.
 	 */
-	public function save_enrollment( $post, $enrollment_arr, $enrollment_action ) {
+	public function save_enrollment( $post, $enrollment_arr, $enrollment_action, $order_id = null ) {
 
 		$post_id = $post->ID;
 
@@ -339,6 +343,12 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
 		$enrollment_api_response = $api->enrollment_send_request( $enrollment_data, $enrollment_action );
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
+
+		if ( null !== $order_id ) {
+			$plugin_class = new Openedx_Woocommerce_Plugin();
+			$admin_class  = new Openedx_Woocommerce_Plugin_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
+			$admin_class->show_enrollment_logs( $order_id, $enrollment_api_response );
+		}
 	}
 
 
