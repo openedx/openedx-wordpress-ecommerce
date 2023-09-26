@@ -269,7 +269,11 @@ class Openedx_Woocommerce_Plugin_Admin {
 	public function add_admin_order_item_values( $_product, $item, $item_id = null ) {
 
 		// Check if the product has a non-empty "_course_id" metadata.
-		$_course_id = get_post_meta( $_product->get_id(), '_course_id', true );
+		$_course_id = '';
+
+		if ( $_product ) {
+			$_course_id = get_post_meta( $_product->get_id(), '_course_id', true );
+		}
 
 		if ( ! empty( $_course_id ) ) {
 
@@ -354,12 +358,12 @@ class Openedx_Woocommerce_Plugin_Admin {
 		if ( 'processing' === $status ) {
 
 			$billing_email = $order->get_billing_email();
-
-			$courses = $this->select_course_items( $order, $billing_email );
+			$order_items   = $order->get_items();
+			$courses       = $this->select_course_items( $order_items );
 
 			if ( ! empty( $courses ) ) {
 				wc_create_order_note( $order_id, 'Order items that are courses, obtained. ' );
-				$enrollment_id = $this->items_enrollment_request( $courses, $order_id, $billing_email );
+				$enrollment_id = $this->items_enrollment_request( $courses, $order_id, $billing_email, 'enroll' );
 			}
 		}
 	}
@@ -367,24 +371,33 @@ class Openedx_Woocommerce_Plugin_Admin {
 	/**
 	 * Select the items that are courses in the order.
 	 *
-	 * @param object $order Order object.
+	 * @param array $items Order items array.
+	 * @param bool  $is_refunded Flag variable to know if the order is refunded.
 	 *
 	 * @return array $courses Array of courses.
 	 */
-	public function select_course_items( $order ) {
+	public function select_course_items( $items, $is_refunded = null ) {
 
-		$items   = $order->get_items();
 		$courses = array();
 
 		foreach ( $items as $item_id => $item ) {
+
 			$product_id = $item->get_product_id();
 			$course_id  = get_post_meta( $product_id, '_course_id', true );
 
 			if ( '' !== $course_id ) {
-				$courses[] = array(
-					'course_item'    => $item,
-					'course_item_id' => $item_id,
-				);
+
+				if ( $is_refunded ) {
+					$courses[] = array(
+						'course_item'    => $item,
+						'course_item_id' => $item->get_meta( '_refunded_item_id' ),
+					);
+				} else {
+					$courses[] = array(
+						'course_item'    => $item,
+						'course_item_id' => $item_id,
+					);
+				}
 			}
 		}
 
@@ -397,17 +410,17 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @param array  $courses Array of courses.
 	 * @param int    $order_id Order id.
 	 * @param string $billing_email Billing email.
+	 * @param string $request_type Request type.
 	 *
 	 * @return void
 	 */
-	public function items_enrollment_request( $courses, $order_id, $billing_email ) {
+	public function items_enrollment_request( $courses, $order_id, $billing_email, $request_type ) {
 
 		foreach ( $courses as $item_id => $item ) {
 
-			$course_id    = get_post_meta( $item['course_item']->get_product_id(), '_course_id', true );
-			$course_mode  = get_post_meta( $item['course_item']->get_product_id(), '_mode', true );
-			$request_type = 'enroll';
-			$action       = 'enrollment_process';
+			$course_id   = get_post_meta( $item['course_item']->get_product_id(), '_course_id', true );
+			$course_mode = get_post_meta( $item['course_item']->get_product_id(), '_mode', true );
+			$action      = 'enrollment_process';
 
 			$enrollment_arr = array(
 				'enrollment_course_id'    => $course_id,
@@ -419,7 +432,12 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 			$enrollment_id = $this->openedx_enrollment->insert_new( $enrollment_arr, $action, $order_id );
 			update_post_meta( $order_id, 'enrollment_id' . $item['course_item_id'], $enrollment_id->ID );
-			wc_create_order_note( $order_id, 'Enrollment Request ID: ' . $enrollment_id->ID . " Click <a href='" . admin_url( 'post.php?post=' . intval( $enrollment_id->ID ) . '&action=edit' ) . "'>here</a> for details." );
+
+			if ( 'enroll' === $request_type ) {
+				wc_create_order_note( $order_id, 'Enrollment Request ID: ' . $enrollment_id->ID . " Click <a href='" . admin_url( 'post.php?post=' . intval( $enrollment_id->ID ) . '&action=edit' ) . "'>here</a> for details." );
+			} else {
+				wc_create_order_note( $order_id, 'Unenroll Request ID: ' . $enrollment_id->ID . " Click <a href='" . admin_url( 'post.php?post=' . intval( $enrollment_id->ID ) . '&action=edit' ) . "'>here</a> for details." );
+			}
 		}
 	}
 
@@ -456,6 +474,35 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 			default:
 				return 'API did not provide a response';
+		}
+	}
+
+	/**
+	 * Process unenrollment requests for courses in a refunded order.
+	 * Loop through the refunded items, select courses, and send unenrollment requests to Open edX API.
+	 *
+	 * @param int $order_id Order id.
+	 *
+	 * @return void
+	 */
+	public function unenroll_course_refund( $order_id ) {
+
+		$order         = wc_get_order( $order_id );
+		$billing_email = $order->get_billing_email();
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$refunds = $order->get_refunds();
+
+		foreach ( $refunds as $refund ) {
+			$items   = $refund->get_items();
+			$courses = $this->select_course_items( $items, true );
+			if ( ! empty( $courses ) ) {
+				wc_create_order_note( $order_id, 'Order items that are courses and refunded, obtained. ' );
+				$enrollment_id = $this->items_enrollment_request( $courses, $order_id, $billing_email, 'unenroll' );
+			}
 		}
 	}
 }
