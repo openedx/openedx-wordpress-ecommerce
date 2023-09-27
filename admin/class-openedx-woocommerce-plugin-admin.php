@@ -260,22 +260,22 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * Create a custom input in the new column in order items table
 	 * to store the enrollment id and a link to the enrollment request
 	 *
-	 * @param array $_product Product object.
+	 * @param array $product Product object.
 	 * @param array $item Order item.
 	 * @param int   $item_id Order item id.
 	 *
 	 * @return void
 	 */
-	public function add_admin_order_item_values( $_product, $item, $item_id = null ) {
+	public function add_admin_order_item_values( $product, $item, $item_id = null ) {
 
 		// Check if the product has a non-empty "_course_id" metadata.
-		$_course_id = '';
+		$course_id = '';
 
-		if ( $_product ) {
-			$_course_id = get_post_meta( $_product->get_id(), '_course_id', true );
+		if ( $product ) {
+			$course_id = get_post_meta( $product->get_id(), '_course_id', true );
 		}
 
-		if ( ! empty( $_course_id ) ) {
+		if ( ! empty( $course_id ) ) {
 
 			$order_id    = method_exists( $item, 'get_order_id' ) ? $item->get_order_id() : $item['order_id'];
 			$input_value = get_post_meta( $order_id, 'enrollment_id' . $item_id, true );
