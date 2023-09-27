@@ -376,7 +376,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 *
 	 * @return array $courses Array of courses.
 	 */
-	public function select_course_items( $items, $is_refunded = null ) {
+	public function select_course_items( $items, $is_refunded = false ) {
 
 		$courses = array();
 
