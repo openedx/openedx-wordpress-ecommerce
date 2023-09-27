@@ -1,3 +1,11 @@
+## v1.11.0 - 2023-09-27
+
+### [1.11.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.10.0...v1.11.0) (2023-09-27)
+
+#### Features
+
+- unenroll request when a refund is processed ([#41](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/41)) ([6021b6c](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/6021b6c80beb35a5bddaaa05103219915400760d))
+
 ## v1.10.0 - 2023-09-25
 
 ### [1.10.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.9.2...v1.10.0) (2023-09-25)
