@@ -206,11 +206,19 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		global $post;
 
-		echo '<div class="options_group">';
+		woocommerce_wp_checkbox(
+			array(
+				'id'                => '_is_openedx_course',
+				'label'             => __( 'Check this box if the product is an Open edX Course', 'woocommerce' ),
+				'desc_tip'          => 'true',
+				'class'             => 'my-custom-checkbox',
+				'custom_attributes' => array(
+					'onchange' => 'handleCheckboxChange(this)',
+				),
+			),
+		);
 
-		echo '<p class="form-field">' .
-			esc_html__( 'Only use these fields if the product is an Open edX course.', 'woocommerce' )
-			. '</p>';
+		echo '<div class="custom_options_group">';
 
 		woocommerce_wp_text_input(
 			array(
@@ -243,7 +251,6 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		echo '</div>';
 	}
-
 
 	/**
 	 * Create a custom column in order items table inside an order
@@ -334,11 +341,13 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @since    1.1.1
 	 */
 	public function save_custom_product_fields( $post_id ) {
-		$course_id = isset( $_POST['_course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['_course_id'] ) ) : '';
-		$mode      = isset( $_POST['_mode'] ) ? sanitize_text_field( wp_unslash( $_POST['_mode'] ) ) : '';
+		$course_id      = isset( $_POST['_course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['_course_id'] ) ) : '';
+		$mode           = isset( $_POST['_mode'] ) ? sanitize_text_field( wp_unslash( $_POST['_mode'] ) ) : '';
+		$openedx_course = isset( $_POST['_is_openedx_course'] ) ? sanitize_text_field( wp_unslash( $_POST['_is_openedx_course'] ) ) : '';
 
 		update_post_meta( $post_id, '_course_id', $course_id );
 		update_post_meta( $post_id, '_mode', $mode );
+		update_post_meta( $post_id, '_is_openedx_course', $openedx_course );
 	}
 
 	/**

@@ -121,3 +121,7 @@
 #namediv #openedx_enrollment_order_id {
     width: 200px;
 }
+
+.custom_options_group{
+    display: none;
+}
