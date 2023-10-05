@@ -255,7 +255,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		$value = get_option( 'openedx-client-secret' );
 		?>
 
-		<input class="setting_input" type="text" name="openedx-client-secret" id="openedx-client-secret" 
+		<input class="setting_input" type="password" name="openedx-client-secret" id="openedx-client-secret" 
 			value="<?php echo esc_attr( $value ); ?>" required />
 
 		<p class="description">
