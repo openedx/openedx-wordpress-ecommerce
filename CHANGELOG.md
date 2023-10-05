@@ -1,3 +1,11 @@
+## v1.11.1 - 2023-10-05
+
+### [1.11.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.11.0...v1.11.1) (2023-10-05)
+
+### Bug Fixes
+
+- bugs in product table fixed & form changes in settings and enrollment ([#43](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/43)) ([ddaaba7](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/ddaaba794653f3203ddab352325d657e287b2803))
+
 ## v1.11.0 - 2023-09-27
 
 ### [1.11.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.10.0...v1.11.0) (2023-09-27)
