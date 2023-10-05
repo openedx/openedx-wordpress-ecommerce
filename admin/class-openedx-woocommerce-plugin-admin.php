@@ -304,6 +304,18 @@ class Openedx_Woocommerce_Plugin_Admin {
 					'td'    => array(),
 				)
 			);
+		} else {
+
+			$html_output  = '<td>';
+			$html_output .= esc_html__( 'Product is not an Open edX Course', 'woocommerce' );
+			$html_output .= '</td>';
+
+			echo wp_kses(
+				$html_output,
+				array(
+					'td' => array(),
+				)
+			);
 		}
 	}
 
