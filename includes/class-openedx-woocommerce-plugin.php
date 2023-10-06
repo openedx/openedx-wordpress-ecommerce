@@ -246,6 +246,8 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'process_order_data', 10, 2 );
 		$this->loader->add_action( 'woocommerce_order_refunded', $plugin_admin, 'unenroll_course_refund', 10, 2 );
+		$this->loader->add_filter( 'product_type_options', $plugin_admin, 'add_openedx_course_product_type' );
+		$this->loader->add_action( 'woocommerce_update_product', $plugin_admin, 'save_openedx_option' );
 	}
 
 	/**
