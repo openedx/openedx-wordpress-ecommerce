@@ -198,6 +198,44 @@ class Openedx_Woocommerce_Plugin_Admin {
 	}
 
 	/**
+	 * Add Open edX Course product type option in product settings.
+	 *
+	 * @param array $type_options Array of product type options.
+	 * @return array $type_options Array of product type options.
+	 */
+	public function add_openedx_course_product_type( $type_options ) {
+
+		global $post;
+		$checked = '';
+
+		if ( ! empty( get_post_meta( $post->ID, 'is_openedx_course', true ) ) ) {
+			$checked = get_post_meta( $post->ID, 'is_openedx_course', true );
+		} else {
+			$checked = 'no';
+		}
+
+		$type_options['wild_card'] = array(
+			'id'            => 'is_openedx_course',
+			'wrapper_class' => 'show_if_simple',
+			'label'         => __( 'Open edX Course', 'woocommerce' ),
+			'description'   => __( 'Check this box if the product is an Open edX Course', 'woocommerce' ),
+			'default'       => $checked,
+		);
+		return $type_options;
+	}
+
+	/**
+	 * Save the Open edX course product type option value into a post meta field.
+	 *
+	 * @param int $post_id Product post id.
+	 * @return void
+	 */
+	public function save_openedx_option( $post_id ) {
+		$openedx_course = isset( $_POST['is_openedx_course'] ) ? 'yes' : 'no';
+		update_post_meta( $post_id, 'is_openedx_course', $openedx_course );
+	}
+
+	/**
 	 * Register course ID and mode fields for product
 	 *
 	 * @since    1.1.1
@@ -206,11 +244,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		global $post;
 
-		echo '<div class="options_group">';
-
-		echo '<p class="form-field">' .
-			esc_html__( 'Only use these fields if the product is an Open edX course.', 'woocommerce' )
-			. '</p>';
+		echo '<div class="custom_options_group">';
 
 		woocommerce_wp_text_input(
 			array(
@@ -244,7 +278,6 @@ class Openedx_Woocommerce_Plugin_Admin {
 		echo '</div>';
 	}
 
-
 	/**
 	 * Create a custom column in order items table inside an order
 	 *
@@ -272,10 +305,11 @@ class Openedx_Woocommerce_Plugin_Admin {
 		$course_id = '';
 
 		if ( $product ) {
-			$course_id = get_post_meta( $product->get_id(), '_course_id', true );
+			$course_id    = get_post_meta( $product->get_id(), '_course_id', true );
+			$course_check = get_post_meta( $product->get_id(), 'is_openedx_course', true );
 		}
 
-		if ( ! empty( $course_id ) ) {
+		if ( ! empty( $course_id ) && 'yes' === $course_check ) {
 
 			$order_id    = method_exists( $item, 'get_order_id' ) ? $item->get_order_id() : $item['order_id'];
 			$input_value = get_post_meta( $order_id, 'enrollment_id' . $item_id, true );
@@ -394,10 +428,11 @@ class Openedx_Woocommerce_Plugin_Admin {
 
 		foreach ( $items as $item_id => $item ) {
 
-			$product_id = $item->get_product_id();
-			$course_id  = get_post_meta( $product_id, '_course_id', true );
+			$product_id   = $item->get_product_id();
+			$course_id    = get_post_meta( $product_id, '_course_id', true );
+			$course_check = get_post_meta( $product_id, 'is_openedx_course', true );
 
-			if ( '' !== $course_id ) {
+			if ( '' !== $course_id && 'yes' === $course_check ) {
 
 				if ( $is_refunded ) {
 					$courses[] = array(

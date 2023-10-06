@@ -77,6 +77,7 @@ class Openedx_Woocommerce_Plugin {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_plugin_settings_hooks();
+		$this->define_enqueue_scripts();
 	}
 
 	/**
@@ -245,6 +246,8 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'process_order_data', 10, 2 );
 		$this->loader->add_action( 'woocommerce_order_refunded', $plugin_admin, 'unenroll_course_refund', 10, 2 );
+		$this->loader->add_filter( 'product_type_options', $plugin_admin, 'add_openedx_course_product_type' );
+		$this->loader->add_action( 'woocommerce_update_product', $plugin_admin, 'save_openedx_option' );
 	}
 
 	/**
@@ -263,6 +266,17 @@ class Openedx_Woocommerce_Plugin {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+	}
+
+	/**
+	 * Register all the hooks related to custom scripts for specific functionalities.
+	 *
+	 * @since    1.11.0
+	 * @access   private
+	 */
+	private function define_enqueue_scripts() {
+		wp_register_script( 'product-type-script', plugin_dir_url( __FILE__ ) . '../admin/js/product-type.js', array(), $this->get_version(), true );
+		wp_enqueue_script( 'product-type-script' );
 	}
 
 	/**
