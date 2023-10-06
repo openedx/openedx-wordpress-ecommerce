@@ -1,3 +1,11 @@
+## v1.12.0 - 2023-10-06
+
+### [1.12.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.11.1...v1.12.0) (2023-10-06)
+
+#### Features
+
+- checkbox to enable options if product is a course ([#42](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/42)) ([5fe899b](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/5fe899b2e979cd9d5a27907fc744b781ec477a56))
+
 ## v1.11.1 - 2023-10-05
 
 ### [1.11.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.11.0...v1.11.1) (2023-10-05)
