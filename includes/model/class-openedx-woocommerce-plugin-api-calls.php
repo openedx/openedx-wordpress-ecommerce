@@ -29,10 +29,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Openedx_Woocommerce_Plugin_Api_Calls {
 
 
+	// API constants for the Open edX API calls.
 	const API_ACCESS_TOKEN    = '/oauth2/access_token';
 	const API_ENROLLMENT      = '/api/enrollment/v1/enrollment';
 	const API_SYNC_ENROLLMENT = '/api/enrollment/v1/enrollments';
 	const API_GET_USER        = '/api/user/v1/accounts';
+
+	// API constants for new endpoints available for Open edX API calls.
+	const API_ENROLLMENT_ALLOWED = '/api/enrollment/v1/enrollment_allowed/';
+	const API_ENROLLMENT_ALLOWED_SYNC = '/api/enrollment/v1/enrollment_allowed';
 
 	/**
 	 * The Guzzle HTTP client object.
@@ -103,12 +108,23 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			$error_data  = $e->getResponse()->getBody()->getContents();
 
 			if ( isset( json_decode( $error_data, true )['error'] ) ) {
-				return array( 'error', 'Error: ' . $status_code . ' - ' . json_decode( $error_data, true )['error'] );
+				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['error'] );
 			} elseif ( isset( json_decode( $error_data, true )['message'] ) ) {
-				return array( 'error', 'Error: ' . $status_code . ' - ' . json_decode( $error_data, true )['message'] );
+				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['message'] );
 			} else {
-				return array( 'error', 'Please review the enrollment form information.' );
+				return array( 'error', $status_code . ': ' . $e->getMessage() );
 			}
+		}
+	}
+
+	public function enrollment_handle_old_or_new( $enrollment_data, $enrollment_action ) {
+
+		$response_new = $this->enrollment_send_request_new_endpoints( $enrollment_data, $enrollment_action );
+
+		if ( 'success' === $response_new[0] ) {
+			return $response_new;
+		} else {
+			return $this->enrollment_send_request( $enrollment_data, $enrollment_action );
 		}
 	}
 
@@ -133,17 +149,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			$access_token = $access_token[1];
 		}
 
-		$user = $this->get_user( $enrollment_data['enrollment_email'], $access_token );
-
-		if ( 'error' === $access_token[0] || 'error' === $user[0] ) {
-			if ( 'error' === $access_token[0] && 'error' === $user[0] ) {
-				return array( 'error', 'Error(s) getting access_token and user: ' . $access_token[1] . ' - ' . $user[1] );
-			} elseif ( 'error' === $access_token[0] ) {
-				return array( 'error', 'Error(s) getting access_token: ' . $access_token[1] );
-			} else {
-				return array( 'error', 'Error(s) getting user: ' . $user[1] );
-			}
-		}
+		$user         = $this->check_if_user_exists( $enrollment_data['enrollment_email'], $access_token );
 
 		$course_id    = $enrollment_data['enrollment_course_id'];
 		$course_mode  = $enrollment_data['enrollment_mode'];
@@ -171,8 +177,9 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
-				// This space is for the no pre-enrollment call.
-				return array( 'error', 'This feature is not implemented yet.' );
+				
+				return $this->enrollment_allowed_checks( $enrollment_data, $access_token );
+
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
 				$body   = array(
@@ -194,8 +201,8 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
-				// This space is for the no pre-enrollment call.
-				return array( 'error', 'This feature is not implemented yet.' );
+				
+				return $this->enrollment_allowed_checks( $enrollment_data, $access_token, true );
 			}
 		} elseif ( 'unenroll' === $request_type ) {
 
@@ -220,8 +227,9 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
-				// This space is for the no pre-enrollment call.
-				return array( 'error', 'This feature is not implemented yet.' );
+				
+				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token );
+
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
 				$body   = array(
@@ -244,8 +252,9 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 				return $this->enrollment_request_api_call( $method, $body, $access_token );
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
-				// This space is for the no pre-enrollment call.
-				return array( 'error', 'This feature is not implemented yet.' );
+				
+				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token, true );
+
 			}
 		}
 
@@ -258,6 +267,241 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			);
 
 			return $this->enrollment_sync_request( $method, $body, $access_token );
+		}
+	}
+
+	public function enrollment_send_request_new_endpoints( $enrollment_data, $enrollment_action ) {
+
+		$access_token     = $this->check_access_token();
+		$course_id        = $enrollment_data['enrollment_course_id'];
+		$course_mode      = $enrollment_data['enrollment_mode'];
+		$request_type     = $enrollment_data['enrollment_request_type'];
+		$enrollment_email = $enrollment_data['enrollment_email'];
+
+		if ( 'enroll' === $request_type ) {
+
+			if ( 'enrollment_process' === $enrollment_action ) {
+
+				$method = 'POST';
+				$body   = array(
+					'email'                 => $enrollment_email,
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
+						'course_id' => $course_id,
+					),
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+				);
+
+				return $this->enrollment_request_api_call( $method, $body, $access_token );
+
+			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
+
+				return $this->enrollment_allowed_checks( $enrollment_data, $access_token );
+
+			} elseif ( 'enrollment_force' === $enrollment_action ) {
+				$method = 'POST';
+				$body   = array(
+					'email'                 => $enrollment_email,
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
+						'course_id' => $course_id,
+					),
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+					'force_enrollment'      => true,
+				);
+
+				return $this->enrollment_request_api_call( $method, $body, $access_token );
+
+			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
+		
+				return $this->enrollment_allowed_checks( $enrollment_data, $access_token, true );
+
+			}
+
+		} elseif ( 'unenroll' === $request_type ) {
+
+			if ( 'enrollment_process' === $enrollment_action ) {
+				$method = 'POST';
+				$body   = array(
+					'user'                  => $enrollment_email,
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
+						'course_id' => $course_id,
+					),
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+					'is_active'             => false,
+				);
+
+				return $this->enrollment_request_api_call( $method, $body, $access_token );
+
+			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
+
+				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token );
+
+			} elseif ( 'enrollment_force' === $enrollment_action ) {
+				$method = 'POST';
+				$body   = array(
+					'user'                  => $enrollment_email,
+					'mode'                  => strtolower( $course_mode ),
+					'course_details'        => array(
+						'course_id' => $course_id,
+					),
+					'enrollment_attributes' => array(
+						array(
+							'namespace' => 'openedx-woocommerce-plugin',
+							'name'      => 'message',
+							'value'     => 'Enrollment request response.',
+						),
+					),
+					'force_enrollment'      => true,
+					'is_active'             => false,
+				);
+
+				return $this->enrollment_request_api_call( $method, $body, $access_token );
+
+			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
+				
+				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token, true );
+
+			}
+		}
+
+		if ( 'enrollment_sync' === $enrollment_action ) {
+
+			$method = 'GET';
+			$body   = array(
+				'username'  => $user[1],
+				'course_id' => str_replace( '+', '%2B', $course_id ),
+			);
+
+			return $this->enrollment_sync_request( $method, $body, $access_token );
+		}
+	}
+
+	public function enrollment_allowed_checks( $enrollment_data, $access_token, $force = false ) {
+
+		$course_id        = $enrollment_data['enrollment_course_id'];
+		$enrollment_email = $enrollment_data['enrollment_email'];
+		$user_exist = $this->check_if_user_exists( $enrollment_email, $access_token );
+
+		if ( 'success' !== $user_exist[0] ) {
+
+			$method = 'POST';
+
+			if ( !$force ) {
+				$body   = array(
+					'email'       => $enrollment_email,
+					'course_id'   => $course_id,
+					'auto_enroll' => true,
+				);
+			} else {
+				$body   = array(
+					'email'       => $enrollment_email,
+					'course_id'   => $course_id,
+					'auto_enroll' => true,
+					'force_enrollment'      => true,
+				);
+			}
+
+			return $this->enrollment_allowed_request( $method, $body, $access_token );
+
+		} else {
+
+			return $this->enrollment_handle_old_or_new( $enrollment_data, 'enrollment_process' );
+
+		}
+
+	}
+
+	public function unenrollment_allowed_checks( $enrollment_data, $access_token, $force = false ) {
+
+		$course_id        = $enrollment_data['enrollment_course_id'];
+		$enrollment_email = $enrollment_data['enrollment_email'];
+		$user_exist = $this->check_if_user_exists( $enrollment_email, $access_token );
+		$enrollment_allowed_exist = false;
+
+		if ( 'success' !== $user_exist[0] ) {
+
+			$method = 'DELETE';
+
+			if ( !$force ) {
+				$body   = array(
+					'email'       => $enrollment_email,
+					'course_id'   => $course_id,
+				);
+			} else {
+				$body   = array(
+					'email'       => $enrollment_email,
+					'course_id'   => $course_id,
+					'force_enrollment'      => true,
+				);
+			}
+
+			$response = $this->enrollment_allowed_request( $method, $body, $access_token );
+			if ( 'success' == $response[0] ) {
+				return array( 'success', json_encode( 'User unenrolled successfully.' ) );
+			} else {
+				return $response;
+			}
+
+		} else {
+
+			return $this->enrollment_handle_old_or_new( $enrollment_data, 'enrollment_process' );
+
+		}
+
+	}
+
+	public function check_if_user_exists( $enrollment_email, $access_token ) {
+
+		$user = $this->get_user( $enrollment_email, $access_token );
+		return $user;
+
+	}
+
+	public function enrollment_allowed_request( $method, $body, $access_token ) {
+
+		$domain = get_option( 'openedx-domain' );
+
+		try {
+
+			$response = $this->client->request(
+				$method,
+				$domain . self::API_ENROLLMENT_ALLOWED,
+				array(
+					'headers' => array(
+						'Authorization' => 'JWT ' . $access_token,
+						'Content-Type'  => 'application/json',
+					),
+					'json'    => $body,
+				),
+			);
+
+			$status_code   = $response->getStatusCode();
+			$response_data = $response->getBody();
+			return array( 'success', $response_data );
+		} catch ( RequestException $e ) {
+			return $this->handle_request_error( $e );
+		} catch ( GuzzleException $e ) {
+			return array( 'error', $e->getMessage() );
 		}
 	}
 
@@ -290,7 +534,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			$status_code   = $response->getStatusCode();
 			$response_data = $response->getBody();
-			return array( 'success', $response_data );
+			return array( 'success', $status_code . ": " . $response_data );
 		} catch ( RequestException $e ) {
 			return $this->handle_request_error( $e );
 		} catch ( GuzzleException $e ) {
