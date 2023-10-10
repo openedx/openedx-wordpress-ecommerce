@@ -283,6 +283,11 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 */
 	public function enrollment_send_request_new_endpoints( $enrollment_data, $enrollment_action ) {
 
+		if ( 'save_no_process' === $enrollment_action ) {
+
+			return array( 'not_api', 'This action does not require an API call.' );
+		}
+
 		$access_token        = $this->check_access_token();
 		$access_token_string = $this->get_access_token( $access_token );
 
