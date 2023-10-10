@@ -128,6 +128,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 		$access_token = $this->check_access_token();
 
+		// The access token can be an array or not; if it's an array, we need the value at index 1, which contains the generated token.
 		if ( 'array' === gettype( $access_token ) ) {
 			$access_token = $access_token[1];
 		}
