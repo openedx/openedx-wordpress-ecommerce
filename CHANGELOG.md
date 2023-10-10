@@ -1,3 +1,11 @@
+## v1.12.1 - 2023-10-10
+
+### [1.12.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.12.0...v1.12.1) (2023-10-10)
+
+### Bug Fixes
+
+- access token doesn't generate errors when token expires ([#45](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/45)) ([594cd31](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/594cd312506c1291a370f7653fbb299a1415e0fa))
+
 ## v1.12.0 - 2023-10-06
 
 ### [1.12.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.11.1...v1.12.0) (2023-10-06)
