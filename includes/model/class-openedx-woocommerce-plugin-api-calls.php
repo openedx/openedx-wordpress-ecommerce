@@ -132,7 +132,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			$access_token = $access_token[1];
 		}
 
-		$user         = $this->get_user( $enrollment_data['enrollment_email'], $access_token );
+		$user = $this->get_user( $enrollment_data['enrollment_email'], $access_token );
 
 		if ( 'error' === $access_token[0] || 'error' === $user[0] ) {
 			if ( 'error' === $access_token[0] && 'error' === $user[0] ) {
