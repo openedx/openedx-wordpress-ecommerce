@@ -1,3 +1,11 @@
+## v1.13.0 - 2023-10-10
+
+### [1.13.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.12.1...v1.13.0) (2023-10-10)
+
+#### Features
+
+- course id fields restriction & js uncaught element bug fixed ([#46](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/46)) ([9551c99](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/9551c991e00c7865a4abc836bcfadd97aef71cb4))
+
 ## v1.12.1 - 2023-10-10
 
 ### [1.12.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.12.0...v1.12.1) (2023-10-10)
