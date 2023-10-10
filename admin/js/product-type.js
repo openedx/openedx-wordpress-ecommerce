@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     var checkbox = document.getElementById("is_openedx_course");
-    handleCheckboxChange(checkbox);
+    if (checkbox !== null) {
+        handleCheckboxChange(checkbox);
+    }
 });
 
 document.addEventListener('change', function() {
     var checkbox = document.getElementById("is_openedx_course");
-    handleCheckboxChange(checkbox);
+    if (checkbox !== null) {
+        handleCheckboxChange(checkbox);
+    }
 });
 
 function handleCheckboxChange(checkbox) {
