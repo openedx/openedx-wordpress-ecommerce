@@ -182,7 +182,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 
-				return $this->enrollment_allowed_checks( $enrollment_data, $access_token_string );
+				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
 
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
@@ -206,7 +206,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
-				return $this->enrollment_allowed_checks( $enrollment_data, $access_token_string, true );
+				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
 			}
 		} elseif ( 'unenroll' === $request_type ) {
 
@@ -232,7 +232,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 
-				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token_string );
+				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
 
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
@@ -257,7 +257,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
-				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token_string, true );
+				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
 
 			}
 		}
@@ -270,7 +270,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 				'course_id' => str_replace( '+', '%2B', $course_id ),
 			);
 
-			return $this->enrollment_sync_request( $method, $body, $access_token_string );
+			return $this->enrollment_sync_request( $method, $body, $access_token_string, 'username' );
 		}
 	}
 
@@ -403,11 +403,11 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			$method = 'GET';
 			$body   = array(
-				'username'  => $user[1],
+				'email'  => $enrollment_email,
 				'course_id' => str_replace( '+', '%2B', $course_id ),
 			);
 
-			return $this->enrollment_sync_request( $method, $body, $access_token_string );
+			return $this->enrollment_sync_request( $method, $body, $access_token_string, 'email' );
 		}
 	}
 
@@ -589,13 +589,14 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $method The HTTP method to use.
 	 * @param array  $body The request body.
 	 * @param string $access_token_string The access token.
+	 * @param string $user_filter User filter to know if it's using email or username.
 	 *
 	 * @return array The response array.
 	 */
-	public function enrollment_sync_request( $method, $body, $access_token_string ) {
+	public function enrollment_sync_request( $method, $body, $access_token_string, $user_filter ) {
 
 		$domain = get_option( 'openedx-domain' );
-		$url    = $domain . self::API_SYNC_ENROLLMENT . '?username=' . $body['username'] . '&course_id=' . $body['course_id'];
+		$url    = $domain . self::API_SYNC_ENROLLMENT . '?' . $user_filter . '=' . $body[$user_filter] . '&course_id=' . $body['course_id'];
 
 		try {
 
