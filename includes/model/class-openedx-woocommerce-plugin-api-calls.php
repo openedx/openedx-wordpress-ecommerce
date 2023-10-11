@@ -112,7 +112,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			} elseif ( isset( json_decode( $error_data, true )['message'] ) ) {
 				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['message'], $status_code );
 			} else {
-				return array( 'error', $status_code . ': ' . $e->getMessage() );
+				return array( 'error', $status_code . ': ' . $e->getMessage(), $status_code );
 			}
 		}
 	}
@@ -126,24 +126,59 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $enrollment_action The enrollment action.
 	 * @return array The response array.
 	 */
-	public function enrollment_handle_old_or_new( $enrollment_data, $enrollment_action ) {
+	public function request_handler( $enrollment_data, $enrollment_action ) {
 
-		$response_new = $this->enrollment_send_request_new_endpoints( $enrollment_data, $enrollment_action );
-		$status_code  = '';
+		$response = $this->request_with_email( $enrollment_data, $enrollment_action );
 
-		if ( 'error' === $response_new[0] ) {
-			$status_code = strval( $response_new[2] );
+		if ( ( 'enrollment_allowed' === $enrollment_action || 'enrollment_allowed_force' === $enrollment_action ) ) {
+			return $this->enrollment_allowed_handler( $response, $enrollment_data, $enrollment_action );
+		} else {
+			return $this->request_response_handler( $response, $enrollment_data, $enrollment_action );
+		}
+	}
+
+
+	/**
+	 * This function, in case of enrollment action is enrollment_allowed, will check the status code.
+	 * In case of 404, it will try to do the request with the user email to get the Open edX supported versions
+	 * for the enrollment allowed, if not, it will return the response.
+	 *
+	 * @param string $response The response array.
+	 * @param string $enrollment_data The enrollment data.
+	 * @param string $enrollment_action The enrollment action.
+	 * @return array The response array.
+	 */
+	public function enrollment_allowed_handler( $response, $enrollment_data, $enrollment_action ) {
+
+		$http_404_not_found = '404';
+		$status_code        = '';
+
+		if ( 'error' === $response[0] ) {
+			$status_code = strval( $response[2] );
 		}
 
-		if ( ( 'enrollment_allowed' === $enrollment_action || 'enrollment_allowed_force' === $enrollment_action ) && '409' === $status_code ) {
+		if ( $http_404_not_found === $status_code ) {
+			return $this->request_response_handler( $response, $enrollment_data, $enrollment_action );
+		} else {
+			return $response;
+		}
+	}
 
-			return $response_new;
-		} elseif ( ( 'enrollment_allowed' !== $enrollment_action || 'enrollment_allowed_force' !== $enrollment_action ) && '409' !== $status_code ) {
-			if ( 'success' === $response_new[0] ) {
-				return $response_new;
-			} else {
-				return $this->enrollment_send_request( $enrollment_data, $enrollment_action );
-			}
+	/**
+	 * This function, in case of any enrollment action, will check the answer. If the answer is success,
+	 * it will return the response, if not, it will try to do the request with the username.
+	 *
+	 * @param string $response The response array.
+	 * @param string $enrollment_data The enrollment data.
+	 * @param string $enrollment_action The enrollment action.
+	 * @return array The response array.
+	 */
+	public function request_response_handler( $response, $enrollment_data, $enrollment_action ) {
+
+		if ( 'success' === $response[0] ) {
+			return $response;
+		} else {
+			return $this->request_with_user( $enrollment_data, $enrollment_action );
 		}
 	}
 
@@ -154,7 +189,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $enrollment_action The enrollment action.
 	 * @return array The response array.
 	 */
-	public function enrollment_send_request( $enrollment_data, $enrollment_action ) {
+	public function request_with_user( $enrollment_data, $enrollment_action ) {
 
 		if ( 'save_no_process' === $enrollment_action ) {
 
@@ -291,7 +326,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $enrollment_action The enrollment action.
 	 * @return array The response array.
 	 */
-	public function enrollment_send_request_new_endpoints( $enrollment_data, $enrollment_action ) {
+	public function request_with_email( $enrollment_data, $enrollment_action ) {
 
 		if ( 'save_no_process' === $enrollment_action ) {
 
@@ -330,7 +365,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 
-				return $this->enrollment_allowed_checks( $enrollment_data, $access_token_string );
+				return $this->enrollment_allowed_process( $enrollment_data, $access_token_string );
 
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
@@ -354,7 +389,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
-				return $this->enrollment_allowed_checks( $enrollment_data, $access_token_string, true );
+				return $this->enrollment_allowed_process( $enrollment_data, $access_token_string, true );
 			}
 		} elseif ( 'unenroll' === $request_type ) {
 
@@ -380,7 +415,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 
-				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token_string );
+				return $this->unenrollment_allowed_process( $enrollment_data, $access_token_string );
 
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
@@ -405,7 +440,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
-				return $this->unenrollment_allowed_checks( $enrollment_data, $access_token_string, true );
+				return $this->unenrollment_allowed_process( $enrollment_data, $access_token_string, true );
 			}
 		}
 
@@ -429,7 +464,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $force If the request is forced or not.
 	 * @return array The response array.
 	 */
-	public function enrollment_allowed_checks( $enrollment_data, $access_token_string, $force = false ) {
+	public function enrollment_allowed_process( $enrollment_data, $access_token_string, $force = false ) {
 
 		$course_id        = $enrollment_data['enrollment_course_id'];
 		$enrollment_email = $enrollment_data['enrollment_email'];
@@ -458,7 +493,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 		} else {
 
-			return $this->enrollment_handle_old_or_new( $enrollment_data, 'enrollment_process' );
+			return $this->request_handler( $enrollment_data, 'enrollment_process' );
 
 		}
 	}
@@ -470,7 +505,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $access_token_string The access token.
 	 * @param string $force If the request is forced or not.
 	 */
-	public function unenrollment_allowed_checks( $enrollment_data, $access_token_string, $force = false ) {
+	public function unenrollment_allowed_process( $enrollment_data, $access_token_string, $force = false ) {
 
 		$course_id        = $enrollment_data['enrollment_course_id'];
 		$enrollment_email = $enrollment_data['enrollment_email'];
@@ -478,32 +513,106 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 		if ( 'success' !== $user_exist[0] ) {
 
-			$method = 'DELETE';
+			$get_enrollments_allowed = $this->get_user_enrollments_allowed( $enrollment_email, $access_token_string );
 
-			if ( ! $force ) {
-				$body = array(
-					'email'     => $enrollment_email,
-					'course_id' => $course_id,
-				);
-			} else {
-				$body = array(
-					'email'            => $enrollment_email,
-					'course_id'        => $course_id,
-					'force_enrollment' => true,
-				);
+			if ( 'error' === $get_enrollments_allowed[0] ) {
+				return $get_enrollments_allowed;
 			}
 
-			$response = $this->enrollment_allowed_request( $method, $body, $access_token_string );
+			$user_enrollment_allowed_exists = $this->check_user_enrollment_allowed_exists( $get_enrollments_allowed, $course_id );
 
-			if ( 'success' === $response[0] ) {
-				return array( 'success', wp_json_encode( 'User unenrolled successfully.' ) );
-			} else {
-				return $response;
+			if ( $user_enrollment_allowed_exists ) {
+
+				$method = 'DELETE';
+
+				if ( ! $force ) {
+					$body = array(
+						'email'     => $enrollment_email,
+						'course_id' => $course_id,
+					);
+				} else {
+					$body = array(
+						'email'            => $enrollment_email,
+						'course_id'        => $course_id,
+						'force_enrollment' => true,
+					);
+				}
+
+				$response = $this->enrollment_allowed_request( $method, $body, $access_token_string );
+
+				if ( 'success' === $response[0] ) {
+					return array( 'success', wp_json_encode( 'User unenrolled successfully.' ) );
+				} else {
+					return $response;
+				}
+			} elseif ( ! $user_enrollment_allowed_exists ) {
+				return array( 'error', 'An enrollment allowed with email ' . $enrollment_email . ' and course' . $course_id . " doesn't exists." );
 			}
 		} else {
 
-			return $this->enrollment_handle_old_or_new( $enrollment_data, 'enrollment_process' );
+			return $this->request_handler( $enrollment_data, 'enrollment_process' );
 
+		}
+	}
+
+	/**
+	 * This function checks if the user exists in the Open edX platform with enrollment allowed.
+	 * It will return true if the user exists, and false if not.
+	 *
+	 * @param string $get_enrollments_allowed The response of the enrollment allowed request.
+	 * @param string $course_id The course id.
+	 * @return boolean If the user exists or not.
+	 */
+	public function check_user_enrollment_allowed_exists( $get_enrollments_allowed, $course_id ) {
+
+		$enrollments_allowed_data = json_decode( $get_enrollments_allowed[1], true );
+		$course_exists            = false;
+
+		foreach ( $enrollments_allowed_data as $enrollment_allowed ) {
+			if ( isset( $enrollment_allowed['course_id'] ) && $course_id === $enrollment_allowed['course_id'] ) {
+				$course_exists = true;
+				break;
+			}
+		}
+
+		return $course_exists;
+	}
+
+
+	/**
+	 * This function get, for a specific user, the courses where the user is enrolled with enrollment allowed.
+	 *
+	 * @param string $enrollment_email The user email.
+	 * @param string $access_token_string The access token.
+	 * @return array The response array.
+	 */
+	public function get_user_enrollments_allowed( $enrollment_email, $access_token_string ) {
+
+		$domain = get_option( 'openedx-domain' );
+
+		try {
+
+			$response = $this->client->request(
+				'GET',
+				$domain . self::API_ENROLLMENT_ALLOWED,
+				array(
+					'headers' => array(
+						'Authorization' => 'JWT ' . $access_token_string,
+						'Content-Type'  => 'application/json',
+					),
+					'query'   => array(
+						'email' => $enrollment_email,
+					),
+				),
+			);
+
+			$status_code   = $response->getStatusCode();
+			$response_data = $response->getBody();
+			return array( 'success', $response_data );
+		} catch ( RequestException $e ) {
+			return $this->handle_request_error( $e );
+		} catch ( GuzzleException $e ) {
+			return array( 'error', $e->getMessage() );
 		}
 	}
 

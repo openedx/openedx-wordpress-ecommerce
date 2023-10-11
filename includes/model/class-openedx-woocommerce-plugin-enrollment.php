@@ -341,7 +341,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		}
 
 		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
-		$enrollment_api_response = $api->enrollment_handle_old_or_new( $enrollment_data, $enrollment_action );
+		$enrollment_api_response = $api->request_handler( $enrollment_data, $enrollment_action );
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
 
 		if ( null !== $order_id ) {
