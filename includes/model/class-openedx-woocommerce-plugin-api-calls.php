@@ -132,13 +132,13 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 		$status_code  = '';
 
 		if ( 'error' === $response_new[0] ) {
-			$status_code = strval($response_new[2]);
+			$status_code = strval( $response_new[2] );
 		}
-		
-		if ( 'enrollment_allowed' === $enrollment_action && '409' === $status_code ) {
-			
+
+		if ( ( 'enrollment_allowed' === $enrollment_action || 'enrollment_allowed_force' === $enrollment_action ) && '409' === $status_code ) {
+
 			return $response_new;
-		} else {
+		} elseif ( ( 'enrollment_allowed' !== $enrollment_action || 'enrollment_allowed_force' !== $enrollment_action ) && '409' !== $status_code ) {
 			if ( 'success' === $response_new[0] ) {
 				return $response_new;
 			} else {
