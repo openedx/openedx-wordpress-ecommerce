@@ -231,7 +231,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 
-				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
+				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
 
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
@@ -255,7 +255,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
-				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
+				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
 			}
 		} elseif ( 'unenroll' === $request_type ) {
 
@@ -281,7 +281,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
 
-				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
+				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
 
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 				$method = 'POST';
@@ -306,7 +306,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
-				return array( 'error', 'This feature is only supported by Open edX versions equal to or higher than Quince.' );
+				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
 
 			}
 		}
