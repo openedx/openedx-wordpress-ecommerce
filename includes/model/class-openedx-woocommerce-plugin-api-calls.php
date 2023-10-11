@@ -403,7 +403,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 			$method = 'GET';
 			$body   = array(
-				'email'  => $enrollment_email,
+				'email'     => $enrollment_email,
 				'course_id' => str_replace( '+', '%2B', $course_id ),
 			);
 
@@ -596,7 +596,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	public function enrollment_sync_request( $method, $body, $access_token_string, $user_filter ) {
 
 		$domain = get_option( 'openedx-domain' );
-		$url    = $domain . self::API_SYNC_ENROLLMENT . '?' . $user_filter . '=' . $body[$user_filter] . '&course_id=' . $body['course_id'];
+		$url    = $domain . self::API_SYNC_ENROLLMENT . '?' . $user_filter . '=' . $body[ $user_filter ] . '&course_id=' . $body['course_id'];
 
 		try {
 
