@@ -108,9 +108,9 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			$error_data  = $e->getResponse()->getBody()->getContents();
 
 			if ( isset( json_decode( $error_data, true )['error'] ) ) {
-				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['error'] );
+				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['error'], $status_code );
 			} elseif ( isset( json_decode( $error_data, true )['message'] ) ) {
-				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['message'] );
+				return array( 'error', $status_code . ': ' . json_decode( $error_data, true )['message'], $status_code );
 			} else {
 				return array( 'error', $status_code . ': ' . $e->getMessage() );
 			}
@@ -129,11 +129,21 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	public function enrollment_handle_old_or_new( $enrollment_data, $enrollment_action ) {
 
 		$response_new = $this->enrollment_send_request_new_endpoints( $enrollment_data, $enrollment_action );
+		$status_code  = '';
 
-		if ( 'success' === $response_new[0] ) {
+		if ( 'error' === $response_new[0] ) {
+			$status_code = strval($response_new[2]);
+		}
+		
+		if ( 'enrollment_allowed' === $enrollment_action && '409' === $status_code ) {
+			
 			return $response_new;
 		} else {
-			return $this->enrollment_send_request( $enrollment_data, $enrollment_action );
+			if ( 'success' === $response_new[0] ) {
+				return $response_new;
+			} else {
+				return $this->enrollment_send_request( $enrollment_data, $enrollment_action );
+			}
 		}
 	}
 
