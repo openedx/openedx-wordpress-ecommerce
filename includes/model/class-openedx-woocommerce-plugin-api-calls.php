@@ -200,6 +200,10 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 		$access_token_string = $this->get_access_token( $access_token );
 		$user                = $this->check_if_user_exists( $enrollment_data['enrollment_email'], $access_token_string );
 
+		if ( 'error' === $user[0] ) {
+			return $user;
+		}
+
 		$course_id    = $enrollment_data['enrollment_course_id'];
 		$course_mode  = $enrollment_data['enrollment_mode'];
 		$request_type = $enrollment_data['enrollment_request_type'];
