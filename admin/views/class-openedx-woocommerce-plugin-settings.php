@@ -218,7 +218,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 		<input class="setting_input" type="text" name="openedx-domain" id="openedx-domain" 
 			value="<?php echo esc_attr( $value ); ?>" required />
 
-		<p class='description'>Your Open edX platform's web address.</p>
+		<p class='description'>Your LMS Open edX platform's web address. e.g. https://lms.nightly.dedalo.edunext.link or http://local.overhang.io:8000</p>
 
 		<?php
 	}
@@ -299,7 +299,7 @@ class Openedx_Woocommerce_Plugin_Settings {
 
 		</div>
 
-		<p class="description"> Select the Generate Token button to obtain a JWT Token. </p>
+		<p class="description"> Select the Generate Token button to obtain a JWT Token. Remember to save your changes before creating the JWT token.</p>
 
 		<?php
 	}

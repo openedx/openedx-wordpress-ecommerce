@@ -201,13 +201,13 @@ class Openedx_Woocommerce_Plugin_Enrollment_Info_Form {
 								<input class="action-checkbox" type="checkbox" id="force" name="enrollment_force" value="opcion1">
 								<label for="force"><?php esc_html_e( 'Use the "force" flag', 'wp-openedx-woocommerce-plugin' ); ?></label>
 								<span class="tooltip-icon">?</span>
-								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-openedx-woocommerce-plugin' ); ?></span>
+								<span class="tooltip-text"><?php esc_html_e( "Disregard the course's enrollment end dates.", 'wp-openedx-woocommerce-plugin' ); ?></span>
 							</td>
 							<td>
 								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_allowed" value="opcion1">
 								<label for="no_pre"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'wp-openedx-woocommerce-plugin' ); ?></label>
 								<span class="tooltip-icon">?</span>
-								<span class="tooltip-text"><?php esc_html_e( 'Lorem ipsum.', 'wp-openedx-woocommerce-plugin' ); ?></span>
+								<span class="tooltip-text"><?php esc_html_e( 'Creates a register in the table Course Enrollment Allowed if the email we use in the request is not a user in our Open edX platform yet.', 'wp-openedx-woocommerce-plugin' ); ?></span>
 							</td>
 						</tr>
 
