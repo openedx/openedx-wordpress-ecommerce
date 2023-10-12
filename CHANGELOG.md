@@ -1,3 +1,11 @@
+## v1.14.0 - 2023-10-12
+
+### [1.14.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.13.0...v1.14.0) (2023-10-12)
+
+#### Features
+
+- enroll and unenroll process with new and old endpoints ([#44](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/44)) ([85d69b0](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/85d69b02272b8c8a1abf0d3c9c89fb87aa764312))
+
 ## v1.13.0 - 2023-10-10
 
 ### [1.13.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.12.1...v1.13.0) (2023-10-10)
