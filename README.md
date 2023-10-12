@@ -34,10 +34,9 @@ Connect your WordPress site with your Open edX platform by following these steps
 
 # Open edX Compatibility
 
-- Palm or latest
 - Tested from Olive
 
-**NOTE:** Enrollment of users who are not platform users is only supported for versions after Palm.
+**NOTE:** Enrollment of users who are not platform users (Create course enrollment allowed) is only supported for versions equal to or after Quince.
 
 # Getting Help
 
