@@ -1,3 +1,15 @@
+## v1.14.1 - 2023-10-12
+
+### [1.14.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.14.0...v1.14.1) (2023-10-12)
+
+### Bug Fixes
+
+- improve tooltip info, examples in the domain settings and doc about save before generate token ([#48](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/48)) ([2857e61](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/2857e61834f393a52855f2410e9ff25219de6174))
+
+### Documentation
+
+- update the readme.txt and the plugin.php to improve the launch in WordPress ([#47](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues/47)) ([e32f419](https://github.com/eduNEXT/openedx-woocommerce-plugin/commit/e32f41974b88c3648cace935081748de7fd3e989))
+
 ## v1.14.0 - 2023-10-12
 
 ### [1.14.0](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.13.0...v1.14.0) (2023-10-12)
