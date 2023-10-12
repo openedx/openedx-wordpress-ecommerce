@@ -128,15 +128,229 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 */
 	public function request_handler( $enrollment_data, $enrollment_action ) {
 
-		$response = $this->request_with_email( $enrollment_data, $enrollment_action );
+		$request_type        = $enrollment_data['enrollment_request_type'];
+		$access_token        = $this->check_access_token();
+		$access_token_string = $this->get_access_token( $access_token );
 
-		if ( ( 'enrollment_allowed' === $enrollment_action || 'enrollment_allowed_force' === $enrollment_action ) ) {
-			return $this->enrollment_allowed_handler( $response, $enrollment_data, $enrollment_action );
-		} else {
-			return $this->request_response_handler( $response, $enrollment_data, $enrollment_action );
+		if ( 'enroll' === $request_type ) {
+
+			if ( 'enrollment_process' === $enrollment_action ) {
+
+				$request_with_email_body = $this->get_enrollment_process_body( $enrollment_data, false, $access_token_string, $enrollment_action );
+				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, self::API_ENROLLMENT, 'POST' );
+
+			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
+
+				$enrollment_allowed_request_body = $this->get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action );
+
+				if ( 'user_exists' === $enrollment_allowed_request_body[0] ) {
+					return $this->request_handler( $enrollment_data, 'enrollment_process' );
+				} else {
+					return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $enrollment_allowed_request_body, self::API_ENROLLMENT_ALLOWED, 'POST' );
+				}
+			} elseif ( 'enrollment_force' === $enrollment_action ) {
+
+				$request_with_email_body = $this->get_enrollment_process_body( $enrollment_data, false, $access_token_string, $enrollment_action );
+				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, 'POST' );
+			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
+
+				$enrollment_allowed_request_body = $this->get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action );
+
+				if ( 'user_exists' === $enrollment_allowed_request_body[0] ) {
+					return $this->request_handler( $enrollment_data, 'enrollment_process' );
+				} else {
+					return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $enrollment_allowed_request_body, self::API_ENROLLMENT_ALLOWED, 'POST' );
+				}
+			}
+		} elseif ( 'unenroll' === $request_type ) {
+
+			if ( 'enrollment_process' === $enrollment_action ) {
+
+				$request_with_email_body = $this->get_enrollment_process_body( $enrollment_data, false, $access_token_string, $enrollment_action );
+				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, self::API_ENROLLMENT, 'POST' );
+
+			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
+
+				$enrollment_allowed_request_body = $this->get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action );
+
+				if ( 'user_exists' === $enrollment_allowed_request_body[0] ) {
+					return $this->request_handler( $enrollment_data, 'enrollment_process' );
+				} else {
+					return $this->unenroll_enrollment_allowed( $enrollment_data, $access_token_string, $enrollment_allowed_request_body );
+				}
+			} elseif ( 'enrollment_force' === $enrollment_action ) {
+
+				$request_with_email_body = $this->get_enrollment_process_body( $enrollment_data, false, $access_token_string, $enrollment_action );
+				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, 'POST' );
+			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
+
+				$enrollment_allowed_request_body = $this->get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action );
+
+				if ( 'user_exists' === $enrollment_allowed_request_body[0] ) {
+					return $this->request_handler( $enrollment_data, 'enrollment_process' );
+				} else {
+					return $this->unenroll_enrollment_allowed( $enrollment_data, $access_token_string, $enrollment_allowed_request_body );
+				}
+			}
+		}
+
+		if ( 'enrollment_sync' === $enrollment_action ) {
+
+			$enrollment_email = $enrollment_data['enrollment_email'];
+			$course_id        = $enrollment_data['enrollment_course_id'];
+			$user_exist       = $this->check_if_user_exists( $enrollment_email, $access_token_string );
+
+			if ( 'success' === $user_exist[0] ) {
+				$method = 'GET';
+				$body   = array(
+					'username'  => $user_exist[1],
+					'course_id' => str_replace( '+', '%2B', $course_id ),
+				);
+				return $this->enrollment_sync_request( self::API_SYNC_ENROLLMENT, $method, $body, $access_token_string, 'username' );
+			} else {
+
+				$get_enrollments_allowed = $this->get_user_enrollments_allowed( $enrollment_email, $access_token_string );
+
+				if ( 'error' === $get_enrollments_allowed[0] ) {
+					return $get_enrollments_allowed;
+				}
+
+				$enrollments_allowed_data        = json_decode( $get_enrollments_allowed[1], true );
+				$course_exists                   = false;
+				$get_enrollment_allowed_response = array();
+
+				foreach ( $enrollments_allowed_data as $enrollment_allowed ) {
+					if ( isset( $enrollment_allowed['course_id'] ) && $course_id === $enrollment_allowed['course_id'] ) {
+						$course_exists                     = true;
+						$get_enrollment_allowed_response[] = $enrollment_allowed;
+					}
+				}
+
+				if ( true === $course_exists ) {
+					return array( 'success', wp_json_encode( $get_enrollment_allowed_response ) );
+				} else {
+					return array( 'error', 'There are no enrollments allowed for the user ' . $enrollment_email . ' and course ' . $course_id );
+				}
+			}
 		}
 	}
 
+	/**
+	 * API call for synchronization requests.
+	 *
+	 * @param string $api_endpoint The API endpoint.
+	 * @param string $method The HTTP method to use.
+	 * @param array  $body The request body.
+	 * @param string $access_token_string The access token.
+	 * @param string $user_filter User filter to know if it's using email or username.
+	 *
+	 * @return array The response array.
+	 */
+	public function enrollment_sync_request( $api_endpoint, $method, $body, $access_token_string, $user_filter ) {
+
+		$domain = get_option( 'openedx-domain' );
+		$url    = $domain . $api_endpoint . '?' . $user_filter . '=' . $body[ $user_filter ] . '&course_id=' . $body['course_id'];
+
+		try {
+
+			$response = $this->client->request(
+				$method,
+				$url,
+				array(
+					'headers' => array(
+						'Authorization' => 'JWT ' . $access_token_string,
+						'Content-Type'  => 'application/json',
+					),
+				),
+			);
+
+			$status_code   = $response->getStatusCode();
+			$response_data = $response->getBody();
+			return array( 'success', $response_data );
+		} catch ( RequestException $e ) {
+			return $this->handle_request_error( $e );
+		} catch ( GuzzleException $e ) {
+			return array( 'error', $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Process to unenroll a user from a course using the enrollment allowed endpoint.
+	 *
+	 * @param string $enrollment_data The enrollment data.
+	 * @param string $access_token_string The access token.
+	 * @param string $enrollment_allowed_request_body The enrollment allowed request body.
+	 * @return array The response array.
+	 */
+	public function unenroll_enrollment_allowed( $enrollment_data, $access_token_string, $enrollment_allowed_request_body ) {
+
+		$course_id               = $enrollment_data['enrollment_course_id'];
+		$enrollment_email        = $enrollment_data['enrollment_email'];
+		$get_enrollments_allowed = $this->get_user_enrollments_allowed( $enrollment_email, $access_token_string );
+
+		if ( 'error' === $get_enrollments_allowed[0] ) {
+			return $get_enrollments_allowed;
+		}
+
+		$user_enrollment_allowed_exists = $this->check_user_enrollment_allowed_exists( $get_enrollments_allowed, $course_id );
+
+		if ( $user_enrollment_allowed_exists ) {
+
+			$response = $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $enrollment_allowed_request_body, self::API_ENROLLMENT_ALLOWED, 'DELETE' );
+			if ( 'success' === $response[0] ) {
+				return array( 'success', wp_json_encode( 'User unenrolled successfully.' ) );
+			} else {
+				return $response;
+			}
+		} else {
+			return array( 'error', 'An enrollment allowed with email ' . $enrollment_email . ' and course' . $course_id . " doesn't exists." );
+		}
+	}
+	/**
+	 * This function, in case of any enrollment action, will check the answer. If the answer is success,
+	 * it will return the response, if not, it will try to do the request with the username.
+	 *
+	 * @param string $response The response array.
+	 * @param string $enrollment_data The enrollment data.
+	 * @param string $enrollment_action The enrollment action.
+	 * @param string $access_token_string The access token.
+	 * @return array The response array.
+	 */
+	public function request_response_handler( $response, $enrollment_data, $enrollment_action, $access_token_string ) {
+
+		if ( 'success' === $response[0] ) {
+
+			return $response;
+		} elseif ( 'success' !== $response[0] ) {
+
+			if ( ( 'enrollment_allowed' === $enrollment_action || 'enrollment_allowed_force' === $enrollment_action ) ) {
+				return $this->enrollment_allowed_handler( $response, $enrollment_data, $enrollment_action, $access_token_string );
+			} else {
+				return $this->response_or_request_with_username( $response, $enrollment_data, $enrollment_action, $access_token_string );
+			}
+		}
+	}
+
+	/**
+	 * This function, in case that the response handler fails, will try to do the request with the username and return the response.
+	 *
+	 * @param string $response The response array.
+	 * @param string $enrollment_data The enrollment data.
+	 * @param string $enrollment_action The enrollment action.
+	 * @param string $access_token_string The access token.
+	 * @return array The response array.
+	 */
+	public function response_or_request_with_username( $response, $enrollment_data, $enrollment_action, $access_token_string ) {
+
+		$request_with_user_body = $this->get_enrollment_process_body( $enrollment_data, true, $access_token_string, $enrollment_action );
+
+		if ( 'error' === $request_with_user_body[0] ) {
+			return $request_with_user_body;
+		} else {
+			$request_with_user_res = $this->enrollment_request_api_call( self::API_ENROLLMENT, 'POST', $request_with_user_body[1], $access_token_string );
+			return $request_with_user_res;
+		}
+	}
 
 	/**
 	 * This function, in case of enrollment action is enrollment_allowed, will check the status code.
@@ -146,9 +360,10 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 	 * @param string $response The response array.
 	 * @param string $enrollment_data The enrollment data.
 	 * @param string $enrollment_action The enrollment action.
+	 * @param string $access_token_string The access token.
 	 * @return array The response array.
 	 */
-	public function enrollment_allowed_handler( $response, $enrollment_data, $enrollment_action ) {
+	public function enrollment_allowed_handler( $response, $enrollment_data, $enrollment_action, $access_token_string ) {
 
 		$http_404_not_found = '404';
 		$status_code        = '';
@@ -158,404 +373,157 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 		}
 
 		if ( $http_404_not_found === $status_code ) {
-			return $this->request_response_handler( $response, $enrollment_data, $enrollment_action );
+			return $this->response_or_request_with_username( $response, $enrollment_data, $enrollment_action, $access_token_string );
 		} else {
 			return $response;
 		}
 	}
 
 	/**
-	 * This function, in case of any enrollment action, will check the answer. If the answer is success,
-	 * it will return the response, if not, it will try to do the request with the username.
-	 *
-	 * @param string $response The response array.
-	 * @param string $enrollment_data The enrollment data.
-	 * @param string $enrollment_action The enrollment action.
-	 * @return array The response array.
-	 */
-	public function request_response_handler( $response, $enrollment_data, $enrollment_action ) {
-
-		if ( 'success' === $response[0] ) {
-			return $response;
-		} else {
-			return $this->request_with_user( $enrollment_data, $enrollment_action );
-		}
-	}
-
-	/**
-	 * Decide how the process has to do the API request depending on the selected action.
+	 * This function process the request with user_email using the new endpoint.
 	 *
 	 * @param string $enrollment_data The enrollment data.
 	 * @param string $enrollment_action The enrollment action.
-	 * @return array The response array.
-	 */
-	public function request_with_user( $enrollment_data, $enrollment_action ) {
-
-		if ( 'save_no_process' === $enrollment_action ) {
-
-			return array( 'not_api', 'This action does not require an API call.' );
-		}
-
-		$access_token        = $this->check_access_token();
-		$access_token_string = $this->get_access_token( $access_token );
-		$user                = $this->check_if_user_exists( $enrollment_data['enrollment_email'], $access_token_string );
-
-		if ( 'error' === $user[0] ) {
-			return $user;
-		}
-
-		$course_id    = $enrollment_data['enrollment_course_id'];
-		$course_mode  = $enrollment_data['enrollment_mode'];
-		$request_type = $enrollment_data['enrollment_request_type'];
-
-		if ( 'enroll' === $request_type ) {
-
-			if ( 'enrollment_process' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'user'                  => $user[1],
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
-
-				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
-
-			} elseif ( 'enrollment_force' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'user'                  => $user[1],
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-					'force_enrollment'      => true,
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
-
-				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
-			}
-		} elseif ( 'unenroll' === $request_type ) {
-
-			if ( 'enrollment_process' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'user'                  => $user[1],
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-					'is_active'             => false,
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
-
-				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
-
-			} elseif ( 'enrollment_force' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'user'                  => $user[1],
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-					'force_enrollment'      => true,
-					'is_active'             => false,
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
-
-				return array( 'error', 'The creation of course enrollment allowed is only supported by Open edX versions equal to or higher than Quince.' );
-
-			}
-		}
-
-		if ( 'enrollment_sync' === $enrollment_action ) {
-
-			$method = 'GET';
-			$body   = array(
-				'username'  => $user[1],
-				'course_id' => str_replace( '+', '%2B', $course_id ),
-			);
-
-			return $this->enrollment_sync_request( $method, $body, $access_token_string, 'username' );
-		}
-	}
-
-	/**
-	 * Send the enroll and unenroll requests to the new endpoints using directly the user email.
-	 *
-	 * @param string $enrollment_data The enrollment data.
-	 * @param string $enrollment_action The enrollment action.
-	 * @return array The response array.
-	 */
-	public function request_with_email( $enrollment_data, $enrollment_action ) {
-
-		if ( 'save_no_process' === $enrollment_action ) {
-
-			return array( 'not_api', 'This action does not require an API call.' );
-		}
-
-		$access_token        = $this->check_access_token();
-		$access_token_string = $this->get_access_token( $access_token );
-
-		$course_id        = $enrollment_data['enrollment_course_id'];
-		$course_mode      = $enrollment_data['enrollment_mode'];
-		$request_type     = $enrollment_data['enrollment_request_type'];
-		$enrollment_email = $enrollment_data['enrollment_email'];
-
-		if ( 'enroll' === $request_type ) {
-
-			if ( 'enrollment_process' === $enrollment_action ) {
-
-				$method = 'POST';
-				$body   = array(
-					'email'                 => $enrollment_email,
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
-
-				return $this->enrollment_allowed_process( $enrollment_data, $access_token_string );
-
-			} elseif ( 'enrollment_force' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'email'                 => $enrollment_email,
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-					'force_enrollment'      => true,
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
-
-				return $this->enrollment_allowed_process( $enrollment_data, $access_token_string, true );
-			}
-		} elseif ( 'unenroll' === $request_type ) {
-
-			if ( 'enrollment_process' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'user'                  => $enrollment_email,
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-					'is_active'             => false,
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed' === $enrollment_action ) {
-
-				return $this->unenrollment_allowed_process( $enrollment_data, $access_token_string );
-
-			} elseif ( 'enrollment_force' === $enrollment_action ) {
-				$method = 'POST';
-				$body   = array(
-					'user'                  => $enrollment_email,
-					'mode'                  => strtolower( $course_mode ),
-					'course_details'        => array(
-						'course_id' => $course_id,
-					),
-					'enrollment_attributes' => array(
-						array(
-							'namespace' => 'openedx-woocommerce-plugin',
-							'name'      => 'message',
-							'value'     => 'Enrollment request response.',
-						),
-					),
-					'force_enrollment'      => true,
-					'is_active'             => false,
-				);
-
-				return $this->enrollment_request_api_call( $method, $body, $access_token_string );
-
-			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
-
-				return $this->unenrollment_allowed_process( $enrollment_data, $access_token_string, true );
-			}
-		}
-
-		if ( 'enrollment_sync' === $enrollment_action ) {
-
-			$method = 'GET';
-			$body   = array(
-				'email'     => $enrollment_email,
-				'course_id' => str_replace( '+', '%2B', $course_id ),
-			);
-
-			return $this->enrollment_sync_request( $method, $body, $access_token_string, 'email' );
-		}
-	}
-
-	/**
-	 * Create the request to the new endpoint for enrollment allowed.
-	 *
-	 * @param string $enrollment_data The enrollment data.
 	 * @param string $access_token_string The access token.
-	 * @param string $force If the request is forced or not.
+	 * @param string $request_with_email_body The request body.
+	 * @param string $api_endpoint The API endpoint.
+	 * @param string $method The HTTP method to use.
 	 * @return array The response array.
 	 */
-	public function enrollment_allowed_process( $enrollment_data, $access_token_string, $force = false ) {
+	public function process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, $api_endpoint, $method ) {
 
-		$course_id        = $enrollment_data['enrollment_course_id'];
-		$enrollment_email = $enrollment_data['enrollment_email'];
-		$user_exist       = $this->check_if_user_exists( $enrollment_email, $access_token_string );
+		$request_with_email_res = $this->enrollment_request_api_call( $api_endpoint, $method, $request_with_email_body[1], $access_token_string );
+		return $this->request_response_handler( $request_with_email_res, $enrollment_data, $enrollment_action, $access_token_string );
+	}
 
-		if ( 'success' !== $user_exist[0] ) {
+	/**
+	 * This function returns the request body depending in the action, if it's enrollment or unenrollment and if it's using email or username.
+	 *
+	 * @param string $enrollment_data The enrollment data.
+	 * @param string $use_old_endpoint If the request is using the old endpoint.
+	 * @param string $access_token_string The access token.
+	 * @param string $enrollment_action The enrollment action.
+	 * @return array The request body.
+	 */
+	public function get_enrollment_process_body( $enrollment_data, $use_old_endpoint, $access_token_string, $enrollment_action ) {
 
-			$method = 'POST';
+		$user_or_email       = '';
+		$user_or_email_value = '';
+		$course_id           = $enrollment_data['enrollment_course_id'];
+		$course_mode         = $enrollment_data['enrollment_mode'];
+		$request_type        = $enrollment_data['enrollment_request_type'];
 
-			if ( ! $force ) {
-				$body = array(
-					'email'       => $enrollment_email,
-					'course_id'   => $course_id,
-					'auto_enroll' => true,
-				);
+		if ( $use_old_endpoint ) {
+			$user_or_email       = 'user';
+			$user_or_email_value = $this->check_if_user_exists( $enrollment_data['enrollment_email'], $access_token_string );
+
+			if ( 'error' === $user_or_email_value[0] ) {
+				return $user_or_email_value;
 			} else {
-				$body = array(
-					'email'            => $enrollment_email,
-					'course_id'        => $course_id,
-					'auto_enroll'      => true,
-					'force_enrollment' => true,
-				);
+				$user_or_email_value = $user_or_email_value[1];
 			}
-
-			return $this->enrollment_allowed_request( $method, $body, $access_token_string );
-
 		} else {
-
-			return $this->request_handler( $enrollment_data, 'enrollment_process' );
-
+			$user_or_email       = 'email';
+			$user_or_email_value = $enrollment_data['enrollment_email'];
 		}
+
+		$body = array(
+			$user_or_email          => $user_or_email_value,
+			'mode'                  => strtolower( $course_mode ),
+			'course_details'        => array(
+				'course_id' => $course_id,
+			),
+			'enrollment_attributes' => array(
+				array(
+					'namespace' => 'openedx-woocommerce-plugin',
+					'name'      => 'message',
+					'value'     => 'Enrollment request response.',
+				),
+			),
+		);
+
+		if ( 'unenroll' === $request_type ) {
+			$body['is_active'] = false;
+		}
+
+		if ( 'enrollment_force' === $enrollment_action ) {
+			$body['force_enrollment'] = true;
+		}
+
+		return array( 'success', $body );
 	}
 
 	/**
-	 * Create the request to the new endpoint for unenrollment with enrollment_allowed enabled.
+	 * This function returns the enrollment allowed request body depending in the action, if it's enrollment or unenrollment.
 	 *
 	 * @param string $enrollment_data The enrollment data.
 	 * @param string $access_token_string The access token.
-	 * @param string $force If the request is forced or not.
+	 * @param string $enrollment_action The enrollment action.
+	 * @return array The request body.
 	 */
-	public function unenrollment_allowed_process( $enrollment_data, $access_token_string, $force = false ) {
+	public function get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action ) {
 
 		$course_id        = $enrollment_data['enrollment_course_id'];
 		$enrollment_email = $enrollment_data['enrollment_email'];
+		$request_type     = $enrollment_data['enrollment_request_type'];
 		$user_exist       = $this->check_if_user_exists( $enrollment_email, $access_token_string );
 
-		if ( 'success' !== $user_exist[0] ) {
+		if ( 'success' === $user_exist[0] ) {
+			return array( 'user_exists', $user_exist[1] );
+		}
 
-			$get_enrollments_allowed = $this->get_user_enrollments_allowed( $enrollment_email, $access_token_string );
+		$body = array(
+			'email'       => $enrollment_email,
+			'course_id'   => $course_id,
+			'auto_enroll' => true,
+		);
 
-			if ( 'error' === $get_enrollments_allowed[0] ) {
-				return $get_enrollments_allowed;
-			}
+		if ( 'enrollment_allowed_force' === $enrollment_action ) {
+			$body['force_enrollment'] = true;
+		}
 
-			$user_enrollment_allowed_exists = $this->check_user_enrollment_allowed_exists( $get_enrollments_allowed, $course_id );
+		if ( 'unenroll' === $request_type ) {
+			unset( $body['auto_enroll'] );
+		}
 
-			if ( $user_enrollment_allowed_exists ) {
+		return array( 'success', $body );
+	}
 
-				$method = 'DELETE';
+	/**
+	 * Performs a request to the Open edX API endpoint
+	 *
+	 * @param string $api_endpoint The API endpoint.
+	 * @param string $method The HTTP method to use.
+	 * @param array  $body The request body.
+	 * @param string $access_token_string The access token.
+	 *
+	 * @return array The response array.
+	 */
+	public function enrollment_request_api_call( $api_endpoint, $method, $body, $access_token_string ) {
 
-				if ( ! $force ) {
-					$body = array(
-						'email'     => $enrollment_email,
-						'course_id' => $course_id,
-					);
-				} else {
-					$body = array(
-						'email'            => $enrollment_email,
-						'course_id'        => $course_id,
-						'force_enrollment' => true,
-					);
-				}
+		$domain = get_option( 'openedx-domain' );
 
-				$response = $this->enrollment_allowed_request( $method, $body, $access_token_string );
+		try {
 
-				if ( 'success' === $response[0] ) {
-					return array( 'success', wp_json_encode( 'User unenrolled successfully.' ) );
-				} else {
-					return $response;
-				}
-			} elseif ( ! $user_enrollment_allowed_exists ) {
-				return array( 'error', 'An enrollment allowed with email ' . $enrollment_email . ' and course' . $course_id . " doesn't exists." );
-			}
-		} else {
+			$response = $this->client->request(
+				$method,
+				$domain . $api_endpoint,
+				array(
+					'headers' => array(
+						'Authorization' => 'JWT ' . $access_token_string,
+						'Content-Type'  => 'application/json',
+					),
+					'json'    => $body,
+				),
+			);
 
-			return $this->request_handler( $enrollment_data, 'enrollment_process' );
-
+			$status_code   = $response->getStatusCode();
+			$response_data = $response->getBody();
+			return array( 'success', $response_data );
+		} catch ( RequestException $e ) {
+			return $this->handle_request_error( $e );
+		} catch ( GuzzleException $e ) {
+			return array( 'error', $e->getMessage() );
 		}
 	}
 
@@ -631,117 +599,6 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 
 		$user = $this->get_user( $enrollment_email, $access_token_string );
 		return $user;
-	}
-
-	/**
-	 * Performs a request to the enrollment_allowed Open edX API endpoint.
-	 *
-	 * @param string $method The HTTP method to use.
-	 * @param array  $body The request body.
-	 * @param string $access_token_string The access token.
-	 * @return array The response array.
-	 */
-	public function enrollment_allowed_request( $method, $body, $access_token_string ) {
-
-		$domain = get_option( 'openedx-domain' );
-
-		try {
-
-			$response = $this->client->request(
-				$method,
-				$domain . self::API_ENROLLMENT_ALLOWED,
-				array(
-					'headers' => array(
-						'Authorization' => 'JWT ' . $access_token_string,
-						'Content-Type'  => 'application/json',
-					),
-					'json'    => $body,
-				),
-			);
-
-			$status_code   = $response->getStatusCode();
-			$response_data = $response->getBody();
-			return array( 'success', $response_data );
-		} catch ( RequestException $e ) {
-			return $this->handle_request_error( $e );
-		} catch ( GuzzleException $e ) {
-			return array( 'error', $e->getMessage() );
-		}
-	}
-
-	/**
-	 * Performs a request to the Open edX API endpoint
-	 *
-	 * @param string $method The HTTP method to use.
-	 * @param array  $body The request body.
-	 * @param string $access_token_string The access token.
-	 *
-	 * @return array The response array.
-	 */
-	public function enrollment_request_api_call( $method, $body, $access_token_string ) {
-
-		$domain = get_option( 'openedx-domain' );
-
-		try {
-
-			$response = $this->client->request(
-				$method,
-				$domain . self::API_ENROLLMENT,
-				array(
-					'headers' => array(
-						'Authorization' => 'JWT ' . $access_token_string,
-						'Content-Type'  => 'application/json',
-					),
-					'json'    => $body,
-				),
-			);
-
-			$status_code   = $response->getStatusCode();
-			$response_data = $response->getBody();
-			return array( 'success', $response_data );
-		} catch ( RequestException $e ) {
-			return $this->handle_request_error( $e );
-		} catch ( GuzzleException $e ) {
-			return array( 'error', $e->getMessage() );
-		}
-	}
-
-	/**
-	 * API call for synchronization requests.
-	 *
-	 * @param string $method The HTTP method to use.
-	 * @param array  $body The request body.
-	 * @param string $access_token_string The access token.
-	 * @param string $user_filter User filter to know if it's using email or username.
-	 *
-	 * @return array The response array.
-	 */
-	public function enrollment_sync_request( $method, $body, $access_token_string, $user_filter ) {
-
-		$domain = get_option( 'openedx-domain' );
-		$url    = $domain . self::API_SYNC_ENROLLMENT . '?' . $user_filter . '=' . $body[ $user_filter ] . '&course_id=' . $body['course_id'];
-
-		try {
-
-			$response = $this->client->request(
-				$method,
-				$url,
-				array(
-					'headers' => array(
-						'Authorization' => 'JWT ' . $access_token_string,
-						'Content-Type'  => 'application/json',
-					),
-				),
-			);
-
-			$status_code   = $response->getStatusCode();
-			$response_data = $response->getBody();
-			return array( 'success', $response_data );
-		} catch ( RequestException $e ) {
-			return $this->handle_request_error( $e );
-		} catch ( GuzzleException $e ) {
-			return array( 'error', $e->getMessage() );
-		}
 	}
 
 	/**
