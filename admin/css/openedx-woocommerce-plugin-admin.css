@@ -108,10 +108,13 @@
     color: white;
     font-size: bold;
     border-radius: 5px;
+    width: 250px;
+    position: absolute;
+    margin-left: 5px;
 }
 
 .tooltip-icon:hover + .tooltip-text {
-    display: unset;
+    display: inline-block;
 }
 
 .setting_input {
