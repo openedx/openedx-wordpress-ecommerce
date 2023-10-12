@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       Open edX WooCommerce Plugin
- * Plugin URI:        https://github.com/eduNEXT/openedx-woocommerce-plugin
+ * Plugin Name:       Open edX Ecommerce
+ * Plugin URI:        https://github.com/eduNEXT/openedx-wordpress-ecommerce
  * Description:       Easily connect your WooCommerce store to Open edX.
- * Version:           1.14.1
+ * Version:           1.14.0
  * Author:            eduNEXT
  * Author URI:        https://edunext.co/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       openedx-woocommerce-plugin
+ * Text Domain:       openedx-ecommerce
  * Domain Path:       /languages
  * Requires at least: 6.3
  * Requires PHP: 8.0
@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '1.14.1' );
+define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '1.14.0' );
 
 /**
  * The code that runs during plugin activation.
