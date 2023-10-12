@@ -1,17 +1,5 @@
 <?php
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
- *
- * @link              https://edunext.co/
- * @since             1.0.0
- * @package           Openedx_Woocommerce_Plugin
- *
- * @wordpress-plugin
  * Plugin Name:       Open edX WooCommerce Plugin
  * Plugin URI:        https://github.com/eduNEXT/openedx-woocommerce-plugin
  * Description:       Easily connect your WooCommerce store to Open edX.
@@ -22,6 +10,12 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       openedx-woocommerce-plugin
  * Domain Path:       /languages
+ * Requires at least: 6.3
+ * Requires PHP: 8.0
+ *
+ * @package           Openedx_Woocommerce_Plugin
+ *
+ * @wordpress-plugin
  */
 
 use App\Openedx_Woocommerce_Plugin_Activator;
