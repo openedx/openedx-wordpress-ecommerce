@@ -1,6 +1,6 @@
-=== Open edX WooCommerce Plugin ===
+=== Open edX Ecommerce ===
 Contributors: felipemontoya, julianrg2, mafermazu
-Tags: openedx, open edx, woocommerce, lms, courses
+Tags: openedx, open edx, ecommerce, lms, courses
 Requires at least: 6.3
 Tested up to: 6.3.1
 Requires PHP: 8.0
@@ -12,7 +12,7 @@ You can sell your Open edX courses with WooCommerce using this free and open-sou
 
 == Description ==
 
-The "Open edX WooCommerce Plugin" is a free and open-source WordPress plugin that allows you to integrate WooCommerce with your Open edX platform.
+The "Open edX Ecommerce" package is a free and open-source WordPress plugin that allows you to integrate WooCommerce with your Open edX platform.
 
 **What does this mean?**
 You can create Open edX courses as products in WooCommerce, and when you perform purchase or refund operations for these products, your Open edX platform will reflect these changes.
@@ -50,7 +50,7 @@ Below are some links to help you get started with Open edX WooCommerce Plugin:
 
 = Manual installation =
 
-- Download the ZIP version in our [GitHub repository](https://github.com/eduNEXT/openedx-woocommerce-plugin/releases).
+- Download the ZIP version in our [GitHub repository](https://github.com/eduNEXT/openedx-wordpress-ecommerce/releases).
 
 <img src="https://i.ibb.co/YTSLYf4/zip-from-release.png" alt="Download ZIP from release">
 
@@ -64,7 +64,7 @@ If you need help setting up and configuring this plugin, visit the [documentatio
 
 = Where can I report bugs or request features? =
 
-Report bugs and request features on the [GitHub repository](https://github.com/eduNEXT/openedx-woocommerce-plugin/issues).
+Report bugs and request features on the [GitHub repository](https://github.com/eduNEXT/openedx-wordpress-ecommerce/issues).
 
 = Can I contribute? =
 
@@ -76,4 +76,4 @@ This project accepts all contributions, bug fixes, security fixes, maintenance w
 
 == Changelog ==
 
-You can find the [Changelog in the GitHub repository.](https://github.com/eduNEXT/openedx-woocommerce-plugin/blob/main/CHANGELOG.md)
+You can find the [Changelog in the GitHub repository.](https://github.com/eduNEXT/openedx-wordpress-ecommerce/blob/main/CHANGELOG.md)
