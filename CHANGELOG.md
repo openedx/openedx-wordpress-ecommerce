@@ -1,3 +1,12 @@
+## v1.14.2 - 2023-10-13
+
+### [1.14.2](https://github.com/eduNEXT/openedx-wordpress-ecommerce/compare/v1.14.1...v1.14.2) (2023-10-13)
+
+### Bug Fixes
+
+- corrected main file name in ci github workflow ([#50](https://github.com/eduNEXT/openedx-wordpress-ecommerce/issues/50)) ([340a151](https://github.com/eduNEXT/openedx-wordpress-ecommerce/commit/340a151cdaf16138d0841d9a626715f92a0b78b6))
+- updating readme and plugin definition to comply with Wordpress naming conventions ([#49](https://github.com/eduNEXT/openedx-wordpress-ecommerce/issues/49)) ([5716371](https://github.com/eduNEXT/openedx-wordpress-ecommerce/commit/571637196c4472899004c3f146a011932a6773ab))
+
 ## v1.14.1 - 2023-10-12
 
 ### [1.14.1](https://github.com/eduNEXT/openedx-woocommerce-plugin/compare/v1.14.0...v1.14.1) (2023-10-12)
