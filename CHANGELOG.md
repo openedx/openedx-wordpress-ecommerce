@@ -1,3 +1,11 @@
+## v1.14.3 - 2023-10-13
+
+### [1.14.3](https://github.com/eduNEXT/openedx-wordpress-ecommerce/compare/v1.14.2...v1.14.3) (2023-10-13)
+
+### Bug Fixes
+
+- added missing parameter to process enrollment force ([#51](https://github.com/eduNEXT/openedx-wordpress-ecommerce/issues/51)) ([d92ee1c](https://github.com/eduNEXT/openedx-wordpress-ecommerce/commit/d92ee1c2f5eb47bb576641d35fc7432ac8716354))
+
 ## v1.14.2 - 2023-10-13
 
 ### [1.14.2](https://github.com/eduNEXT/openedx-wordpress-ecommerce/compare/v1.14.1...v1.14.2) (2023-10-13)
