@@ -151,7 +151,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 
 				$request_with_email_body = $this->get_enrollment_process_body( $enrollment_data, false, $access_token_string, $enrollment_action );
-				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, 'POST' );
+				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, self::API_ENROLLMENT, 'POST' );
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
 				$enrollment_allowed_request_body = $this->get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action );
@@ -181,7 +181,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			} elseif ( 'enrollment_force' === $enrollment_action ) {
 
 				$request_with_email_body = $this->get_enrollment_process_body( $enrollment_data, false, $access_token_string, $enrollment_action );
-				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, 'POST' );
+				return $this->process_enrollment_action( $enrollment_data, $enrollment_action, $access_token_string, $request_with_email_body, self::API_ENROLLMENT, 'POST' );
 			} elseif ( 'enrollment_allowed_force' === $enrollment_action ) {
 
 				$enrollment_allowed_request_body = $this->get_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action );
