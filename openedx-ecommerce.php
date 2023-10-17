@@ -36,19 +36,19 @@ define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '2.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-openedx-woocommerce-plugin-activator.php
+ * This action is documented in includes/class-openedx-ecommerce-activator.php
  */
 function activate_openedx_woocommerce_plugin() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-activator.php';
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-ecommerce-activator.php';
 	Openedx_Woocommerce_Plugin_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-openedx-woocommerce-plugin-deactivator.php
+ * This action is documented in includes/class-openedx-ecommerce-deactivator.php
  */
 function deactivate_openedx_woocommerce_plugin() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-deactivator.php';
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-ecommerce-deactivator.php';
 	Openedx_Woocommerce_Plugin_Deactivator::deactivate();
 }
 
@@ -93,7 +93,7 @@ register_deactivation_hook( __FILE__, 'deactivate_openedx_woocommerce_plugin' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-ecommerce.php';
 
 /**
  * Begins execution of the plugin.

@@ -103,27 +103,27 @@ class Openedx_Woocommerce_Plugin {
 		 * core plugin.
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'includes/class-openedx-woocommerce-plugin-loader.php';
+			. 'includes/class-openedx-ecommerce-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'includes/class-openedx-woocommerce-plugin-i18n.php';
+			. 'includes/class-openedx-ecommerce-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'admin/class-openedx-woocommerce-plugin-admin.php';
+			. 'admin/class-openedx-ecommerce-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'public/class-openedx-woocommerce-plugin-public.php';
+			. 'public/class-openedx-ecommerce-public.php';
 
 		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
 
@@ -131,22 +131,22 @@ class Openedx_Woocommerce_Plugin {
 		 * The class responsible for defining the enrollment object
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'includes/model/class-openedx-woocommerce-plugin-enrollment.php';
+			. 'includes/model/class-openedx-ecommerce-enrollment.php';
 
 		/**
 		 * The class responsible for defining the custom-post-type object
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'includes/model/class-openedx-woocommerce-plugin-post-type.php';
+			. 'includes/model/class-openedx-ecommerce-post-type.php';
 
 		include_once plugin_dir_path( __DIR__ )
-			. 'includes/model/class-openedx-woocommerce-plugin-log.php';
+			. 'includes/model/class-openedx-ecommerce-log.php';
 
 		/**
 		 * The class responsible for rendering the enrollment info form
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'admin/views/class-openedx-woocommerce-plugin-enrollment-info-form.php';
+			. 'admin/views/class-openedx-ecommerce-enrollment-info-form.php';
 
 		/**
 		 * The file that contains variables and functions used repeatedly in the plugin.
@@ -158,7 +158,7 @@ class Openedx_Woocommerce_Plugin {
 		 * The file that contains variables and functions used repeatedly in the plugin.
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'admin/views/class-openedx-woocommerce-plugin-settings.php';
+			. 'admin/views/class-openedx-ecommerce-settings.php';
 
 		/**
 		 * Includes the Openedx_Woocommerce_Plugin_Api_Calls model class file.
@@ -169,7 +169,7 @@ class Openedx_Woocommerce_Plugin {
 		 * The path is relative to the main plugin file directory.
 		 */
 		include_once plugin_dir_path( __DIR__ )
-			. 'includes/model/class-openedx-woocommerce-plugin-api-calls.php';
+			. 'includes/model/class-openedx-ecommerce-api-calls.php';
 
 		include_once plugin_dir_path( __DIR__ )
 			. 'test/class-enrollment-test.php';
@@ -223,7 +223,7 @@ class Openedx_Woocommerce_Plugin {
 		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
 		$this->loader->wp_enqueue_style(
 			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . '../admin/css/openedx-woocommerce-plugin-admin.css',
+			plugin_dir_url( __FILE__ ) . '../admin/css/class-openedx-ecommerce-admin.css',
 			array(),
 			$this->version,
 			'all'
