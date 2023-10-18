@@ -2,7 +2,7 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - main
+      - release-file-fix
 jobs:
   bumpversion:
     runs-on: ubuntu-latest
@@ -84,6 +84,15 @@ jobs:
           commit_sha: ${{ needs.bumpversion.outputs.bump_commit_sha }}
           default_bump: false
           default_prerelease_bump: false
+          
+      - name: Create a GitHub release
+        if: steps.tag_version.outputs.new_tag
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+          artifacts: "openedx-woocommerce-plugin.zip"
 
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
@@ -96,12 +105,3 @@ jobs:
           type: 'zip'
           filename: 'openedx-woocommerce-plugin.zip'
           exclusions: '*.git*'
-          
-      - name: Create a GitHub release
-        if: steps.tag_version.outputs.new_tag
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-          artifacts: "openedx-woocommerce-plugin.zip"
