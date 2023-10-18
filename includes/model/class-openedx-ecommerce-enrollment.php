@@ -6,16 +6,16 @@
  *
  * @category   Model
  * @package    WordPress
- * @subpackage Openedx_Woocommerce_Plugin
+ * @subpackage Openedx_Ecommerce
  * @since      1.0.0
  */
 
 namespace App\model;
 
-use App\model\Openedx_Woocommerce_Plugin_Log;
-use App\Openedx_Woocommerce_Plugin;
-use App\admin\Openedx_Woocommerce_Plugin_Admin;
-use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
+use App\model\Openedx_Ecommerce_Log;
+use App\Openedx_Ecommerce;
+use App\admin\Openedx_Ecommerce_Admin;
+use App\model\Openedx_Ecommerce_Api_Calls;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * This class contains every step to process the enrollment post type operations.
  */
-class Openedx_Woocommerce_Plugin_Enrollment {
+class Openedx_Ecommerce_Enrollment {
 
 
 	/**
@@ -68,7 +68,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 * @return void
 	 */
 	public function register_log_manager() {
-		$this->log_manager = new Openedx_Woocommerce_Plugin_Log();
+		$this->log_manager = new Openedx_Ecommerce_Log();
 	}
 
 	/**
@@ -348,7 +348,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$this->update_post( $post_id );
 		}
 
-		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
+		$api                     = new Openedx_Ecommerce_Api_Calls();
 		$enrollment_api_response = $api->request_handler( $enrollment_data, $enrollment_action );
 
 		// The $enrollment_api_response[0] is the status of the request.
@@ -356,8 +356,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
 
 		if ( null !== $order_id ) {
-			$plugin_class = new Openedx_Woocommerce_Plugin();
-			$admin_class  = new Openedx_Woocommerce_Plugin_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
+			$plugin_class = new Openedx_Ecommerce();
+			$admin_class  = new Openedx_Ecommerce_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
 			$admin_class->show_enrollment_logs( $order_id, $enrollment_api_response );
 		}
 	}

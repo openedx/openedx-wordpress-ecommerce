@@ -4,7 +4,7 @@
  *
  * @category   Model
  * @package    WordPress
- * @subpackage Openedx_Woocommerce_Plugin
+ * @subpackage Openedx_Ecommerce
  * @since      1.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * This class contains the function to register a new custom post type.
  */
-class Openedx_Woocommerce_Plugin_Post_Type {
+class Openedx_Ecommerce_Post_Type {
 
 	/**
 	 * The name for the custom post type.

@@ -5,7 +5,7 @@
  *
  * @category   Model
  * @package    WordPress
- * @subpackage Openedx_Woocommerce_Plugin
+ * @subpackage Openedx_Ecommerce
  * @since      1.4.0
  */
 
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class contains every functions to process
  * logs that can be created by the plugin.
  */
-class Openedx_Woocommerce_Plugin_Log {
+class Openedx_Ecommerce_Log {
 	/**
 	 * Creates a new log entry in the database.
 	 *

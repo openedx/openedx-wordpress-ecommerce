@@ -5,15 +5,15 @@
  *
  * @category   Admin
  * @package    WordPress
- * @subpackage Openedx_Woocommerce_Plugin
+ * @subpackage Openedx_Ecommerce
  * @since      1.0.0
  */
 
 namespace App\admin;
 
-use App\model\Openedx_Woocommerce_Plugin_Enrollment;
-use App\model\Openedx_Woocommerce_Plugin_Post_Type;
-use App\admin\views\Openedx_Woocommerce_Plugin_Enrollment_Info_Form;
+use App\model\Openedx_Ecommerce_Enrollment;
+use App\model\Openedx_Ecommerce_Post_Type;
+use App\admin\views\Openedx_Ecommerce_Enrollment_Info_Form;
 use App\utils;
 
 /**
@@ -22,8 +22,8 @@ use App\utils;
  * @link       https://edunext.co/
  * @since      1.0.0
  *
- * @package    Openedx_Woocommerce_Plugin
- * @subpackage Openedx_Woocommerce_Plugin/admin
+ * @package    Openedx_Ecommerce
+ * @subpackage Openedx_Ecommerce/admin
  */
 
 /**
@@ -32,11 +32,11 @@ use App\utils;
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Openedx_Woocommerce_Plugin
- * @subpackage Openedx_Woocommerce_Plugin/admin
+ * @package    Openedx_Ecommerce
+ * @subpackage Openedx_Ecommerce/admin
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Woocommerce_Plugin_Admin {
+class Openedx_Ecommerce_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -84,14 +84,14 @@ class Openedx_Woocommerce_Plugin_Admin {
 	}
 
 	/**
-	 * Create an instance of the Openedx_Woocommerce_Plugin_Enrollment class.
+	 * Create an instance of the Openedx_Ecommerce_Enrollment class.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	public function create_enrollment_class() {
-		$this->openedx_enrollment = new Openedx_Woocommerce_Plugin_Enrollment( $this );
+		$this->openedx_enrollment = new Openedx_Ecommerce_Enrollment( $this );
 	}
 
 	/**
@@ -105,10 +105,10 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Openedx_Woocommerce_Plugin_Loader as all of the hooks are defined
+		 * defined in Openedx_Ecommerce_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Openedx_Woocommerce_Plugin_Loader will then create the relationship
+		 * The Openedx_Ecommerce_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -127,10 +127,10 @@ class Openedx_Woocommerce_Plugin_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Openedx_Woocommerce_Plugin_Loader as
+		 * defined in Openedx_Ecommerce_Loader as
 		 * all of the hooks are defined in that particular class.
 		 *
-		 * The Openedx_Woocommerce_Plugin_Loader will then create the relationship
+		 * The Openedx_Ecommerce_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -152,7 +152,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	 * @since    1.0.0
 	 */
 	public function render_enrollment_info_form( $post ) {
-		$this->openedx_enrollment_info_form = new Openedx_Woocommerce_Plugin_Enrollment_Info_Form( $post );
+		$this->openedx_enrollment_info_form = new Openedx_Ecommerce_Enrollment_Info_Form( $post );
 	}
 
 	/**
@@ -178,7 +178,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 	}
 
 	/**
-	 * Create a new instance of the Openedx_Woocommerce_Plugin_Post_Type class and register a new post type.
+	 * Create a new instance of the Openedx_Ecommerce_Post_Type class and register a new post type.
 	 *
 	 * @param  string $post_type   Post type name.
 	 * @param  string $plural      Post type item plural name.
@@ -194,7 +194,7 @@ class Openedx_Woocommerce_Plugin_Admin {
 		$description = '',
 		array $options
 	) {
-		return new Openedx_Woocommerce_Plugin_Post_Type( $post_type, $plural, $single, $description, $options );
+		return new Openedx_Ecommerce_Post_Type( $post_type, $plural, $single, $description, $options );
 	}
 
 	/**

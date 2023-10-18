@@ -21,7 +21,7 @@
  * @link       https://edunext.co/
  * @since      1.0.0
  *
- * @package    Openedx_Woocommerce_Plugin
+ * @package    Openedx_Ecommerce
  */
 
 // If uninstall not called from WordPress, then exit.

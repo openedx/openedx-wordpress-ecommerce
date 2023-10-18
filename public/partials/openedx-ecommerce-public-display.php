@@ -7,8 +7,8 @@
  * @link       https://edunext.co/
  * @since      1.0.0
  *
- * @package    Openedx_Woocommerce_Plugin
- * @subpackage Openedx_Woocommerce_Plugin/public/partials
+ * @package    Openedx_Ecommerce
+ * @subpackage Openedx_Ecommerce/public/partials
  */
 
 ?>

@@ -9,22 +9,22 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Openedx_Woocommerce_Plugin
- * @subpackage Openedx_Woocommerce_Plugin/includes
+ * @package    Openedx_Ecommerce
+ * @subpackage Openedx_Ecommerce/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 
 namespace App;
 
-use App\admin\Openedx_Woocommerce_Plugin_Admin;
-use App\public\Openedx_Woocommerce_Plugin_Public;
-use App\admin\views\Openedx_Woocommerce_Plugin_Settings;
-use App\model\Openedx_Woocommerce_Plugin_Enrollment;
+use App\admin\Openedx_Ecommerce_Admin;
+use App\public\Openedx_Ecommerce_Public;
+use App\admin\views\Openedx_Ecommerce_Settings;
+use App\model\Openedx_Ecommerce_Enrollment;
 
 /**
  * This class contains the function to register a new custom post type.
  */
-class Openedx_Woocommerce_Plugin {
+class Openedx_Ecommerce {
 
 
 	/**
@@ -33,7 +33,7 @@ class Openedx_Woocommerce_Plugin {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Openedx_Woocommerce_Plugin_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Openedx_Ecommerce_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -65,8 +65,8 @@ class Openedx_Woocommerce_Plugin {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION' ) ) {
-			$this->version = OPENEDX_WOOCOMMERCE_PLUGIN_VERSION;
+		if ( defined( 'OPENEDX_ECOMMERCE_VERSION' ) ) {
+			$this->version = OPENEDX_ECOMMERCE_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -85,10 +85,10 @@ class Openedx_Woocommerce_Plugin {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Openedx_Woocommerce_Plugin_Loader. Orchestrates the hooks of the plugin.
-	 * - Openedx_Woocommerce_Plugin_i18n. Defines internationalization functionality.
-	 * - Openedx_Woocommerce_Plugin_Admin. Defines all hooks for the admin area.
-	 * - Openedx_Woocommerce_Plugin_Public. Defines all hooks for the public side of the site.
+	 * - Openedx_Ecommerce_Loader. Orchestrates the hooks of the plugin.
+	 * - Openedx_Ecommerce_I18n. Defines internationalization functionality.
+	 * - Openedx_Ecommerce_Admin. Defines all hooks for the admin area.
+	 * - Openedx_Ecommerce_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -125,7 +125,7 @@ class Openedx_Woocommerce_Plugin {
 		include_once plugin_dir_path( __DIR__ )
 			. 'public/class-openedx-ecommerce-public.php';
 
-		$this->loader = new Openedx_Woocommerce_Plugin_Loader();
+		$this->loader = new Openedx_Ecommerce_Loader();
 
 		/**
 		 * The class responsible for defining the enrollment object
@@ -161,9 +161,9 @@ class Openedx_Woocommerce_Plugin {
 			. 'admin/views/class-openedx-ecommerce-settings.php';
 
 		/**
-		 * Includes the Openedx_Woocommerce_Plugin_Api_Calls model class file.
+		 * Includes the Openedx_Ecommerce_Api_Calls model class file.
 		 *
-		 * This includes the file defining the Openedx_Woocommerce_Plugin_Api_Calls class
+		 * This includes the file defining the Openedx_Ecommerce_Api_Calls class
 		 * which handles making API requests to the Open edX platform.
 		 *
 		 * The path is relative to the main plugin file directory.
@@ -178,7 +178,7 @@ class Openedx_Woocommerce_Plugin {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Openedx_Woocommerce_Plugin_i18n class in order to set the domain and to register the hook
+	 * Uses the Openedx_Ecommerce_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -186,7 +186,7 @@ class Openedx_Woocommerce_Plugin {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Openedx_Woocommerce_Plugin_i18n();
+		$plugin_i18n = new Openedx_Ecommerce_I18n();
 
 		$this->loader->add_action(
 			'plugins_loaded',
@@ -204,7 +204,7 @@ class Openedx_Woocommerce_Plugin {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Openedx_Woocommerce_Plugin_Admin(
+		$plugin_admin = new Openedx_Ecommerce_Admin(
 			$this->get_plugin_name(),
 			$this->get_version()
 		);
@@ -259,7 +259,7 @@ class Openedx_Woocommerce_Plugin {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Openedx_Woocommerce_Plugin_Public(
+		$plugin_public = new Openedx_Ecommerce_Public(
 			$this->get_plugin_name(),
 			$this->get_version()
 		);
@@ -285,14 +285,14 @@ class Openedx_Woocommerce_Plugin {
 	/**
 	 * Define the plugin settings hooks.
 	 *
-	 * Initializes the Openedx_Woocommerce_Plugin_Settings class
+	 * Initializes the Openedx_Ecommerce_Settings class
 	 * and registers its admin menu and settings hooks using the loader.
 	 *
 	 * @return void
 	 */
 	private function define_plugin_settings_hooks() {
 
-		$plugin_settings = new Openedx_Woocommerce_Plugin_Settings();
+		$plugin_settings = new Openedx_Ecommerce_Settings();
 
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'openedx_settings_submenu' );
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'openedx_settings_init' );
@@ -338,7 +338,7 @@ class Openedx_Woocommerce_Plugin {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Openedx_Woocommerce_Plugin_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Openedx_Ecommerce_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

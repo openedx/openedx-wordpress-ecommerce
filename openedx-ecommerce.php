@@ -13,14 +13,14 @@
  * Requires at least: 6.3
  * Requires PHP: 8.0
  *
- * @package           Openedx_Woocommerce_Plugin
+ * @package           Openedx_Ecommerce
  *
  * @wordpress-plugin
  */
 
-use App\Openedx_Woocommerce_Plugin_Activator;
-use App\Openedx_Woocommerce_Plugin_Deactivator;
-use App\Openedx_Woocommerce_Plugin;
+use App\Openedx_Ecommerce_Activator;
+use App\Openedx_Ecommerce_Deactivator;
+use App\Openedx_Ecommerce;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '2.0.0' );
+define( 'OPENEDX_ECOMMERCE_VERSION', '2.0.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -40,7 +40,7 @@ define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '2.0.0' );
  */
 function activate_openedx_woocommerce_plugin() {
 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-ecommerce-activator.php';
-	Openedx_Woocommerce_Plugin_Activator::activate();
+	Openedx_Ecommerce_Activator::activate();
 }
 
 /**
@@ -49,7 +49,7 @@ function activate_openedx_woocommerce_plugin() {
  */
 function deactivate_openedx_woocommerce_plugin() {
 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-ecommerce-deactivator.php';
-	Openedx_Woocommerce_Plugin_Deactivator::deactivate();
+	Openedx_Ecommerce_Deactivator::deactivate();
 }
 
 /**
@@ -106,7 +106,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-ecommerce.php';
  */
 function run_openedx_woocommerce_plugin() {
 
-	$plugin = new Openedx_Woocommerce_Plugin();
+	$plugin = new Openedx_Ecommerce();
 	$plugin->run();
 }
 run_openedx_woocommerce_plugin();

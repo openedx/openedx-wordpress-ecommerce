@@ -35,8 +35,8 @@ jobs:
       - name: Update php file version - define statement
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "(define\\( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', ')([^']*)(.*);"
-          replace: "define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '${{ steps.tag_version.outputs.new_version }}' );"
+          find: "(define\\( 'OPENEDX_ECOMMERCE_VERSION', ')([^']*)(.*);"
+          replace: "define( 'OPENEDX_ECOMMERCE_VERSION', '${{ steps.tag_version.outputs.new_version }}' );"
           include: "openedx-ecommerce.php"
           
       - name: Update README version
