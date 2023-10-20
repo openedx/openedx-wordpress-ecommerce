@@ -2,7 +2,7 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - release-file-fix
+      - main
 jobs:
   bumpversion:
     runs-on: ubuntu-latest
@@ -93,15 +93,3 @@ jobs:
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
           artifacts: "openedx-woocommerce-plugin.zip"
-
-      - name: Install Composer dependencies
-        uses: "ramsey/composer-install@v2"
-        with:
-          composer-options: "--no-dev"
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.1
-        with:
-          type: 'zip'
-          filename: 'openedx-woocommerce-plugin.zip'
-          exclusions: '*.git*'
