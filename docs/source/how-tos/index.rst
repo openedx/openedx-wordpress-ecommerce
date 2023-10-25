@@ -2,7 +2,7 @@ How-tos
 ========
 
 .. toctree::
-   :maxdepth: 1
+   :titlesonly:
    :caption: Contents:
 
    create_an_openedx_app
