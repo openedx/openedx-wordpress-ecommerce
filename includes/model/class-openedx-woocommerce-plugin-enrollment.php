@@ -340,6 +340,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$this->update_post( $post_id, 'enrollment-pending' );
 		}
 
+		$enrollment_action		 = $this->check_advanced_settings( $enrollment_action );
+		error_log($enrollment_action);
 		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
 		$enrollment_api_response = $api->request_handler( $enrollment_data, $enrollment_action );
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
@@ -352,6 +354,20 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	}
 
 
+	public function check_advanced_settings( $enrollment_action ) {
+		$use_force			 = get_option( 'openedx-use-force' );
+		$use_allowed		 = get_option( 'openedx-use-allowed' );
+
+		if ( $use_force && $use_allowed ) {
+			return 'enrollment_allowed_force';
+		} elseif ( $use_force && ! $use_allowed) {
+			return 'enrollment_force';
+		} elseif ( ! $use_force && $use_allowed ) {
+			return 'enrollment_allowed';
+		} else {
+			return $enrollment_action;
+		}
+	}
 	/**
 	 * Check if important enrollment data is empty to stop operation
 	 *
