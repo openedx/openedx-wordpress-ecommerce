@@ -85,6 +85,9 @@ class Openedx_Woocommerce_Plugin_Settings {
 	 * @return void
 	 */
 	public function openedx_settings_init() {
+
+		// General settings section.
+
 		add_settings_section(
 			'openedx-settings-section',
 			'',
@@ -124,6 +127,33 @@ class Openedx_Woocommerce_Plugin_Settings {
 			'openedx-settings-section'
 		);
 
+		// Advanced settings section.
+
+		add_settings_section(
+			'openedx-advanced-settings-section',
+			'',
+			array( $this, 'openedx_advanced_settings_section_callback' ),
+			'openedx-settings'
+		);
+
+		add_settings_field(
+			'openedx-use-force',
+			'Use force',
+			array( $this, 'openedx_use_force' ),
+			'openedx-settings',
+			'openedx-advanced-settings-section'
+		);
+
+		add_settings_field(
+			'openedx-use-allowed',
+			'Use enrollment allowed',
+			array( $this, 'openedx_use_allowed' ),
+			'openedx-settings',
+			'openedx-advanced-settings-section'
+		);
+
+		// Register general settings.
+
 		register_setting(
 			'openedx-settings-group',
 			'openedx-domain',
@@ -146,6 +176,20 @@ class Openedx_Woocommerce_Plugin_Settings {
 			'openedx-settings-group',
 			'openedx-jwt-token',
 			'sanitize_text_field'
+		);
+
+		// Register advanced settings.
+
+		register_setting(
+			'openedx-settings-group',
+			'openedx-use-force',
+			array( $this, 'sanitize_checkbox' ),
+		);
+
+		register_setting(
+			'openedx-settings-group',
+			'openedx-use-allowed',
+			array( $this, 'sanitize_checkbox' ),
 		);
 
 		if ( isset( $_POST['generate_new_token'] ) ) {
@@ -203,6 +247,62 @@ class Openedx_Woocommerce_Plugin_Settings {
 		}
 	}
 
+	/**
+	 * Output the use force setting field.
+	 *
+	 * Retrieves the saved use force value and outputs an input field and description text.
+	 *
+	 * @return void
+	 */
+	public function openedx_use_force() {
+		$value  = get_option( 'openedx-use-force' );
+		$status = '';
+		if ( $value ) {
+			$status = 'checked';
+		} else {
+			$status = '';
+		}
+
+		?>
+			<input type="checkbox" id="openedx-use-force" name="openedx-use-force" <?php echo esc_attr( $status ); ?> />
+			<label for="openedx-use-force"> Always use the "force" flag in every enrollment request. </label>
+		<?php
+	}
+
+	/**
+	 * Output the use allowed setting field.
+	 *
+	 * Retrieves the saved use allowed value and outputs an input field and description text.
+	 *
+	 * @return void
+	 */
+	public function openedx_use_allowed() {
+		$value  = get_option( 'openedx-use-allowed' );
+		$status = '';
+		if ( $value ) {
+			$status = 'checked';
+		} else {
+			$status = '';
+		}
+		?>
+			<input type="checkbox" id="openedx-use-allowed" name="openedx-use-allowed" <?php echo esc_attr( $status ); ?> />
+			<label for="openedx-use-allowed"> Always use the "enrollment allowed" flag in every enrollment request. </label>
+		<?php
+	}
+
+	/**
+	 * Output the sanitized value of use force/allowed setting field.
+	 *
+	 * @param int $value The value of the setting.
+	 * @return true|false
+	 */
+	public function sanitize_checkbox( $value ) {
+		if ( 'on' === $value ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Output the domain settings field.
@@ -314,6 +414,20 @@ class Openedx_Woocommerce_Plugin_Settings {
 	public function openedx_settings_section_callback() {
 		printf(
 			'Configuring the necessary parameters here to establish the connection between this plugin and your Open edX platform. For more information, you can visit the how-to <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/how-tos/create_an_openedx_app.html">Create an Open edX Application for the Plugin Settings</a> in the documentation.'
+		);
+	}
+
+	/**
+	 * Output introductory text for the advanced settings section.
+	 *
+	 * @return void
+	 */
+	public function openedx_advanced_settings_section_callback() {
+		?>
+		<h2>Advanced settings</h2>
+		<?php
+		printf(
+			'Here you can configure general aspects of enrollment requests. '
 		);
 	}
 }
