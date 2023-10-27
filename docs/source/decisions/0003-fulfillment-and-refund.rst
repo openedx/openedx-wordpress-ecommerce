@@ -13,7 +13,7 @@ Context
 This plugin was created focusing on workflows that are streamlined:
 
 - A course bought in WooCommerce will have the consequence that the enrollment for that course is made in the Open edX platform, understood with the enrollment as a seat in a specific course run.
-- If the order is refunded, the associated enrollment will be unenrolled using the soft delete(using the is_active flag) used in regular unenrollments.
+- If the order is refunded, the associated enrollment will be unenrolled using the soft delete (using the is_active flag) used in regular unenrollments.
 
 
 Decisions
@@ -35,9 +35,9 @@ Screenshot of a refund process marking the course to be refunded.
 
 Consequences
 ************
-- We shouldn't set our Open edX Courses as Downloables WooCommerce Products because if that happened and someone only bought downloadable products, the order never passed through the 'processing' status. The plugin wouldn't create the enrollment request.
-- Refunding is a manual process; a customer can't do it alone.
-- It is our responsibility to avoid enrollment errors by setting our product as an Open edX course and setting a correct course_id and course_mode to the enrollment trigger by an order will be performed well.
+- We should not set our Open edX Courses as Downloadable WooCommerce Products because if that happened and someone only bought downloadable products, the order never passed through the 'processing' status. The plugin would not create the enrollment request.
+- Refunding is a manual process; a customer cannot do it alone.
+- It is our responsibility to avoid enrollment errors by setting our product as an Open edX course and setting a correct ``course_id`` and ``course_mode`` to the enrollment trigger by an order will be performed well.
 
 
 Rejected Alternatives

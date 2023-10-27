@@ -22,7 +22,7 @@ Decisions
 - We use the LMS APIs to do the basic functionalities.
     - To obtain info about enrollments, we use ``GET /enrollment/v1/enrollments/``
     - To create enrollments, ``POST /enrollment/v1/enrollment``
-    - To perform an unenroll, we use the same endpoint to create enrollment, but we set the attribute is_active in False.
+    - To perform an unenroll, we use the same endpoint to create enrollment, but we set the attribute is_active in ``False``.
     - We can pass the flag force in the request to allow you to enroll; disregard the course's enrollment end dates.
     - To know if a user exists in the platform, ``GET /user/v1/accounts``
     - If the user does not exist yet, we can get, create, or delete an enrollment allowed with: ``GET, POST, DELETE /api/enrollment/v1/enrollment_allowed/``
@@ -34,7 +34,7 @@ Consequences
 - You need to create an OAuth Application in your platform with a Staff user to use this plugin.
 - The backward compatibility depends on the JWT support in previous Open edx versions.
 - We can use the course enrollment allowed API since Quince.
-- The actions of this plugin are restricted by the endpoints mentioned above. For example, We can't enroll someone in a course that is in invite-only mode.
+- The actions of this plugin are restricted by the endpoints mentioned above. For example, we cannot enroll someone in a course that is in invite-only mode.
 
 
 Rejected Alternatives
