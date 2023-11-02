@@ -1,3 +1,11 @@
+## v1.15.1 - 2023-11-02
+
+### [1.15.1](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.0...v1.15.1) (2023-11-02)
+
+### Bug Fixes
+
+- plugin working on clean installation ([#58](https://github.com/openedx/openedx-wordpress-ecommerce/issues/58)) ([f530acd](https://github.com/openedx/openedx-wordpress-ecommerce/commit/f530acdf4df951da2c90c1ddbc6e6e1fb40c63f7))
+
 ## v1.15.0 - 2023-11-02
 
 ### [1.15.0](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.14.3...v1.15.0) (2023-11-02)
