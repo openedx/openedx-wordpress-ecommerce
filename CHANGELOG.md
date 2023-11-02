@@ -1,3 +1,18 @@
+## v1.15.0 - 2023-11-02
+
+### [1.15.0](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.14.3...v1.15.0) (2023-11-02)
+
+#### Features
+
+- created new workflow for release zip with current version ([#54](https://github.com/openedx/openedx-wordpress-ecommerce/issues/54)) ([2365439](https://github.com/openedx/openedx-wordpress-ecommerce/commit/23654391f078165f0f4b5c5e9c71bd5ae5971467))
+
+#### Build Systems
+
+- Creating workflow `add-depr-ticket-to-depr-board.yml`. ([8419386](https://github.com/openedx/openedx-wordpress-ecommerce/commit/84193865b21a7c9be30882229bd2136381cc8c17))
+- Creating workflow `add-remove-label-on-comment.yml`. ([de0da1c](https://github.com/openedx/openedx-wordpress-ecommerce/commit/de0da1c7106f904d9604a510113246031c5c2844))
+- Creating workflow `commitlint.yml`. ([ce85c30](https://github.com/openedx/openedx-wordpress-ecommerce/commit/ce85c3081b3d104e9926f977eec2f8b86ab2a814))
+- Creating workflow `self-assign-issue.yml`. ([a413093](https://github.com/openedx/openedx-wordpress-ecommerce/commit/a4130939e63bfa2cee932e3c45893677ac431550))
+
 ## v1.14.3 - 2023-10-13
 
 ### [1.14.3](https://github.com/eduNEXT/openedx-wordpress-ecommerce/compare/v1.14.2...v1.14.3) (2023-10-13)
