@@ -1,0 +1,38 @@
+name: Build & Upload zip
+
+# Only trigger, when the build workflow succeeded
+on:
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    types:
+      - completed
+
+jobs:
+  upload_zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+            token: ${{ secrets.WC_PAT }}
+
+      - name: Install Composer dependencies
+        uses: "ramsey/composer-install@v2"
+        with:
+          composer-options: "--no-dev"
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.1
+        with:
+          type: 'zip'
+          filename: 'openedx-commerce.zip'
+          exclusions: '*.git*'
+
+      - name: Upload zip to latest release
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.WC_PAT }}
+        with:
+          file: "openedx-commerce.zip"
+          update_latest_release: true
+          draft: false

@@ -84,18 +84,6 @@ jobs:
           commit_sha: ${{ needs.bumpversion.outputs.bump_commit_sha }}
           default_bump: false
           default_prerelease_bump: false
-
-      - name: Install Composer dependencies
-        uses: "ramsey/composer-install@v2"
-        with:
-          composer-options: "--no-dev"
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.1
-        with:
-          type: 'zip'
-          filename: 'openedx-woocommerce-plugin.zip'
-          exclusions: '*.git*'
           
       - name: Create a GitHub release
         if: steps.tag_version.outputs.new_tag
