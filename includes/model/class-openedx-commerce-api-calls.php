@@ -439,7 +439,7 @@ class Openedx_Commerce_Api_Calls {
 			),
 			'enrollment_attributes' => array(
 				array(
-					'namespace' => 'openedx-woocommerce-plugin',
+					'namespace' => 'openedx-commerce',
 					'name'      => 'message',
 					'value'     => 'Enrollment request response.',
 				),

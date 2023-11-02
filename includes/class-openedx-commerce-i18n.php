@@ -36,7 +36,7 @@ class Openedx_Commerce_I18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'openedx-woocommerce-plugin',
+			'openedx-commerce',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
