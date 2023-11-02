@@ -25,7 +25,7 @@ jobs:
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'zip'
-          filename: 'openedx-ecommerce.zip'
+          filename: 'openedx-commerce.zip'
           exclusions: '*.git*'
 
       - name: Upload zip to latest release
@@ -33,6 +33,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WC_PAT }}
         with:
-          file: "openedx-ecommerce.zip"
+          file: "openedx-commerce.zip"
           update_latest_release: true
           draft: false
