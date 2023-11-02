@@ -57,13 +57,14 @@ function deactivate_openedx_woocommerce_plugin() {
  */
 function create_enrollment_logs_table() {
 	global $wpdb;
-	$logs_table = wp_cache_get( 'enrollment_logs_req_table', 'db' );
+	$logs_table      = wp_cache_get( 'enrollment_logs_req_table', 'db' );
+	$logs_table_name = $wpdb->prefix . 'enrollment_logs_req_table';
 
 	if ( ! $logs_table ) {
-		if ( $wpdb->get_var( 'SHOW TABLES LIKE enrollment_logs_req_table' ) !== $logs_table ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $logs_table ) ) !== $logs_table ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 			$charset_collate = $wpdb->get_charset_collate();
 
-			$sql = "CREATE TABLE $logs_table (
+			$sql = "CREATE TABLE $logs_table_name (
 				id INT NOT NULL AUTO_INCREMENT,
 				post_id INT NOT NULL,
 				mod_date DATETIME NOT NULL,
