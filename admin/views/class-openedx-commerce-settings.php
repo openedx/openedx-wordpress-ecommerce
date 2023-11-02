@@ -4,13 +4,13 @@
  *
  * @category   Views
  * @package    WordPress
- * @subpackage Openedx_Ecommerce
+ * @subpackage Openedx_Commerce
  * @since      1.6.0
  */
 
 namespace App\admin\views;
 
-use App\model\Openedx_Ecommerce_Api_Calls;
+use App\model\Openedx_Commerce_Api_Calls;
 use DateTime;
 use DateInterval;
 
@@ -18,11 +18,11 @@ use DateInterval;
  * This class allows the user to configure the plugin settings
  * focusing on the connection between Open edX platform and the store.
  */
-class Openedx_Ecommerce_Settings {
+class Openedx_Commerce_Settings {
 	/**
 	 * API call variable.
 	 *
-	 * @var Openedx_Ecommerce_Api_Calls
+	 * @var Openedx_Commerce_Api_Calls
 	 */
 	private $api_call;
 
@@ -34,7 +34,7 @@ class Openedx_Ecommerce_Settings {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->api_call = new Openedx_Ecommerce_Api_Calls();
+		$this->api_call = new Openedx_Commerce_Api_Calls();
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Openedx_Ecommerce_Settings {
 	/**
 	 * Make API call to generate new JWT token.
 	 *
-	 * Calls the Openedx_Ecommerce_Api_Calls class to generate
+	 * Calls the Openedx_Commerce_Api_Calls class to generate
 	 * a new JWT token using the Open edX API credentials saved in options.
 	 *
 	 * Handles errors from the API request and redirects back to the settings

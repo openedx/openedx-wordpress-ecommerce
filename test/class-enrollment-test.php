@@ -2,15 +2,15 @@
 /**
  * This class contains a test case for the register_enrollment_custom_post_type() method in the EnrollmentTest class.
  *
- * @package    openedx-woocommerce-plugin
- * @subpackage openedx-woocommerce-plugin/tests
+ * @package    openedx-commerce
+ * @subpackage openedx-commerce/tests
  */
 
 namespace App\tests;
 
-use App\model\Openedx_Ecommerce_Enrollment;
-use App\model\Openedx_Ecommerce_Post_Type;
-use App\admin\Openedx_Ecommerce_Admin;
+use App\model\Openedx_Commerce_Enrollment;
+use App\model\Openedx_Commerce_Post_Type;
+use App\admin\Openedx_Commerce_Admin;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,20 +24,20 @@ class Enrollment_Test extends TestCase {
 	 */
 	public function test_register_enrollment_custom_post_type() {
 
-		$new_class = get_class( new Openedx_Ecommerce_Admin( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) );
+		$new_class = get_class( new Openedx_Commerce_Admin( 'openedx-commerce', '1.0.0', 'test' ) );
 
-		$admin = $this->getMockBuilder( Openedx_Ecommerce_Admin::class )
-						->setConstructorArgs( array( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) )
+		$admin = $this->getMockBuilder( Openedx_Commerce_Admin::class )
+						->setConstructorArgs( array( 'openedx-commerce', '1.0.0', 'test' ) )
 						->onlyMethods( array( 'create_enrollment_class' ) )
 						->getMock();
 
-		$admin = $this->getMockBuilder( Openedx_Ecommerce_Admin::class )
-						->setConstructorArgs( array( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) )
+		$admin = $this->getMockBuilder( Openedx_Commerce_Admin::class )
+						->setConstructorArgs( array( 'openedx-commerce', '1.0.0', 'test' ) )
 						->onlyMethods( array( 'create_post_type' ) )
 						->getMock();
 
-		$admin = $this->getMockBuilder( Openedx_Ecommerce_Admin::class )
-						->setConstructorArgs( array( 'openedx-woocommerce-plugin', '1.0.0', 'test' ) )
+		$admin = $this->getMockBuilder( Openedx_Commerce_Admin::class )
+						->setConstructorArgs( array( 'openedx-commerce', '1.0.0', 'test' ) )
 						->onlyMethods( array( 'register_post_type' ) )
 						->getMock();
 
@@ -54,9 +54,9 @@ class Enrollment_Test extends TestCase {
 		$admin->expects( $this->once() )
 				->method( 'register_post_type' )
 				->with( 'openedx_enrollment', 'Open edX Enrollment Requests', 'Open edX Enrollment Request', '', $enrollment_cpt_options )
-				->willReturn( Openedx_Ecommerce_Post_Type::class );
+				->willReturn( Openedx_Commerce_Post_Type::class );
 
 		$output = $admin->register_post_type( 'openedx_enrollment', 'Open edX Enrollment Requests', 'Open edX Enrollment Request', '', $enrollment_cpt_options );
-		$this->assertEquals( Openedx_Ecommerce_Post_Type::class, $output );
+		$this->assertEquals( Openedx_Commerce_Post_Type::class, $output );
 	}
 }

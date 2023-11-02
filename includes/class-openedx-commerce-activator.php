@@ -5,8 +5,8 @@
  * @link       https://edunext.co/
  * @since      1.0.0
  *
- * @package    Openedx_Ecommerce
- * @subpackage Openedx_Ecommerce/includes
+ * @package    Openedx_Commerce
+ * @subpackage Openedx_Commerce/includes
  */
 
 namespace App;
@@ -17,11 +17,11 @@ namespace App;
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Openedx_Ecommerce
- * @subpackage Openedx_Ecommerce/includes
+ * @package    Openedx_Commerce
+ * @subpackage Openedx_Commerce/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Ecommerce_Activator {
+class Openedx_Commerce_Activator {
 
 	/**
 	 * Short Description. (use period)

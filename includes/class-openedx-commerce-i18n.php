@@ -8,8 +8,8 @@
  * @link       https://edunext.co/
  * @since      1.0.0
  *
- * @package    Openedx_Ecommerce
- * @subpackage Openedx_Ecommerce/includes
+ * @package    Openedx_Commerce
+ * @subpackage Openedx_Commerce/includes
  */
 
 namespace App;
@@ -21,11 +21,11 @@ namespace App;
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Openedx_Ecommerce
- * @subpackage Openedx_Ecommerce/includes
+ * @package    Openedx_Commerce
+ * @subpackage Openedx_Commerce/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Ecommerce_I18n {
+class Openedx_Commerce_I18n {
 
 
 	/**

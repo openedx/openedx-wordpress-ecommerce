@@ -30,14 +30,14 @@ jobs:
         with:
           find: "Version: *[0-9.]*"
           replace: "Version:           ${{ steps.tag_version.outputs.new_version }}"
-          include: "openedx-ecommerce.php"
+          include: "openedx-commerce.php"
           
       - name: Update php file version - define statement
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "(define\\( 'OPENEDX_ECOMMERCE_VERSION', ')([^']*)(.*);"
-          replace: "define( 'OPENEDX_ECOMMERCE_VERSION', '${{ steps.tag_version.outputs.new_version }}' );"
-          include: "openedx-ecommerce.php"
+          find: "(define\\( 'OPENEDX_COMMERCE_VERSION', ')([^']*)(.*);"
+          replace: "define( 'OPENEDX_COMMERCE_VERSION', '${{ steps.tag_version.outputs.new_version }}' );"
+          include: "openedx-commerce.php"
           
       - name: Update README version
         uses: jacobtomlinson/gha-find-replace@v3
@@ -60,7 +60,7 @@ jobs:
         with:
           branch: ${{ github.ref }}
           commit_message: "docs(bumpversion): ${{ steps.tag_version.outputs.previous_tag }} → ${{ steps.tag_version.outputs.new_tag }}"
-          file_pattern: README.txt CHANGELOG.md openedx-ecommerce.php
+          file_pattern: README.txt CHANGELOG.md openedx-commerce.php
           
   release:
     needs: bumpversion

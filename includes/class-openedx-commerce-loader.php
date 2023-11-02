@@ -5,8 +5,8 @@
  * @link       https://edunext.co/
  * @since      1.0.0
  *
- * @package    Openedx_Ecommerce
- * @subpackage Openedx_Ecommerce/includes
+ * @package    Openedx_Commerce
+ * @subpackage Openedx_Commerce/includes
  */
 
 namespace App;
@@ -18,11 +18,11 @@ namespace App;
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Openedx_Ecommerce
- * @subpackage Openedx_Ecommerce/includes
+ * @package    Openedx_Commerce
+ * @subpackage Openedx_Commerce/includes
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
-class Openedx_Ecommerce_Loader {
+class Openedx_Commerce_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

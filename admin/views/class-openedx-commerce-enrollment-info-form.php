@@ -4,13 +4,13 @@
  *
  * @category   Views
  * @package    WordPress
- * @subpackage Openedx_Ecommerce
+ * @subpackage Openedx_Commerce
  * @since      1.0.0
  */
 
 namespace App\admin\views;
 
-use App\model\Openedx_Ecommerce_Log;
+use App\model\Openedx_Commerce_Log;
 use App\utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The Enrollment Info Form code for the form.
  */
-class Openedx_Ecommerce_Enrollment_Info_Form {
+class Openedx_Commerce_Enrollment_Info_Form {
 
 	/**
 	 * The name for the Open edX enrollment custom post type.
@@ -34,7 +34,7 @@ class Openedx_Ecommerce_Enrollment_Info_Form {
 	/**
 	 * The log manager.
 	 *
-	 * @var    Openedx_Ecommerce_Log
+	 * @var    Openedx_Commerce_Log
 	 * @access private
 	 * @since  1.1.1
 	 */
@@ -43,7 +43,7 @@ class Openedx_Ecommerce_Enrollment_Info_Form {
 	/**
 	 * Constructor function.
 	 *
-	 * @param Openedx_Ecommerce_Enrollment $enrollment_request The enrollment request object.
+	 * @param Openedx_Commerce_Enrollment $enrollment_request The enrollment request object.
 	 *
 	 * @access  public
 	 * @since   1.0.0
@@ -61,7 +61,7 @@ class Openedx_Ecommerce_Enrollment_Info_Form {
 	 * @return void
 	 */
 	public function register_log_manager() {
-		$this->log_manager = new Openedx_Ecommerce_Log();
+		$this->log_manager = new Openedx_Commerce_Log();
 	}
 
 	/**
