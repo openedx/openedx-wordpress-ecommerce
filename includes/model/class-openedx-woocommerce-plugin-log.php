@@ -85,6 +85,9 @@ class Openedx_Woocommerce_Plugin_Log {
 				return $response_message;
 
 			case 'success':
+				// Convert the response to JSON to be able to display it in the log.
+				// The json_decode is needed to convert the response (string) to an asociative array.
+				// The json_encode is needed to convert the asociative array to a JSON and be able to access the variables.
 				return wp_json_encode( json_decode( $response_message, true ) );
 
 			case 'not_api':

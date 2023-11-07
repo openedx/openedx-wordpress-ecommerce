@@ -348,10 +348,10 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$this->update_post( $post_id );
 		}
 
-		$non_valid_statuses      = array( 'enrollment-success', 'enrollment-pending', 'enrollment-error' );
 		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
 		$enrollment_api_response = $api->request_handler( $enrollment_data, $enrollment_action );
 
+		// The $enrollment_api_response[0] is the status of the request.
 		$this->update_post( $post_id, $enrollment_api_response[0] );
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
 
