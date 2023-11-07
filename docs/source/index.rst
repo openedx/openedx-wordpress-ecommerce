@@ -13,6 +13,8 @@ User Guide
 -----------
 
 .. toctree::
+    :titlesonly:
+
     plugin_quickstart
     decisions/index
     how-tos/index
@@ -21,10 +23,9 @@ User Guide
 Open edX Compatibility
 -----------------------
 
-- Palm or latest
 - Tested from Olive
 
-**NOTE:** Enrollment of users who are not platform users is only supported for versions after Palm.
+**NOTE:** Enrollment of users who are not platform users is only supported for versions after Quince.
 
 
 Releases
