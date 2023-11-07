@@ -76,19 +76,22 @@ class Openedx_Woocommerce_Plugin_Log {
 	 */
 	public function check_api_response( $response ) {
 
-		switch ( $response[0] ) {
+		$response_status  = $response[0];
+		$response_message = $response[1];
+
+		switch ( $response_status ) {
 
 			case 'error':
-				return $response[1];
+				return $response_message;
 
 			case 'success':
-				return wp_json_encode( json_decode( $response[1], true ) );
+				return wp_json_encode( json_decode( $response_message, true ) );
 
 			case 'not_api':
-				return 'Enrollment saved locally, action does not require an API call';
+				return $response_message;
 
-			default:
-				return 'API did not provide a response';
+			case 'no_process':
+				return $response_message;
 		}
 	}
 
