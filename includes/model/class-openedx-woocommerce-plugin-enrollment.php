@@ -214,7 +214,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			return;
 		}
 
-		$enrollment_arr = array();
+		$enrollment_arr    = array();
+		$enrollment_action = '';
 
 		if ( isset( $_POST['enrollment_course_id'] ) ) {
 			$enrollment_arr['enrollment_course_id'] = sanitize_text_field( wp_unslash( $_POST['enrollment_course_id'] ) );
@@ -265,10 +266,6 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
 		if ( isset( $_POST['enrollment_sync'] ) ) {
 			$enrollment_action = 'enrollment_sync';
-		}
-
-		if ( ! isset( $enrollment_action ) ) {
-			$enrollment_action = '';
 		}
 
 		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
