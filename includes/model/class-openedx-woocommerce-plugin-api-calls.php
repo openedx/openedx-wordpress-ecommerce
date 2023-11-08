@@ -132,6 +132,10 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 		$access_token        = $this->check_access_token();
 		$access_token_string = $this->get_access_token( $access_token );
 
+		if ( 'save_no_process' === $enrollment_action ) {
+			return array( 'no_process', 'The enrollment process has been skipped, saved locally.' );
+		}
+
 		if ( 'enroll' === $request_type ) {
 
 			if ( 'enrollment_process' === $enrollment_action ) {

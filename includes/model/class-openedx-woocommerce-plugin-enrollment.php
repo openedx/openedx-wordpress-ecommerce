@@ -146,9 +146,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 */
 	public function register_status() {
 		register_post_status(
-			'enrollment-success',
+			'success',
 			array(
-				'label'                     => __( 'Success', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'success', 'wp-openedx-woocommerce-plugin' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -160,9 +160,23 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			)
 		);
 		register_post_status(
-			'enrollment-pending',
+			'no_process',
 			array(
-				'label'                     => __( 'Pending', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'success', 'wp-openedx-woocommerce-plugin' ),
+				'public'                    => false,
+				'internal'                  => true,
+				'private'                   => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				// translators: %s: number of items.
+				'label_count'               => _n_noop( 'No process <span class="count">(%s)</span>', 'No process <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
+			)
+		);
+		register_post_status(
+			'pending',
+			array(
+				'label'                     => __( 'pending', 'wp-openedx-woocommerce-plugin' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -174,9 +188,9 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			)
 		);
 		register_post_status(
-			'enrollment-error',
+			'error',
 			array(
-				'label'                     => __( 'Error', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'error', 'wp-openedx-woocommerce-plugin' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -334,15 +348,11 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$this->update_post( $post_id );
 		}
 
-		$non_valid_statuses = array( 'enrollment-success', 'enrollment-pending', 'enrollment-error' );
-
-		// Only update the post status if it has no custom status yet.
-		if ( ! in_array( $post->post_status, $non_valid_statuses, true ) ) {
-			$this->update_post( $post_id, 'enrollment-pending' );
-		}
-
 		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
 		$enrollment_api_response = $api->request_handler( $enrollment_data, $enrollment_action );
+
+		// The $enrollment_api_response[0] is the status of the request.
+		$this->update_post( $post_id, $enrollment_api_response[0] );
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
 
 		if ( null !== $order_id ) {
@@ -435,7 +445,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 
 		$post_update = array(
 			'ID'         => $post_id,
-			'post_title' => $enrollment_course_id . ' | ' . $enrollment_email . ' | Mode: ' . $enrollment_mode,
+			'post_title' => $enrollment_course_id . ' | ' . $enrollment_email . ' | Mode: ' . $enrollment_mode . ' | Status: ' . $status,
 		);
 
 		if ( $status ) {
