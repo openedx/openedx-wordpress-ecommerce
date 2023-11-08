@@ -1,3 +1,15 @@
+## v1.15.2 - 2023-11-08
+
+### [1.15.2](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.1...v1.15.2) (2023-11-08)
+
+### Bug Fixes
+
+- avoid using the email enrollment endpoint to fix a bug in versions without email support ([#59](https://github.com/openedx/openedx-wordpress-ecommerce/issues/59)) ([563e295](https://github.com/openedx/openedx-wordpress-ecommerce/commit/563e2954b97dc674b4fb8d24d5862a4f5d703379))
+
+### Documentation
+
+- add the first ADRs ([#55](https://github.com/openedx/openedx-wordpress-ecommerce/issues/55)) ([f240dc0](https://github.com/openedx/openedx-wordpress-ecommerce/commit/f240dc09e4b14651bb1a78984b4102e408326d04))
+
 ## v1.15.1 - 2023-11-02
 
 ### [1.15.1](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.0...v1.15.1) (2023-11-02)
