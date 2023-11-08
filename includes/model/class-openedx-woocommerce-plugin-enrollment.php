@@ -267,6 +267,10 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$enrollment_action = 'enrollment_sync';
 		}
 
+		if ( !isset( $enrollment_action ) ) {
+			$enrollment_action = '';
+		}
+
 		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action );
 	}
 
