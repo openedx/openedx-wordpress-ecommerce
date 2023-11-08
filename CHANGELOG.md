@@ -1,3 +1,15 @@
+## v2.0.0 - 2023-11-08
+
+### [2.0.0](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.3...v2.0.0) (2023-11-08)
+
+#### ⚠ BREAKING CHANGES
+
+- this change causes old enrollment request entries not to be displayed because they do not have status
+
+#### Features
+
+- show enrollment status in enrollments table ([#56](https://github.com/openedx/openedx-wordpress-ecommerce/issues/56)) ([b1348f3](https://github.com/openedx/openedx-wordpress-ecommerce/commit/b1348f3dfe51a4bc9dfa64dc0ea26cc5bea0663f))
+
 ## v1.15.3 - 2023-11-08
 
 ### [1.15.3](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.2...v1.15.3) (2023-11-08)
