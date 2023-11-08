@@ -1,3 +1,11 @@
+## v1.15.3 - 2023-11-08
+
+### [1.15.3](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.2...v1.15.3) (2023-11-08)
+
+### Bug Fixes
+
+- undefined variable enrollment action in new enrollment request ([#60](https://github.com/openedx/openedx-wordpress-ecommerce/issues/60)) ([902882e](https://github.com/openedx/openedx-wordpress-ecommerce/commit/902882e00a0ecb9e9f7fdfb1da4ad2c5d5acfbe0))
+
 ## v1.15.2 - 2023-11-08
 
 ### [1.15.2](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.1...v1.15.2) (2023-11-08)
