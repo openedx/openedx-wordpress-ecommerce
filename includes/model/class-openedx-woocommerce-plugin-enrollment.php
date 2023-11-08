@@ -267,7 +267,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$enrollment_action = 'enrollment_sync';
 		}
 
-		if ( !isset( $enrollment_action ) ) {
+		if ( ! isset( $enrollment_action ) ) {
 			$enrollment_action = '';
 		}
 
