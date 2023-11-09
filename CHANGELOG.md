@@ -1,3 +1,11 @@
+## v2.0.1 - 2023-11-09
+
+### [2.0.1](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.0...v2.0.1) (2023-11-09)
+
+### Bug Fixes
+
+- file and class names corrected based on wordpress requirements ([#53](https://github.com/openedx/openedx-wordpress-ecommerce/issues/53)) ([79bdd6a](https://github.com/openedx/openedx-wordpress-ecommerce/commit/79bdd6a0a6127cc1eaf36a90b0451b0ffb36613b))
+
 ## v2.0.0 - 2023-11-08
 
 ### [2.0.0](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v1.15.3...v2.0.0) (2023-11-08)
