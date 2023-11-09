@@ -6,16 +6,16 @@
  *
  * @category   Model
  * @package    WordPress
- * @subpackage Openedx_Woocommerce_Plugin
+ * @subpackage Openedx_Commerce
  * @since      1.0.0
  */
 
 namespace App\model;
 
-use App\model\Openedx_Woocommerce_Plugin_Log;
-use App\Openedx_Woocommerce_Plugin;
-use App\admin\Openedx_Woocommerce_Plugin_Admin;
-use App\model\Openedx_Woocommerce_Plugin_Api_Calls;
+use App\model\Openedx_Commerce_Log;
+use App\Openedx_Commerce;
+use App\admin\Openedx_Commerce_Admin;
+use App\model\Openedx_Commerce_Api_Calls;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * This class contains every step to process the enrollment post type operations.
  */
-class Openedx_Woocommerce_Plugin_Enrollment {
+class Openedx_Commerce_Enrollment {
 
 
 	/**
@@ -68,7 +68,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 	 * @return void
 	 */
 	public function register_log_manager() {
-		$this->log_manager = new Openedx_Woocommerce_Plugin_Log();
+		$this->log_manager = new Openedx_Commerce_Log();
 	}
 
 	/**
@@ -148,7 +148,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		register_post_status(
 			'success',
 			array(
-				'label'                     => __( 'success', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'success', 'wp-openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -156,13 +156,13 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
+				'label_count'               => _n_noop( 'Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
 			)
 		);
 		register_post_status(
 			'no_process',
 			array(
-				'label'                     => __( 'success', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'success', 'wp-openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -170,13 +170,13 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'No process <span class="count">(%s)</span>', 'No process <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
+				'label_count'               => _n_noop( 'No process <span class="count">(%s)</span>', 'No process <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
 			)
 		);
 		register_post_status(
 			'pending',
 			array(
-				'label'                     => __( 'pending', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'pending', 'wp-openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -184,13 +184,13 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
+				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
 			)
 		);
 		register_post_status(
 			'error',
 			array(
-				'label'                     => __( 'error', 'wp-openedx-woocommerce-plugin' ),
+				'label'                     => __( 'error', 'wp-openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -198,7 +198,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'wp-openedx-woocommerce-plugin' ),
+				'label_count'               => _n_noop( 'Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
 			)
 		);
 	}
@@ -348,7 +348,7 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 			$this->update_post( $post_id );
 		}
 
-		$api                     = new Openedx_Woocommerce_Plugin_Api_Calls();
+		$api                     = new Openedx_Commerce_Api_Calls();
 		$enrollment_api_response = $api->request_handler( $enrollment_data, $enrollment_action );
 
 		// The $enrollment_api_response[0] is the status of the request.
@@ -356,8 +356,8 @@ class Openedx_Woocommerce_Plugin_Enrollment {
 		$this->log_manager->create_change_log( $post_id, $old_data, $enrollment_data, $enrollment_action, $enrollment_api_response );
 
 		if ( null !== $order_id ) {
-			$plugin_class = new Openedx_Woocommerce_Plugin();
-			$admin_class  = new Openedx_Woocommerce_Plugin_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
+			$plugin_class = new Openedx_Commerce();
+			$admin_class  = new Openedx_Commerce_Admin( $plugin_class->get_plugin_name(), $plugin_class->get_version() );
 			$admin_class->show_enrollment_logs( $order_id, $enrollment_api_response );
 		}
 	}

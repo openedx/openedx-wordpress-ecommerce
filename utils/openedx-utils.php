@@ -2,7 +2,7 @@
 /**
  * Open edX WooCommerce Plugin utils.
  *
- * @package openedx-woocommerce-plugin
+ * @package openedx-commerce
  * @since 1.6.0
  */
 
@@ -13,11 +13,11 @@ namespace App\utils;
  */
 function get_enrollment_options() {
 	return array(
-		'Honor'              => __( 'Honor', 'wp-openedx-woocommerce-plugin' ),
-		'Audit'              => __( 'Audit', 'wp-openedx-woocommerce-plugin' ),
-		'Verified'           => __( 'Verified', 'wp-openedx-woocommerce-plugin' ),
-		'Credit'             => __( 'Credit', 'wp-openedx-woocommerce-plugin' ),
-		'Professional'       => __( 'Professional', 'wp-openedx-woocommerce-plugin' ),
-		'No ID Professional' => __( 'No ID Professional', 'wp-openedx-woocommerce-plugin' ),
+		'Honor'              => __( 'Honor', 'wp-openedx-commerce' ),
+		'Audit'              => __( 'Audit', 'wp-openedx-commerce' ),
+		'Verified'           => __( 'Verified', 'wp-openedx-commerce' ),
+		'Credit'             => __( 'Credit', 'wp-openedx-commerce' ),
+		'Professional'       => __( 'Professional', 'wp-openedx-commerce' ),
+		'No ID Professional' => __( 'No ID Professional', 'wp-openedx-commerce' ),
 	);
 }

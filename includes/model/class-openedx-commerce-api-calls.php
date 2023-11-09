@@ -5,7 +5,7 @@
  *
  * @category   Model
  * @package    WordPress
- * @subpackage Openedx_Woocommerce_Plugin
+ * @subpackage Openedx_Commerce
  * @since      1.6.0
  */
 
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class contains all the API calls necessary for the plugin,
  * these calls include a hard error handling for all responses and requests.
  */
-class Openedx_Woocommerce_Plugin_Api_Calls {
+class Openedx_Commerce_Api_Calls {
 
 
 	// API constants for the Open edX API calls.
@@ -439,7 +439,7 @@ class Openedx_Woocommerce_Plugin_Api_Calls {
 			),
 			'enrollment_attributes' => array(
 				array(
-					'namespace' => 'openedx-woocommerce-plugin',
+					'namespace' => 'openedx-commerce',
 					'name'      => 'message',
 					'value'     => 'Enrollment request response.',
 				),

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Open edX Ecommerce
+ * Plugin Name:       Open edX Commerce
  * Plugin URI:        https://github.com/eduNEXT/openedx-wordpress-ecommerce
  * Description:       Easily connect your WooCommerce store to Open edX.
  * Version:           2.0.0
@@ -8,19 +8,19 @@
  * Author URI:        https://edunext.co/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       openedx-ecommerce
+ * Text Domain:       openedx-commerce
  * Domain Path:       /languages
  * Requires at least: 6.3
  * Requires PHP: 8.0
  *
- * @package           Openedx_Woocommerce_Plugin
+ * @package           Openedx_Commerce
  *
  * @wordpress-plugin
  */
 
-use App\Openedx_Woocommerce_Plugin_Activator;
-use App\Openedx_Woocommerce_Plugin_Deactivator;
-use App\Openedx_Woocommerce_Plugin;
+use App\Openedx_Commerce_Activator;
+use App\Openedx_Commerce_Deactivator;
+use App\Openedx_Commerce;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -32,24 +32,24 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'OPENEDX_WOOCOMMERCE_PLUGIN_VERSION', '2.0.0' );
+define( 'OPENEDX_COMMERCE_VERSION', '2.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-openedx-woocommerce-plugin-activator.php
+ * This action is documented in includes/class-openedx-commerce-activator.php
  */
-function activate_openedx_woocommerce_plugin() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-activator.php';
-	Openedx_Woocommerce_Plugin_Activator::activate();
+function activate_openedx_commerce_plugin() {
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-commerce-activator.php';
+	Openedx_Commerce_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-openedx-woocommerce-plugin-deactivator.php
+ * This action is documented in includes/class-openedx-commerce-deactivator.php
  */
-function deactivate_openedx_woocommerce_plugin() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin-deactivator.php';
-	Openedx_Woocommerce_Plugin_Deactivator::deactivate();
+function deactivate_openedx_commerce_plugin() {
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-commerce-deactivator.php';
+	Openedx_Commerce_Deactivator::deactivate();
 }
 
 /**
@@ -85,15 +85,15 @@ function create_enrollment_logs_table() {
 	}
 }
 
-register_activation_hook( __FILE__, 'activate_openedx_woocommerce_plugin' );
+register_activation_hook( __FILE__, 'activate_openedx_commerce_plugin' );
 register_activation_hook( __FILE__, 'create_enrollment_logs_table' );
-register_deactivation_hook( __FILE__, 'deactivate_openedx_woocommerce_plugin' );
+register_deactivation_hook( __FILE__, 'deactivate_openedx_commerce_plugin' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-commerce.php';
 
 /**
  * Begins execution of the plugin.
@@ -104,9 +104,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-woocommerce-plugin
  *
  * @since    1.0.0
  */
-function run_openedx_woocommerce_plugin() {
+function run_openedx_commerce_plugin() {
 
-	$plugin = new Openedx_Woocommerce_Plugin();
+	$plugin = new Openedx_Commerce();
 	$plugin->run();
 }
-run_openedx_woocommerce_plugin();
+run_openedx_commerce_plugin();
