@@ -1,6 +1,19 @@
 Quickstart
 ===========
 
+----------------------------------------------------------------------------------------------------
+Connect the Open edX Commerce plugin for WordPress to the Enrollment API of your Open edX platform
+----------------------------------------------------------------------------------------------------
+
+Let's start installing and configuring the Open edx Commerce plugin to connect your WordPress site with the enrollment APIs from your Open edX platform.
+
+Index
+------
+- `Installation`_
+- `Configure the plugin`_
+- `Create an Enrollment Request`_
+- `Next Steps`_
+
 Installation
 -------------
 
@@ -8,31 +21,57 @@ Requirements
 ^^^^^^^^^^^^^
 
 - PHP 8.0 or greater is recommended
-- Wordpress 6.3.1
+- Wordpress 6.3.1 or greater
 - `WooCommerce plugin. <https://wordpress.org/plugins/woocommerce>`_
 
 Manual installation
 ^^^^^^^^^^^^^^^^^^^^
 
-- Download the ZIP version in our `GitHub repository <https://github.com/eduNEXT/openedx-woocommerce-plugin/releases>`_.
+- Download the ZIP version on `the release page in the GitHub repository <https://github.com/openedx/openedx-wordpress-ecommerce/releases>`_.
 
     .. image:: /_images/zip-from-release.png
         :alt: ZIP from releases
 
-- Log in to your WordPress dashboard, navigate to the Plugins menu, click "Add New," and upload the ZIP version of this project.
+- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar, click "Add New," upload the ZIP version of this project, and activate the plugin.
 
-Add the plugin settings
-------------------------
 
-- Use your platform domain and your platform application's client id and client secret in the Open edX Sync Plugin Settings in your WordPress Settings.
+Configure the plugin
+----------------------
+
+- In the sidebar of the WordPress admin dashboard, go to "Settings," then to "Open edX Sync Plugin Settings," and fill that form with your LMS Open edX platform domain and a `client_id` and `client_secret` from an OAuth application in your Open edX platform.
+
+- Click "Save Changes" and then "Generate JWT Token."
 
     .. image:: /_images/how-tos/create_an_openedx_app/openedx-sync-plugin-settings.png
-        :alt: Open edX Sync Plugin Settings
+        :alt: Expected Result JWT token
 
-    .. note:: To know more about how to fill this setting, you can visit :doc:`Create an Open edX Application for the Plugin Settings </how-tos/create_an_openedx_app>`.
+- You should see a "New token generated" message.
+
+    .. note:: To know more about how to fill this settings, you can visit :doc:`How-to: Create an Open edX Application for the Plugin Settings </how-tos/create_an_openedx_app>`.
+
+
+Create an Enrollment Request
+-----------------------------
+
+This plugin is connected with your Open edX platform; if you could create your JWT token. Now, if you want to rectify that, you can create enrollments. To do that, you need to generate enrollment requests manually by following these steps:
+
+- Enter the Enrollments Manager option in your WordPress dashboard's Open edX Sync tab, and click "Add New."
+
+    .. image:: /_images/how-tos/create_enroll_request/menu.png
+        :alt: Enrollments Manager option
+
+- Fill the form with a course ID from a course in your Open edX platform, an email from an existing user, and a course mode from the course you use in the course ID field. We will use "Enroll" as a request type.
+
+- Create an enrollment by clicking "Save and update Open edX."
+
+    .. image:: /_images/how-tos/create_enroll_request/expected-result.png
+        :alt: Expected Result Enroll Request
+
+
+    .. note:: To know more about how to fill this settings, you can visit :doc:`How-to: Create enrollment requests manually </how-tos/create_enrollment_requests_manually>`.
 
 
 Next Steps
 -----------
 
-- :doc:`Create enrollment requests manually </how-tos/create_enrollment_requests_manually>`.
+- :doc:`Tutorial: Configure your WordPress so that purchases and refunds automatically generate enrollments </tutorials/configuration_to_automate_enrolls>`.

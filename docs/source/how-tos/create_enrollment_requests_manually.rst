@@ -5,10 +5,17 @@ The Open edX WooCommerce Plugin uses Enrollment Request to manage the enrollment
 
 In this section, you will learn how to create an Enrollment Request manually.
 
+Index
+-------
+- `Requisites`_
+- `Steps`_
+- `About the Enrollment Request View`_
+- `Next Steps`_
+
 Requisites
 -----------
 
-To connect with the Open edX platform, you must have valid settings for this plugin. If you don't have this plugin set yet, the how-to :doc:`Create an Open edX Application for the Plugin Settings </how-tos/create_an_openedx_app>` will be helpful.
+To connect with the Open edX platform, you must have valid settings for this plugin. If you don't have this plugin set yet, the :doc:`How-to: Create an Open edX Application for the Plugin Settings </how-tos/create_an_openedx_app>` will be helpful.
 
 Steps
 ------
@@ -18,25 +25,44 @@ Steps
     .. image:: /_images/how-tos/create_enroll_request/menu.png
         :alt: Enrollments Manager option
 
-#. Create a new Enrollment Request (URL: `<domain>/wp-admin/post-new.php?post_type=openedx_enrollment`)
+#. Click "Add New" and fill out the form.
 
     .. image:: /_images/how-tos/create_enroll_request/new_enroll_request.png
         :alt: New Enrollment Request
 
-* Use a valid course ID that will be used in the request. e.g. course-v1:edX+DemoX+Demo_Course.
-
-* Enter the email of the user who will be used in the request.
-
-* Select a Course Mode that the course has.
-
-* Select the type of request you want to execute. If you select **Enroll**, you will create an enrollment, and if you select **Un-enroll**, you will set a soft unenrollment (enrollment with status inactive).
-
-* If this request has an Order associated, you can fill in the "WC Order ID" field.
-
-* If you select to use the force flag, the action will not consider the course enrollment dates.
-
-* Creating a "course enrollment allowed" if the user doesn't exist is available only if you have a release greater than Palm.
-
 And that's it!
 
-You can save it in Wordpress or Save and Update it in Open edX.
+About the Enrollment Request View
+----------------------------------
+
+Fields
+^^^^^^^
+- Course ID: the ID from your Open edX platform course. e.g. course-v1:edX+DemoX+Demo_Course. 
+
+- User Email: the user's email address that will be used in the request.
+
+- Course Mode: the mode of your enrollment request. Make sure to set a mode that your course has. We only support the modes that come by default on the Open edX platform.
+
+- Request type: If you select **Enroll**, you will create an enrollment, and if you choose **Un-enroll**, you will set a soft unenrollment (enrollment with status inactive) if you update in Open edX.
+
+- WC Order ID: This field will fill automatically if your request has an order associated with it; you can use it to navigate from the Enrollment Request to the Order.
+
+Flags
+^^^^^^
+
+- Use the "force" flag: if you select this, the action will not consider the course enrollment end dates.
+
+- Creating a course enrollment allowed if the user doesn't exist: if you select this, create a register in the table Course Enrollment Allowed if the email we use in the request is not a user in our Open edX platform yet. It is available only if you have a release greater or equal to Quince.
+
+Buttons
+^^^^^^^^
+
+- Save in WordPress: this allows you to store the form information in WordPress.
+- Save and update Open edX: save the information in WordPress and create a POST API request, considering all the flags and fields except the "WC Order ID."
+- Read from Open edX: bring information with GET methods over the API and only use the "Couse ID" and "User email" fields.
+- View Order: allows you to navigate from the Enrollment Request to the Order associated with that request.
+
+Next Steps
+-----------
+
+- :doc:`Tutorial: Configure your WordPress so that purchases and refunds automatically generate enrollments </tutorials/configuration_to_automate_enrolls>`.

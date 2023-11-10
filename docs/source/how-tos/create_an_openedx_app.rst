@@ -1,14 +1,28 @@
 Create an Open edX Application for the Plugin Settings
 =======================================================
 
-You will learn how to create an Open edX Application for filling out the form in the Open edX Sync Plugin Settings in our Wordpress Settings.
+You will learn how to create an Open edX Application for filling out the form in the Open edX Sync Plugin Settings in our WordPress Settings.
+
+Index
+-------
+- `Requisites`_
+- `Steps`_
+- `Next Steps`_
+
+Requisites
+-----------
+
+Have access to a Django admin dashboard for your Open edX platform.
+
+Steps
+------
 
 #. Go to Applications in your Django Admin in your Open edX instance. (URL: `<domain>/admin/oauth2_provider/application/`)
 
     .. image:: /_images/how-tos/create_an_openedx_app/applications.png
         :alt: Applications in Django Admin
 
-#. Create an Application with a staff user and Client Credentials as Authorization grant type.
+#. Create an Application with a staff user and "Client Credentials" as "Authorization grant type".
 
     .. note:: Why do we need a staff user? Because we use those credentials to create, edit, and delete enrollments, which are staff operations.
 
@@ -27,4 +41,4 @@ You will learn how to create an Open edX Application for filling out the form in
 Next Steps
 -----------
 
-- :doc:`Create enrollment requests manually </how-tos/create_enrollment_requests_manually>`.
+- :doc:`How-to: Create enrollment requests manually </how-tos/create_enrollment_requests_manually>`.

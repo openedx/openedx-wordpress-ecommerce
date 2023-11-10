@@ -16,8 +16,10 @@ User Guide
     :titlesonly:
 
     plugin_quickstart
-    decisions/index
+    tutorials/index
     how-tos/index
+    decisions/index
+    
 
 
 Open edX Compatibility
@@ -31,17 +33,17 @@ Open edX Compatibility
 Releases
 ---------
 
-The Releases are listed on the `Github release page <https://github.com/eduNEXT/openedx-woocommerce-plugin/releases>`_. And all notable changes to this project are documented in the `CHANGELOG <https://github.com/eduNEXT/openedx-woocommerce-plugin/blob/main/CHANGELOG.md>`_ file.
+The Releases are listed on the `Github release page <https://github.com/openedx/openedx-wordpress-ecommerce/releases>`_. And all notable changes to this project are documented in the `CHANGELOG <https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/CHANGELOG.md>`_ file.
 
 Source code
 -----------
 
-The complete source code for Open edX WooCommerce Plugin is available on Github: https://github.com/eduNEXT/openedx-woocommerce-plugin
+The complete source code for Open edX WooCommerce Plugin is available on Github: https://github.com/openedx/openedx-wordpress-ecommerce
 
 Support
 --------
 
-To report a bug or request a feature, visit `issues <https://github.com/eduNEXT/openedx-woocommerce-plugin/issues>`_.
+To report a bug or request a feature, visit `issues <https://github.com/openedx/openedx-wordpress-ecommerce/issues>`_.
 
 Contributing
 -------------
@@ -53,7 +55,7 @@ This project accepts all contributions, bug fixes, security fixes, maintenance w
 License
 --------
 
-The code in this repository is licensed under version 2 of the GNU General Public License. Please see the `LICENSE <https://github.com/eduNEXT/openedx-woocommerce-plugin/blob/main/LICENSE.txt>`_ file for details.
+The code in this repository is licensed under version 2 of the GNU General Public License. Please see the `LICENSE <https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/LICENSE.txt>`_ file for details.
 
 Other
 ------

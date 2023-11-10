@@ -34,10 +34,11 @@ Here are some things you can do with this plugin:
 - **Create soft unenrollments from refunds:** The enrollment record is maintained, but the "is_active" attribute of the enrollment is false. Deleting an "enrollment allowed" is also supported, but only from version Quince.
 Obtain enrollment information: This requests the Open edX APIs to retrieve the enrollment status of a user in a course.
 
+- **Obtain enrollment information:** This requests the Open edX APIs to retrieve the enrollment status of a user in a course.
 
 Below are some links to help you get started with Open edX WooCommerce Plugin:
 
-- <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/quickstart.html" target="_blank">Quick Start Guide</a>
+- <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/plugin_quickstart.html" target="_blank">Quick Start Guide</a>
 - <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/how-tos/index.html" target="_blank">How-to Guides</a>
 
 == Installation ==
@@ -50,11 +51,17 @@ Below are some links to help you get started with Open edX WooCommerce Plugin:
 
 = Manual installation =
 
-- Download the ZIP version in our [GitHub repository](https://github.com/eduNEXT/openedx-wordpress-ecommerce/releases).
+- Download the ZIP version on [the release page in the GitHub repository](https://github.com/openedx/openedx-wordpress-ecommerce/releases).
 
-<img src="https://i.ibb.co/YTSLYf4/zip-from-release.png" alt="Download ZIP from release">
+<img src="docs/source/_images/zip-from-release.png" alt="Download ZIP from release">
 
-- Log in to your WordPress dashboard, navigate to the Plugins menu, click "Add New," and upload the ZIP version of this project.
+- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar, click "Add New," upload the ZIP version of this project, and activate the plugin.
+
+== Quickstart ==
+
+Let's start installing and configuring the Open edx Commerce plugin to connect your WordPress site with the enrollment APIs from your Open edX platform.
+
+[Link to the Quickstart in the documentation.](https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/docs/source/plugin_quickstart.rst)
 
 == Frequently Asked Questions ==
 
@@ -71,8 +78,6 @@ Report bugs and request features on the [GitHub repository](https://github.com/e
 Contributions are very welcome. Please read [How To Contribute](https://openedx.atlassian.net/wiki/spaces/COMM/pages/941457737/How+to+Start+Contributing+Code) for details.
 
 This project accepts all contributions, bug fixes, security fixes, maintenance work, or new features. However, please discuss your new feature idea with the maintainers before beginning development to maximize the chances of accepting your change. You can start a conversation by creating a new issue on this repo summarizing your idea.
-
-
 
 == Changelog ==
 
