@@ -37,7 +37,11 @@ Here are some things you can do with this plugin:
 
 <img src="docs/source/_images/zip-from-release.png" alt="Download ZIP from release">
 
-- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar, click "Add New," upload the ZIP version of this project, and activate the plugin.
+- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar and click **Add New**.
+
+- Upload the ZIP version of this project.
+
+- Activate the plugin.
 
 <!---
 In the search field, type "Open edX WooCommerce Plugin," then click "Search Plugins." Once you've found us, you can view its details and install it by clicking "Install Now," WordPress will take it from there.

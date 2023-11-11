@@ -55,7 +55,11 @@ Below are some links to help you get started with Open edX WooCommerce Plugin:
 
 <img src="docs/source/_images/zip-from-release.png" alt="Download ZIP from release">
 
-- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar, click "Add New," upload the ZIP version of this project, and activate the plugin.
+- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar and click **Add New**.
+
+- Upload the ZIP version of this project.
+
+- Activate the plugin.
 
 == Quickstart ==
 
