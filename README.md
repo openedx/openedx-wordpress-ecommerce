@@ -33,15 +33,15 @@ Here are some things you can do with this plugin:
 
 ## Manual installation
 
-- Download the ZIP version on [the release page in the GitHub repository](https://github.com/openedx/openedx-wordpress-ecommerce/releases).
+1. Download the ZIP version on [the release page in the GitHub repository](https://github.com/openedx/openedx-wordpress-ecommerce/releases).
 
 <img src="docs/source/_images/zip-from-release.png" alt="Download ZIP from release">
 
-- Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar and click **Add New**.
+2. Log in to your WordPress admin dashboard, navigate to the Plugins menu in the sidebar and click **Add New**.
 
-- Upload the ZIP version of this project.
+3. Upload the ZIP version of this project.
 
-- Activate the plugin.
+4. Activate the plugin.
 
 <!---
 In the search field, type "Open edX WooCommerce Plugin," then click "Search Plugins." Once you've found us, you can view its details and install it by clicking "Install Now," WordPress will take it from there.
