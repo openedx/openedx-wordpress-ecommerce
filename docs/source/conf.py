@@ -64,7 +64,7 @@ html_theme = 'sphinx_book_theme'
 
 html_theme_options = {
 
-    "repository_url": "https://github.com/eduNEXT/openedx-woocommerce-plugin",
+    "repository_url": "https://github.com/openedx/openedx-wordpress-ecommerce",
     "repository_branch": "main",
     "path_to_docs": "docs/source",
     "use_repository_button": True,
