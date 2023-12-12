@@ -2,7 +2,7 @@
 Contributors: felipemontoya, julianrg2, mafermazu
 Tags: openedx, open edx, ecommerce, lms, courses
 Requires at least: 6.3
-Tested up to: 6.3.1
+Tested up to: 6.3
 Requires PHP: 8.0
 Stable tag: 2.0.1
 License: GPLv2 or later
@@ -40,6 +40,14 @@ Below are some links to help you get started with Open edX WooCommerce Plugin:
 
 - <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/plugin_quickstart.html" target="_blank">Quick Start Guide</a>
 - <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/how-tos/index.html" target="_blank">How-to Guides</a>
+
+**Note**
+
+This plugin calls the APIs from <a href="https://github.com/openedx/edx-platform" target="_blank">Open edX Platform</a>.
+
+More information about the API connection can be found in <a href="https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/docs/source/decisions/0002-api-connection.rst" target="_blank">Decisions: API connection</a>.
+
+To learn more, you can visit the <a href="https://openedx.org/terms-of-use/" target="_blank">Open edX Terms of Service</a>.
 
 == Installation ==
 
