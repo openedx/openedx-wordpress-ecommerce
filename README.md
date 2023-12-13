@@ -23,6 +23,14 @@ Here are some things you can do with this plugin:
 
 - **Obtain enrollment information:** This requests the Open edX APIs to retrieve the enrollment status of a user in a course.
 
+**Note**
+
+This plugin calls the APIs from <a href="https://github.com/openedx/edx-platform" target="_blank">Open edX Platform</a>.
+
+More information about the API connection can be found in <a href="https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/docs/source/decisions/0002-api-connection.rst" target="_blank">Decisions: API connection</a>.
+
+To learn more, you can visit the <a href="https://openedx.org/terms-of-use/" target="_blank">Open edX Terms of Service</a>.
+
 # Installation
 
 ## Requirements
