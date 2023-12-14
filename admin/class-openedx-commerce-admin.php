@@ -316,7 +316,7 @@ class Openedx_Commerce_Admin {
 			$order_url   = esc_url( admin_url( 'post.php?post=' . intval( $input_value ) . '&action=edit' ) );
 
 			$html_output  = '<td>';
-			$html_output .= '<input style="height:30px;" type="text" name="order_id_input' . esc_attr( $item_id ) . '" value="' . esc_attr( $input_value ) . '" pattern="\d*" />';
+			$html_output .= '<input style="height:30px;" type="text" name="openedx_order_id_input' . esc_attr( $item_id ) . '" value="' . esc_attr( $input_value ) . '" pattern="\d*" />';
 			$html_output .= '<a href="' . $order_url . '" class="button" style="margin-left: 5px; vertical-align: bottom;' . ( $input_value ? '' : 'pointer-events: none; opacity: 0.6;' ) . '">View Request</a>';
 			$html_output .= '</td>';
 
@@ -365,8 +365,8 @@ class Openedx_Commerce_Admin {
 		$items = wc_get_order( $order_id )->get_items();
 
 		foreach ( $items as $item_id => $item ) {
-			if ( isset( $_POST[ 'order_id_input' . $item_id ] ) ) {
-				$input_value = sanitize_text_field( wp_unslash( $_POST[ 'order_id_input' . $item_id ] ) );
+			if ( isset( $_POST[ 'openedx_order_id_input' . $item_id ] ) ) {
+				$input_value = sanitize_text_field( wp_unslash( $_POST[ 'openedx_order_id_input' . $item_id ] ) );
 				update_post_meta( $order_id, 'enrollment_id' . $item_id, $input_value );
 			}
 		}
@@ -470,9 +470,9 @@ class Openedx_Commerce_Admin {
 			$action      = 'enrollment_process';
 
 			$enrollment_arr = array(
-				'enrollment_course_id'    => $course_id,
-				'enrollment_email'        => $billing_email,
-				'enrollment_mode'         => $course_mode,
+				'openedx_enrollment_course_id'    => $course_id,
+				'openedx_enrollment_email'        => $billing_email,
+				'openedx_enrollment_mode'         => $course_mode,
 				'enrollment_request_type' => $request_type,
 				'enrollment_order_id'     => $order_id,
 			);

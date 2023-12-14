@@ -87,9 +87,9 @@ class Openedx_Commerce_Enrollment_Info_Form {
 		}
 		$mode_options = utils\get_enrollment_options();
 
-		$new_enrollment = false;
+		$openedx_new_enrollment = false;
 		if ( ! $course_id && ! $email ) {
-			$new_enrollment = true;
+			$openedx_new_enrollment = true;
 		}
 
 		?>
@@ -97,13 +97,13 @@ class Openedx_Commerce_Enrollment_Info_Form {
 			
 			<fieldset>
 				<h2 class="">Open edX enrollment request</h2>
-				<input type="hidden" name="new_enrollment" value="<?php echo wp_kses( $new_enrollment, array( 'true', 'false' ) ); ?>">
+				<input type="hidden" name="openedx_new_enrollment" value="<?php echo wp_kses( $openedx_new_enrollment, array( 'true', 'false' ) ); ?>">
 				<table class="form-table">
 					<tbody>
 						<tr>
 							<td class="first"><label for="openedx_enrollment_course_id">Course ID</label></td>
 							<td>
-								<input type="text" id="openedx_enrollment_course_id" name="enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>"
+								<input type="text" id="openedx_enrollment_course_id" name="openedx_enrollment_course_id" value="<?php echo esc_attr( $course_id ); ?>"
 								<?php
 								if ( '' !== $course_id ) {
 									?>
@@ -120,7 +120,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 							<td class="first"><label>User Email</label></td>
 							<td>
 								<div style="width: 20%; display: inline-table;">
-									<input type="email" id="openedx_enrollment_email" name="enrollment_email" value="<?php echo esc_attr( $email ); ?>"> 
+									<input type="email" id="openedx_enrollment_email" name="openedx_enrollment_email" value="<?php echo esc_attr( $email ); ?>"> 
 								</div>
 								<span class="openedx-tooltip-icon">?</span>
 								<span class="openedx-tooltip-text"><?php esc_html_e( 'The email of the user to be used for the enroll.', 'wp-openedx-commerce' ); ?></span>
@@ -130,7 +130,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 						<tr class="gray_zone first_zone">
 							<td class="first"><label for="openedx_enrollment_mode">Course Mode</label></td>
 							<td>
-								<select id="openedx_enrollment_mode" name="enrollment_mode">
+								<select id="openedx_enrollment_mode" name="openedx_enrollment_mode">
 									<?php foreach ( $mode_options as $value => $label ) : ?>
 										<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $mode, $value ); ?>>
 											<?php echo esc_html( $label ); ?>
@@ -151,7 +151,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 								<select id="openedx_enrollment_is_active" name="enrollment_request_type">
 									<option value="enroll" 
 									<?php
-									if ( $is_active || $new_enrollment ) {
+									if ( $is_active || $openedx_new_enrollment ) {
 										echo ( 'selected="selected"' );
 									}
 									?>
@@ -162,7 +162,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 									</option>
 									<option value="unenroll" 
 									<?php
-									if ( ! $is_active && ! $new_enrollment ) {
+									if ( ! $is_active && ! $openedx_new_enrollment ) {
 										echo ( 'selected="selected"' );
 									}
 									?>
@@ -198,14 +198,14 @@ class Openedx_Commerce_Enrollment_Info_Form {
 
 						<tr class="gray_zone">
 							<td class="checkbox-td">		
-								<input class="action-checkbox" type="checkbox" id="force" name="enrollment_force" value="opcion1">
-								<label for="force"><?php esc_html_e( 'Use the "force" flag', 'wp-openedx-commerce' ); ?></label>
+								<input class="action-checkbox" type="checkbox" id="openedx_enrollment_force" name="openedx_enrollment_force" value="openedx_force">
+								<label for="openedx_enrollment_force"><?php esc_html_e( 'Use the "force" flag', 'wp-openedx-commerce' ); ?></label>
 								<span class="openedx-tooltip-icon">?</span>
 								<span class="openedx-tooltip-text"><?php esc_html_e( "Disregard the course's enrollment end dates.", 'wp-openedx-commerce' ); ?></span>
 							</td>
 							<td>
-								<input class="action-checkbox" type="checkbox" id="no_pre" name="enrollment_allowed" value="opcion1">
-								<label for="no_pre"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'wp-openedx-commerce' ); ?></label>
+								<input class="action-checkbox" type="checkbox" id="openedx_enrollment_allowed" name="openedx_enrollment_allowed" value="openedx_allowed">
+								<label for="openedx_enrollment_allowed"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'wp-openedx-commerce' ); ?></label>
 								<span class="openedx-tooltip-icon">?</span>
 								<span class="openedx-tooltip-text"><?php esc_html_e( 'Creates a register in the table Course Enrollment Allowed if the email we use in the request is not a user in our Open edX platform yet.', 'wp-openedx-commerce' ); ?></span>
 							</td>

@@ -53,7 +53,7 @@ class Openedx_Commerce_Log {
 				'api_response'  => $response,
 			);
 
-			if ( empty( $old_data_array['enrollment_course_id'] ) ) {
+			if ( empty( $old_data_array['openedx_enrollment_course_id'] ) ) {
 				$log_data['object_status'] = 'Object Created';
 				$old_data_array            = '--';
 			} else {
