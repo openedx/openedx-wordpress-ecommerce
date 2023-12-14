@@ -9,7 +9,7 @@
  * @since      1.4.0
  */
 
-namespace App\model;
+namespace OpenedXCommerce\model;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

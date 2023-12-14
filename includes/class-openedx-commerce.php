@@ -14,12 +14,12 @@
  * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 
-namespace App;
+namespace OpenedXCommerce;
 
-use App\admin\Openedx_Commerce_Admin;
-use App\public\Openedx_Commerce_Public;
-use App\admin\views\Openedx_Commerce_Settings;
-use App\model\Openedx_Commerce_Enrollment;
+use OpenedXCommerce\admin\Openedx_Commerce_Admin;
+use OpenedXCommerce\public\Openedx_Commerce_Public;
+use OpenedXCommerce\admin\views\Openedx_Commerce_Settings;
+use OpenedXCommerce\model\Openedx_Commerce_Enrollment;
 
 /**
  * This class contains the function to register a new custom post type.

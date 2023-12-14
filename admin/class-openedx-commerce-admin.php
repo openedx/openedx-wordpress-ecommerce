@@ -9,12 +9,12 @@
  * @since      1.0.0
  */
 
-namespace App\admin;
+namespace OpenedXCommerce\admin;
 
-use App\model\Openedx_Commerce_Enrollment;
-use App\model\Openedx_Commerce_Post_Type;
-use App\admin\views\Openedx_Commerce_Enrollment_Info_Form;
-use App\utils;
+use OpenedXCommerce\model\Openedx_Commerce_Enrollment;
+use OpenedXCommerce\model\Openedx_Commerce_Post_Type;
+use OpenedXCommerce\admin\views\Openedx_Commerce_Enrollment_Info_Form;
+use OpenedXCommerce\utils;
 
 /**
  * The admin-specific functionality of the plugin.

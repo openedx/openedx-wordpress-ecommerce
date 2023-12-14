@@ -6,7 +6,7 @@
  * @since 1.6.0
  */
 
-namespace App\utils;
+namespace OpenedXCommerce\utils;
 
 /**
  * Enrollment Request mode options.

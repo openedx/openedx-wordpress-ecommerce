@@ -9,7 +9,7 @@
  * @since      1.6.0
  */
 
-namespace App\model;
+namespace OpenedXCommerce\model;
 
 require_once plugin_dir_path( dirname( __DIR__ ) ) . 'vendor/autoload.php';
 use DateTime;

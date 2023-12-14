@@ -10,12 +10,12 @@
  * @since      1.0.0
  */
 
-namespace App\model;
+namespace OpenedXCommerce\model;
 
-use App\model\Openedx_Commerce_Log;
-use App\Openedx_Commerce;
-use App\admin\Openedx_Commerce_Admin;
-use App\model\Openedx_Commerce_Api_Calls;
+use OpenedXCommerce\model\Openedx_Commerce_Log;
+use OpenedXCommerce\Openedx_Commerce;
+use OpenedXCommerce\admin\Openedx_Commerce_Admin;
+use OpenedXCommerce\model\Openedx_Commerce_Api_Calls;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
