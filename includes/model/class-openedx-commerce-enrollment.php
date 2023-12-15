@@ -301,8 +301,8 @@ class Openedx_Commerce_Enrollment {
 			'post_content' => 'Created automatically by woocommerce to fullfill an order.',
 			'post_type'    => 'openedx_enrollment',
 		);
-		$post_id        = wp_insert_post( $openedx_new_enrollment );
-		$post           = get_post( $post_id );
+		$post_id                = wp_insert_post( $openedx_new_enrollment );
+		$post                   = get_post( $post_id );
 
 		$this->save_enrollment( $post, $enrollment_arr, $enrollment_action, $order_id );
 		return $post;
@@ -395,11 +395,11 @@ class Openedx_Commerce_Enrollment {
 
 		// Array of old post metadata.
 		$old_data_array = array(
-			'openedx_enrollment_course_id'    => get_post_meta( $post_id, 'course_id', true ),
-			'openedx_enrollment_email'        => get_post_meta( $post_id, 'email', true ),
-			'openedx_enrollment_mode'         => get_post_meta( $post_id, 'mode', true ),
-			'enrollment_request_type' => get_post_meta( $post_id, 'enrollment_request_type', true ),
-			'enrollment_order_id'     => get_post_meta( $post_id, 'order_id', true ),
+			'openedx_enrollment_course_id' => get_post_meta( $post_id, 'course_id', true ),
+			'openedx_enrollment_email'     => get_post_meta( $post_id, 'email', true ),
+			'openedx_enrollment_mode'      => get_post_meta( $post_id, 'mode', true ),
+			'enrollment_request_type'      => get_post_meta( $post_id, 'enrollment_request_type', true ),
+			'enrollment_order_id'          => get_post_meta( $post_id, 'order_id', true ),
 		);
 
 		// Return both arrays.

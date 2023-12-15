@@ -201,8 +201,8 @@ class Openedx_Commerce_Api_Calls {
 		if ( 'enrollment_sync' === $enrollment_action ) {
 
 			$openedx_enrollment_email = $enrollment_data['openedx_enrollment_email'];
-			$course_id        = $enrollment_data['openedx_enrollment_course_id'];
-			$user_exist       = $this->check_if_user_exists( $openedx_enrollment_email, $access_token_string );
+			$course_id                = $enrollment_data['openedx_enrollment_course_id'];
+			$user_exist               = $this->check_if_user_exists( $openedx_enrollment_email, $access_token_string );
 
 			if ( 'success' === $user_exist[0] ) {
 				$method = 'GET';
@@ -219,13 +219,13 @@ class Openedx_Commerce_Api_Calls {
 					return $get_enrollments_allowed;
 				}
 
-				$enrollments_allowed_data        = json_decode( $get_enrollments_allowed[1], true );
-				$course_exists                   = false;
+				$enrollments_allowed_data                = json_decode( $get_enrollments_allowed[1], true );
+				$course_exists                           = false;
 				$get_openedx_enrollment_allowed_response = array();
 
 				foreach ( $enrollments_allowed_data as $openedx_enrollment_allowed ) {
 					if ( isset( $openedx_enrollment_allowed['course_id'] ) && $course_id === $openedx_enrollment_allowed['course_id'] ) {
-						$course_exists                     = true;
+						$course_exists                             = true;
 						$get_openedx_enrollment_allowed_response[] = $openedx_enrollment_allowed;
 					}
 				}
@@ -288,9 +288,9 @@ class Openedx_Commerce_Api_Calls {
 	 */
 	public function unenroll_openedx_enrollment_allowed( $enrollment_data, $access_token_string, $openedx_enrollment_allowed_request_body ) {
 
-		$course_id               = $enrollment_data['openedx_enrollment_course_id'];
-		$openedx_enrollment_email        = $enrollment_data['openedx_enrollment_email'];
-		$get_enrollments_allowed = $this->get_user_enrollments_allowed( $openedx_enrollment_email, $access_token_string );
+		$course_id                = $enrollment_data['openedx_enrollment_course_id'];
+		$openedx_enrollment_email = $enrollment_data['openedx_enrollment_email'];
+		$get_enrollments_allowed  = $this->get_user_enrollments_allowed( $openedx_enrollment_email, $access_token_string );
 
 		if ( 'error' === $get_enrollments_allowed[0] ) {
 			return $get_enrollments_allowed;
@@ -467,10 +467,10 @@ class Openedx_Commerce_Api_Calls {
 	 */
 	public function get_openedx_enrollment_allowed_body( $enrollment_data, $access_token_string, $enrollment_action ) {
 
-		$course_id        = $enrollment_data['openedx_enrollment_course_id'];
+		$course_id                = $enrollment_data['openedx_enrollment_course_id'];
 		$openedx_enrollment_email = $enrollment_data['openedx_enrollment_email'];
-		$request_type     = $enrollment_data['enrollment_request_type'];
-		$user_exist       = $this->check_if_user_exists( $openedx_enrollment_email, $access_token_string );
+		$request_type             = $enrollment_data['enrollment_request_type'];
+		$user_exist               = $this->check_if_user_exists( $openedx_enrollment_email, $access_token_string );
 
 		if ( 'success' === $user_exist[0] ) {
 			return array( 'user_exists', $user_exist[1] );
