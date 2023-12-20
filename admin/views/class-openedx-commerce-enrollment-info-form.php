@@ -148,7 +148,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 							</td>
 							<td>
 
-								<select id="openedx_enrollment_is_active" name="enrollment_request_type">
+								<select id="openedx_enrollment_is_active" name="openedx_enrollment_request_type">
 									<option value="enroll" 
 									<?php
 									if ( $is_active || $openedx_new_enrollment ) {
@@ -180,7 +180,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 							<td class="first"><label for="openedx_enrollment_order_id">WC Order ID</label></td>
 							<td>
 								<div style="width: 18.5%; display: inline-table;">
-									<input type="text" id="openedx_enrollment_order_id" name="enrollment_order_id" value="<?php echo esc_attr( $order_id ); ?>" pattern="\d*" />
+									<input type="text" id="openedx_enrollment_order_id" name="openedx_enrollment_order_id" value="<?php echo esc_attr( $order_id ); ?>" pattern="\d*" />
 								</div>
 								<div style="width: 6%; display: inline-table;">
 									<?php

@@ -128,7 +128,7 @@ class Openedx_Commerce_Api_Calls {
 	 */
 	public function request_handler( $enrollment_data, $enrollment_action ) {
 
-		$request_type        = $enrollment_data['enrollment_request_type'];
+		$request_type        = $enrollment_data['openedx_enrollment_request_type'];
 		$access_token        = $this->check_access_token();
 		$access_token_string = $this->get_access_token( $access_token );
 
@@ -415,7 +415,7 @@ class Openedx_Commerce_Api_Calls {
 		$user_or_email_value = '';
 		$course_id           = $enrollment_data['openedx_enrollment_course_id'];
 		$course_mode         = $enrollment_data['openedx_enrollment_mode'];
-		$request_type        = $enrollment_data['enrollment_request_type'];
+		$request_type        = $enrollment_data['openedx_enrollment_request_type'];
 
 		if ( $use_old_endpoint ) {
 			$user_or_email       = 'user';
@@ -469,7 +469,7 @@ class Openedx_Commerce_Api_Calls {
 
 		$course_id                = $enrollment_data['openedx_enrollment_course_id'];
 		$openedx_enrollment_email = $enrollment_data['openedx_enrollment_email'];
-		$request_type             = $enrollment_data['enrollment_request_type'];
+		$request_type             = $enrollment_data['openedx_enrollment_request_type'];
 		$user_exist               = $this->check_if_user_exists( $openedx_enrollment_email, $access_token_string );
 
 		if ( 'success' === $user_exist[0] ) {

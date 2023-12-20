@@ -249,16 +249,16 @@ class Openedx_Commerce_Enrollment {
 			$enrollment_arr['openedx_enrollment_mode'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
-		if ( isset( $_POST['enrollment_request_type'] ) ) {
-			$enrollment_arr['enrollment_request_type'] = sanitize_text_field( wp_unslash( $_POST['enrollment_request_type'] ) );
+		if ( isset( $_POST['openedx_enrollment_request_type'] ) ) {
+			$enrollment_arr['openedx_enrollment_request_type'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_request_type'] ) );
 		} else {
-			$enrollment_arr['enrollment_request_type'] = sanitize_text_field( wp_unslash( '' ) );
+			$enrollment_arr['openedx_enrollment_request_type'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
-		if ( isset( $_POST['enrollment_order_id'] ) ) {
-			$enrollment_arr['enrollment_order_id'] = sanitize_text_field( wp_unslash( $_POST['enrollment_order_id'] ) );
+		if ( isset( $_POST['openedx_enrollment_order_id'] ) ) {
+			$enrollment_arr['openedx_enrollment_order_id'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_order_id'] ) );
 		} else {
-			$enrollment_arr['enrollment_order_id'] = sanitize_text_field( wp_unslash( '' ) );
+			$enrollment_arr['openedx_enrollment_order_id'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
 		if ( isset( $_POST['enrollment_process'] ) ) {
@@ -390,16 +390,16 @@ class Openedx_Commerce_Enrollment {
 		sanitize_text_field( $enrollment_arr['openedx_enrollment_course_id'] );
 		sanitize_text_field( $enrollment_arr['openedx_enrollment_email'] );
 		sanitize_text_field( $enrollment_arr['openedx_enrollment_mode'] );
-		sanitize_text_field( $enrollment_arr['enrollment_request_type'] );
-		sanitize_text_field( $enrollment_arr['enrollment_order_id'] );
+		sanitize_text_field( $enrollment_arr['openedx_enrollment_request_type'] );
+		sanitize_text_field( $enrollment_arr['openedx_enrollment_order_id'] );
 
 		// Array of old post metadata.
 		$old_data_array = array(
-			'openedx_enrollment_course_id' => get_post_meta( $post_id, 'course_id', true ),
-			'openedx_enrollment_email'     => get_post_meta( $post_id, 'email', true ),
-			'openedx_enrollment_mode'      => get_post_meta( $post_id, 'mode', true ),
-			'enrollment_request_type'      => get_post_meta( $post_id, 'enrollment_request_type', true ),
-			'enrollment_order_id'          => get_post_meta( $post_id, 'order_id', true ),
+			'openedx_enrollment_course_id'    => get_post_meta( $post_id, 'course_id', true ),
+			'openedx_enrollment_email'        => get_post_meta( $post_id, 'email', true ),
+			'openedx_enrollment_mode'         => get_post_meta( $post_id, 'mode', true ),
+			'openedx_enrollment_request_type' => get_post_meta( $post_id, 'enrollment_request_type', true ),
+			'openedx_enrollment_order_id'     => get_post_meta( $post_id, 'order_id', true ),
 		);
 
 		// Return both arrays.
@@ -420,13 +420,13 @@ class Openedx_Commerce_Enrollment {
 		update_post_meta( $post_id, 'course_id', $enrollment_data['openedx_enrollment_course_id'] );
 		update_post_meta( $post_id, 'email', $enrollment_data['openedx_enrollment_email'] );
 		update_post_meta( $post_id, 'mode', $enrollment_data['openedx_enrollment_mode'] );
-		update_post_meta( $post_id, 'order_id', $enrollment_data['enrollment_order_id'] );
-		update_post_meta( $post_id, 'enrollment_request_type', $enrollment_data['enrollment_request_type'] );
+		update_post_meta( $post_id, 'order_id', $enrollment_data['openedx_enrollment_order_id'] );
+		update_post_meta( $post_id, 'enrollment_request_type', $enrollment_data['openedx_enrollment_request_type'] );
 
-		if ( 'enroll' === $enrollment_data['enrollment_request_type'] ) {
+		if ( 'enroll' === $enrollment_data['openedx_enrollment_request_type'] ) {
 			update_post_meta( $post_id, 'is_active', true );
 		}
-		if ( 'unenroll' === $enrollment_data['enrollment_request_type'] ) {
+		if ( 'unenroll' === $enrollment_data['openedx_enrollment_request_type'] ) {
 			update_post_meta( $post_id, 'is_active', false );
 		}
 	}

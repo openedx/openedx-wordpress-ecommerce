@@ -470,11 +470,11 @@ class Openedx_Commerce_Admin {
 			$action      = 'enrollment_process';
 
 			$enrollment_arr = array(
-				'openedx_enrollment_course_id' => $course_id,
-				'openedx_enrollment_email'     => $billing_email,
-				'openedx_enrollment_mode'      => $course_mode,
-				'enrollment_request_type'      => $request_type,
-				'enrollment_order_id'          => $order_id,
+				'openedx_enrollment_course_id'    => $course_id,
+				'openedx_enrollment_email'        => $billing_email,
+				'openedx_enrollment_mode'         => $course_mode,
+				'openedx_enrollment_request_type' => $request_type,
+				'openedx_enrollment_order_id'     => $order_id,
 			);
 
 			$enrollment_id = $this->openedx_enrollment->insert_new( $enrollment_arr, $action, $order_id );
