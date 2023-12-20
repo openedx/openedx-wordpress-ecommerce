@@ -18,9 +18,9 @@
  * @wordpress-plugin
  */
 
-use App\Openedx_Commerce_Activator;
-use App\Openedx_Commerce_Deactivator;
-use App\Openedx_Commerce;
+use OpenedXCommerce\Openedx_Commerce_Activator;
+use OpenedXCommerce\Openedx_Commerce_Deactivator;
+use OpenedXCommerce\Openedx_Commerce;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

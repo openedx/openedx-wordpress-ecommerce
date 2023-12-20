@@ -8,9 +8,9 @@
  * @since      1.6.0
  */
 
-namespace App\admin\views;
+namespace OpenedXCommerce\admin\views;
 
-use App\model\Openedx_Commerce_Api_Calls;
+use OpenedXCommerce\model\Openedx_Commerce_Api_Calls;
 use DateTime;
 use DateInterval;
 
@@ -293,7 +293,7 @@ class Openedx_Commerce_Settings {
 			<input class="setting_input" class="openedx-jwt-token-input" type="text" value="<?php echo esc_attr( $masked_value ); ?>" readonly/>
 
 			<form method="post">
-				<button class="button" type="submit" name="generate_new_token" id="generate-jwt-token">Generate JWT Token</button>
+				<button class="button" type="submit" name="generate_new_token" id="openedx-generate-jwt-token">Generate JWT Token</button>
 			</form>
 			
 

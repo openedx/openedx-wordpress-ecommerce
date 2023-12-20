@@ -9,7 +9,7 @@
  * @since      1.4.0
  */
 
-namespace App\model;
+namespace OpenedXCommerce\model;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -53,7 +53,7 @@ class Openedx_Commerce_Log {
 				'api_response'  => $response,
 			);
 
-			if ( empty( $old_data_array['enrollment_course_id'] ) ) {
+			if ( empty( $old_data_array['openedx_enrollment_course_id'] ) ) {
 				$log_data['object_status'] = 'Object Created';
 				$old_data_array            = '--';
 			} else {
@@ -122,14 +122,14 @@ class Openedx_Commerce_Log {
 			foreach ( $logs as $log ) {
 
 				if ( null !== json_decode( $log['api_response'], true ) ) {
-					$formatted_logs .= "<div class='log_entry_api'>";
+					$formatted_logs .= "<div class='openedx_log_entry_api'>";
 				} else {
-					$formatted_logs .= "<div class='log_entry_api_error'>";
+					$formatted_logs .= "<div class='openedx_log_entry_api_error'>";
 				}
 
 				$formatted_logs .= '<strong>API:</strong> ' . $log['api_response'] . '<br>';
 				$formatted_logs .= '</div>';
-				$formatted_logs .= "<div class='log_entry'>";
+				$formatted_logs .= "<div class='openedx_log_entry'>";
 				$formatted_logs .= '<strong>Timestamp:</strong> ' . gmdate( 'd-m-Y H:i:s', strtotime( $log['mod_date'] ) ) . '<br>';
 				$formatted_logs .= '<strong>User:</strong> ' . $log['user'] . '<br>';
 				$formatted_logs .= '<strong>Action:</strong> ' . $log['action_name'] . '<br>';
