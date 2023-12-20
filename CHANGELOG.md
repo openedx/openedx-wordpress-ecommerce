@@ -1,3 +1,20 @@
+## v2.0.2 - 2023-12-20
+
+### [2.0.2](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.1...v2.0.2) (2023-12-20)
+
+### Bug Fixes
+
+* improve namespace and variables naming ([#65](https://github.com/openedx/openedx-wordpress-ecommerce/issues/65)) ([9f4493d](https://github.com/openedx/openedx-wordpress-ecommerce/commit/9f4493d4b7ddc26adb456de24d7f9f9e8b2e794b))
+
+### Code Refactoring
+
+* improve double dirname and add more documentation of Open edX ([#64](https://github.com/openedx/openedx-wordpress-ecommerce/issues/64)) ([24e76a1](https://github.com/openedx/openedx-wordpress-ecommerce/commit/24e76a1d9dd432da3986d382f5ec35e74a1157d3))
+
+### Documentation
+
+* move the config file ([4b5f14b](https://github.com/openedx/openedx-wordpress-ecommerce/commit/4b5f14b1f10f54656d1bf46eb98a20b91cb6626c))
+* update the readmes and the how-tos, and add quickstart and a tutorial ([#61](https://github.com/openedx/openedx-wordpress-ecommerce/issues/61)) ([49f091b](https://github.com/openedx/openedx-wordpress-ecommerce/commit/49f091ba27df0f8d61d5666611795f845bae72ee))
+
 ## v2.0.1 - 2023-11-09
 
 ### [2.0.1](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.0...v2.0.1) (2023-11-09)
