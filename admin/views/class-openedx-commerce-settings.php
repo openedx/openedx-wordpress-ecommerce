@@ -14,6 +14,8 @@ use OpenedXCommerce\model\Openedx_Commerce_Api_Calls;
 use DateTime;
 use DateInterval;
 
+$nonce = wp_create_nonce( 'openedx_commerce_new_token' );
+
 /**
  * This class allows the user to configure the plugin settings
  * focusing on the connection between Open edX platform and the store.
@@ -148,7 +150,7 @@ class Openedx_Commerce_Settings {
 			'sanitize_text_field'
 		);
 
-		if ( isset( $_POST['generate_new_token'] ) ) {
+		if ( wp_verify_nonce( isset( $_POST['generate_new_token'] ), 'openedx_commerce_new_token' ) ) {
 			$this->set_new_token();
 		}
 
@@ -287,6 +289,7 @@ class Openedx_Commerce_Settings {
 		?>
 
 		<div class="openedx-jwt-token-wrapper">
+			<input type="hidden" name="openedx_commerce_new_token" value="<?php echo esc_attr( $nonce ); ?>">
 
 			<input class="setting_input" class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
 				value="<?php echo esc_attr( $value ); ?>" hidden/>

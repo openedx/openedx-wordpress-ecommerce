@@ -24,8 +24,4 @@
         </properties>
     </rule>
 
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax">
-        <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found"/>
-        <exclude name="WordPress.Security.NonceVerification.Missing"/>
-    </rule>
 </ruleset>

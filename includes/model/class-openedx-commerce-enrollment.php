@@ -232,31 +232,31 @@ class Openedx_Commerce_Enrollment {
 		$enrollment_action = '';
 
 		if ( isset( $_POST['openedx_enrollment_course_id'] ) ) {
-			$enrollment_arr['openedx_enrollment_course_id'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_course_id'] ) );
+			$enrollment_arr['openedx_enrollment_course_id'] = wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_course_id'] ) ), 'openedx_commerce_enrollment_form' );
 		} else {
 			$enrollment_arr['openedx_enrollment_course_id'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
 		if ( isset( $_POST['openedx_enrollment_email'] ) ) {
-			$enrollment_arr['openedx_enrollment_email'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_email'] ) );
+			$enrollment_arr['openedx_enrollment_email'] = wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_email'] ) ), 'openedx_commerce_enrollment_form' );
 		} else {
 			$enrollment_arr['openedx_enrollment_email'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
 		if ( isset( $_POST['openedx_enrollment_mode'] ) ) {
-			$enrollment_arr['openedx_enrollment_mode'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_mode'] ) );
+			$enrollment_arr['openedx_enrollment_mode'] = wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_mode'] ) ), 'openedx_commerce_enrollment_form' );
 		} else {
 			$enrollment_arr['openedx_enrollment_mode'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
 		if ( isset( $_POST['openedx_enrollment_request_type'] ) ) {
-			$enrollment_arr['openedx_enrollment_request_type'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_request_type'] ) );
+			$enrollment_arr['openedx_enrollment_request_type'] = wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_request_type'] ) ), 'openedx_commerce_enrollment_form' );
 		} else {
 			$enrollment_arr['openedx_enrollment_request_type'] = sanitize_text_field( wp_unslash( '' ) );
 		}
 
 		if ( isset( $_POST['openedx_enrollment_order_id'] ) ) {
-			$enrollment_arr['openedx_enrollment_order_id'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_order_id'] ) );
+			$enrollment_arr['openedx_enrollment_order_id'] = wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_order_id'] ) ), 'openedx_commerce_enrollment_form' );
 		} else {
 			$enrollment_arr['openedx_enrollment_order_id'] = sanitize_text_field( wp_unslash( '' ) );
 		}
