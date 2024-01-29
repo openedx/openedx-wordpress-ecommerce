@@ -14,7 +14,6 @@ use OpenedXCommerce\model\Openedx_Commerce_Api_Calls;
 use DateTime;
 use DateInterval;
 
-$nonce = wp_create_nonce( 'openedx_commerce_new_token' );
 
 /**
  * This class allows the user to configure the plugin settings
@@ -189,7 +188,7 @@ class Openedx_Commerce_Settings {
 			$exp_date->add( new DateInterval( 'PT' . $exp_time . 'S' ) );
 			update_option( 'openedx-token-expiration-overlap', $exp_date );
 
-			$nonce = wp_create_nonce( 'token_generated_nonce' );
+			$nonce = wp_create_nonce( 'openedx_commerce_new_token' );
 			update_option( 'openedx-jwt-token', $response_data['access_token'] );
 
 			set_transient( 'openedx_success_message', 'Token generated', 10 );

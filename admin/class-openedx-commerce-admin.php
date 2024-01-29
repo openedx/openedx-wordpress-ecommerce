@@ -16,7 +16,6 @@ use OpenedXCommerce\model\Openedx_Commerce_Post_Type;
 use OpenedXCommerce\admin\views\Openedx_Commerce_Enrollment_Info_Form;
 use OpenedXCommerce\utils;
 
-$nonce = wp_create_nonce( 'openedx_commerce_admin' );
 
 /**
  * The admin-specific functionality of the plugin.
@@ -245,6 +244,8 @@ class Openedx_Commerce_Admin {
 	public function add_custom_product_fields() {
 
 		global $post;
+
+		$nonce = wp_create_nonce( 'openedx_commerce_admin' );
 
 		echo '<div class="custom_options_group">';
 
