@@ -149,7 +149,13 @@ class Openedx_Commerce_Settings {
 			'sanitize_text_field'
 		);
 
-		if ( wp_verify_nonce( isset( $_POST['generate_new_token'] ), 'openedx_commerce_new_token' ) ) {
+		if ( ! isset( $_POST['openedx_commerce_new_token_nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['openedx_commerce_new_token_nonce'] ) ), 'openedx_commerce_token' )
+		) {
+			return;
+		}
+
+		if ( isset( $_POST['generate_new_token'] ) ) {
 			$this->set_new_token();
 		}
 
@@ -188,7 +194,6 @@ class Openedx_Commerce_Settings {
 			$exp_date->add( new DateInterval( 'PT' . $exp_time . 'S' ) );
 			update_option( 'openedx-token-expiration-overlap', $exp_date );
 
-			$nonce = wp_create_nonce( 'openedx_commerce_new_token' );
 			update_option( 'openedx-jwt-token', $response_data['access_token'] );
 
 			set_transient( 'openedx_success_message', 'Token generated', 10 );
@@ -285,10 +290,11 @@ class Openedx_Commerce_Settings {
 			$masked_value = '';
 		}
 
+		wp_nonce_field( 'openedx_commerce_token', 'openedx_commerce_new_token_nonce' );
+
 		?>
 
 		<div class="openedx-jwt-token-wrapper">
-			<input type="hidden" name="openedx_commerce_new_token" value="<?php echo esc_attr( $nonce ); ?>">
 
 			<input class="setting_input" class="openedx-jwt-token-input" type="text" name="openedx-jwt-token" id="openedx-jwt-token"
 				value="<?php echo esc_attr( $value ); ?>" hidden/>

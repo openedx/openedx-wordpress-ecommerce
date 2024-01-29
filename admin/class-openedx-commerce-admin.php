@@ -232,7 +232,12 @@ class Openedx_Commerce_Admin {
 	 * @return void
 	 */
 	public function save_openedx_option( $post_id ) {
-		$openedx_course = isset( $_POST['is_openedx_course'] ) ? 'yes' : 'no';  // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( ! isset( $_POST['openedx_commerce_custom_product_nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['openedx_commerce_custom_product_nonce'] ) ), 'openedx_commerce_custom_product_nonce' )
+		) {
+			return;
+		}
+		$openedx_course = isset( $_POST['is_openedx_course'] ) ? 'yes' : 'no';
 		update_post_meta( $post_id, 'is_openedx_course', $openedx_course );
 	}
 
@@ -245,11 +250,11 @@ class Openedx_Commerce_Admin {
 
 		global $post;
 
-		$nonce = wp_create_nonce( 'openedx_commerce_admin' );
+		$nonce = wp_create_nonce( 'openedx_commerce_custom_product_nonce' );
 
 		echo '<div class="custom_options_group">';
 
-		echo '<input type="hidden" name="openedx_commerce_admin" value="<?php echo esc_attr($nonce); ?>">';
+		echo '<input type="hidden" name="openedx_commerce_custom_product_nonce" value="' . esc_attr( $nonce ) . '">';
 
 		woocommerce_wp_text_input(
 			array(
@@ -308,6 +313,7 @@ class Openedx_Commerce_Admin {
 
 		// Check if the product has a non-empty "_course_id" metadata.
 		$course_id = '';
+		$nonce     = wp_create_nonce( 'openedx_commerce_order_item_nonce' );
 
 		if ( $product ) {
 			$course_id    = get_post_meta( $product->get_id(), '_course_id', true );
@@ -321,7 +327,7 @@ class Openedx_Commerce_Admin {
 			$order_url   = esc_url( admin_url( 'post.php?post=' . intval( $input_value ) . '&action=edit' ) );
 
 			$html_output  = '<td>';
-			$html_output .= '<input type="hidden" name="openedx_commerce_admin" value="<?php echo esc_attr($nonce); ?>">';
+			$html_output .= '<input type="hidden" name="openedx_commerce_order_item_nonce"  value="' . esc_attr( $nonce ) . '">';
 			$html_output .= '<input style="height:30px;" type="text" name="openedx_order_id_input' . esc_attr( $item_id ) . '" value="' . esc_attr( $input_value ) . '" pattern="\d*" />';
 			$html_output .= '<a href="' . $order_url . '" class="button" style="margin-left: 5px; vertical-align: bottom;' . ( $input_value ? '' : 'pointer-events: none; opacity: 0.6;' ) . '">View Request</a>';
 			$html_output .= '</td>';
@@ -370,8 +376,14 @@ class Openedx_Commerce_Admin {
 
 		$items = wc_get_order( $order_id )->get_items();
 
+		if ( ! isset( $_POST['openedx_commerce_order_item_nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['openedx_commerce_order_item_nonce'] ) ), 'openedx_commerce_order_item_nonce' )
+		) {
+			return;
+		}
+
 		foreach ( $items as $item_id => $item ) {
-			if ( wp_verify_nonce( isset( $_POST[ 'openedx_order_id_input' . $item_id ] ), 'openedx_commerce_admin' ) ) {
+			if ( isset( $_POST[ 'openedx_order_id_input' . $item_id ] ) ) {
 				$input_value = sanitize_text_field( wp_unslash( $_POST[ 'openedx_order_id_input' . $item_id ] ) );
 				update_post_meta( $order_id, 'enrollment_id' . $item_id, $input_value );
 			}
@@ -386,8 +398,13 @@ class Openedx_Commerce_Admin {
 	 * @since    1.1.1
 	 */
 	public function save_custom_product_fields( $post_id ) {
-		$course_id = isset( $_POST['_course_id'] ) ? wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_course_id'] ) ), 'openedx_commerce_admin' ) : '';
-		$mode      = isset( $_POST['_mode'] ) ? wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_mode'] ) ), 'openedx_commerce_admin' ) : '';
+		if ( ! isset( $_POST['openedx_commerce_custom_product_nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['openedx_commerce_custom_product_nonce'] ) ), 'openedx_commerce_custom_product_nonce' )
+		) {
+			return;
+		}
+		$course_id = isset( $_POST['_course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['_course_id'] ) ) : '';
+		$mode      = isset( $_POST['_mode'] ) ? sanitize_text_field( wp_unslash( $_POST['_mode'] ) ) : '';
 
 		update_post_meta( $post_id, '_course_id', $course_id );
 		update_post_meta( $post_id, '_mode', $mode );

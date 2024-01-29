@@ -93,7 +93,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 			$openedx_new_enrollment = true;
 		}
 
-		$nonce = wp_create_nonce( 'openedx_commerce_enrollment_form' );
+		wp_nonce_field( 'openedx_commerce_enrollment_form', 'openedx_commerce_enrollment_form_nonce' );
 
 		?>
 		<div id="namediv" class="postbox">
@@ -101,7 +101,6 @@ class Openedx_Commerce_Enrollment_Info_Form {
 			<fieldset>
 				<h2 class="">Open edX enrollment request</h2>
 				<input type="hidden" name="openedx_new_enrollment" value="<?php echo wp_kses( $openedx_new_enrollment, array( 'true', 'false' ) ); ?>">
-				<input type="hidden" name="openedx_commerce_enrollment_form" value="<?php echo esc_attr( $nonce ); ?>">
 				<table class="form-table">
 					<tbody>
 						<tr>
