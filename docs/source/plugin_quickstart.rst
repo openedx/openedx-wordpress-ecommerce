@@ -19,7 +19,6 @@ Requirements
 ^^^^^^^^^^^^^
 - Setup https://github.com/edly-io/tutor-contrib-wordpress.git plugin
 - WooCommerce plugin.
-- Payment Plugins for PayPal WooCommerce plugin.
 
 Manual Installation
 ^^^^^^^^^^^^^^^^^^^^
@@ -46,7 +45,7 @@ Create payment method
 -----------------------------
 Install and activate WooCommerce and Payment Plugins for PayPal WooCommerce plugin in the plugins tab.
 #. Enter the Settings option in your WordPress dashboard's Woocommerce tab.
-#. Go into the payments and enable the payment method you want, in the case of PayPal fill client ID, and secret key in the API Settings tab(If you are using the website locally you can't create a webhook as it requires the site to be https.
+#. Go into the payments and enable the payment method you want.
 #. Save changes by clicking **Save Changes**.
 
 Buy product on LMS as student
