@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
 /**
  * The Enrollment Info Form code for the form.
  */
@@ -91,6 +92,8 @@ class Openedx_Commerce_Enrollment_Info_Form {
 		if ( ! $course_id && ! $email ) {
 			$openedx_new_enrollment = true;
 		}
+
+		wp_nonce_field( 'openedx_commerce_enrollment_form', 'openedx_commerce_enrollment_form_nonce' );
 
 		?>
 		<div id="namediv" class="postbox">

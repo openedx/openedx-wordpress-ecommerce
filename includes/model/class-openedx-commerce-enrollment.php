@@ -231,6 +231,12 @@ class Openedx_Commerce_Enrollment {
 		$enrollment_arr    = array();
 		$enrollment_action = '';
 
+		if ( ! isset( $_POST['openedx_commerce_enrollment_form_nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['openedx_commerce_enrollment_form_nonce'] ) ), 'openedx_commerce_enrollment_form' )
+		) {
+			return;
+		}
+
 		if ( isset( $_POST['openedx_enrollment_course_id'] ) ) {
 			$enrollment_arr['openedx_enrollment_course_id'] = sanitize_text_field( wp_unslash( $_POST['openedx_enrollment_course_id'] ) );
 		} else {

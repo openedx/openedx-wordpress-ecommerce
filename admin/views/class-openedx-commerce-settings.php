@@ -14,6 +14,7 @@ use OpenedXCommerce\model\Openedx_Commerce_Api_Calls;
 use DateTime;
 use DateInterval;
 
+
 /**
  * This class allows the user to configure the plugin settings
  * focusing on the connection between Open edX platform and the store.
@@ -148,6 +149,12 @@ class Openedx_Commerce_Settings {
 			'sanitize_text_field'
 		);
 
+		if ( ! isset( $_POST['openedx_commerce_new_token_nonce'] ) ||
+			! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['openedx_commerce_new_token_nonce'] ) ), 'openedx_commerce_token' )
+		) {
+			return;
+		}
+
 		if ( isset( $_POST['generate_new_token'] ) ) {
 			$this->set_new_token();
 		}
@@ -187,7 +194,6 @@ class Openedx_Commerce_Settings {
 			$exp_date->add( new DateInterval( 'PT' . $exp_time . 'S' ) );
 			update_option( 'openedx-token-expiration-overlap', $exp_date );
 
-			$nonce = wp_create_nonce( 'token_generated_nonce' );
 			update_option( 'openedx-jwt-token', $response_data['access_token'] );
 
 			set_transient( 'openedx_success_message', 'Token generated', 10 );
@@ -283,6 +289,8 @@ class Openedx_Commerce_Settings {
 		} else {
 			$masked_value = '';
 		}
+
+		wp_nonce_field( 'openedx_commerce_token', 'openedx_commerce_new_token_nonce' );
 
 		?>
 

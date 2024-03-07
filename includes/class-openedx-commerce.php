@@ -232,7 +232,7 @@ class Openedx_Commerce {
 		// Redirection from enrollment to order and enrollment to order.
 		$this->loader->add_filter( 'woocommerce_admin_order_item_headers', $plugin_admin, 'add_custom_column_order_items' );
 		$this->loader->add_action( 'woocommerce_admin_order_item_values', $plugin_admin, 'add_admin_order_item_values', 10, 3 );
-		$this->loader->add_action( 'save_post_shop_order', $plugin_admin, 'save_order_meta_data' );
+		$this->loader->add_action( 'woocommerce_update_order', $plugin_admin, 'save_order_meta_data' );
 		$this->loader->add_action(
 			'woocommerce_product_options_general_product_data',
 			$plugin_admin,
