@@ -17,6 +17,11 @@
 
     <rule ref="WordPress">
     </rule>
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+	<properties>
+		<property name="prefixes" type="array" value="openedxcommerce" />
+	</properties>
+</rule>
 
     <rule ref="Generic.Files.LineEndings">
         <properties>
