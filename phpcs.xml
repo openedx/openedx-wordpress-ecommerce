@@ -18,6 +18,11 @@
 
     <rule ref="WordPress">
     </rule>
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+	<properties>
+		<property name="prefixes" type="array" value="openedx_commerce" />
+	</properties>
+    </rule>
 
     <rule ref="WordPress.WP.I18n">
         <properties>
