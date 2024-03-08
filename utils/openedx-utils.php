@@ -13,11 +13,11 @@ namespace OpenedXCommerce\utils;
  */
 function get_enrollment_options() {
 	return array(
-		'Honor'              => __( 'Honor', 'wp-openedx-commerce' ),
-		'Audit'              => __( 'Audit', 'wp-openedx-commerce' ),
-		'Verified'           => __( 'Verified', 'wp-openedx-commerce' ),
-		'Credit'             => __( 'Credit', 'wp-openedx-commerce' ),
-		'Professional'       => __( 'Professional', 'wp-openedx-commerce' ),
-		'No ID Professional' => __( 'No ID Professional', 'wp-openedx-commerce' ),
+		'Honor'              => __( 'Honor', 'openedx-commerce' ),
+		'Audit'              => __( 'Audit', 'openedx-commerce' ),
+		'Verified'           => __( 'Verified', 'openedx-commerce' ),
+		'Credit'             => __( 'Credit', 'openedx-commerce' ),
+		'Professional'       => __( 'Professional', 'openedx-commerce' ),
+		'No ID Professional' => __( 'No ID Professional', 'openedx-commerce' ),
 	);
 }
