@@ -101,7 +101,7 @@ class Openedx_Commerce_Post_Type {
 			'name'               => $this->plural,
 			'singular_name'      => $this->single,
 			'name_admin_bar'     => $this->single,
-			'add_new'            => sprintf( _x( 'Add New', 'openedx-commerce' ), $this->post_type ),
+			'add_new'            => sprintf( _x( 'Add New', 'openedx-commerce', 'openedx-commerce' ), $this->post_type ),
 			// translators: %s: Name of the post type in singular.
 			'add_new_item'       => sprintf( __( 'Add New %s', 'openedx-commerce' ), $this->single ),
 			// translators: %s: Name of the post type in singular.
@@ -119,7 +119,7 @@ class Openedx_Commerce_Post_Type {
 			// translators: %s: Name of the post type in plural.
 			'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'openedx-commerce' ), $this->plural ),
 			// translators: %s: Name of the post type in singular.
-			'parent_item_colon'  => sprintf( __( 'Parent %s' ), $this->single ),
+			'parent_item_colon'  => sprintf( __( 'Parent %s', 'openedx-commerce' ), $this->single ),
 			'menu_name'          => $this->plural,
 		);
 
