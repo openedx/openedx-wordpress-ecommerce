@@ -148,7 +148,7 @@ class Openedx_Commerce_Enrollment {
 		register_post_status(
 			'success',
 			array(
-				'label'                     => __( 'success', 'wp-openedx-commerce' ),
+				'label'                     => __( 'success', 'openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -156,13 +156,13 @@ class Openedx_Commerce_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
+				'label_count'               => _n_noop( 'Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'openedx-commerce' ),
 			)
 		);
 		register_post_status(
 			'no_process',
 			array(
-				'label'                     => __( 'success', 'wp-openedx-commerce' ),
+				'label'                     => __( 'success', 'openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -170,13 +170,13 @@ class Openedx_Commerce_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'No process <span class="count">(%s)</span>', 'No process <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
+				'label_count'               => _n_noop( 'No process <span class="count">(%s)</span>', 'No process <span class="count">(%s)</span>', 'openedx-commerce' ),
 			)
 		);
 		register_post_status(
 			'pending',
 			array(
-				'label'                     => __( 'pending', 'wp-openedx-commerce' ),
+				'label'                     => __( 'pending', 'openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -184,13 +184,13 @@ class Openedx_Commerce_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
+				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'openedx-commerce' ),
 			)
 		);
 		register_post_status(
 			'error',
 			array(
-				'label'                     => __( 'error', 'wp-openedx-commerce' ),
+				'label'                     => __( 'error', 'openedx-commerce' ),
 				'public'                    => false,
 				'internal'                  => true,
 				'private'                   => true,
@@ -198,7 +198,7 @@ class Openedx_Commerce_Enrollment {
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
 				// translators: %s: number of items.
-				'label_count'               => _n_noop( 'Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'wp-openedx-commerce' ),
+				'label_count'               => _n_noop( 'Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'openedx-commerce' ),
 			)
 		);
 	}

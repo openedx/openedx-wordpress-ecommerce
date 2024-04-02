@@ -116,7 +116,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 								?>
 								>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( 'The id of the course to be used for the enroll, e.g. course-v1:edX+DemoX+Demo_Course.', 'wp-openedx-commerce' ); ?></span>
+								<span class="openedx-tooltip-text"><?php esc_html_e( 'The id of the course to be used for the enroll, e.g. course-v1:edX+DemoX+Demo_Course.', 'openedx-commerce' ); ?></span>
 							</td>
 						</tr>
 						<tr>
@@ -126,8 +126,8 @@ class Openedx_Commerce_Enrollment_Info_Form {
 									<input type="email" id="openedx_enrollment_email" name="openedx_enrollment_email" value="<?php echo esc_attr( $email ); ?>"> 
 								</div>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( 'The email of the user to be used for the enroll.', 'wp-openedx-commerce' ); ?></span>
-								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from Open edX', 'wp-openedx-commerce' ); ?></span></button>
+								<span class="openedx-tooltip-text"><?php esc_html_e( 'The email of the user to be used for the enroll.', 'openedx-commerce' ); ?></span>
+								<button name="enrollment_sync" class="button save_order button-secondary sync_button"><span><?php esc_html_e( 'Read from Open edX', 'openedx-commerce' ); ?></span></button>
 							</td>
 						</tr>
 						<tr class="gray_zone first_zone">
@@ -141,7 +141,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 									<?php endforeach; ?>
 								</select>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( 'The mode of your enrollment request. Make sure to set a mode that your course has.', 'wp-openedx-commerce' ); ?></span>
+								<span class="openedx-tooltip-text"><?php esc_html_e( 'The mode of your enrollment request. Make sure to set a mode that your course has.', 'openedx-commerce' ); ?></span>
 							</td>
 						</tr>
 
@@ -160,7 +160,7 @@ class Openedx_Commerce_Enrollment_Info_Form {
 									?>
 									>
 									<?php
-									esc_html_e( 'Enroll', 'wp-openedx-commerce' );
+									esc_html_e( 'Enroll', 'openedx-commerce' );
 									?>
 									</option>
 									<option value="unenroll" 
@@ -171,12 +171,12 @@ class Openedx_Commerce_Enrollment_Info_Form {
 									?>
 									>
 									<?php
-									esc_html_e( 'Un-enroll', 'wp-openedx-commerce' );
+									esc_html_e( 'Un-enroll', 'openedx-commerce' );
 									?>
 									</option>
 								</select>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( 'The type of your request. If you select Enroll, you will create an enrollment, and if you select Un-enroll, you will set a soft unenrollment (enrollment with status inactive).', 'wp-openedx-commerce' ); ?></span>
+								<span class="openedx-tooltip-text"><?php esc_html_e( 'The type of your request. If you select Enroll, you will create an enrollment, and if you select Un-enroll, you will set a soft unenrollment (enrollment with status inactive).', 'openedx-commerce' ); ?></span>
 							</td>
 						</tr>
 						<tr class="gray_zone">
@@ -195,31 +195,31 @@ class Openedx_Commerce_Enrollment_Info_Form {
 									?>
 								</div>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( 'The id of the order associated with this request.', 'wp-openedx-commerce' ); ?></span>
+								<span class="openedx-tooltip-text"><?php esc_html_e( 'The id of the order associated with this request.', 'openedx-commerce' ); ?></span>
 							</td>
 						</tr>
 
 						<tr class="gray_zone">
 							<td class="checkbox-td">		
 								<input class="action-checkbox" type="checkbox" id="openedx_enrollment_force" name="openedx_enrollment_force" value="openedx_force">
-								<label for="openedx_enrollment_force"><?php esc_html_e( 'Use the "force" flag', 'wp-openedx-commerce' ); ?></label>
+								<label for="openedx_enrollment_force"><?php esc_html_e( 'Use the "force" flag', 'openedx-commerce' ); ?></label>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( "Disregard the course's enrollment end dates.", 'wp-openedx-commerce' ); ?></span>
+								<span class="openedx-tooltip-text"><?php esc_html_e( "Disregard the course's enrollment end dates.", 'openedx-commerce' ); ?></span>
 							</td>
 							<td>
 								<input class="action-checkbox" type="checkbox" id="openedx_enrollment_allowed" name="openedx_enrollment_allowed" value="openedx_allowed">
-								<label for="openedx_enrollment_allowed"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'wp-openedx-commerce' ); ?></label>
+								<label for="openedx_enrollment_allowed"><?php esc_html_e( "Create course enrollment allowed if the user doesn't exist", 'openedx-commerce' ); ?></label>
 								<span class="openedx-tooltip-icon">?</span>
-								<span class="openedx-tooltip-text"><?php esc_html_e( 'Creates a register in the table Course Enrollment Allowed if the email we use in the request is not a user in our Open edX platform yet.', 'wp-openedx-commerce' ); ?></span>
+								<span class="openedx-tooltip-text"><?php esc_html_e( 'Creates a register in the table Course Enrollment Allowed if the email we use in the request is not a user in our Open edX platform yet.', 'openedx-commerce' ); ?></span>
 							</td>
 						</tr>
 
 						<tr class="gray_zone">
 							<td class="first">
-								<button name="enrollment_process" class="button save_order button-primary"><span><?php esc_html_e( 'Save and update Open edX', 'wp-openedx-commerce' ); ?></span></button>
+								<button name="enrollment_process" class="button save_order button-primary"><span><?php esc_html_e( 'Save and update Open edX', 'openedx-commerce' ); ?></span></button>
 							</td>
 							<td>
-								<button name="save_no_process" class="button save_order button-secondary"><span><?php esc_html_e( 'Save in WordPress', 'wp-openedx-commerce' ); ?></span></button>
+								<button name="save_no_process" class="button save_order button-secondary"><span><?php esc_html_e( 'Save in WordPress', 'openedx-commerce' ); ?></span></button>
 							</td>
 						</tr>
 					</tbody>
