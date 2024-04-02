@@ -1,11 +1,8 @@
-name: Build & Upload zip
+name: Upload zip to latest release
 
-# Only trigger, when the build workflow succeeded
 on:
-  workflow_run:
-    workflows: ["Continuous Integration"]
-    types:
-      - completed
+  release:
+    types: [published]
 
 jobs:
   upload_zip:
