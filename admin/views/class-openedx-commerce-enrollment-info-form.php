@@ -8,10 +8,10 @@
  * @since      1.0.0
  */
 
-namespace OpenedXCommerce\admin\views;
+namespace OpenedX_Commerce\admin\views;
 
-use OpenedXCommerce\model\Openedx_Commerce_Log;
-use OpenedXCommerce\utils;
+use OpenedX_Commerce\model\Openedx_Commerce_Log;
+use OpenedX_Commerce\utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

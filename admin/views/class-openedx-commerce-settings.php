@@ -8,9 +8,9 @@
  * @since      1.6.0
  */
 
-namespace OpenedXCommerce\admin\views;
+namespace OpenedX_Commerce\admin\views;
 
-use OpenedXCommerce\model\Openedx_Commerce_Api_Calls;
+use OpenedX_Commerce\model\Openedx_Commerce_Api_Calls;
 use DateTime;
 use DateInterval;
 

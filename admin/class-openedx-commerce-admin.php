@@ -9,12 +9,12 @@
  * @since      1.0.0
  */
 
-namespace OpenedXCommerce\admin;
+namespace OpenedX_Commerce\admin;
 
-use OpenedXCommerce\model\Openedx_Commerce_Enrollment;
-use OpenedXCommerce\model\Openedx_Commerce_Post_Type;
-use OpenedXCommerce\admin\views\Openedx_Commerce_Enrollment_Info_Form;
-use OpenedXCommerce\utils;
+use OpenedX_Commerce\model\Openedx_Commerce_Enrollment;
+use OpenedX_Commerce\model\Openedx_Commerce_Post_Type;
+use OpenedX_Commerce\admin\views\Openedx_Commerce_Enrollment_Info_Form;
+use OpenedX_Commerce\utils;
 
 
 /**

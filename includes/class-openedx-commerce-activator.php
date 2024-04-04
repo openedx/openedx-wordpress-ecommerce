@@ -9,7 +9,7 @@
  * @subpackage Openedx_Commerce/includes
  */
 
-namespace OpenedXCommerce;
+namespace OpenedX_Commerce;
 
 /**
  * Fired during plugin activation.

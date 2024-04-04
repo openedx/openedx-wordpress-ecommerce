@@ -12,7 +12,7 @@
  * @subpackage Openedx_Commerce/includes
  */
 
-namespace OpenedXCommerce;
+namespace OpenedX_Commerce;
 
 /**
  * Define the internationalization functionality.

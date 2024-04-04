@@ -6,11 +6,11 @@
  * @subpackage openedx-commerce/tests
  */
 
-namespace OpenedXCommerce\tests;
+namespace OpenedX_Commerce\tests;
 
-use OpenedXCommerce\model\Openedx_Commerce_Enrollment;
-use OpenedXCommerce\model\Openedx_Commerce_Post_Type;
-use OpenedXCommerce\admin\Openedx_Commerce_Admin;
+use OpenedX_Commerce\model\Openedx_Commerce_Enrollment;
+use OpenedX_Commerce\model\Openedx_Commerce_Post_Type;
+use OpenedX_Commerce\admin\Openedx_Commerce_Admin;
 use PHPUnit\Framework\TestCase;
 
 /**
