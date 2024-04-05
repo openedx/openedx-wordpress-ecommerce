@@ -13,14 +13,14 @@
  * Requires at least: 6.3
  * Requires PHP: 8.0
  *
- * @package           Openedx_Commerce
+ * @package           OpenedX_Commerce
  *
  * @wordpress-plugin
  */
 
-use OpenedXCommerce\Openedx_Commerce_Activator;
-use OpenedXCommerce\Openedx_Commerce_Deactivator;
-use OpenedXCommerce\Openedx_Commerce;
+use OpenedX_Commerce\Openedx_Commerce_Activator;
+use OpenedX_Commerce\Openedx_Commerce_Deactivator;
+use OpenedX_Commerce\Openedx_Commerce;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -38,7 +38,7 @@ define( 'OPENEDX_COMMERCE_VERSION', '2.0.2' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-openedx-commerce-activator.php
  */
-function activate_openedx_commerce_plugin() {
+function openedx_commerce_plugin_activate() {
 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-commerce-activator.php';
 	Openedx_Commerce_Activator::activate();
 }
@@ -47,7 +47,7 @@ function activate_openedx_commerce_plugin() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-openedx-commerce-deactivator.php
  */
-function deactivate_openedx_commerce_plugin() {
+function openedx_commerce_plugin_deactivate() {
 	include_once plugin_dir_path( __FILE__ ) . 'includes/class-openedx-commerce-deactivator.php';
 	Openedx_Commerce_Deactivator::deactivate();
 }
@@ -55,7 +55,7 @@ function deactivate_openedx_commerce_plugin() {
 /**
  * Create the table for the logs on plugin activation
  */
-function create_enrollment_logs_table() {
+function openedx_commerce_create_enrollment_logs_table() {
 	global $wpdb;
 	$logs_table      = wp_cache_get( 'enrollment_logs_req_table', 'db' );
 	$logs_table_name = $wpdb->prefix . 'enrollment_logs_req_table';
@@ -85,9 +85,9 @@ function create_enrollment_logs_table() {
 	}
 }
 
-register_activation_hook( __FILE__, 'activate_openedx_commerce_plugin' );
-register_activation_hook( __FILE__, 'create_enrollment_logs_table' );
-register_deactivation_hook( __FILE__, 'deactivate_openedx_commerce_plugin' );
+register_activation_hook( __FILE__, 'openedx_commerce_plugin_activate' );
+register_activation_hook( __FILE__, 'openedx_commerce_create_enrollment_logs_table' );
+register_deactivation_hook( __FILE__, 'openedx_commerce_plugin_deactivate' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -104,9 +104,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-openedx-commerce.php';
  *
  * @since    1.0.0
  */
-function run_openedx_commerce_plugin() {
+function openedx_commerce_plugin_run() {
 
 	$plugin = new Openedx_Commerce();
 	$plugin->run();
 }
-run_openedx_commerce_plugin();
+openedx_commerce_plugin_run();

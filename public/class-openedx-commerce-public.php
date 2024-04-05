@@ -9,7 +9,7 @@
  * @subpackage Openedx_Commerce/public
  */
 
-namespace OpenedXCommerce\public;
+namespace OpenedX_Commerce\public;
 
 /**
  * The public-facing functionality of the plugin.

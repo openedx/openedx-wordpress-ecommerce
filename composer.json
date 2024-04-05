@@ -29,13 +29,13 @@
 			"test/"
 		],
 		"psr-4": {
-			"OpenedXCommerce\\": "includes/",
-			"OpenedXCommerce\\model\\": "includes/model/",
-			"OpenedXCommerce\\admin\\": "admin/",
-			"OpenedXCommerce\\admin\\views\\": "admin/views/",
-			"OpenedXCommerce\\public\\": "public/",
-			"OpenedXCommerce\\utils\\": "utils/",
-			"OpenedXCommerce\\tests\\": "test/"
+			"OpenedX_Commerce\\": "includes/",
+			"OpenedX_Commerce\\model\\": "includes/model/",
+			"OpenedX_Commerce\\admin\\": "admin/",
+			"OpenedX_Commerce\\admin\\views\\": "admin/views/",
+			"OpenedX_Commerce\\public\\": "public/",
+			"OpenedX_Commerce\\utils\\": "utils/",
+			"OpenedX_Commerce\\tests\\": "test/"
 		}
 	},
 	"require": {

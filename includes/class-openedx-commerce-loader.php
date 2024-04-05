@@ -9,7 +9,7 @@
  * @subpackage Openedx_Commerce/includes
  */
 
-namespace OpenedXCommerce;
+namespace OpenedX_Commerce;
 
 /**
  * Register all actions and filters for the plugin.

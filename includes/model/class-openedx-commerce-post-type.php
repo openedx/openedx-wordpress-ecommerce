@@ -8,7 +8,7 @@
  * @since      1.0.0
  */
 
-namespace OpenedXCommerce\model;
+namespace OpenedX_Commerce\model;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -124,7 +124,7 @@ class Openedx_Commerce_Post_Type {
 		);
 
 		$args = array(
-			'labels'                => apply_filters( $this->post_type . '_labels', $labels ),
+			'labels'                => apply_filters( "openedx_commerce_{$this->post_type}_labels", $labels ),
 			'description'           => $this->description,
 			'public'                => true,
 			'publicly_queryable'    => true,
@@ -148,6 +148,6 @@ class Openedx_Commerce_Post_Type {
 
 		$args = array_merge( $args, $this->options );
 
-		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args, $this->post_type ) );
+		register_post_type( $this->post_type, apply_filters( "openedx_commerce_{$this->post_type}_register_args", $args, $this->post_type ) );
 	}
 }
