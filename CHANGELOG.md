@@ -1,3 +1,14 @@
+## v2.0.3 - 2024-04-02
+
+### [2.0.3](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.1...v2.0.3) (2024-04-02)
+
+### Bug Fixes
+
+* fix: remove the exclusion of NonceVerification in phpcs and fix the issues (#67)
+* fix: internationalization and slug text domain congruence (#69)
+* fix: add naming convention rule (#70)
+* fix: delete unused workflows and generate zip with releases (#71)
+
 ## v2.0.2 - 2023-12-20
 
 ### [2.0.2](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.1...v2.0.2) (2023-12-20)
