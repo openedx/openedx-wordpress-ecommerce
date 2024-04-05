@@ -5,7 +5,9 @@
 ### Bug Fixes
 
 * fix: remove the exclusion of NonceVerification in phpcs and fix the issues (#67)
-* fix: delete unused workflows and update them to check plugin version and generate zip with releases (#71)
+* fix: internationalization and slug text domain congruence (#69)
+* fix: add naming convention rule (#70)
+* fix: delete unused workflows and generate zip with releases (#71)
 
 ## v2.0.2 - 2023-12-20
 
