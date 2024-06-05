@@ -1,0 +1,21 @@
+# This file records information about this repo. Its use is described in OEP-55:
+# https://open-edx-proposals.readthedocs.io/en/latest/processes/oep-0055-proc-project-maintainers.html
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: 'openedx-wordpress-ecommerce'
+  description: "A free and open-source WordPress plugin that allows you to integrate WooCommerce with your Open edX platform."
+  links:
+    - url: "https://github.com/openedx/openedx-wordpress-ecommerce"
+      title: "Repository"
+      icon: "Web"
+    - url: "https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/"
+      title: "Documentation"
+      icon: "Web"
+  annotations:
+    openedx.org/arch-interest-groups: "feanil,felipemontoya,mafermazu"
+spec:
+  owner: user:mafermazu
+  type: 'library'
+  lifecycle: 'production'
