@@ -2,7 +2,6 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://edunext.co/
  * @since      1.0.0
  *
  * @package    Openedx_Commerce
@@ -20,7 +19,6 @@ namespace OpenedX_Commerce;
  *
  * @package    Openedx_Commerce
  * @subpackage Openedx_Commerce/includes
- * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 class Openedx_Commerce_Loader {
 
