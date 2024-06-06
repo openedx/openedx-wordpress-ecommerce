@@ -3,27 +3,28 @@ name: Upload zip to latest release
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   upload_zip:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
             token: ${{ secrets.WC_PAT }}
 
       - name: Install Composer dependencies
-        uses: "ramsey/composer-install@v2"
+        uses: ramsey/composer-install@v3
         with:
           composer-options: "--no-dev"
 
       - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.1
+        uses: thedoctor0/zip-release@0.7.6
         with:
           type: 'zip'
           filename: 'openedx-commerce.zip'
-          exclusions: '*.git*'
+          exclusions: '*.git* .* /test/* /requirements/* /docs/* composer.* *.yaml *.xml Makefile'
 
       - name: Upload zip to latest release
         uses: xresloader/upload-to-github-release@v1
