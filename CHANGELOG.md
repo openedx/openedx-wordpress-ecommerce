@@ -1,3 +1,21 @@
+## v2.0.4 - 2024-06-07
+
+### [2.0.4](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.3...v2.0.4) (2024-06-07)
+
+### Bug Fixes
+
+* fix: stop using an empty enqued style in all contexts (#79)
+
+### Documentation
+
+* docs: update the github urls and remove unnecessary mentions (#78)
+* docs: update doc urls and the test up to 6.5 (#77)
+
+### Maintenance
+
+* chore: update the zip GA to manual triggers and exclude unnecessary files (#76)
+* chore: add catalog-info.yaml (#75)
+
 ## v2.0.3 - 2024-04-02
 
 ### [2.0.3](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.1...v2.0.3) (2024-04-02)
