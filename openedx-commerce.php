@@ -4,8 +4,8 @@
  * Plugin URI:        https://github.com/openedx/openedx-wordpress-ecommerce
  * Description:       Easily connect your WooCommerce store to Open edX.
  * Version:           2.0.3
- * Author:            The Open edX Community
- * Author URI:        https://openedx.org/
+ * Author:            edunext
+ * Author URI:        https://edunext.co/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       openedx-commerce
