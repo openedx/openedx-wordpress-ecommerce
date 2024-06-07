@@ -83,7 +83,7 @@ If you need help setting up and configuring this plugin, visit the [documentatio
 
 = Where can I report bugs or request features? =
 
-Report bugs and request features on the [GitHub repository](https://github.com/eduNEXT/openedx-wordpress-ecommerce/issues).
+Report bugs and request features on the [GitHub repository](https://github.com/openedx/openedx-wordpress-ecommerce/issues).
 
 = Can I contribute? =
 
@@ -93,4 +93,4 @@ This project accepts all contributions, bug fixes, security fixes, maintenance w
 
 == Changelog ==
 
-You can find the [Changelog in the GitHub repository.](https://github.com/eduNEXT/openedx-wordpress-ecommerce/blob/main/CHANGELOG.md)
+You can find the [Changelog in the GitHub repository.](https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/CHANGELOG.md)

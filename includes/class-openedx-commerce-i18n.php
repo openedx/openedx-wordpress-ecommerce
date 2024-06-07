@@ -5,7 +5,6 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://edunext.co/
  * @since      1.0.0
  *
  * @package    Openedx_Commerce
@@ -23,7 +22,6 @@ namespace OpenedX_Commerce;
  * @since      1.0.0
  * @package    Openedx_Commerce
  * @subpackage Openedx_Commerce/includes
- * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 class Openedx_Commerce_I18n {
 

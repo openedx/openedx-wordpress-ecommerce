@@ -2,7 +2,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://edunext.co/
  * @since      1.0.0
  *
  * @package    Openedx_Commerce
@@ -19,7 +18,6 @@ namespace OpenedX_Commerce\public;
  *
  * @package    Openedx_Commerce
  * @subpackage Openedx_Commerce/public
- * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 class Openedx_Commerce_Public {
 

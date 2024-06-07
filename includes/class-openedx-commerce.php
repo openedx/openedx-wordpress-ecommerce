@@ -11,7 +11,6 @@
  * @since      1.0.0
  * @package    Openedx_Commerce
  * @subpackage Openedx_Commerce/includes
- * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 
 namespace OpenedX_Commerce;

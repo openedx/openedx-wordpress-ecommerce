@@ -20,7 +20,6 @@ use OpenedX_Commerce\utils;
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://edunext.co/
  * @since      1.0.0
  *
  * @package    Openedx_Commerce
@@ -35,7 +34,6 @@ use OpenedX_Commerce\utils;
  *
  * @package    Openedx_Commerce
  * @subpackage Openedx_Commerce/admin
- * @author     eduNEXT <maria.magallanes@edunext.co>
  */
 class Openedx_Commerce_Admin {
 
