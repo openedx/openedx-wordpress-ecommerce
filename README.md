@@ -76,7 +76,7 @@ To report a bug or request a feature, visit [issues](https://github.com/openedx/
 
 ## Documentation
 
-See [documentation on Read the Docs](https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/index.html).
+See [documentation on Read the Docs](https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/index.html).
 
 
 # How to Contribute

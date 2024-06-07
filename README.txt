@@ -2,7 +2,7 @@
 Contributors: felipemontoya, julianrg2, mafermazu
 Tags: openedx, open edx, ecommerce, lms, courses
 Requires at least: 6.3
-Tested up to: 6.3
+Tested up to: 6.5
 Requires PHP: 8.0
 Stable tag: 2.0.3
 License: GPLv2 or later
@@ -38,8 +38,8 @@ Obtain enrollment information: This requests the Open edX APIs to retrieve the e
 
 Below are some links to help you get started with Open edX WooCommerce Plugin:
 
-- <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/plugin_quickstart.html" target="_blank">Quick Start Guide</a>
-- <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/how-tos/index.html" target="_blank">How-to Guides</a>
+- <a href="https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/plugin_quickstart.html" target="_blank">Quick Start Guide</a>
+- <a href="https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/how-tos/index.html" target="_blank">How-to Guides</a>
 
 **Note**
 
@@ -79,7 +79,7 @@ Let's start installing and configuring the Open edx Commerce plugin to connect y
 
 = Where can I find documentation and user guides? =
 
-If you need help setting up and configuring this plugin, visit the [documentation on Read the Docs].(https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/index.html) 
+If you need help setting up and configuring this plugin, visit the [documentation on Read the Docs].(https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/index.html) 
 
 = Where can I report bugs or request features? =
 

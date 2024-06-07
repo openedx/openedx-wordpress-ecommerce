@@ -321,7 +321,7 @@ class Openedx_Commerce_Settings {
 	 */
 	public function openedx_settings_section_callback() {
 		printf(
-			'Configuring the necessary parameters here to establish the connection between this plugin and your Open edX platform. For more information, you can visit the how-to <a href="https://edunext-docs-openedx-woocommerce-plugin.readthedocs-hosted.com/en/latest/how-tos/create_an_openedx_app.html">Create an Open edX Application for the Plugin Settings</a> in the documentation.'
+			'Configuring the necessary parameters here to establish the connection between this plugin and your Open edX platform. For more information, you can visit the how-to <a href="https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/how-tos/create_an_openedx_app.html">Create an Open edX Application for the Plugin Settings</a> in the documentation.'
 		);
 	}
 }
