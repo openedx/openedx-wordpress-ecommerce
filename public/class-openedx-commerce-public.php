@@ -72,8 +72,6 @@ class Openedx_Commerce_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/openedx-commerce-public.css', array(), $this->version, 'all' );
 	}
 
 	/**

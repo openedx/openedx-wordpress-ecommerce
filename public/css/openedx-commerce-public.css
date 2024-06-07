@@ -1,4 +1,7 @@
 /**
  * All of the CSS for your public-facing functionality should be
  * included in this file.
+ *
+ * Note: This file is not queued; you must queue it if you want to add styles here.
+ * For more information on why we dequeued this file, see https://github.com/openedx/openedx-wordpress-ecommerce/pull/79.
  */
