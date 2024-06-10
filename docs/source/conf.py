@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 from datetime import datetime
 
-project = 'Open edX Filters'
+project = 'Open edX'
 current_year = datetime.utcnow().year
 copyright = f"{current_year}, Open edX Community"
 author = 'Open edX Community'
