@@ -169,9 +169,6 @@ class Openedx_Commerce {
 		 */
 		include_once plugin_dir_path( __DIR__ )
 			. 'includes/model/class-openedx-commerce-api-calls.php';
-
-		include_once plugin_dir_path( __DIR__ )
-			. 'test/class-enrollment-test.php';
 	}
 
 	/**
