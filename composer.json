@@ -25,8 +25,7 @@
 			"admin/",
 			"admin/views/",
 			"public/",
-			"utils/",
-			"test/"
+			"utils/"
 		],
 		"psr-4": {
 			"OpenedX_Commerce\\": "includes/",
@@ -34,7 +33,14 @@
 			"OpenedX_Commerce\\admin\\": "admin/",
 			"OpenedX_Commerce\\admin\\views\\": "admin/views/",
 			"OpenedX_Commerce\\public\\": "public/",
-			"OpenedX_Commerce\\utils\\": "utils/",
+			"OpenedX_Commerce\\utils\\": "utils/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"test/"
+		],
+		"psr-4": {
 			"OpenedX_Commerce\\tests\\": "test/"
 		}
 	},
