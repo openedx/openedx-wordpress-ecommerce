@@ -19,7 +19,7 @@ User Guide
     tutorials/index
     how-tos/index
     decisions/index
-    
+
 
 
 Open edX Compatibility

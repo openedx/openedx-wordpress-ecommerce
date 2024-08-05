@@ -37,7 +37,7 @@ Create an Open edX Application to Configure the Open edX Commerce plugin
     .. image:: /_images/how-tos/create_an_openedx_app/openedx-sync-plugin-settings.png
         :alt: Open edX Sync Plugin Settings
 
-#. Test the credentials by clicking **Save Changes** and **Generate JWT Token**. 
+#. Test the credentials by clicking **Save Changes** and **Generate JWT Token**.
 
 .. note:: If you do not have credentials to enter the Django Admin, you need to contact an operator of your Open edX instance to provide you the **client id and client secret of an Application** with **Client Credentials** as **Authorization grant type** and **staff user**.
 
