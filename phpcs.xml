@@ -28,7 +28,6 @@
         <properties>
             <property name="text_domain" type="array">
                 <element value="openedx-commerce"/>
-                <element value="woocommerce"/>
             </property>
         </properties>
     </rule>

@@ -216,8 +216,8 @@ class Openedx_Commerce_Admin {
 		$type_options['wild_card'] = array(
 			'id'            => 'is_openedx_course',
 			'wrapper_class' => 'show_if_simple',
-			'label'         => __( 'Open edX Course', 'woocommerce' ),
-			'description'   => __( 'Check this box if the product is an Open edX Course', 'woocommerce' ),
+			'label'         => __( 'Open edX Course', 'openedx-commerce' ),
+			'description'   => __( 'Check this box if the product is an Open edX Course', 'openedx-commerce' ),
 			'default'       => $checked,
 		);
 		return $type_options;
@@ -257,14 +257,14 @@ class Openedx_Commerce_Admin {
 		woocommerce_wp_text_input(
 			array(
 				'id'          => '_course_id',
-				'label'       => __( 'Open edX Course ID', 'woocommerce' ),
+				'label'       => __( 'Open edX Course ID', 'openedx-commerce' ),
 				'placeholder' => '',
 				'desc_tip'    => 'true',
 				'description' => __(
 					'Ex: course-v1:edX+DemoX+Demo_Course.
 					<br><br> You can find the Open edX Course ID
 					in the URL of your course in your LMS.',
-					'woocommerce',
+					'openedx-commerce',
 				),
 			)
 		);
@@ -272,12 +272,12 @@ class Openedx_Commerce_Admin {
 		woocommerce_wp_select(
 			array(
 				'id'          => '_mode',
-				'label'       => __( 'Open edX Course Mode', 'woocommerce' ),
+				'label'       => __( 'Open edX Course Mode', 'openedx-commerce' ),
 				'desc_tip'    => 'true',
 				'description' => __(
 					'Select the mode for your course. 
 					Make sure to set a mode that your course has.',
-					'woocommerce',
+					'openedx-commerce',
 				),
 				'options'     => utils\get_enrollment_options(),
 			)
@@ -293,7 +293,7 @@ class Openedx_Commerce_Admin {
 	 */
 	public function add_custom_column_order_items() {
 		echo '<th>' .
-			esc_html__( 'Related Enrollment Request', 'woocommerce' ) .
+			esc_html__( 'Related Enrollment Request', 'openedx-commerce' ) .
 			'</th>';
 	}
 
@@ -351,7 +351,7 @@ class Openedx_Commerce_Admin {
 		} else {
 
 			$html_output  = '<td>';
-			$html_output .= esc_html__( 'Product is not an Open edX Course', 'woocommerce' );
+			$html_output .= esc_html__( 'Product is not an Open edX Course', 'openedx-commerce' );
 			$html_output .= '</td>';
 
 			echo wp_kses(
