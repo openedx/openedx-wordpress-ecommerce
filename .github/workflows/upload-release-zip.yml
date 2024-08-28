@@ -24,7 +24,7 @@ jobs:
         with:
           type: 'zip'
           filename: 'openedx-commerce.zip'
-          exclusions: '*.git* .* /test/* /requirements/* /docs/* composer.* *.yaml *.xml Makefile'
+          exclusions: '*.git* .* /test/* /requirements/* /docs/* composer.lock *.yaml *.xml Makefile'
 
       - name: Upload zip to latest release
         uses: xresloader/upload-to-github-release@v1
