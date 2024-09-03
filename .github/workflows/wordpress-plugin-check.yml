@@ -1,0 +1,27 @@
+name: 'WordPress Plugin Check'
+on:
+  pull_request
+
+jobs:
+  check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Composer dependencies
+      uses: ramsey/composer-install@v3
+      with:
+        composer-options: "--no-dev"
+
+    # Prepare the plugin as we prepare it in the ZIP creation
+    - name: Create openedx-commerce directory and copy files
+      run: |
+        mkdir openedx-commerce
+        rsync -av --exclude='*.git*' --exclude='.*' --exclude='/test/*' --exclude='/requirements/*' --exclude='/docs/*' --exclude='composer.lock' --exclude='*.yaml' --exclude='*.xml' --exclude='Makefile' ./ openedx-commerce/
+
+    - name: Run plugin check
+      uses: wordpress/plugin-check-action@v1
+      with:
+        build-dir: './openedx-commerce'
