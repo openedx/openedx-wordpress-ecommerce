@@ -227,10 +227,6 @@ class Openedx_Commerce_Enrollment_Info_Form {
 			</fieldset>
 		</div>
 
-		<script>
-			
-		</script>
-
 		<?php
 	}
 
@@ -245,9 +241,6 @@ class Openedx_Commerce_Enrollment_Info_Form {
 		$logs    = $this->log_manager->get_logs( $post_id );
 		?>
 
-		<style>
-
-		</style>
 		<div class="openedx_logs_box">
 			<?php
 			echo wp_kses(
