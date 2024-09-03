@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 * 
 	 *
- 	 * Note: This file is not queued; you must queue it if you want to add styles here.
+ 	 * Note: This file is not queued; you must queue it if you want to add scripts here.
  	 * For more information on why we dequeued this file, see https://github.com/openedx/openedx-wordpress-ecommerce/pull/91.
 	 */
 
