@@ -1,0 +1,25 @@
+name: 'WordPress Plugin Check'
+on:
+  pull_request
+
+jobs:
+  check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Composer dependencies
+      uses: ramsey/composer-install@v3
+      with:
+        composer-options: "--no-dev"
+
+    - name: Prepare the openedx-commerce directory for the release
+      run: |
+        make release
+
+    - name: Run plugin check
+      uses: wordpress/plugin-check-action@v1
+      with:
+        build-dir: './openedx-commerce'
