@@ -15,11 +15,9 @@ jobs:
       with:
         composer-options: "--no-dev"
 
-    # Prepare the plugin as we prepare it in the ZIP creation
-    - name: Create openedx-commerce directory and copy files
+    - name: Prepare the openedx-commerce directory for the release
       run: |
-        mkdir openedx-commerce
-        rsync -av --exclude='*.git*' --exclude='.*' --exclude='/test/*' --exclude='/requirements/*' --exclude='/docs/*' --exclude='composer.lock' --exclude='*.yaml' --exclude='*.xml' --exclude='Makefile' ./ openedx-commerce/
+        make release
 
     - name: Run plugin check
       uses: wordpress/plugin-check-action@v1

@@ -34,6 +34,13 @@ requirements:
 serve_docs: ## serve the built docs locally to preview the site in the browser
 	sphinx-autobuild docs/source $(BUILDDIR)/html
 
+# Create the openedx-commerce directory with the needed files for the release.
+release:
+	mkdir openedx-commerce
+	rsync -av --exclude='*.git*' --exclude='.*' --exclude='/test/*' \
+	--exclude='/requirements/*' --exclude='/docs/*' --exclude='composer.lock' \
+	--exclude='*.yaml' --exclude='*.xml' --exclude='Makefile' ./ openedx-commerce/
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
