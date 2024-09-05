@@ -1,3 +1,23 @@
+## v2.0.5 - 2024-09-05
+
+### [2.0.5](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.4...v2.0.5) (2024-09-05)
+
+### Bug Fixes
+
+* fix: remove the tests' inclusion in the plugin (#82)
+* fix: add the composer.json to the zip file (#88)
+* fix: correct the text domains (#89)
+* fix: remove unused scripts and styles (#91)
+
+### Tests
+
+* test: add the wordpress plugin check action (#92)
+
+### Documentation
+
+* docs: Update conf.py
+* docs: update the tested up WordPress version to 6.6 (#90)
+
 ## v2.0.4 - 2024-06-07
 
 ### [2.0.4](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.3...v2.0.4) (2024-06-07)
