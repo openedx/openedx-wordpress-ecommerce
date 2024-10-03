@@ -49,6 +49,8 @@ More information about the API connection can be found in <a href="https://githu
 
 To learn more, you can visit the <a href="https://openedx.org/terms-of-use/" target="_blank">Open edX Terms of Service</a>.
 
+This plugin is maintained by <a href="https://edunext.co/" target="_blank">edunext</a>.
+
 == Installation ==
 
 = Minimum Requirements =
