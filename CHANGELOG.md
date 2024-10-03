@@ -1,3 +1,15 @@
+## v2.0.6 - 2024-10-03
+
+### [2.0.6](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.5...v2.0.6) (2024-10-03)
+
+#### Features
+
+* feat: adding some assets for the plugin page at wordpress.org (#98)
+
+### Documentation
+
+* docs: update the author of the plugin (#99)
+
 ## v2.0.5 - 2024-09-05
 
 ### [2.0.5](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.4...v2.0.5) (2024-09-05)
