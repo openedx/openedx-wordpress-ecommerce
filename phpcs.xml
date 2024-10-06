@@ -10,31 +10,31 @@
     <exclude-pattern>index.php</exclude-pattern>
     <exclude-pattern>composer-setup.php</exclude-pattern>
 
-    <arg value="sp"/>
-    <arg name="basepath" value="./"/>
-    <arg name="colors"/>
-    <arg name="extensions" value="php"/>
-    <arg name="parallel" value="8"/>
+    <arg value="sp" />
+    <arg name="basepath" value="./" />
+    <arg name="colors" />
+    <arg name="extensions" value="php" />
+    <arg name="parallel" value="8" />
 
     <rule ref="WordPress">
     </rule>
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-	<properties>
-		<property name="prefixes" type="array" value="openedx_commerce" />
-	</properties>
+        <properties>
+            <property name="prefixes" type="array" value="openedx_commerce" />
+        </properties>
     </rule>
 
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="openedx-commerce"/>
+                <element value="openedx-commerce" />
             </property>
         </properties>
     </rule>
 
     <rule ref="Generic.Files.LineEndings">
         <properties>
-            <property name="eolChar" value="\n"/>
+            <property name="eolChar" value="\n" />
         </properties>
     </rule>
 
