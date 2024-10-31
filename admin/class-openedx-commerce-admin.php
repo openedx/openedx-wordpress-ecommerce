@@ -133,6 +133,12 @@ class Openedx_Commerce_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		wp_register_script( 'product-type-script', plugin_dir_url( __FILE__ ) . '../admin/js/product-type.js', array(), $this->version, true );
+		wp_enqueue_script( 'product-type-script' );
+
+		wp_register_script( 'course-id-restriction-script', plugin_dir_url( __FILE__ ) . '../admin/js/course-id-restriction.js', array(), $this->version, true );
+		wp_enqueue_script( 'course-id-restriction-script' );
 	}
 
 	/**
