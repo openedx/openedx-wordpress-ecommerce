@@ -179,7 +179,7 @@ class Openedx_Commerce_Admin {
 	 *
 	 * @return object              Post type class object
 	 */
-	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', array $options ) {
+	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', array $options = array() ) {
 
 		if ( ! $post_type || ! $plural || ! $single ) {
 			return;
@@ -205,7 +205,7 @@ class Openedx_Commerce_Admin {
 		$plural = '',
 		$single = '',
 		$description = '',
-		array $options
+		array $options = array()
 	) {
 		return new Openedx_Commerce_Post_Type( $post_type, $plural, $single, $description, $options );
 	}
