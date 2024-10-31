@@ -216,13 +216,6 @@ class Openedx_Commerce {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
-		$this->loader->wp_enqueue_style(
-			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . '../admin/css/class-openedx-commerce-admin.css',
-			array(),
-			$this->version,
-			'all'
-		);
 
 		// Redirection from enrollment to order and enrollment to order.
 		$this->loader->add_filter( 'woocommerce_admin_order_item_headers', $plugin_admin, 'add_custom_column_order_items' );
