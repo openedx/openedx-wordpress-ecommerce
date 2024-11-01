@@ -76,7 +76,6 @@ class Openedx_Commerce {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_plugin_settings_hooks();
-		$this->define_enqueue_scripts();
 	}
 
 	/**
@@ -217,13 +216,6 @@ class Openedx_Commerce {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'gettext', $this, 'openedx_plugin_custom_post_message', 10, 3 );
-		$this->loader->wp_enqueue_style(
-			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . '../admin/css/class-openedx-commerce-admin.css',
-			array(),
-			$this->version,
-			'all'
-		);
 
 		// Redirection from enrollment to order and enrollment to order.
 		$this->loader->add_filter( 'woocommerce_admin_order_item_headers', $plugin_admin, 'add_custom_column_order_items' );
@@ -262,20 +254,6 @@ class Openedx_Commerce {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-	}
-
-	/**
-	 * Register all the hooks related to custom scripts for specific functionalities.
-	 *
-	 * @since    1.11.0
-	 * @access   private
-	 */
-	private function define_enqueue_scripts() {
-		wp_register_script( 'product-type-script', plugin_dir_url( __FILE__ ) . '../admin/js/product-type.js', array(), $this->get_version(), true );
-		wp_enqueue_script( 'product-type-script' );
-
-		wp_register_script( 'course-id-restriction-script', plugin_dir_url( __FILE__ ) . '../admin/js/course-id-restriction.js', array(), $this->get_version(), true );
-		wp_enqueue_script( 'course-id-restriction-script' );
 	}
 
 	/**

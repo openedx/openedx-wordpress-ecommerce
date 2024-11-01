@@ -111,6 +111,14 @@ class Openedx_Commerce_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		wp_enqueue_style(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . '../admin/css/class-openedx-commerce-admin.css',
+			array(),
+			$this->version,
+			'all'
+		);
 	}
 
 	/**
@@ -133,6 +141,12 @@ class Openedx_Commerce_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		wp_register_script( 'product-type-script', plugin_dir_url( __FILE__ ) . '../admin/js/product-type.js', array(), $this->version, true );
+		wp_enqueue_script( 'product-type-script' );
+
+		wp_register_script( 'course-id-restriction-script', plugin_dir_url( __FILE__ ) . '../admin/js/course-id-restriction.js', array(), $this->version, true );
+		wp_enqueue_script( 'course-id-restriction-script' );
 	}
 
 	/**
@@ -165,7 +179,7 @@ class Openedx_Commerce_Admin {
 	 *
 	 * @return object              Post type class object
 	 */
-	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', array $options ) {
+	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', array $options = array() ) {
 
 		if ( ! $post_type || ! $plural || ! $single ) {
 			return;
@@ -191,7 +205,7 @@ class Openedx_Commerce_Admin {
 		$plural = '',
 		$single = '',
 		$description = '',
-		array $options
+		array $options = array()
 	) {
 		return new Openedx_Commerce_Post_Type( $post_type, $plural, $single, $description, $options );
 	}
