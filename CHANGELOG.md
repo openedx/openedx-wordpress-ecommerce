@@ -1,3 +1,15 @@
+## v2.0.7 - 2024-11-05
+
+### [2.0.7](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.6...v2.0.7) (2024-11-05)
+
+#### Bug Fixes
+
+* fix: admin enqueue order (#102)
+
+### Documentation
+
+* docs: add info about tutor-contrib-wordpress plugin (#84)
+
 ## v2.0.6 - 2024-10-03
 
 ### [2.0.6](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.5...v2.0.6) (2024-10-03)
