@@ -1,0 +1,36 @@
+name: Publish to WordPress SVN
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Commit message'
+        default: 'Release x'
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Composer dependencies
+      uses: ramsey/composer-install@v3
+      with:
+        composer-options: "--no-dev"
+
+    - name: Prepare the openedx-commerce directory for the release
+      run: |
+        make release
+
+    - name: WordPress Plugin Deploy
+      id: deploy
+      uses: richard-muvirimi/deploy-wordpress-plugin@development
+      with:
+        plugin-repository: https://plugins.svn.wordpress.org/openedx-commerce/
+        svn-username: ${{ secrets.WORDPRESS_SVN_USERNAME }}
+        svn-password: ${{ secrets.WORDPRESS_SVN_PASSWORD }}
+        commit-message: ${{ inputs.message }}
+        assets-directory: ../docs/source/_images/plugin-page
+        working-directory: openedx-commerce
+        plugin-zip: ''
