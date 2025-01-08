@@ -1,6 +1,9 @@
-name: Publish to WordPress SVN
+name: Publish to WordPress and upload zip to the latest release
 
-on: workflow_dispatch
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,8 +20,23 @@ jobs:
       run: |
         make release
 
-    - name: WordPress Plugin Deploy
-      id: deploy
+    - name: Create a zip file
+      uses: thedoctor0/zip-release@0.7.6
+      with:
+        type: 'zip'
+        command: 'cd ./openedx-commerce'
+        filename: '../openedx-commerce.zip'
+
+    - name: Upload zip to the latest GitHub release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WC_PAT }}
+      with:
+        file: "openedx-commerce.zip"
+        update_latest_release: true
+        draft: false
+
+    - name: Publish to WordPress SVN
       uses: ./.github/actions/svn-publish
       with:
         svn-repository: https://plugins.svn.wordpress.org/openedx-commerce/
