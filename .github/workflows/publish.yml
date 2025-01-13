@@ -1,0 +1,46 @@
+name: Publish to WordPress and upload zip to the latest release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Composer dependencies
+      uses: ramsey/composer-install@v3
+      with:
+        composer-options: "--no-dev"
+
+    - name: Prepare the openedx-commerce directory for the release
+      run: |
+        make release
+
+    - name: Create a zip file
+      uses: thedoctor0/zip-release@0.7.6
+      with:
+        type: 'zip'
+        command: 'cd ./openedx-commerce'
+        filename: '../openedx-commerce.zip'
+
+    - name: Upload zip to the latest GitHub release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.WC_PAT }}
+      with:
+        file: "openedx-commerce.zip"
+        update_latest_release: true
+        draft: false
+
+    - name: Publish to WordPress SVN
+      uses: ./.github/actions/svn-publish
+      with:
+        svn-repository: https://plugins.svn.wordpress.org/openedx-commerce/
+        svn-username: ${{ secrets.WORDPRESS_SVN_USERNAME }}
+        svn-password: ${{ secrets.WORDPRESS_SVN_PASSWORD }}
+        assets-directory: ../docs/source/_images/plugin-page
+        working-directory: openedx-commerce
