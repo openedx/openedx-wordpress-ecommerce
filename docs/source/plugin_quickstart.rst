@@ -24,6 +24,13 @@ Requirements
 - Wordpress 6.3.1 or greater
 - `WooCommerce plugin. <https://wordpress.org/plugins/woocommerce>`_
 
+Automatic installation
+^^^^^^^^^^^^^^^^^^^^^^^
+
+To automatically install Open edX Commerce, log in to your WordPress dashboard. Then, navigate to the Plugins menu and click on "Add New."
+
+In the search field, type "Open edX Commerce" and click "Search Plugins." Once you find the plugin, you can view its details and install it by clicking "Install Now." WordPress will handle the rest of the installation process for you.
+
 Manual Installation
 ^^^^^^^^^^^^^^^^^^^^
 

@@ -45,7 +45,7 @@ Below are some links to help you get started with Open edX WooCommerce Plugin:
 
 This plugin calls the APIs from <a href="https://github.com/openedx/edx-platform" target="_blank">Open edX Platform</a>.
 
-More information about the API connection can be found in <a href="https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/docs/source/decisions/0002-api-connection.rst" target="_blank">Decisions: API connection</a>.
+More information about the API connection can be found in <a href="https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/decisions/0002-api-connection.html" target="_blank">Decisions: API connection</a>.
 
 To learn more, you can visit the <a href="https://openedx.org/terms-of-use/" target="_blank">Open edX Terms of Service</a>.
 
@@ -58,6 +58,12 @@ This plugin is maintained by <a href="https://edunext.co/" target="_blank">edune
 * PHP 8.0 or greater is recommended
 * Wordpress 6.3
 * [WooCommerce plugin](https://wordpress.org/plugins/woocommerce)
+
+= Automatic installation =
+
+To automatically install Open edX Commerce, log in to your WordPress dashboard. Then, navigate to the Plugins menu and click on "Add New."
+
+In the search field, type "Open edX Commerce" and click "Search Plugins." Once you find the plugin, you can view its details and install it by clicking "Install Now." WordPress will handle the rest of the installation process for you.
 
 = Manual installation =
 
@@ -75,7 +81,7 @@ This plugin is maintained by <a href="https://edunext.co/" target="_blank">edune
 
 Let's start installing and configuring the Open edx Commerce plugin to connect your WordPress site with the enrollment APIs from your Open edX platform.
 
-[Link to the Quickstart in the documentation.](https://github.com/openedx/openedx-wordpress-ecommerce/blob/main/docs/source/plugin_quickstart.rst)
+[Link to the Quickstart in the documentation.](https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/plugin_quickstart.html)
 
 == Frequently Asked Questions ==
 
