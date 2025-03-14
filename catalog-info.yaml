@@ -15,6 +15,7 @@ metadata:
       icon: "Web"
   annotations:
     openedx.org/arch-interest-groups: "feanil,felipemontoya,mafermazu"
+    openedx.org/release: main
 spec:
   owner: user:mafermazu
   type: 'library'
