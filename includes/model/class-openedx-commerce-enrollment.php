@@ -47,6 +47,14 @@ class Openedx_Commerce_Enrollment {
 	private $log_manager;
 
 	/**
+	 * The parent class object.
+	 *
+	 * @var     object
+	 * @access  private
+	 */
+	private $parent;
+
+	/**
 	 * Constructor function.
 	 *
 	 * @param   object $parent_name The parent class.
