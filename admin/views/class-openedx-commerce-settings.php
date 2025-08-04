@@ -127,15 +127,15 @@ class Openedx_Commerce_Settings {
 
 		add_settings_field(
 			'openedx-enrollment-force',
-			'Force Enrollment',
+			__( 'Force Enrollment', 'openedx-commerce' ),
 			array( $this, 'openedx_enrollment_force_callback' ),
 			'openedx-settings',
 			'openedx-settings-section'
 		);
-		
+
 		add_settings_field(
 			'openedx-enrollment-allowed',
-			'Allow Non-Existing Users',
+			__( 'Allow Non-Existing Users', 'openedx-commerce' ),
 			array( $this, 'openedx_enrollment_allowed_callback' ),
 			'openedx-settings',
 			'openedx-settings-section'
@@ -169,9 +169,9 @@ class Openedx_Commerce_Settings {
 			'openedx-settings-group',
 			'openedx-enrollment-force',
 			array(
-				'type' => 'boolean',
+				'type'              => 'boolean',
 				'sanitize_callback' => 'rest_sanitize_boolean',
-				'default' => false,
+				'default'           => false,
 			)
 		);
 
@@ -179,19 +179,9 @@ class Openedx_Commerce_Settings {
 			'openedx-settings-group',
 			'openedx-enrollment-allowed',
 			array(
-				'type' => 'boolean',
+				'type'              => 'boolean',
 				'sanitize_callback' => 'rest_sanitize_boolean',
-				'default' => false,
-			)
-		);
-		
-		register_setting(
-			'openedx-settings-group',
-			'openedx-enrollment-allowed',
-			array(
-				'type' => 'boolean',
-				'sanitize_callback' => 'rest_sanitize_boolean',
-				'default' => false,
+				'default'           => false,
 			)
 		);
 
@@ -379,10 +369,10 @@ class Openedx_Commerce_Settings {
 	 * @return void
 	 */
 	public function openedx_enrollment_force_callback() {
-		$force_enrollment = get_option('openedx-enrollment-force', false);
+		$force_enrollment = get_option( 'openedx-enrollment-force', false );
 		?>
-		<input type="checkbox" id="openedx-enrollment-force" name="openedx-enrollment-force" value="1" <?php checked(1, $force_enrollment, true); ?>>
-		<label for="openedx-enrollment-force"><?php esc_html_e('Use the "force" flag. Disregard the course\'s enrollment end dates.', 'openedx-commerce'); ?></label>
+		<input type="checkbox" id="openedx-enrollment-force" name="openedx-enrollment-force" value="1" <?php checked( 1, $force_enrollment, true ); ?>>
+		<label for="openedx-enrollment-force"><?php esc_html_e( 'Use the "force" flag. Disregard the course\'s enrollment end dates.', 'openedx-commerce' ); ?></label>
 		<?php
 	}
 
@@ -394,10 +384,10 @@ class Openedx_Commerce_Settings {
 	 * @return void
 	 */
 	public function openedx_enrollment_allowed_callback() {
-		$allow_non_existing = get_option('openedx-enrollment-allowed', false);
+		$allow_non_existing = get_option( 'openedx-enrollment-allowed', false );
 		?>
-		<input type="checkbox" id="openedx-enrollment-allowed" name="openedx-enrollment-allowed" value="1" <?php checked(1, $allow_non_existing, true); ?>>
-		<label for="openedx-enrollment-allowed"><?php esc_html_e('Create course enrollment allowed if the user doesn\'t exist in the Open edX platform.', 'openedx-commerce'); ?></label>
+		<input type="checkbox" id="openedx-enrollment-allowed" name="openedx-enrollment-allowed" value="1" <?php checked( 1, $allow_non_existing, true ); ?>>
+		<label for="openedx-enrollment-allowed"><?php esc_html_e( 'Create course enrollment allowed if the user doesn\'t exist in the Open edX platform.', 'openedx-commerce' ); ?></label>
 		<?php
 	}
 }
