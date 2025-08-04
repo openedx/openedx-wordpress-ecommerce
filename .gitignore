@@ -7,3 +7,6 @@ phpcs-report.xml
 build
 .DS_Store
 source/.DS_Store
+
+### Build files ###
+openedx-commerce
