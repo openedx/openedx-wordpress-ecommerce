@@ -10,9 +10,7 @@
  * @package    Openedx_Commerce
  * @subpackage Openedx_Commerce/includes
  */
-
 namespace OpenedX_Commerce;
-
 /**
  * Define the internationalization functionality.
  *
@@ -24,19 +22,20 @@ namespace OpenedX_Commerce;
  * @subpackage Openedx_Commerce/includes
  */
 class Openedx_Commerce_I18n {
-
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-
-		load_plugin_textdomain(
-			'openedx-commerce',
-			false,
-			dirname( plugin_basename( __FILE__ ), 2 ) . '/languages/'
-		);
+		// WordPress 4.6+ automatically loads translations for plugins hosted on WordPress.org.
+		// Manual loading is only needed for older WordPress versions or custom translation paths.
+		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
+			load_plugin_textdomain(
+				'openedx-commerce',
+				false,
+				dirname( plugin_basename( __FILE__ ), 2 ) . '/languages/'
+			);
+		}
 	}
 }
