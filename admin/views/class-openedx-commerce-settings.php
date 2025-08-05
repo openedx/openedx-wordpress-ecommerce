@@ -125,6 +125,22 @@ class Openedx_Commerce_Settings {
 			'openedx-settings-section'
 		);
 
+		add_settings_field(
+			'openedx-enrollment-force',
+			__( 'Force Enrollment', 'openedx-commerce' ),
+			array( $this, 'openedx_enrollment_force_callback' ),
+			'openedx-settings',
+			'openedx-settings-section'
+		);
+
+		add_settings_field(
+			'openedx-enrollment-allowed',
+			__( 'Allow Non-Existing Users', 'openedx-commerce' ),
+			array( $this, 'openedx_enrollment_allowed_callback' ),
+			'openedx-settings',
+			'openedx-settings-section'
+		);
+
 		register_setting(
 			'openedx-settings-group',
 			'openedx-domain',
@@ -147,6 +163,26 @@ class Openedx_Commerce_Settings {
 			'openedx-settings-group',
 			'openedx-jwt-token',
 			'sanitize_text_field'
+		);
+
+		register_setting(
+			'openedx-settings-group',
+			'openedx-enrollment-force',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'default'           => false,
+			)
+		);
+
+		register_setting(
+			'openedx-settings-group',
+			'openedx-enrollment-allowed',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'default'           => false,
+			)
 		);
 
 		if ( ! isset( $_POST['openedx_commerce_new_token_nonce'] ) ||
@@ -323,6 +359,36 @@ class Openedx_Commerce_Settings {
 		printf(
 			'Configuring the necessary parameters here to establish the connection between this plugin and your Open edX platform. For more information, you can visit the how-to <a href="https://docs.openedx.org/projects/wordpress-ecommerce-plugin/en/latest/how-tos/create_an_openedx_app.html">Create an Open edX Application for the Plugin Settings</a> in the documentation.'
 		);
+	}
+
+	/**
+	 * Output the enrollment force settings field.
+	 *
+	 * Retrieves the saved enrollment force value and outputs a checkbox input field and description text.
+	 *
+	 * @return void
+	 */
+	public function openedx_enrollment_force_callback() {
+		$force_enrollment = get_option( 'openedx-enrollment-force', false );
+		?>
+		<input type="checkbox" id="openedx-enrollment-force" name="openedx-enrollment-force" value="1" <?php checked( 1, $force_enrollment, true ); ?>>
+		<label for="openedx-enrollment-force"><?php esc_html_e( 'Use the "force" flag. Disregard the course\'s enrollment end dates.', 'openedx-commerce' ); ?></label>
+		<?php
+	}
+
+	/**
+	 * Output the enrollment allowed settings field.
+	 *
+	 * Retrieves the saved enrollment allowed value and outputs a checkbox input field and description text.
+	 *
+	 * @return void
+	 */
+	public function openedx_enrollment_allowed_callback() {
+		$allow_non_existing = get_option( 'openedx-enrollment-allowed', false );
+		?>
+		<input type="checkbox" id="openedx-enrollment-allowed" name="openedx-enrollment-allowed" value="1" <?php checked( 1, $allow_non_existing, true ); ?>>
+		<label for="openedx-enrollment-allowed"><?php esc_html_e( 'Create course enrollment allowed if the user doesn\'t exist in the Open edX platform.', 'openedx-commerce' ); ?></label>
+		<?php
 	}
 }
 

@@ -498,11 +498,23 @@ class Openedx_Commerce_Admin {
 	 */
 	public function items_enrollment_request( $courses, $order_id, $billing_email, $request_type ) {
 
+		$force_enrollment   = get_option( 'openedx-enrollment-force', false );
+		$allow_non_existing = get_option( 'openedx-enrollment-allowed', false );
+
+		if ( $force_enrollment && $allow_non_existing ) {
+			$action = 'openedx_enrollment_allowed_force';
+		} elseif ( $force_enrollment ) {
+			$action = 'openedx_enrollment_force';
+		} elseif ( $allow_non_existing ) {
+			$action = 'openedx_enrollment_allowed';
+		} else {
+			$action = 'enrollment_process';
+		}
+
 		foreach ( $courses as $item_id => $item ) {
 
 			$course_id   = get_post_meta( $item['course_item']->get_product_id(), '_course_id', true );
 			$course_mode = get_post_meta( $item['course_item']->get_product_id(), '_mode', true );
-			$action      = 'enrollment_process';
 
 			$enrollment_arr = array(
 				'openedx_enrollment_course_id'    => $course_id,

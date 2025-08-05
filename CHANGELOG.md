@@ -1,3 +1,26 @@
+## v2.1.0 - 2025-08-05
+
+### [2.1.0](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.7...v2.1.0) (2025-08-05)
+
+#### Features
+
+* feat: add publish to wordpress svn action (#103)
+* feat: Save enrollment action preferences (#111)
+
+#### Bug Fixes
+
+* fix: add parent property to avoid dynamic property warning (#109)
+* fix: updating i18n management (2025 best practices) (#114)
+
+### Documentation
+
+* docs: add automatic installation info and change github docs links to rtd docs (#108)
+
+### Maintenance
+
+* chore: actions auto updates.
+* chore: Tag this repo as part of named releases (#110)
+
 ## v2.0.7 - 2024-11-05
 
 ### [2.0.7](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.6...v2.0.7) (2024-11-05)
