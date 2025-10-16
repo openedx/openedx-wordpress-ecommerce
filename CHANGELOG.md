@@ -1,3 +1,12 @@
+## v2.1.1 - 2025-10-20
+
+### [2.1.1](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.1.0...v2.1.1) (2025-10-20)
+
+#### Bug Fixes
+
+* fix: send the correct course_mode in the enrollment request (#121)
+
+
 ## v2.1.0 - 2025-08-05
 
 ### [2.1.0](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.0.7...v2.1.0) (2025-08-05)
