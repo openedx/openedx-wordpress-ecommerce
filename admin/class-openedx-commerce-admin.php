@@ -450,6 +450,145 @@ class Openedx_Commerce_Admin {
 	}
 
 	/**
+	 * Analyze order items to determine if it contains Open edX courses, regular virtual products, or physical products.
+	 *
+	 * @param WC_Order $order The order object.
+	 *
+	 * @return array An array containing the analysis results.
+	 */
+	private function get_order_analysis( $order ) {
+		$order_items                  = $order->get_items();
+		$has_openedx_courses          = false;
+		$has_regular_virtual_products = false;
+		$has_physical_products        = false;
+
+		foreach ( $order_items as $item ) {
+			$product           = $item->get_product();
+			$is_openedx_course = get_post_meta( $product->get_id(), 'is_openedx_course', true );
+
+			if ( 'yes' === $is_openedx_course ) {
+				$has_openedx_courses = true;
+				continue;
+			}
+
+			if ( $product->is_virtual() || $product->is_downloadable() ) {
+				$has_regular_virtual_products = true;
+				continue;
+			}
+
+			$has_physical_products = true;
+			break;
+		}
+
+		return array(
+			'items'                        => $order_items,
+			'has_openedx_courses'          => $has_openedx_courses,
+			'has_regular_virtual_products' => $has_regular_virtual_products,
+			'has_physical_products'        => $has_physical_products,
+		);
+	}
+
+	/**
+	 * Get the enrollment metadata for the order.
+	 *
+	 * @param int   $order_id Order id.
+	 * @param array $order_items Order items.
+	 *
+	 * @return array $metadata Array of enrollment metadata.
+	 */
+	private function get_enrollment_metadata( $order_id, $order_items ) {
+		$metadata     = array();
+		$course_items = $this->select_course_items( $order_items );
+
+		foreach ( $course_items as $course_item ) {
+			$metadata[] = get_post_meta(
+				$order_id,
+				'enrollment_id' . $course_item['course_item_id'],
+				true
+			);
+		}
+
+		return array_filter( $metadata );
+	}
+
+	/**
+	 * Mark the order as completed if it contains Open edX courses, Virtual or Downloadable item.
+	 * If the order contains physical products, it will not be marked as completed.
+	 *
+	 * @param int $order_id Order id.
+	 *
+	 * @return void
+	 */
+	public function set_order_status_completed( $order_id ) {
+		if ( ! $order_id ) {
+			return;
+		}
+
+		$order = wc_get_order( $order_id );
+
+		if ( 'processing' !== $order->get_status() ) {
+			return;
+		}
+
+		$analysis = $this->get_order_analysis( $order );
+
+		if ( $analysis['has_physical_products'] ) {
+			wc_create_order_note( $order_id, 'Order contains physical products. Marked as processing until manually completed.' );
+			return;
+		}
+
+		if ( $analysis['has_openedx_courses'] ) {
+			$enrollment_metadata = $this->get_enrollment_metadata( $order_id, $analysis['items'] );
+			if ( empty( $enrollment_metadata ) ) {
+				wc_create_order_note( $order_id, 'Order contains Open edX courses but no enrollment record found.' );
+				return;
+			}
+		}
+
+		if ( $analysis['has_regular_virtual_products'] ) {
+			wc_create_order_note( $order_id, 'Order contains regular virtual products. Marked as completed.' );
+		} else {
+			wc_create_order_note( $order_id, 'Order contains Open edX courses. Marked as completed.' );
+		}
+
+		$order->update_status( 'completed' );
+	}
+
+	/**
+	 * Disable the "processing" email if the order contains Open edX course, Virtual or Downloadable items.
+	 *
+	 * @param bool   $enabled Whether the email is enabled.
+	 * @param object $order The order object.
+	 *
+	 * @return bool
+	 */
+	public function disable_processing_email_for_virtual_and_courses( $enabled, $order ) {
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			return $enabled;
+		}
+
+		$order_id = $order->get_id();
+		$analysis = $this->get_order_analysis( $order );
+
+		if ( $analysis['has_physical_products'] ) {
+			return $enabled;
+		}
+
+		if ( $analysis['has_openedx_courses'] ) {
+			$enrollment_metadata = $this->get_enrollment_metadata( $order_id, $analysis['items'] );
+			if ( empty( $enrollment_metadata ) ) {
+				return false;
+			}
+		}
+
+		if ( $analysis['has_regular_virtual_products'] ) {
+			return false;
+		}
+
+		return $enabled;
+	}
+
+	/**
 	 * Select the items that are courses in the order.
 	 *
 	 * @param array $items Order items array.
