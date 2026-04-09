@@ -19,7 +19,7 @@ sphinx:
 build:
   os: "ubuntu-lts-latest"
   tools:
-    python: "3.8"
+    python: "3.12"
 
 # Optionally set the requirements required to build your docs
 python:
