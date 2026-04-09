@@ -10,6 +10,10 @@
 
 namespace OpenedX_Commerce;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Register all actions and filters for the plugin.
  *

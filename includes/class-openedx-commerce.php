@@ -15,6 +15,10 @@
 
 namespace OpenedX_Commerce;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use OpenedX_Commerce\admin\Openedx_Commerce_Admin;
 use OpenedX_Commerce\public\Openedx_Commerce_Public;
 use OpenedX_Commerce\admin\views\Openedx_Commerce_Settings;

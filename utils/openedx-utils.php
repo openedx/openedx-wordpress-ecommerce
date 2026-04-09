@@ -8,6 +8,10 @@
 
 namespace OpenedX_Commerce\utils;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Enrollment Request mode options.
  */
