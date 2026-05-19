@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
     - name: Install Composer dependencies
-      uses: ramsey/composer-install@v4
+      uses: ramsey/composer-install@5c2bcf28d7b060ef3c601d7b476d5430a7b46c27 # v4
       with:
         composer-options: "--no-dev"
 
@@ -21,14 +21,14 @@ jobs:
         make release
 
     - name: Create a zip file
-      uses: thedoctor0/zip-release@0.7.6
+      uses: thedoctor0/zip-release@b57d897cb5d60cb78b51a507f63fa184cfe35554 # 0.7.6
       with:
         type: 'zip'
         command: 'cd ./openedx-commerce'
         filename: '../openedx-commerce.zip'
 
     - name: Upload zip to the latest GitHub release
-      uses: xresloader/upload-to-github-release@v1
+      uses: xresloader/upload-to-github-release@7c5757a90c0bcf0c0e1741da8f2abd7b85e675d0 # v1.6.2
       env:
         GITHUB_TOKEN: ${{ secrets.WC_PAT }}
       with:
