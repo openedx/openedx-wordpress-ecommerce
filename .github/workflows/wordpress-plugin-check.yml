@@ -20,6 +20,6 @@ jobs:
         make release
 
     - name: Run plugin check
-      uses: wordpress/plugin-check-action@18573eb38f13543484a1f095672dae3849a4fbb0 # v1.1.6
+      uses: wordpress/plugin-check-action@98a1788320d0add90df2d8183934ecccbc4e05d2 # v1.1.7
       with:
         build-dir: './openedx-commerce'
