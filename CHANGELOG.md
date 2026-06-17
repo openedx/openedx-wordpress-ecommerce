@@ -1,3 +1,22 @@
+## v2.1.2 - 2026-06-17
+
+### [2.1.2](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.1.1...v2.1.2) (2026-06-17)
+
+#### Bug Fixes
+
+* fix: Prevent direct access by PHP files (#126)
+
+### Maintenance
+
+* build: Remove outdated sphinx-contentui package (#126)
+* build(deps): bump ramsey/composer-install from 3 to 4 (#125)
+* chore: pin GitHub Actions workflows to full commit SHAs (#127)
+* build(deps): bump actions/checkout from 6.0.2 to 6.0.3 (#128)
+* build(deps): bump shivammathur/setup-php from 2.37.1 to 2.37.2 (#129)
+* build(deps): bump ramsey/composer-install (#131)
+* build(deps): bump wordpress/plugin-check-action from 1.1.6 to 1.1.7 (#130)
+
+
 ## v2.1.1 - 2025-10-20
 
 ### [2.1.1](https://github.com/openedx/openedx-wordpress-ecommerce/compare/v2.1.0...v2.1.1) (2025-10-20)
