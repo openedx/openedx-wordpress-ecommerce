@@ -450,7 +450,13 @@ class Openedx_Commerce_Admin {
 	}
 
 	/**
-	 * Analyze order items to determine if it contains Open edX courses, regular virtual products, or physical products.
+	 * Analyze order items to determine whether the order contains Open edX
+	 * courses and whether it contains any other items that WooCommerce would
+	 * normally keep in the "processing" status.
+	 *
+	 * WooCommerce only skips the "processing" status for items that are both
+	 * virtual and downloadable, so any other non-course item (physical,
+	 * virtual-only or downloadable-only) is flagged as needing processing.
 	 *
 	 * @param WC_Order $order The order object.
 	 *
@@ -459,61 +465,104 @@ class Openedx_Commerce_Admin {
 	private function get_order_analysis( $order ) {
 		$order_items                  = $order->get_items();
 		$has_openedx_courses          = false;
-		$has_regular_virtual_products = false;
-		$has_physical_products        = false;
+		$has_items_needing_processing = false;
 
 		foreach ( $order_items as $item ) {
-			$product           = $item->get_product();
-			$is_openedx_course = get_post_meta( $product->get_id(), 'is_openedx_course', true );
+			$product = $item->get_product();
 
-			if ( 'yes' === $is_openedx_course ) {
+			if ( ! $product ) {
+				continue;
+			}
+
+			if ( 'yes' === get_post_meta( $product->get_id(), 'is_openedx_course', true ) ) {
 				$has_openedx_courses = true;
 				continue;
 			}
 
-			if ( $product->is_virtual() || $product->is_downloadable() ) {
-				$has_regular_virtual_products = true;
-				continue;
+			// WooCommerce only skips the "processing" status for items that are both virtual and downloadable.
+			if ( ! ( $product->is_virtual() && $product->is_downloadable() ) ) {
+				$has_items_needing_processing = true;
 			}
-
-			$has_physical_products = true;
-			break;
 		}
 
 		return array(
 			'items'                        => $order_items,
 			'has_openedx_courses'          => $has_openedx_courses,
-			'has_regular_virtual_products' => $has_regular_virtual_products,
-			'has_physical_products'        => $has_physical_products,
+			'has_items_needing_processing' => $has_items_needing_processing,
 		);
 	}
 
 	/**
-	 * Get the enrollment metadata for the order.
+	 * Check whether every Open edX course in the order has a successful enrollment.
 	 *
-	 * @param int   $order_id Order id.
+	 * @param int   $order_id    Order id.
 	 * @param array $order_items Order items.
 	 *
-	 * @return array $metadata Array of enrollment metadata.
+	 * @return bool True when every course item has a successful enrollment.
 	 */
-	private function get_enrollment_metadata( $order_id, $order_items ) {
-		$metadata     = array();
+	private function are_course_enrollments_successful( $order_id, $order_items ) {
 		$course_items = $this->select_course_items( $order_items );
 
+		if ( empty( $course_items ) ) {
+			return false;
+		}
+
 		foreach ( $course_items as $course_item ) {
-			$metadata[] = get_post_meta(
+			$enrollment_id = get_post_meta(
 				$order_id,
 				'enrollment_id' . $course_item['course_item_id'],
 				true
 			);
+
+			if ( empty( $enrollment_id ) || 'success' !== get_post_status( $enrollment_id ) ) {
+				return false;
+			}
 		}
 
-		return array_filter( $metadata );
+		return true;
 	}
 
 	/**
-	 * Mark the order as completed if it contains Open edX courses, Virtual or Downloadable item.
-	 * If the order contains physical products, it will not be marked as completed.
+	 * Determine whether the order is one the plugin is responsible for
+	 * auto-completing, based only on its contents.
+	 *
+	 * True when the order contains at least one Open edX course and no other
+	 * item that WooCommerce would keep in the "processing" status (physical,
+	 * virtual-only or downloadable-only products). This is evaluated while the
+	 * order transitions to "processing", before the enrollments are created,
+	 * so it must not depend on the enrollment result.
+	 *
+	 * @param WC_Order $order The order object.
+	 *
+	 * @return bool
+	 */
+	private function is_plugin_managed_order( $order ) {
+		$analysis = $this->get_order_analysis( $order );
+
+		return $analysis['has_openedx_courses'] && ! $analysis['has_items_needing_processing'];
+	}
+
+	/**
+	 * Determine whether the plugin should auto-complete the given order.
+	 *
+	 * In addition to being a plugin-managed order, every Open edX course
+	 * enrollment must have succeeded before the order is marked as completed.
+	 *
+	 * @param WC_Order $order The order object.
+	 *
+	 * @return bool
+	 */
+	private function should_auto_complete_order( $order ) {
+		if ( ! $this->is_plugin_managed_order( $order ) ) {
+			return false;
+		}
+
+		return $this->are_course_enrollments_successful( $order->get_id(), $order->get_items() );
+	}
+
+	/**
+	 * Mark the order as completed when it only contains Open edX courses with
+	 * successful enrollments (optionally alongside virtual downloadable items).
 	 *
 	 * @param int $order_id Order id.
 	 *
@@ -526,62 +575,40 @@ class Openedx_Commerce_Admin {
 
 		$order = wc_get_order( $order_id );
 
-		if ( 'processing' !== $order->get_status() ) {
+		if ( ! $order || 'processing' !== $order->get_status() ) {
 			return;
 		}
 
-		$analysis = $this->get_order_analysis( $order );
-
-		if ( $analysis['has_physical_products'] ) {
-			wc_create_order_note( $order_id, 'Order contains physical products. Marked as processing until manually completed.' );
-			return;
+		if ( $this->should_auto_complete_order( $order ) ) {
+			$order->update_status(
+				'completed',
+				__( 'Order auto-completed: all Open edX course enrollments were successful.', 'openedx-commerce' )
+			);
 		}
-
-		if ( $analysis['has_openedx_courses'] ) {
-			$enrollment_metadata = $this->get_enrollment_metadata( $order_id, $analysis['items'] );
-			if ( empty( $enrollment_metadata ) ) {
-				wc_create_order_note( $order_id, 'Order contains Open edX courses but no enrollment record found.' );
-				return;
-			}
-		}
-
-		if ( $analysis['has_regular_virtual_products'] ) {
-			wc_create_order_note( $order_id, 'Order contains regular virtual products. Marked as completed.' );
-		} else {
-			wc_create_order_note( $order_id, 'Order contains Open edX courses. Marked as completed.' );
-		}
-
-		$order->update_status( 'completed' );
 	}
 
 	/**
-	 * Disable the "processing" email if the order contains Open edX course, Virtual or Downloadable items.
+	 * Disable the "processing" email for orders the plugin auto-completes, to
+	 * avoid sending both the "Processing" and "Completed" emails at once.
+	 *
+	 * Enrollments are created on the earlier "woocommerce_order_status_processing"
+	 * hook, so by the time this filter runs on "pending_to_processing" the
+	 * enrollment result is already known. The email is therefore only suppressed
+	 * when the order will actually be auto-completed: if a course enrollment
+	 * failed, the order stays in "processing" and its processing email is sent
+	 * as usual. The default WooCommerce behavior is preserved for every other order.
 	 *
 	 * @param bool   $enabled Whether the email is enabled.
-	 * @param object $order The order object.
+	 * @param object $order   The order object.
 	 *
 	 * @return bool
 	 */
-	public function disable_processing_email_for_virtual_and_courses( $enabled, $order ) {
+	public function disable_processing_email_for_auto_completed_orders( $enabled, $order ) {
 		if ( ! is_a( $order, 'WC_Order' ) ) {
 			return $enabled;
 		}
 
-		$order_id = $order->get_id();
-		$analysis = $this->get_order_analysis( $order );
-
-		if ( $analysis['has_physical_products'] ) {
-			return $enabled;
-		}
-
-		if ( $analysis['has_openedx_courses'] ) {
-			$enrollment_metadata = $this->get_enrollment_metadata( $order_id, $analysis['items'] );
-			if ( empty( $enrollment_metadata ) ) {
-				return false;
-			}
-		}
-
-		if ( $analysis['has_regular_virtual_products'] ) {
+		if ( $this->should_auto_complete_order( $order ) ) {
 			return false;
 		}
 
